@@ -1653,7 +1653,7 @@ figure.highlight pre .javascript .function {
 .container pre,
 .container code {
   font-size: var(--global-font-size);
-  font-family: consolas, Menlo, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
   border-radius: 6px;
 }
 .container code {
@@ -3339,12 +3339,12 @@ figure.highlight pre .javascript .function {
   }
 }
 #page-header #site-subtitle {
-  color: var(--white);
-  font-size: 1.05em;
+  color: var(--light-grey);
+  font-size: 1.15em;
 }
 @media screen and (min-width: 768px) {
   #page-header #site-subtitle {
-    font-size: 1.4em;
+    font-size: 1.72em;
   }
 }
 #page-header #site_social_icons {
