@@ -1,32 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
+<search>
+  <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
     
-    <entry>
-      <title>BUU—MISC刷题记录</title>
-      <link href="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
-      <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-      
-        <content type="html"><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p><h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192240105.png" alt="image-20241207192240105"></p><p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p><p>那试试用户名<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192618872.png" alt="image-20241207192618872"></p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207192553975.png" alt="image-20241207192553975"></p><p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207193031701.png" alt="image-20241207193031701"></p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207193626760.png" alt="image-20241207193626760"></p><p>但是010一查发现有pk头,改后缀一查<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194005524.png" alt="image-20241207194005524"></p><p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p><h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194738383.png" alt="image-20241207194738383"></p><p>主要是HTTP流量，直接追踪流</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207194834914.png" alt="image-20241207194834914"></p><p>用<code>captfencoder</code>MD5一下结束战斗</p><p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p><blockquote><h3 id="被偷走的文件1"><a href="#被偷走的文件1" class="headerlink" title="被偷走的文件1"></a>被偷走的文件1</h3></blockquote><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207195352502.png" alt="image-20241207195352502"></p><p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200247505.png" alt="image-20241207200247505"></p><p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p><h2 id="2藏藏藏"><a href="#2藏藏藏" class="headerlink" title="2藏藏藏"></a>2藏藏藏</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200530486.png" alt="image-20241207200530486"></p><p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207200653951.png" alt="image-20241207200653951"></p><p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p><p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207201042011.png" alt="image-20241207201042011"></p><h2 id="3佛系青年"><a href="#3佛系青年" class="headerlink" title="3佛系青年"></a>3佛系青年</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207201306534.png" alt="image-20241207201306534"></p><p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p><p>查完没有藏文件，那应该就是隐写了</p><p>结果没有发现隐写，感觉被骗了</p><p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207204245901.png" alt="image-20241207204245901"></p><p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241207204051135.png" alt="image-20241207204051135"></p><h2 id="4刷新过的图片"><a href="#4刷新过的图片" class="headerlink" title="4刷新过的图片"></a>4刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p><p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208164651743.png" alt="image-20241208164651743"></p><p>成功了，打开提取的文件发现有PK头</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208164742896.png" alt="image-20241208164742896"></p><p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165127780.png" alt="image-20241208165127780"></p><p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p><p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p><h2 id="5秘密文件"><a href="#5秘密文件" class="headerlink" title="5秘密文件"></a>5秘密文件</h2><p>附件是流量，wireshark启动！</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165407266.png" alt="image-20241208165407266"></p><p>foremost出一下，要密码，先尝试弱密码爆破</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165707184.png" alt="image-20241208165707184"></p><p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p><h2 id="6你猜我是个啥"><a href="#6你猜我是个啥" class="headerlink" title="6你猜我是个啥"></a>6你猜我是个啥</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165810484.png" alt="image-20241208165810484"></p><p>看来是改了后缀，010先查查看</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208165945001.png" alt="image-20241208165945001"></p><p>演都不演了…</p><h2 id="7鸡你太美"><a href="#7鸡你太美" class="headerlink" title="7鸡你太美"></a>7鸡你太美</h2><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208170109877.png" alt="image-20241208170109877"></p><p>盯完帧没有东西，看看副本，发现已经损坏</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208171838407.png" alt="image-20241208171838407"></p><p>（这里-其实是_）</p><h2 id="8神奇的二维码"><a href="#8神奇的二维码" class="headerlink" title="8神奇的二维码"></a>8神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208194745048.png" alt="image-20241208194745048"></p><p>看来不在这里，用010查一下<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208194925593.png" alt="image-20241208194925593"></p><p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p><p>分出来四个包，分别解压<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208195041436.png" alt="image-20241208195041436"></p><p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p><p>先暴力拆包，结果显示不给拆<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208205419372.png" alt="image-20241208205419372"></p><blockquote><p>[!NOTE]</p><p>以下为对题目考察的不是明文攻击的验证，可以跳过</p></blockquote><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208200829953.png" alt="image-20241208200829953"></p><p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p><p>这里我们用ubuntu查，使用<code>crc32</code>命令</p><pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perlcrc32 flag.jpg</code></pre><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208202527536.png" alt="image-20241208202527536"></p><p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p><p>还是看看其他几个解压出来的东西吧<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203221291.png" alt="image-20241208203221291"></p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203324389.png" alt="image-20241208203324389"></p><p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208203515033.png" alt="image-20241208203515033"></p><p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p><pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204450830.png" alt="image-20241208204450830"></p><p>水平有限，还是手敲罢</p><pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre><p><img src="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p><p>鉴定为图片纯纯的诈骗（恼</p><h2 id="9梅花香自苦寒来"><a href="#9梅花香自苦寒来" class="headerlink" title="9梅花香自苦寒来"></a>9梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209152723027.png" alt="image-20241209152723027"></p><p>要画图，那么应该藏了坐标，010查一下</p><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209152821648.png" alt="image-20241209152821648"></p><p>可以看到文件尾藏了一种数据，接下来有两种方法</p><blockquote><p>随波逐流</p></blockquote><p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209153156877.png" alt="image-20241209153156877"></p><p>这个时候用<code>stegsolve</code>反色再扫就出来了</p><blockquote><p>脚本画图</p></blockquote><p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209154148273.png" alt="image-20241209154148273"></p><p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p><p>​<code>*gnuplot*</code>绘图</p><p>贴个脚本先</p><pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)    re = res.read()    res.close()    with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt    re = re.split()    tem = &#x27;&#x27;    for i in range(0, len(re)):        tem = re[i]        tem = tem.lstrip(&#x27;(&#x27;)        tem = tem.rstrip(&#x27;)&#x27;)        for j in range(0, len(tem)):            if tem[j] == &#x27;,&#x27;:                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]        gnup.write(tem + &#x27;\n&#x27;)    gnup.close()</code></pre><p>得到去括号，去逗号的坐标值</p><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209155236795.png" alt="image-20241209155236795"></p><p>贴一下ubuntu下的下载和使用方法</p><pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11gnuplotplot <span class="string">&quot;output.txt&quot;</span></code></pre><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209155627592.png" alt="image-20241209155627592"></p><p>可以扫出来</p><p>​<em>matplotlib</em>绘图</p><p>把原文本去括号，用脚本跑</p><pre><code class="highlight plaintext">import matplotlib.pyplot as pltimport numpy as npwith open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:    re = res.read()    res.close()with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt    re = re.split()    tem = &#x27;&#x27;    for i in range(0, len(re)):        tem = re[i]        tem = tem.lstrip(&#x27;(&#x27;)        tem = tem.rstrip(&#x27;)&#x27;)        gnup.write(tem + &#x27;\n&#x27;)    gnup.close()x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)plt.plot(x, y, &#x27;.&#x27;)plt.show()</code></pre><p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209162242387.png" alt="image-20241209162242387"></p>]]></content>
-      
-      
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="C:/Users/ayano/AppData/Roaming/Typora/typora-user-images/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
       <categories>
-          
-          <category> CTF </category>
-          
+        <category>CTF</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> misc </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>misc</tag>
+      </tags>
+  </entry>
 </search>
