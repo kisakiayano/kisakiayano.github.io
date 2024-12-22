@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Blog of AyaN0 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="智能合约深度学习 前序 如果想直接入手合约，可以直接跳至合约开发模块哦  在进入智能合约学习环节之前，让我们先了解一下它的“爹”，即区块链 区块链，是一种区中心化，点对点系统的工具，也可以说是一种数据库系统（实际上就是一本记录各种交易的账本） 区别于传统的中心化系统，这个系统由各个区块（前区块的加密哈希，时间戳，交易数据）组成，在这个系统中，由网络中的大多数节点来决定新区块中交易记录的录入以及修">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog of AyaN0">
+<meta property="og:url" content="https://ayan0.top/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/index.html">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="智能合约深度学习 前序 如果想直接入手合约，可以直接跳至合约开发模块哦  在进入智能合约学习环节之前，让我们先了解一下它的“爹”，即区块链 区块链，是一种区中心化，点对点系统的工具，也可以说是一种数据库系统（实际上就是一本记录各种交易的账本） 区别于传统的中心化系统，这个系统由各个区块（前区块的加密哈希，时间戳，交易数据）组成，在这个系统中，由网络中的大多数节点来决定新区块中交易记录的录入以及修">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayan0.top/img/shiratama.jpg">
+<meta property="article:published_time" content="2024-12-22T07:59:03.259Z">
+<meta property="article:modified_time" content="2024-12-22T08:00:18.713Z">
+<meta property="article:author" content="AyaN0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayan0.top/img/shiratama.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "url": "https://ayan0.top/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/",
+  "image": "https://ayan0.top/img/shiratama.jpg",
+  "datePublished": "2024-12-22T07:59:03.259Z",
+  "dateModified": "2024-12-22T08:00:18.713Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "AyaN0",
+      "url": "https://ayan0.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ayan0.top/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Blog of AyaN0',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/shiratama2.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/shiratama.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/shiratama.jpg" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">Blog of AyaN0</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">无标题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-22T07:59:03.259Z" title="发表于 2024-12-22 15:59:03">2024-12-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-22T08:00:18.713Z" title="更新于 2024-12-22 16:00:18">2024-12-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<h1 id="智能合约深度学习"><a href="#智能合约深度学习" class="headerlink" title="智能合约深度学习"></a>智能合约深度学习</h1></blockquote>
+<h1 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h1><blockquote>
+<p><strong>如果想直接入手合约，可以直接跳至合约开发模块哦</strong></p>
+</blockquote>
+<p>在进入智能合约学习环节之前，让我们先了解一下它的“爹”，即<strong>区块链</strong></p>
+<p>区块链，是一种区中心化，点对点系统的工具，也可以说是一种数据库系统（实际上就是一本记录各种交易的账本）</p>
+<p>区别于传统的中心化系统，这个系统由各个区块（前区块的加密哈希，时间戳，交易数据）组成，在这个系统中，由网络中的大多数节点来决定新区块中交易记录的录入以及修改。这就使得其安全性远远超过了传统的系统。假设一个用户想要伪造一份交易，那么从理论来说他需要修改全网每个节点的总账，这个过程需要消耗巨量的算力<del>有这算力谁还来伪造交易啊</del>，每增加一个区块，需要全网51%以上的节点的认可才能够组成区块链</p>
+<p>那么我们现在更具体一点，来谈一个家喻户晓的区块链系统———比特币系统</p>
+<h1 id="关于比特币系统"><a href="#关于比特币系统" class="headerlink" title="关于比特币系统"></a>关于比特币系统</h1><h2 id="竞争记账"><a href="#竞争记账" class="headerlink" title="竞争记账"></a>竞争记账</h2><p>即挖矿，在一个区块建立之后，竞争记账的节点需要计算建立以来所有交易的哈希值（<strong>SHA256</strong>），再将其两两组合，不断重复，最终得到一个SHA256值（也叫<strong>默克根</strong>），最后需要进行以下计算</p>
+<pre><code class="highlight plaintext">SHA256(默克根+前一区的ID+一个随机数)</code></pre>
+
+<p>通常这个值要满足哈希值的前20位为0(达成概率在百万分之一水平),也就是算力比拼</p>
+<p>成功者向全网发送通知，若经过检验大家就公认他构造的这个区块并以其作为父区块，进行下一个区块的算力竞争（每10分钟进行一次）</p>
+<p>成功者会获得12.5个比特币<del>122w美刀(2024.12.9日汇率)</del>作为奖励，这就是中本聪设计的激励机制<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e23cc007503b1060aa2f3f307de43b14.png" alt="img"></p>
+<h2 id="长链与短链"><a href="#长链与短链" class="headerlink" title="长链与短链"></a>长链与短链</h2><p>又是算力竞争……在向全网通知时（假设你的答案正确），可能会有人与你在相同的时间发送了正确的答案，于是会出现两条链，那么就又到了拼算力的时候了，不同的矿工会选择不同的链继续下一轮区块计算，这里就不得不提另一种机制了，即<strong>总是选择工作量最大的链</strong>，于是哪条链先出现下一个区块，也就意味着会有更多的矿工选择这条链工作，那么另一条短链就会被废止。组装短链的矿工也得不到比特币奖励，结果就是区块链只有唯一一条主线。</p>
+<h2 id="比特币的交易"><a href="#比特币的交易" class="headerlink" title="比特币的交易"></a>比特币的交易</h2><p>交易包括两个方向，Input以及Output.</p>
+<p>两者可以不完全一致，但只能输入略大于输出，那么缺少的这部分去哪里了呢 ，是支付给了矿工哦，每笔交易在发布后可以选择支付交易费用，钱到位交易也会更快被打包。但是不代表不支付或支付很少交易费用不会有人处理你的交易，只是会被推迟，总之，不管是否支付交易费用，矿工都会获得比特币的奖励，你可以将其理解为：<strong>即使你不付给服务员小费，但并不影响他获得工资</strong>。</p>
+<h2 id="比特币的交易加密"><a href="#比特币的交易加密" class="headerlink" title="比特币的交易加密"></a>比特币的交易加密</h2><p>对于每个用户的钱包，都由三部分组成</p>
+<p><strong>16位的地址，公钥，私钥(256位)</strong></p>
+<p>假设在A与B交易，A发送给B一条A的私钥加密过的内容，那么若B没有A的公钥，B就无法解密内容</p>
+<p>公钥的产生依赖于私钥，而钱包的地址生成依赖于公钥</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/65e01b2554c3850eeeebb60eb7c4b93b.jpeg" alt="img"></p>
+<p>贴一条其他师傅的说明过程。</p>
+<p>第一步：生成随机私钥</p>
+<p>私钥是一个随机数，随机选取一个32字节的数，这个数的范围大小是介于1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141之间的一个数，为了方便后面的计算，我们随机生成一个合法的私钥：</p>
+<p>8F72F6B29E6E225A36B68DFE333C7CE5E55D83249D3D2CD6332671FA445C4DD3</p>
+<p>第二步：椭圆曲线算公钥</p>
+<p>生成了私钥之后，我们使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的非压缩公钥，生成的公钥共65字节， 其中一个字节是0x04，其中32个字节是X坐标，另外32个字节是Y坐标：</p>
+<p>公钥P.X：<br>06CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385</p>
+<p>公钥P.Y：<br>FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
+<p>第三步：计算公钥的SHA-256哈希值</p>
+<p>将上述公钥地址拼合，得到标准地址：<br>0406CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
+<p>对齐进行SHA-256哈希计算，得到结果：<br>2572e5f4a8e77ddf5bb35b9e61c61f66455a4a24bcfd6cb190a8e8ff48fc097d</p>
+<p>第四步：计算 RIPEMD-160哈希值</p>
+<p>取上一步结果，进行RIPEMD-160计算，得到结果：</p>
+<p>0b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第五步：加入地址版本号（比特币主网版本号“0x00”）</p>
+<p>取上一步结果，在前面加上16进制的00，即：</p>
+<p>000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第六步：计算 SHA-256 哈希值</p>
+<p>取上一步结果，进行SHA-256计算，可得：</p>
+<p>ddc2270f93cc84cc6869dd373f3c340bbf5cb9a8f5559297cc9e5d947aab2536</p>
+<p>然后，对以上结果再次计算 SHA-256 哈希值，得到：</p>
+<p>869ac57b83ccf75ca9da8895823562fffb611e3c297d9c2d4612aeeb32850078</p>
+<p>第七步：取上一步结果的前4个字节（8位十六进制）</p>
+<p>869ac57b</p>
+<p>第八步：把这4个字节加在第五步的结果后面</p>
+<p>作为校验位，将这4个字节加载第五步的结果后面，这就是比特币地址的16进制形态了：</p>
+<p>869ac57b000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第九步：用Base58编码变换一下地址</p>
+<p>对上一步的结果进行Base58编码，得到：</p>
+<p>1QCXRuoxWo5Bya9NxHaVBArBQYhatHJrU7</p>
+<p>这就是我们经常看到的传统意义上的比特币钱包地址</p>
+<h1 id="智能合约开发"><a href="#智能合约开发" class="headerlink" title="智能合约开发"></a>智能合约开发</h1><p>智能合约的开发，主要使用Solidity编译语言以及在线的Remix编译器</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>有符号整数类型包括int8、int16、int32、int64等，而无符号整数类型包括uint8、uint16、uint32、uint64等。这些类型表示不同位数的整数。</p>
+<p>相较于C语言，保留了大部分运算，增加了乘方(**)运算以及更改了”&lt;&lt;””&gt;&gt;”的运算规则</p>
+<pre><code class="highlight plaintext">x&lt;&lt;y  相当于x*2**y   x&gt;&gt;y相当于x/2**y</code></pre>
+
+
+
+<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><p>即bool类型，会在内置函数中大量出现，默认值为false</p>
+<h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p>用<strong>address</strong>来声明，长度为20位，表示以太坊网络上的账户地址</p>
+<p>在地址型下有**transfer(转账)<strong>与</strong>balance(账户)**两个变量</p>
+<p>通过以下函数来处理地址类型（关于Gas的概念，请见<strong>交易处理</strong>板块）</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.balance(uint 256) ——&gt;返回以wei为单位的该地址的以太币账户（1ETH=10^18wei）</code></pre>
+
+<pre><code class="highlight plaintext">&lt;address&gt;.transfer(uint 256 amount) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）</code></pre>
+
+<p>余额不足，Gas不足时会使合约无法执行，回滚已执行的程序并且发送异常信息（<strong>交易被终止</strong>）</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.send(uint 256 amount) returns (bool) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）在交易成功或失败后会返回对应的bool值</code></pre>
+
+<p>余额不足，Gas不足时会终止程序但不会发送异常消息，会返回False</p>
+<p>但使用.send是存在一定风险的，可能会导致转账失败(调用的堆栈&gt;1024KB或发出方的Gas耗尽)的情况下交易的对方仍能收到以太币</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.call(...) returns (bool) ——&gt;最常用的调用函数，失败返回false,Gas的费用可自己调整。</code></pre>
+
+<p>发布低级别的调用</p>
+<p>call()下有两个控制交易的内置函数</p>
+<p>gas()(支付的Gas值)与value()(支付的以太币值)，两者同时调用没有先后顺序的要求</p>
+<pre><code class="highlight plaintext">例如：address.call.gas(100000).value(1 ether)(&quot;register&quot;,&quot;Myname&quot;)</code></pre>
+
+
+
+<pre><code class="highlight plaintext">&lt;address&gt;.callcode(...) returns (bool)</code></pre>
+
+<p>发布低级别的调用，没call好用，不久就会被删除了</p>
+<pre><code class="highlight plaintext">&lt;address&gt; .delegatecall(...) returns (bool)</code></pre>
+
+<p>发布低级别的代表调用,调用的是储存在另一个库中的库代码(Library code)</p>
+<p>？故使用前要确定两个合约的储存设计都要适用于该函数？</p>
+<blockquote>
+<p>[!WARNING]</p>
+<p> <code>call()</code> <code>callcode()</code> <code>delegatecall()</code>都是低阶函数，使用时调用的未知合约可能是恶意合约，在调用是可能会被篡权，反过来被调用合约，因此调用函数返回时要注意原合约的参数是否已经被改变</p>
+</blockquote>
+<blockquote>
+<p>地址常量</p>
+</blockquote>
+<p>​	</p>
+<h3 id="字节数组"><a href="#字节数组" class="headerlink" title="字节数组"></a>字节数组</h3><p>分为<strong>固定长度的字节数组</strong>以及<strong>可变长度的字节数组</strong></p>
+<p>固定长度的数组可以用bytes1~bytes32来说明(bytes1也可以直接记作byte)</p>
+<p>可以通过索引访问以及[变量名].length返回字节长度</p>
+<p>可变长度的数组：</p>
+<p>①bytes(与array性质相同)</p>
+<p>②string(可以理解为特殊的数组)，不可以调用.length&#x2F;索引来访问</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/">https://ayan0.top/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/shiratama.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/shiratama.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">智能合约深度学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">前序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%AF%94%E7%89%B9%E5%B8%81%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">关于比特币系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%9E%E4%BA%89%E8%AE%B0%E8%B4%A6"><span class="toc-number">3.1.</span> <span class="toc-text">竞争记账</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%BF%E9%93%BE%E4%B8%8E%E7%9F%AD%E9%93%BE"><span class="toc-number">3.2.</span> <span class="toc-text">长链与短链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E4%BA%A4%E6%98%93"><span class="toc-number">3.3.</span> <span class="toc-text">比特币的交易</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E4%BA%A4%E6%98%93%E5%8A%A0%E5%AF%86"><span class="toc-number">3.4.</span> <span class="toc-text">比特币的交易加密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91"><span class="toc-number">4.</span> <span class="toc-text">智能合约开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%95%B0"><span class="toc-number">4.1.1.</span> <span class="toc-text">整数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91"><span class="toc-number">4.1.2.</span> <span class="toc-text">逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80"><span class="toc-number">4.1.3.</span> <span class="toc-text">地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84"><span class="toc-number">4.1.4.</span> <span class="toc-text">字节数组</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/" title="无标题">无标题</a><time datetime="2024-12-22T07:59:03.259Z" title="发表于 2024-12-22 15:59:03">2024-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="BUU—MISC刷题记录">BUU—MISC刷题记录</a><time datetime="2024-12-20T07:37:44.000Z" title="发表于 2024-12-20 15:37:44">2024-12-20</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
