@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VNCTF2025 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VNCTF 2025入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样  比赛期间就出了一题，这才是正统misc吗哈哈( VN_Lang不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了  echo_flowers区块链的基本知识和取证搭配的好题。大概? 给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。 先放个hi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VNCTF2025">
+<meta property="og:url" content="https://ayan0.top/2025/02/10/VNCTF2025/index.html">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="VNCTF 2025入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样  比赛期间就出了一题，这才是正统misc吗哈哈( VN_Lang不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了  echo_flowers区块链的基本知识和取证搭配的好题。大概? 给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。 先放个hi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayan0.top/img/shiratama.webp">
+<meta property="article:published_time" content="2025-02-10T09:56:12.000Z">
+<meta property="article:modified_time" content="2025-02-10T11:00:01.584Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="-CTF -Write up">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayan0.top/img/shiratama.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "VNCTF2025",
+  "url": "https://ayan0.top/2025/02/10/VNCTF2025/",
+  "image": "https://ayan0.top/img/shiratama.webp",
+  "datePublished": "2025-02-10T09:56:12.000Z",
+  "dateModified": "2025-02-10T11:00:01.584Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "AyaN0",
+      "url": "https://ayan0.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/02/10/VNCTF2025/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VNCTF2025',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/shiratama2.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/shiratama.jpg" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">VNCTF2025</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">VNCTF2025</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-10T09:56:12.000Z" title="发表于 2025-02-10 17:56:12">2025-02-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-10T11:00:01.584Z" title="更新于 2025-02-10 19:00:01">2025-02-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
+<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
+<h2 id="VN-Lang"><a href="#VN-Lang" class="headerlink" title="VN_Lang"></a><strong>VN_Lang</strong></h2><p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
+<h2 id="echo-flowers"><a href="#echo-flowers" class="headerlink" title="echo_flowers"></a>echo_flowers</h2><p>区块链的基本知识和取证搭配的好题。大概?</p>
+<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
+<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
+<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
+<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
+<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
+<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
+<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
+<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
+<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
+<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
+<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
+<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
+<h2 id="ezSignal"><a href="#ezSignal" class="headerlink" title="ezSignal"></a>ezSignal</h2><p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
+<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
+<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
+<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
+<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ‘</p>
+<p>那么将压缩包复制到Ubuntu</p>
+<pre><code class="highlight bash">unzip ezSignal_fix.zip
+<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
+
+<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
+<p>问一下AI，知道是一个grc文件，搭配<a target="_blank" rel="noopener" href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
+<p>喂AI&#x2F;看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
+<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
+<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
+<pre><code class="highlight plaintext">import numpy as np
+from scipy.io import wavfile
+from scipy.signal import butter, lfilter
+
+def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
+    &quot;&quot;&quot;
+    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
+    - dtype: 数据类型（默认 float32）
+    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
+    &quot;&quot;&quot;
+    # 以二进制模式读取文件
+    with open(filename, &quot;rb&quot;) as f:
+        raw_bytes = f.read()
+    
+
+# 转换为指定字节序和类型的 numpy 数组
+
+dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
+data = np.frombuffer(raw_bytes, dtype=dt)
+return data
+
+def main():
+
+    # 参数配置（与 GRC 一致）
+
+     samp_rate = 48000      # 音频采样率
+     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
+     max_dev = 5e3          # FM最大频偏
+     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
+
+try:
+
+    # 1. 读取I/Q数据（二进制模式）
+
+     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
+     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
+
+    # 检查长度一致性
+
+     if len(i_data) != len(q_data):
+         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
+
+    # 2. 合并为复数信号（I + jQ）
+
+     complex_signal = i_data + 1j * q_data
+
+    # 3. FM解调（相位差分法）
+
+     phase = np.unwrap(np.angle(complex_signal))
+     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
+     demodulated = demodulated.astype(np.float32)
+
+    # 4. 重采样到音频采样率（48 kHz）
+
+     demodulated_resampled = demodulated[::4]  # 简单下采样
+
+    # 5. 低通滤波（300-5000 Hz，与GRC一致）
+
+     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
+     demodulated_resampled = lfilter(b, a, demodulated_resampled)
+
+    # 6. 归一化并保存为WAV
+
+     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
+     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
+
+     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
+
+except FileNotFoundError:
+    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
+except Exception as e:
+    print(f&quot;错误：&#123;str(e)&#125;&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
+<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
+<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/02/10/VNCTF2025/">https://ayan0.top/2025/02/10/VNCTF2025/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF-Write-up/">-CTF -Write up</a></div><div class="post-share"><div class="social-share" data-image="/img/shiratama.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VNCTF-2025"><span class="toc-text">VNCTF 2025</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VN-Lang"><span class="toc-text">VN_Lang</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#echo-flowers"><span class="toc-text">echo_flowers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ezSignal"><span class="toc-text">ezSignal</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/10/VNCTF2025/" title="VNCTF2025">VNCTF2025</a><time datetime="2025-02-10T09:56:12.000Z" title="发表于 2025-02-10 17:56:12">2025-02-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2025-01-25T05:24:16.000Z" title="发表于 2025-01-25 13:24:16">2025-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/" title="SSTI漏洞">SSTI漏洞</a><time datetime="2025-01-22T01:58:22.000Z" title="发表于 2025-01-22 09:58:22">2025-01-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/" title="2025春秋杯冬季赛">2025春秋杯冬季赛</a><time datetime="2025-01-21T13:31:32.000Z" title="发表于 2025-01-21 21:31:32">2025-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/21/RCE/" title="RCE">RCE</a><time datetime="2025-01-21T13:29:33.000Z" title="发表于 2025-01-21 21:29:33">2025-01-21</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
