@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AyaN0桑的集训阶段总结 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="集训总结想想一个月学了什么呢。 好像学了很多，好像又没学到什么。(因为NepCTF被锤烂了啊草) 简单的总结一下学到的东西吧。 渗透学到了什么。。 好像就会了搭代理，扫端口，查资产 总之没怎么学，只有老登讲课的那几次学了点进去来着 八月再说吧唉… PHP时代的结束总算把PHP的知识点补完了。虽然中途跑出来的R3CTF又把我锤烂了(想到了heredoc不知道怎么写poc…DIRECTORY_SEPA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AyaN0桑的集训阶段总结">
+<meta property="og:url" content="https://ayan0.top/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="集训总结想想一个月学了什么呢。 好像学了很多，好像又没学到什么。(因为NepCTF被锤烂了啊草) 简单的总结一下学到的东西吧。 渗透学到了什么。。 好像就会了搭代理，扫端口，查资产 总之没怎么学，只有老登讲课的那几次学了点进去来着 八月再说吧唉… PHP时代的结束总算把PHP的知识点补完了。虽然中途跑出来的R3CTF又把我锤烂了(想到了heredoc不知道怎么写poc…DIRECTORY_SEPA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayan0.top/img/ari.webp">
+<meta property="article:published_time" content="2025-08-02T05:02:44.000Z">
+<meta property="article:modified_time" content="2025-08-02T05:03:22.386Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="-随笔">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayan0.top/img/ari.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AyaN0桑的集训阶段总结",
+  "url": "https://ayan0.top/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/",
+  "image": "https://ayan0.top/img/ari.webp",
+  "datePublished": "2025-08-02T05:02:44.000Z",
+  "dateModified": "2025-08-02T05:03:22.386Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "AyaN0",
+      "url": "https://ayan0.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AyaN0桑的集训阶段总结',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">AyaN0桑的集训阶段总结</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">AyaN0桑的集训阶段总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-02T05:02:44.000Z" title="发表于 2025-08-02 13:02:44">2025-08-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-02T05:03:22.386Z" title="更新于 2025-08-02 13:03:22">2025-08-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="集训总结"><a href="#集训总结" class="headerlink" title="集训总结"></a>集训总结</h1><p>想想一个月学了什么呢。</p>
+<p>好像学了很多，好像又没学到什么。(因为NepCTF被锤烂了啊草)</p>
+<p>简单的总结一下学到的东西吧。</p>
+<h2 id="渗透"><a href="#渗透" class="headerlink" title="渗透"></a>渗透</h2><p>学到了什么。。</p>
+<p>好像就会了搭代理，扫端口，查资产</p>
+<p>总之没怎么学，只有老登讲课的那几次学了点进去来着</p>
+<p>八月再说吧唉…</p>
+<h2 id="PHP时代的结束"><a href="#PHP时代的结束" class="headerlink" title="PHP时代的结束"></a>PHP时代的结束</h2><p>总算把PHP的知识点补完了。虽然中途跑出来的R3CTF又把我锤烂了(想到了heredoc不知道怎么写poc…DIRECTORY_SEPARATOR是什么?我不到啊)</p>
+<p>还借着补完原生类的功夫把CRLF和HTTP请求走私，发现自己对HTTP协议好像真的有点不太了解啊。。</p>
+<p>但是真结束了吗?我看并非</p>
+<p>以后大概还是要不断补坑的</p>
+<h2 id="奇奇怪怪的其他语言"><a href="#奇奇怪怪的其他语言" class="headerlink" title="奇奇怪怪的其他语言"></a>奇奇怪怪的其他语言</h2><p>春秋杯遇到了ruby，之后就随便学了点其他的语言</p>
+<p>像Ruby,Go这些</p>
+<p>Go的题目还没接触过，接触到了再深入学吧，ruby的题目少，知识点也少，倒是没太大所谓</p>
+<h2 id="更多更多的框架"><a href="#更多更多的框架" class="headerlink" title="更多更多的框架"></a>更多更多的框架</h2><p>PHP的Yii，没遇到过..Laravel？不认识</p>
+<p>Python的sanic是什么?pyramid又是啥?</p>
+<p>哎呦我，怎么什么都不知道啊🖐️😭🖐️</p>
+<p>最飞舞的一集</p>
+<h2 id="《JS苦手》"><a href="#《JS苦手》" class="headerlink" title="《JS苦手》"></a>《JS苦手》</h2><p>原型链?哦会的会的</p>
+<p>vm沙箱?哦应该会的会的</p>
+<p>XSS?我草拟吗带着你的一堆购机吧标签给我滚出去😡</p>
+<h2 id="Java大时代要来力"><a href="#Java大时代要来力" class="headerlink" title="Java大时代要来力"></a>Java大时代要来力</h2><p>Nep偶遇三道Java题，拼尽全力战胜(但是说实话是签到题吧呐)</p>
+<p>感觉是应该学Java了啊，毕竟Go和Ruby偶尔上桌，这位可是天天上桌</p>
+<p>一听到其他师傅在研究各种冷门的神秘链子已经吓哭了。。</p>
+<h2 id="你真的懂数据库吗"><a href="#你真的懂数据库吗" class="headerlink" title="你真的懂数据库吗"></a>你真的懂数据库吗</h2><p>感觉数据库好多，好像随便揪一个出来都可以出题。</p>
+<p>学了一点Redis和MongoDB这种NoSQL</p>
+<p>结果月末被Nep的<code>clickhouse</code>SQL注入给打爆了</p>
+<p>这辈子不敢说自己会SQL注入了。</p>
+<p>感觉应该就学了这些吧，一个月的时间，也不敢说自己掌握的有多深入</p>
+<p>希望队内赛不会爆零吧。。也不知道老登的葫芦里卖的什么药</p>
+<p>感觉自己最欠缺的应该是反序列化这块吧。链子什么的看不懂啦……</p>
+<h2 id="败北的AyaN0"><a href="#败北的AyaN0" class="headerlink" title="败北的AyaN0"></a>败北的AyaN0</h2><p>忘记发布了，等到看到这个队内赛已经打完了，爆零了哈哈。。</p>
+<p>强度确实不够看了，现在仔细看看自己上面列的这些东西感觉有点像笑话</p>
+<p>还是太心急了吗。。真正碰到比赛才知道自己只是学了个知识点，怎么打都是一知半解，又没有自己的思路</p>
+<p>唉唉，要好好反思自己，好在后续成功复现了，还是多种方法去打，不学的深入一点还真是没办法上桌的，简直是会员制餐厅里端上来的一个一个雪(难视)</p>
+<p>好题目也可以多自己研究一下啊感觉(这次队内赛的题目感觉都挺好的，全是我掌握的不全面的东西。。)</p>
+<p>但是讲实话，队内赛结束 那个晚上到1点才睡着，和老同学也聊了好久，怀疑过自己适不适合打web，适不适合继续打CTF，质疑过自己的能力</p>
+<p>但是就算没有才能又如何呢。。坚定不移的走自己喜欢的道路就好了</p>
+<p>额，但是你怎么知道我昨天单抽两个up😋</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125708921.png" alt="image-20250802125708921"></p>
+<p>和<del>老班长</del>义父的相谈</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125911183.png" alt="image-20250802125911183"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125924247.png" alt="image-20250802125924247"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802130053483.png" alt="image-20250802130053483"></p>
+<p>19发单抽拿下当期2个up嘻嘻，爽赤了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/">https://ayan0.top/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9A%8F%E7%AC%94/">-随笔</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9B%86%E8%AE%AD%E6%80%BB%E7%BB%93"><span class="toc-text">集训总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%97%E9%80%8F"><span class="toc-text">渗透</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP%E6%97%B6%E4%BB%A3%E7%9A%84%E7%BB%93%E6%9D%9F"><span class="toc-text">PHP时代的结束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%A5%87%E6%80%AA%E6%80%AA%E7%9A%84%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80"><span class="toc-text">奇奇怪怪的其他语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="toc-text">更多更多的框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8AJS%E8%8B%A6%E6%89%8B%E3%80%8B"><span class="toc-text">《JS苦手》</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%A4%A7%E6%97%B6%E4%BB%A3%E8%A6%81%E6%9D%A5%E5%8A%9B"><span class="toc-text">Java大时代要来力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%97"><span class="toc-text">你真的懂数据库吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A5%E5%8C%97%E7%9A%84AyaN0"><span class="toc-text">败北的AyaN0</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" title="AyaN0桑的集训阶段总结">AyaN0桑的集训阶段总结</a><time datetime="2025-08-02T05:02:44.000Z" title="发表于 2025-08-02 13:02:44">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="CRLF注入漏洞">CRLF注入漏洞</a><time datetime="2025-07-14T10:47:04.000Z" title="发表于 2025-07-14 18:47:04">2025-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
