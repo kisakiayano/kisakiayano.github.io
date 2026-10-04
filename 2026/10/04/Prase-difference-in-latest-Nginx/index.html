@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Parse difference in latest Nginx 首先感谢[@Nick](Home | Nick’s Blog)师傅，在发现Nginx最新版本的新玩法后第一时间分享给我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prase difference in latest Nginx">
+<meta property="og:url" content="https://ayan0.top/2026/10/04/Prase-difference-in-latest-Nginx/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="Parse difference in latest Nginx 首先感谢[@Nick](Home | Nick’s Blog)师傅，在发现Nginx最新版本的新玩法后第一时间分享给我">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260926091801397.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004102543208.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004103012837.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004105749092.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004170901778.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004113545698.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004113820927.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004114151735.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004114244215.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004130222016.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004135221454.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004153739444.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004153852496.png">
+<meta property="og:image" content="https://ayan0.top/2026/10/04/Prase-difference-in-latest-Nginx/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20261004160634065.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004161036202.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004233605870.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004233724666.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261005001130863.png">
+<meta property="article:published_time" content="2026-10-04T15:43:53.000Z">
+<meta property="article:modified_time" content="2026-10-04T16:13:18.362Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="Audit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260926091801397.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/10/04/Prase-difference-in-latest-Nginx/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/10/04/Prase-difference-in-latest-Nginx/","path":"2026/10/04/Prase-difference-in-latest-Nginx/","title":"Prase difference in latest Nginx"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Prase difference in latest Nginx | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#parse-difference-in-latest-nginx"><span class="nav-number">1.</span> <span class="nav-text"> Parse difference in latest Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8nginx-1315%E6%9B%B4%E6%96%B0%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text"> 在Nginx 1.31.5更新了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json-parser-in-nginx"><span class="nav-number">1.2.</span> <span class="nav-text"> JSON Parser in Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E9%80%BB%E8%BE%91"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 调用逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E9%80%BB%E8%BE%91"><span class="nav-number">1.2.2.</span> <span class="nav-text"> 解析逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prase-difference-between-nginx-and-backend"><span class="nav-number">1.2.3.</span> <span class="nav-text"> Prase Difference between Nginx and backend</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#utf-8-bom"><span class="nav-number">1.2.3.1.</span> <span class="nav-text"> UTF-8 BOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#depth-overflow"><span class="nav-number">1.2.3.2.</span> <span class="nav-text"> Depth Overflow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lazy-decode"><span class="nav-number">1.2.3.3.</span> <span class="nav-text"> Lazy decode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nfkc-in-python"><span class="nav-number">1.2.3.4.</span> <span class="nav-text"> NFKC in Python</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-avoid-prase-difference-in-latest-nginx"><span class="nav-number">1.2.4.</span> <span class="nav-text"> How to avoid Prase Difference in latest Nginx</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/10/04/Prase-difference-in-latest-Nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Prase difference in latest Nginx | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prase difference in latest Nginx
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-10-04 23:43:53" itemprop="dateCreated datePublished" datetime="2026-10-04T23:43:53+08:00">2026-10-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-10-05 00:13:18" itemprop="dateModified" datetime="2026-10-05T00:13:18+08:00">2026-10-05</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="parse-difference-in-latest-nginx"><a class="markdownIt-Anchor" href="#parse-difference-in-latest-nginx"></a> Parse difference in latest Nginx</h1>
+<p>首先感谢[@Nick](<a target="_blank" rel="noopener" href="https://nickchen.top/">Home | Nick’s Blog</a>)师傅，在发现Nginx最新版本的新玩法后第一时间分享给我</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260926091801397.png" alt="image-20260926091801397"></p>
+<h2 id="在nginx-1315更新了什么"><a class="markdownIt-Anchor" href="#在nginx-1315更新了什么"></a> 在Nginx 1.31.5更新了什么</h2>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.nginx.org/blog/nginx-routing-on-http-request-body">https://blog.nginx.org/blog/nginx-routing-on-http-request-body</a></p>
+<p>为了兼容现代上层协议，Nginx新增了<code>client_body_early_read</code>指令先读取请求正文进行处理</p>
+<p>同时还增加了<code>js_set</code>用于解析JSON用于适应上层协议例如MCP、JSONRPC</p>
+<p>为什么要做此改变呢?</p>
+<p>因为在这些上层协议中，需要用到URI的数量几乎没有，例如mcp通常只使用<code>/mcp</code>一个接口</p>
+<p>而对方法的调用全部都已经被封装到JSON的内部了</p>
+<p>例如</p>
+<pre><code class="highlight plaintext">&#123;
+    &quot;method&quot;: &quot;initialize&quot;, 
+    &quot;params&quot;: &#123;
+        &quot;protocolVersion&quot;: &quot;2025-11-25&quot;, 
+        &quot;capabilities&quot;: &#123;
+            &quot;sampling&quot;: &#123; &#125;, 
+            &quot;elicitation&quot;: &#123;
+                &quot;form&quot;: &#123; &#125;, 
+                &quot;url&quot;: &#123; &#125;
+            &#125;
+        &#125;, 
+        &quot;clientInfo&quot;: &#123;
+            &quot;name&quot;: &quot;pi-mcp-yakit&quot;, 
+            &quot;version&quot;: &quot;1.0.0&quot;
+        &#125;
+    &#125;, 
+    &quot;jsonrpc&quot;: &quot;2.0&quot;, 
+    &quot;id&quot;: 0
+&#125;</code></pre>
+<p>那么如何要拦截外部对某方法的未授权调用，就需要Nginx先对JSON进行解析从而拦截流量</p>
+<p>在<code>http&#123;&#125;</code>或<code>server&#123;&#125;</code>启用后就可以指示 NGINX <strong>在 location 选择之前就先读取请求正文</strong>。</p>
+<pre><code class="highlight nginx"><span class="section">server</span> &#123;
+    <span class="attribute">listen</span> <span class="number">8000</span>;
+    <span class="attribute">client_body_early_read</span> <span class="number">1</span>;
+    <span class="section">location</span> /test_body &#123;
+        <span class="attribute">if</span> (<span class="variable">$request_body</span> = <span class="string">&quot;BAD_DATA&quot;</span>) &#123; <span class="attribute">return</span> <span class="number">403</span> <span class="string">&quot;Bad data\n&quot;</span>; &#125;
+        <span class="attribute">return</span> <span class="number">200</span> <span class="string">&quot;OK\n&quot;</span>;
+    &#125;
+&#125;</code></pre>
+<p>​</p>
+<h2 id="json-parser-in-nginx"><a class="markdownIt-Anchor" href="#json-parser-in-nginx"></a> JSON Parser in Nginx</h2>
+<p>dump了份源码下来，先简单审计一下</p>
+<h3 id="调用逻辑"><a class="markdownIt-Anchor" href="#调用逻辑"></a> 调用逻辑</h3>
+<p>对JSON主要的解析逻辑应该是在<code>src/core/ngx_json_parse.c</code><s>这里还是不得不吐槽这种大一点的项目的c读起来真的太吧唧累了</s></p>
+<p>Nginx对JSON的解析逻辑和java这些不太一样，java对json是当作对象来进行还原</p>
+<p>而Nginx则采用的是SAX风格的解析，逐字节处理，每遇到token就进行回调</p>
+<p>在头文件里预定义了33个状态用来判断JSON处理机当前的状态</p>
+<pre><code class="highlight c"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> &#123;</span>
+    ngx_json_start = <span class="number">0</span>,
+    ngx_json_done,
+    ngx_json_object,
+    ngx_json_object_next,
+    ngx_json_object_name_separator,
+    ngx_json_value,
+    ngx_json_object_value_separator,
+    ngx_json_array_value_separator,
+    ngx_json_array,
+    ngx_json_string,
+    ngx_json_number_minus,
+    ngx_json_number_int,
+    ngx_json_number_int_zero,
+    ngx_json_number_frac,
+    ngx_json_number_frac_digit,
+    ngx_json_number_exp,
+    ngx_json_number_exp_plusminus,
+    ngx_json_number_exp_digit,
+    ngx_json_escaped,
+    ngx_json_escaped_hex,       <span class="comment">/* first \uX<span class="doctag">XXX:</span> reading the four hex digits */</span>
+    ngx_json_surrogate_start,   <span class="comment">/* expect &#x27;\&#x27; beginning the low surrogate */</span>
+    ngx_json_surrogate_u,       <span class="comment">/* expect &#x27;u&#x27; of the low surrogate */</span>
+    ngx_json_surrogate_hex,     <span class="comment">/* low \uX<span class="doctag">XXX:</span> reading the four hex digits */</span>
+    <span class="type">ngx_json_true_t</span>,
+    ngx_json_true_tr,
+    ngx_json_true_tru,
+    ngx_json_false_f,
+    ngx_json_false_fa,
+    ngx_json_false_fal,
+    ngx_json_false_fals,
+    ngx_json_null_n,
+    ngx_json_null_nu,
+    ngx_json_null_nul
+&#125; ngx_json_state_e;</code></pre>
+<p>对外的入口只有</p>
+<pre><code class="highlight c"><span class="type">void</span>      <span class="title function_">ngx_json_ctx_init</span><span class="params">(<span class="type">ngx_json_ctx_t</span> *ctx, <span class="type">ngx_pool_t</span> *pool)</span>;
+<span class="type">ngx_int_t</span> <span class="title function_">ngx_json_parse_ctx</span><span class="params">(<span class="type">ngx_json_ctx_t</span> *ctx, u_char *data, <span class="type">size_t</span> len)</span>;   <span class="comment">/* 增量式 */</span>
+<span class="type">ngx_int_t</span> <span class="title function_">ngx_json_parse</span><span class="params">(<span class="type">ngx_pool_t</span> *pool, <span class="type">ngx_str_t</span> *json,</span>
+<span class="params">                         ngx_json_handler_pt handler, <span class="type">void</span> *data)</span>;            <span class="comment">/* 一次性 */</span></code></pre>
+<p>三个函数</p>
+<p>而<code>ngx_json_prase</code>本质也是对<code>ngx_json_parse_ctx</code>的调用</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004102543208.png" alt="image-20261004102543208"></p>
+<p>那么就很明确了，要重点关注的就是<code>ngx_json_parse_ctx</code></p>
+<p>整个函数用<code>switch-case</code>对当前的解析状态进行判断、</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004103012837.png" alt="image-20261004103012837"></p>
+<p><strong><code>ngx_json_parse_ctx()</code> 可以分块重复调用</strong>。每次返回前会把 <code>ctx-&gt;state</code> 存回上下文，所以同一份数据可以拆成多个 buffer 喂进去</p>
+<p>直到出现错误返回错误信号，正常解析完毕最终进入<code>ngx_json_done</code>接着返回NGX_OK</p>
+<p>那么谁调用了<code>ngx_json_parse_ctx()</code>呢?在<code>src/http/modules/ngx_http_json_module.c</code>中</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004105749092.png" alt="image-20261004105749092"></p>
+<p>这样上下就已经串起来了，接着看一眼解析的逻辑</p>
+<h3 id="解析逻辑"><a class="markdownIt-Anchor" href="#解析逻辑"></a> 解析逻辑</h3>
+<p>主要要关注的其实就是一些特殊字符的解析，比如unicode</p>
+<p>还有是否能通过撑爆一些阈值来达到绕过的效果</p>
+<p>先找unicode的处理逻辑吧</p>
+<p>前面我们已经知道了这个praser是逐个字符解析的，那么如果要解析键值对中的<code>/uxxxx</code>，必然先经过<code>case ngx_json_string</code>这个分支</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004170901778.png" alt="image-20261004170901778"></p>
+<p>我们看到这里调用了<code> ngx_json_emit</code></p>
+<p>跟进一下，发现这个函数是根据传入的event对应进行处理</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004113545698.png" alt="image-20261004113545698"></p>
+<p>这里把ctx-&gt;handler赋值给了rc，接着做<code>switch-case</code></p>
+<p>那么看来这里是调用了一个函数，我们看回到上文，handler是<code>ngx_http_json_handler</code>，这个函数也是根据event处理的</p>
+<p>继续跟进</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004113820927.png" alt="image-20261004113820927"></p>
+<p>发现果然有unescape的处理逻辑，这里处理了键中的unicode</p>
+<p>那么值呢?继续往下翻翻</p>
+<p>发现这里逻辑相似</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004114151735.png" alt="image-20261004114151735"></p>
+<p>转到实现</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004114244215.png" alt="image-20261004114244215"></p>
+<p>发现这里也确实对值做了unescape的处理</p>
+<p>那么就返回去找<code>NGX_JSON_KEY</code>和<code>NGX_JSON_VALUE_STRING:</code>两个event</p>
+<p>发现就是<code>case ngx_json_string</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004130222016.png" alt="image-20261004130222016"></p>
+<p>那么就都没问题了，接着看看解析的函数<code>ngx_json_unescape_string</code></p>
+<p>这里也是<code>switch-case</code>的处理</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004135221454.png" alt="image-20261004135221454"></p>
+<p>这里负责对unicode进行转义</p>
+<p>乍一看也没什么问题，就是正常的解析过程，对unicode进行解码</p>
+<p>但是如果是逐字符解析，在取内部其他对象的值时是否会解析呢?</p>
+<p>例如传入<code>&#123;&quot;a&quot;:&#123;&quot;b&quot;:&quot;1&quot;,&quot;role&quot;:&quot;\u0061dmin&quot;&#125;&#125;</code>，我们只取a的键值去做正则的匹配</p>
+<p><strong>这是第一个问题</strong></p>
+<p>那么我们继续看最大嵌套深度的影响</p>
+<p><code>ngx_http_json_module.c</code>里面规定 <code>NGX_HTTP_JSON_DEFAULT_MAX_DEPTH = 32</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004153739444.png" alt="image-20261004153739444"></p>
+<p>如果超过则会返回<code>NGX_DECLINED</code></p>
+<p>而后续的处理也很神秘</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004153852496.png" alt="image-20261004153852496"></p>
+<p>没有抛出错误，而是reset变量、写日志然后return<code>NGX_OK</code></p>
+<p>那么我们其实很好使用的黑名单，我们就很好去进行绕过了，整个我们后面再说，<strong>这个是问题之二</strong></p>
+<p>此时看起来没有其他问题了啊，扔个AI复核了一遍，发现了新问题</p>
+<h3 id="prase-difference-between-nginx-and-backend"><a class="markdownIt-Anchor" href="#prase-difference-between-nginx-and-backend"></a> Prase Difference between Nginx and backend</h3>
+<p><strong>前面我们把思路限制在了JSON本身，而没有关注能不能塞入一些Nginx不能解析、后端自动trim的垃圾字符</strong></p>
+<p>那这种字符存在吗?</p>
+<pre><code class="highlight plaintext">\xef\xbb\xbf</code></pre>
+<p>并且我们知道这个<code>NGX_DECLINED</code>是一个只会被记录、不会被处理的错误，那么只要保证后端的解析正确，就可以任意构造非法的json绕过Nginx了</p>
+<h4 id="utf-8-bom"><a class="markdownIt-Anchor" href="#utf-8-bom"></a> UTF-8 BOM</h4>
+<p>先看python的处理</p>
+<pre><code class="highlight python"><span class="comment">#encoding=utf-8</span>
+<span class="keyword">import</span> json
+
+byte=<span class="string">b&#x27;\xef\xbb\xbf&#123;&quot;user&quot;:&#123;&quot;role&quot;:&quot;admin&quot;&#125;&#125;&#x27;</span>
+json=json.loads(byte)
+<span class="built_in">print</span>(json[<span class="string">&#x27;user&#x27;</span>][<span class="string">&#x27;role&#x27;</span>])</code></pre>
+<p>发现正常的解析出admin了</p>
+<p><img src="/2026/10/04/Prase-difference-in-latest-Nginx/C:%5CUsers%5Cayano%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20261004160634065.png" alt="image-20261004160634065"></p>
+<p>那么Nginx能否处理呢?答案肯定是不能的</p>
+<p><code>ngx_json_parse_ctx</code>中ctx默认是以<code>ngx_json_start</code>状态开始，接着就转到<code>ngx_json_value</code></p>
+<p>在分支<code>ngx_json_value</code>下</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004161036202.png" alt="image-20261004161036202"></p>
+<p>我们发现，并没有对UTF-8 BOM的处理</p>
+<p>那么就会直接reset整个json，从而绕过黑名单</p>
+<h4 id="depth-overflow"><a class="markdownIt-Anchor" href="#depth-overflow"></a> Depth Overflow</h4>
+<p>也就是我们之前说的第二个问题</p>
+<p>构造一个恶意的嵌套键值对，只要深度超过32/指定的层数</p>
+<p>当检测到深度过深时，就会自动抛出<code>NGX_DECLINED</code></p>
+<p>从而实现绕过</p>
+<h4 id="lazy-decode"><a class="markdownIt-Anchor" href="#lazy-decode"></a> Lazy decode</h4>
+<p>也就是我们说的第一个问题</p>
+<p>在<code>json_set</code>中</p>
+<p>它不会对当前未定义的键进行取值解析</p>
+<p>也就是说，假设配置中写</p>
+<pre><code class="highlight plaintext">json_set $m $request_body &quot;params&quot;</code></pre>
+<p>并用拿到的<code>$m</code>去做正则,假设对结果为1且不为受信任ip的请求进行拦截</p>
+<pre><code class="highlight plaintext">map $m $is_admin &#123;
+    ~^admin$  1;
+    default   0;
+&#125;</code></pre>
+<p>此时传入</p>
+<pre><code class="highlight plaintext">&#123;&quot;params&quot;:&#123;&quot;method&quot;:&quot;get&quot;,&quot;role&quot;:&quot;\u0061dmin&quot;&#125;&#125;</code></pre>
+<p>取到的<code>$m</code>中的内容是<code>&#123;&quot;method&quot;:&quot;get&quot;,&quot;role&quot;:&quot;\u0061dmin&quot;&#125;</code>还是<code>&#123;&quot;method&quot;:&quot;get&quot;,&quot;role&quot;:&quot;admin&quot;&#125;</code></p>
+<p>运行结果是前者</p>
+<p>如果Nginx想要对<code>\u</code>开头的unicode进行解码，就必须要调用<code>ngx_json_unescape_string</code>函数，在<code>ngx_json_parse_ctx</code>中只负责校验unicode的合法性而不进行任何解码</p>
+<p><code>ngx_json_unescape_string</code>函数的调用只有三个地方</p>
+<p><code>ngx_http_json_insert_path  ngx_http_json_handler  ngx_http_json_store</code></p>
+<p>分别在<code>ngx_http_json_set</code>、<code>ngx_http_json_variable</code>得到调用</p>
+<p>其中<code>ngx_http_json_store</code>的调用实际都内置在<code>ngx_http_json_handler</code>中</p>
+<p>而我们跟进其对a键所应值的处理流程</p>
+<p>发现简单的来看事件流就是这样的:</p>
+<p><code>NGX_JSON_OBJECT_OPEN</code>-&gt;<code>NGX_JSON_OBJECT_CLOSE</code></p>
+<p>而中间的<code>&quot;method&quot;:&quot;get&quot;,&quot;role&quot;:&quot;\u0061dmin&quot;</code>都被正常prase/检验，不进行解码，并不执行<code>lookup_key</code>(如果取的值没有<code>&#123;&#125;</code>就会直接进入<code>NGX_JSON_VALUE_STRING</code>事件)</p>
+<p>最后强行执行了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004233605870.png" alt="image-20261004233605870"></p>
+<p>unescape参数传入为0 ,这里的if直接被短路</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261004233724666.png" alt="image-20261004233724666"></p>
+<p>不再对里面的内容解码，此时<code>\u0061</code>就成功绕过了</p>
+<p>所以为什么说它是<strong>Lazy decode</strong>呢</p>
+<p>因为假如在配置文件中没有声明<code>json_set $p $request_body &quot;params.role&quot;</code></p>
+<p><code>params</code>中的role键就会不断的触发<code>NGX_JSON_SKIP</code>事件而受到抑制，因为主键<code>params</code>不存在更多的子节点了，只能跳过不进行解码</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261005001130863.png" alt="image-20261005001130863"></p>
+<p>让AI搓了个简陋的流程图方便理解</p>
+<p>With the config of “params”</p>
+<pre><code class="highlight plaintext">KEY &quot;params&quot;          → handler: lookup_key 命中 → current_node = params节点   (module :748-774)
+OBJECT_OPEN &#x27;&#123;&#x27;       → handler: ngx_http_json_push() 压 frame&#123;                 (module :695-725)
+                        frame-&gt;start = &amp;body[10],   ← 只记指针，不拷贝不解码
+                        frame-&gt;node  = params节点 &#125;
+KEY &quot;method&quot;          → lookup_key(params节点, &quot;method&quot;) == NULL
+                      → return NGX_JSON_SKIP                                    (module :767-771)
+                      → parser: skip_until_depth = 2，进入抑制模式
+&#x27;:&#x27; &#x27;get&#x27; &#x27;,&#x27;         → 状态机照常逐字节校验，但 emit 全部 early-return，事件不到 handler
+KEY &quot;role&quot;            → 同上 SKIP，继续抑制
+&#x27;:&#x27; &quot;\u0061dmin&quot;      → 同上（\u0061 的 4 个 hex 位在 ngx_json_escaped_hex 态
+                        照常累加校验，然后丢弃）
+&#x27;&#125;&#x27;                   → ngx_json_close() → depth-- → emit OBJECT_CLOSE          (parser :780-795)
+OBJECT_CLOSE &#x27;&#125;&#x27;      → handler: slice.data = frame-&gt;start;
+                        slice.len  = &amp;body[45] - &amp;body[10] + 1 = 36
+                      → store(state, node, &amp;slice, /*unescape=*/0)              (module :731-741)
+&#x27;&#125;&#x27;                   → 根对象关闭，parse 返回 NGX_OK</code></pre>
+<p>With the config of “params.role”</p>
+<pre><code class="highlight plaintext">OBJECT_OPEN root &#x27;&#123;&#x27;   → push frame&#123;start=&amp;body[0],  node=root&#125;        (module :698-703)
+KEY &quot;params&quot;           → lookup_key(root, &quot;params&quot;) 命中中间节点
+                       → current_node = params节点                      (:766-773)
+OBJECT_OPEN &#x27;&#123;&#x27;        → push frame&#123;start=&amp;body[10], node=params节点&#125;   (:709-725)
+KEY &quot;method&quot;           → lookup_key(params节点, &quot;method&quot;) == NULL
+                       → NGX_JSON_SKIP → 抑制到成员结束                  (:767-771)
+KEY &quot;role&quot;             → lookup_key(params节点, &quot;role&quot;) == role节点      ← 翻转点①
+                       → current_node = role节点（SKIP 不再发生）
+&#x27;&quot;&#x27; &quot;\u0061dmin&quot; &#x27;&quot;&#x27;   → 解析器：escaped_hex 态 codepoint 累到 0x61 后丢弃，
+                         emit VALUE_STRING, token = body[34..43]（10 个原始字节）
+VALUE_STRING           → is_member=1 → node = role节点                  (:791-794)
+                         node-&gt;ndests(=1) &gt; 0 → 进 store：
+                           ngx_http_json_store(state, node, &amp;value,
+                               event == NGX_JSON_VALUE_STRING)          ← 翻转点②，实参=1
+OBJECT_CLOSE params&#x27;&#125;&#x27; → top-&gt;node(params)-&gt;ndests == 0
+                       → 不进 store，不切片，仅 state-&gt;stack.nelts--     ← 翻转点③ (:732-743)
+OBJECT_CLOSE root &#x27;&#125;&#x27;  → parse 返回 NGX_OK</code></pre>
+<p><em><strong>那么是否还有其他的利用呢？</strong></em></p>
+<p>那就要看后端的语言特性了</p>
+<h4 id="nfkc-in-python"><a class="markdownIt-Anchor" href="#nfkc-in-python"></a> NFKC in Python</h4>
+<p>常年出现在SSTI和Jail里面的Python特性</p>
+<p>在这里也可以用上，同样是利用python解析，但是Nginx无法进行同样的转义，从而放行恶意请求</p>
+<p>比如把admin换成<code>ａｄｍｉｎ</code>，一样可以达到绕过的效果</p>
+<h3 id="how-to-avoid-prase-difference-in-latest-nginx"><a class="markdownIt-Anchor" href="#how-to-avoid-prase-difference-in-latest-nginx"></a> How to avoid Prase Difference in latest Nginx</h3>
+<p>其实不难发现</p>
+<p>我们前面的攻击手段大部分都建立在黑名单的基础上</p>
+<p>即拦截指定的method，而其他的都进行放行</p>
+<p>那么如果我们配置白名单，<strong>对白名单外的</strong>method都进行拦截</p>
+<p>这样就不会因为reset返回的<code>not_found</code>导致寻找指定键失败从而进入<code>default</code>分支，而是直接被拦截</p>
+<p>​</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Audit/" rel="tag"># Audit</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/07/14/%E5%AF%B9chameleon%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%8E%A2%E7%A9%B6/" rel="prev" title="对chameleon模板的探究">
+                  <i class="fa fa-angle-left"></i> 对chameleon模板的探究
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">388k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:45</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
