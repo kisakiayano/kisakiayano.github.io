@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="PTA题目爬取转接AI的尝试 依旧造轮椅 上个Python选修课但是要刷的题目好多啊。鬼脑一动看看能不能抓掉包转接给AI让它自动帮我提交答案，只保存不提交，防止出现某些意外">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PTA题目爬取转接AI的一次尝试">
+<meta property="og:url" content="https://ayan0.top/2026/10/14/PTA%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5AI%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="PTA题目爬取转接AI的尝试 依旧造轮椅 上个Python选修课但是要刷的题目好多啊。鬼脑一动看看能不能抓掉包转接给AI让它自动帮我提交答案，只保存不提交，防止出现某些意外">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223618133.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223819386.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223958143.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007224915263.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008105950286.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008112000397.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008112033080.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008153125413.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261009163037940.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011204313879.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011210039561.png">
+<meta property="article:published_time" content="2026-10-14T08:13:44.000Z">
+<meta property="article:modified_time" content="2026-10-14T08:17:31.111Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="Dev">
+<meta property="article:tag" content="MCP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223618133.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/10/14/PTA%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5AI%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/10/14/PTA%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5AI%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95/","path":"2026/10/14/PTA题目爬取转接AI的一次尝试/","title":"PTA题目爬取转接AI的一次尝试"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PTA题目爬取转接AI的一次尝试 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pta%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5ai%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text"> PTA题目爬取转接AI的尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%93%E5%8F%96%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text"> 抓取流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tx%E6%BB%91%E5%9D%97captcha%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> TX滑块Captcha绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%8A%9F%E8%BF%9B%E5%85%A5%E9%A6%96%E9%A1%B5"><span class="nav-number">1.3.</span> <span class="nav-text"> 成功进入首页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%88%90tool"><span class="nav-number">1.4.</span> <span class="nav-text"> 封装成tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%90%93tool"><span class="nav-number">1.5.</span> <span class="nav-text"> 手搓tool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E5%8F%96%E6%97%B6%E7%9A%84filter"><span class="nav-number">1.5.1.</span> <span class="nav-text"> 爬取时的filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E7%AD%94%E6%A1%88"><span class="nav-number">1.5.2.</span> <span class="nav-text"> 怎么处理答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo"><span class="nav-number">1.6.</span> <span class="nav-text"> TODO</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/10/14/PTA%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5AI%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PTA题目爬取转接AI的一次尝试 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PTA题目爬取转接AI的一次尝试
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-10-14 16:13:44 / 修改时间：16:17:31" itemprop="dateCreated datePublished" datetime="2026-10-14T16:13:44+08:00">2026-10-14</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>30 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="pta题目爬取转接ai的尝试"><a class="markdownIt-Anchor" href="#pta题目爬取转接ai的尝试"></a> PTA题目爬取转接AI的尝试</h1>
+<p>依旧造轮椅</p>
+<p>上个Python选修课但是要刷的题目好多啊。鬼脑一动看看能不能抓掉包转接给AI让它自动帮我提交答案，只保存不提交，防止出现某些意外</p>
+<p>简单喵两句</p>
+<h2 id="抓取流程"><a class="markdownIt-Anchor" href="#抓取流程"></a> 抓取流程</h2>
+<p>首先挺惊喜的，登录没有加密逻辑，就是明文登录</p>
+<pre><code class="highlight plaintext">POST /api/users/sessions HTTP/1.1
+Host: passport.pintia.cn
+Connection: keep-alive
+Content-Length: 74
+sec-ch-ua-platform: &quot;Windows&quot;
+Accept-Language: zh-CN
+sec-ch-ua: &quot;Chromium&quot;;v=&quot;154&quot;, &quot;Google Chrome&quot;;v=&quot;154&quot;, &quot;Not A(Brand&quot;;v=&quot;99&quot;
+sec-ch-ua-mobile: ?0
+X-Lollipop: fe247aa898e49a308f8f302df0145f8c
+X-Marshmallow: 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+Accept: application/json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
+Origin: https://pintia.cn
+Sec-Fetch-Site: same-site
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://pintia.cn/
+Accept-Encoding: gzip, deflate, br, zstd
+Cookie: PTASession=583f97d2-f986-415b-ab90-4425c3b5d504; _ga=GA1.1.841321695.1791381611; _ga_ZHCNP8KECW=GS2.1.s1791381611$o1$g1$t1791381623$j48$l0$h0
+
+&#123;&quot;email&quot;:&quot;admin@example.com&quot;,&quot;password&quot;:&quot;admin@114514&quot;,&quot;rememberMe&quot;:true&#125;</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223618133.png" alt="image-20261007223618133"></p>
+<p>下一个就是抓取题单</p>
+<pre><code class="highlight plaintext">GET /api/problem-sets?filter=&amp;limit=7&amp;order_by=END_AT&amp;asc=true HTTP/1.1
+Host: pintia.cn
+Connection: keep-alive
+sec-ch-ua-platform: &quot;Windows&quot;
+Accept-Language: zh-CN
+sec-ch-ua: &quot;Chromium&quot;;v=&quot;154&quot;, &quot;Google Chrome&quot;;v=&quot;154&quot;, &quot;Not A(Brand&quot;;v=&quot;99&quot;
+sec-ch-ua-mobile: ?0
+X-Lollipop: fe247aa898e49a308f8f302df0145f8c
+X-Marshmallow: 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+Accept: application/json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://pintia.cn/problem-sets/dashboard
+Accept-Encoding: gzip, deflate, br, zstd
+Cookie: PTASession=583f97d2-f986-415b-ab90-4425c3b5d504; _bl_uid=v4mXUuO9yO76Cmcztiz4apnlddm0; _ga=GA1.1.841321695.1791381611; JSESSIONID=FE077B46A5ED7D1658902616F73CE309; _ga_ZHCNP8KECW=GS2.1.s1791381611$o1$g1$t1791382355$j53$l0$h0
+</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223819386.png" alt="image-20261007223819386"></p>
+<p>这里select到id就可以，给下一步爬题目奠基来的</p>
+<p>接着发个这样的包就行</p>
+<pre><code class="highlight plaintext">GET /api/problem-sets/[id]/exams</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007223958143.png" alt="image-20261007223958143"></p>
+<p>探测一下是不是存在<s>其实没啥实质性作用</s>，并且取exam的id</p>
+<p>虽然后来证明没什么用(，它那个包好像不用examid的参数也能正常取到</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261007224915263.png" alt="image-20261007224915263"></p>
+<p>但是问题出现了，它的题型是不确定的，手动去返回包里遍历收集又太慢了，我们直接预定义一个set存放就行</p>
+<p>接着</p>
+<pre><code class="highlight plaintext">/api/problem-sets/[id]/exam-problems?problem_type=[type]</code></pre>
+<p>遍历测试一下就好了</p>
+<p>提交也很简单</p>
+<pre><code class="highlight plaintext">POST /api/exams/2100398912004239360/exam-submissions HTTP/1.1
+Host: pintia.cn
+Connection: keep-alive
+Content-Length: 375
+sec-ch-ua-platform: &quot;Windows&quot;
+Accept-Language: zh-CN
+sec-ch-ua: &quot;Chromium&quot;;v=&quot;154&quot;, &quot;Google Chrome&quot;;v=&quot;154&quot;, &quot;Not A(Brand&quot;;v=&quot;99&quot;
+sec-ch-ua-mobile: ?0
+X-Lollipop: fe247aa898e49a308f8f302df0145f8c
+X-Marshmallow: 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+Accept: application/json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
+Origin: https://pintia.cn
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://pintia.cn/problem-sets/2099334496336080896/exam/problems/type/2
+Accept-Encoding: gzip, deflate, br, zstd
+Cookie: PTASession=583f97d2-f986-415b-ab90-4425c3b5d504; _bl_uid=v4mXUuO9yO76Cmcztiz4apnlddm0; _ga=GA1.1.841321695.1791381611; _ga_ZHCNP8KECW=GS2.1.s1791381611$o1$g1$t1791383074$j60$l0$h0; JSESSIONID=5AC75FF31F105E254638B99CB267BC2B
+
+&#123;&quot;problemType&quot;:&quot;MULTIPLE_CHOICE&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2099334496411578418&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;C&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2099334496411578419&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;B&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2099334496411578422&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;C&quot;&#125;&#125;]&#125;</code></pre>
+<p>本质就是题型+一个题目答案的列表</p>
+<p>至此包就已经扒完了，那么要怎么喂给ai呢？直接写成skill给AI?好像也有点慢啊</p>
+<p>写成MCP server怎么样?好像是一个很好的想法</p>
+<p>既不通过AI去请求浪费不必要浪费的token，又能很好的把整套逻辑包进去</p>
+<p>大概就是</p>
+<pre><code class="highlight plaintext">AI client ===================MCP Server ===========================Platform
+		request the tool
+        --------------------&gt;			login and get the content
+        							  -------------------------&gt;  
+        &lt;--------------------
+        response the problems 
+           with their id
+           
+         request the tool and			
+           send answers					   submit the answers
+        --------------------&gt;           ---------------------------&gt;</code></pre>
+<pre><code class="highlight plaintext">访问平台API从响应里面提取题目信息啊，一般的作业平台都是一次能直接看到所有这个类型的题目，这样mcp server处理后就能整合成一个大的list,response给client端之后AI就可以一次直接解答所有类型的所有题目，接着再把答案发送给mcp server让其提交所有的答案</code></pre>
+<p>本来想着应该会很顺利，但是不出意外的触发检测了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008105950286.png" alt="image-20261008105950286"></p>
+<p>又要auto绕图形验证码了有感觉吗</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008112000397.png" alt="image-20261008112000397"></p>
+<p>不知道哪家的，收集下信息看看有没有自动过验证码的脚本</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008112033080.png" alt="image-20261008112033080"></p>
+<p>确认产品，找了一下发现相关的自动破解还是很多的</p>
+<p>但是想想还是自己调一下这个过程</p>
+<h2 id="tx滑块captcha绕过"><a class="markdownIt-Anchor" href="#tx滑块captcha绕过"></a> TX滑块Captcha绕过</h2>
+<p>抓了个纯净点的包</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261008153125413.png" alt="image-20261008153125413"></p>
+<p>要关注的就是中间这几个</p>
+<p>先不看加载的那几个静态</p>
+<pre><code class="highlight http"><span class="keyword">GET</span> <span class="string">/cap_union_prehandle?aid=194593025&amp;protocol=https&amp;accver=1&amp;showtype=popup&amp;ua=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1NC4wLjAuMCBTYWZhcmkvNTM3LjM2&amp;noheader=1&amp;fb=1&amp;aged=0&amp;enableAged=0&amp;enableDarkMode=0&amp;grayscale=1&amp;clientype=2&amp;cap_cd=&amp;uid=&amp;lang=zh-cn&amp;entry_url=https%3A%2F%2Fpintia.cn%2Fauth%2Flogin&amp;elder_captcha=0&amp;js=%2Ftcaptcha-frame.ba387dd1.js&amp;login_appid=&amp;wb=2&amp;tkid=581051966&amp;subsid=1&amp;callback=_aq_793505&amp;sess=</span> <span class="meta">HTTP/1.1</span>
+<span class="attribute">Host</span><span class="punctuation">: </span>turing.captcha.qcloud.com
+<span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive
+<span class="attribute">sec-ch-ua-platform</span><span class="punctuation">: </span>&quot;Windows&quot;
+<span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+<span class="attribute">sec-ch-ua</span><span class="punctuation">: </span>&quot;Chromium&quot;;v=&quot;154&quot;, &quot;Google Chrome&quot;;v=&quot;154&quot;, &quot;Not A(Brand&quot;;v=&quot;99&quot;
+<span class="attribute">sec-ch-ua-mobile</span><span class="punctuation">: </span>?0
+<span class="attribute">Accept</span><span class="punctuation">: </span>*/*
+<span class="attribute">Sec-Fetch-Site</span><span class="punctuation">: </span>cross-site
+<span class="attribute">Sec-Fetch-Mode</span><span class="punctuation">: </span>no-cors
+<span class="attribute">Sec-Fetch-Dest</span><span class="punctuation">: </span>script
+<span class="attribute">Sec-Fetch-Storage-Access</span><span class="punctuation">: </span>active
+<span class="attribute">Referer</span><span class="punctuation">: </span>https://pintia.cn/
+<span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate, br, zstd
+<span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.9
+</code></pre>
+<p>返回的报文是</p>
+<pre><code class="highlight http"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK
+<span class="attribute">Date</span><span class="punctuation">: </span>Thu, 08 Oct 2026 07:29:19 GMT
+<span class="attribute">Content-Type</span><span class="punctuation">: </span>text/javascript;charset=utf-8
+<span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive
+<span class="attribute">P3P</span><span class="punctuation">: </span>CP=CAO PSA OUR
+<span class="attribute">Pragma</span><span class="punctuation">: </span>No-cache
+<span class="attribute">Server</span><span class="punctuation">: </span>Trpc httpd
+<span class="attribute">Server</span><span class="punctuation">: </span>tencent http server
+<span class="attribute">Content-Length</span><span class="punctuation">: </span>3123
+
+<span class="language-php"><span class="title function_ invoke__">_aq_793505</span>(&#123;</span>
+<span class="language-php">  <span class="attr">state</span>: <span class="number">1</span>,</span>
+<span class="language-php">  <span class="attr">ticket</span>: <span class="string">&#x27;&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">capclass</span>: <span class="string">&#x27;1&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">subcapclass</span>: <span class="string">&#x27;2401&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">src_1</span>: <span class="string">&#x27;cap_union_new_show&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">src_2</span>: <span class="string">&#x27;template/new_placeholder.html&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">src_3</span>: <span class="string">&#x27;template/new_slide_placeholder.html&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">sess</span>: <span class="string">&#x27;s0aVNnVEjY5oUozi4rpJVPR7-RFxNY6v0BOq00Y767YDbKsExq37-Zzl6EADCEvHN2GwMBxCK7b5YSn5JKtrM4DYDXycFK4jhU5I8S8IR2JcG02MsiidQzMbth0eW3No1o5S0mq_tI0aMfYfZj62dn2aESs13k7jLlP7skhYa3-jrWxiFIqGpV3BXXYksCojrw-PDHN1UB4-RhIk7Fm97oznDGUn0p0h7LWUr0a4h8RyBDPtcB5nVWBm90EKK6yJDH2217-2hZOcEJgadt9aGbgDxcVHCcUpO5ktuulTOxj7QAfRcgyjAw7ywloUyY8zyRTvw55cg6gTAsj8BYI43DJ2Rhr_7sT46ySsVqPROMSaAMwnFVBU9-7LAD_E5O2PSSYvoVwQu5tpweW9OF6BoXtOIMwiRWhTf8&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">randstr</span>: <span class="string">&#x27;&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">sid</span>: <span class="string">&#x27;1788719716427149312&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">log_js</span>: <span class="string">&#x27;&#x27;</span>,</span>
+<span class="language-php">  <span class="attr">data</span>: &#123;</span>
+<span class="language-php">    <span class="attr">comm_captcha_cfg</span>: &#123;</span>
+<span class="language-php">      <span class="attr">tdc_path</span>: <span class="string">&#x27;/tdc.js?app_data=1788719716427149312&amp;t=619891543&#x27;</span>,</span>
+<span class="language-php">      <span class="attr">feedback_url</span>: <span class="string">&#x27;https://support.qq.com/products/304457&#x27;</span>,</span>
+<span class="language-php">      <span class="attr">pow_cfg</span>: &#123;</span>
+<span class="language-php">        <span class="attr">prefix</span>: <span class="string">&#x27;a594cb9f0137effe#&#x27;</span>,</span>
+<span class="language-php">        <span class="attr">md5</span>: <span class="string">&#x27;db933e29a68df4fca17a564763c649ba&#x27;</span>,</span>
+<span class="language-php">      &#125;,</span>
+<span class="language-php">    &#125;,</span>
+<span class="language-php">    <span class="attr">dyn_show_info</span>: &#123;</span>
+<span class="language-php">      <span class="attr">lang</span>: <span class="string">&#x27;zh-cn&#x27;</span>,</span>
+<span class="language-php">      <span class="attr">instruction</span>: <span class="string">&#x27;拖动下方滑块完成拼图&#x27;</span>,</span>
+<span class="language-php">      <span class="attr">bg_elem_cfg</span>: &#123;</span>
+<span class="language-php">        <span class="attr">sprite_pos</span>: [<span class="number">0</span>, <span class="number">0</span>],</span>
+<span class="language-php">        <span class="attr">size_2d</span>: [<span class="number">672</span>, <span class="number">480</span>],</span>
+<span class="language-php">        <span class="attr">img_url</span>:</span>
+<span class="language-php">          <span class="string">&#x27;/cap_union_new_getcapbysig?img_index=1&amp;image=026109000000003500000015a28ce71427b0&amp;sess=s0CjkHrSgjdWiWT5RoW4sPl5Kne4TgDGGsPr58cFYe3u1gyiEPr4uEra81fxCn5t4lXeK6hhIJ1YsLzkCkD_ET-U36qkSn6rNo2TxLXPxeLNPyfquU5rv2fQtrLYjiZGDaU18yk7SSFBXhG52yNhucWjQodPpqgoEwguSFG6op4AQgmy12QeYqdR4HAzrLNZtvzbsr_eoLxNQMhdH3rS4bUAsE81CWFVxyqIwefM5ElKYhZ2Y9xghA-mLRf_cdALnjZKA2Tdz2yNKeSHBC49NVIZjeEHr3bFJpJZd2gj-WkQuJA18Kj4orhsz7kl2CsU1kNKu-enh6CY7CPER057xuZqQHjaW4g0-v5uOeLlSU6fRBZW5JLEH-i0oYOu6tg7Iv_QChVBww-JDVbZVtEkzUtZcMiJGvjavP&#x27;</span>,</span>
+<span class="language-php">      &#125;,</span>
+<span class="language-php">      <span class="attr">fg_elem_list</span>: [</span>
+<span class="language-php">        &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">sprite_pos</span>: [<span class="number">0</span>, <span class="number">422</span>], <span class="attr">size_2d</span>: [<span class="number">672</span>, <span class="number">32</span>], <span class="attr">init_pos</span>: [<span class="number">0</span>, <span class="number">422</span>] &#125;,</span>
+<span class="language-php">        &#123;</span>
+<span class="language-php">          <span class="attr">id</span>: <span class="number">1</span>,</span>
+<span class="language-php">          <span class="attr">sprite_pos</span>: [<span class="number">140</span>, <span class="number">490</span>],</span>
+<span class="language-php">          <span class="attr">size_2d</span>: [<span class="number">120</span>, <span class="number">120</span>],</span>
+<span class="language-php">          <span class="attr">init_pos</span>: [<span class="number">50</span>, <span class="number">63</span>],</span>
+<span class="language-php">          <span class="attr">move_cfg</span>: &#123;</span>
+<span class="language-php">            <span class="attr">track_limit</span>: <span class="string">&#x27;x&gt;=50&amp;&amp;x&lt;=552&#x27;</span>,</span>
+<span class="language-php">            <span class="attr">move_factor</span>: [<span class="number">1</span>, <span class="number">0</span>],</span>
+<span class="language-php">            <span class="attr">data_type</span>: [<span class="string">&#x27;DynAnswerType_POS&#x27;</span>],</span>
+<span class="language-php">          &#125;,</span>
+<span class="language-php">        &#125;,</span>
+<span class="language-php">        &#123;</span>
+<span class="language-php">          <span class="attr">id</span>: <span class="number">2</span>,</span>
+<span class="language-php">          <span class="attr">sprite_pos</span>: [<span class="number">0</span>, <span class="number">490</span>],</span>
+<span class="language-php">          <span class="attr">size_2d</span>: [<span class="number">130</span>, <span class="number">70</span>],</span>
+<span class="language-php">          <span class="attr">init_pos</span>: [<span class="number">45</span>, <span class="number">402</span>],</span>
+<span class="language-php">          <span class="attr">move_cfg</span>: &#123; <span class="attr">track_limit</span>: <span class="string">&#x27;x&gt;=50&amp;&amp;x&lt;=552&#x27;</span>, <span class="attr">move_factor</span>: [<span class="number">1</span>, <span class="number">0</span>] &#125;,</span>
+<span class="language-php">          <span class="attr">type</span>: <span class="string">&#x27;slider&#x27;</span>,</span>
+<span class="language-php">        &#125;,</span>
+<span class="language-php">      ],</span>
+<span class="language-php">      <span class="attr">fg_binding_list</span>: [</span>
+<span class="language-php">        &#123; <span class="attr">master</span>: <span class="number">1</span>, <span class="attr">slave</span>: <span class="number">2</span>, <span class="attr">bind_type</span>: <span class="string">&#x27;DynBindType_DX_DX&#x27;</span>, <span class="attr">bind_factor</span>: <span class="number">1</span> &#125;,</span>
+<span class="language-php">        &#123; <span class="attr">master</span>: <span class="number">2</span>, <span class="attr">slave</span>: <span class="number">1</span>, <span class="attr">bind_type</span>: <span class="string">&#x27;DynBindType_DX_DX&#x27;</span>, <span class="attr">bind_factor</span>: <span class="number">1</span> &#125;,</span>
+<span class="language-php">      ],</span>
+<span class="language-php">      <span class="attr">sprite_url</span>:</span>
+<span class="language-php">        <span class="string">&#x27;/cap_union_new_getcapbysig?img_index=0&amp;image=026109000000003500000015a28ce71427b0&amp;sess=s0CjkHrSgjdWiWT5RoW4sPl5Kne4TgDGGsPr58cFYe3u1gyiEPr4uEra81fxCn5t4lXeK6hhIJ1YsLzkCkD_ET-U36qkSn6rNo2TxLXPxeLNPyfquU5rv2fQtrLYjiZGDaU18yk7SSFBXhG52yNhucWjQodPpqgoEwguSFG6op4AQgmy12QeYqdR4HAzrLNZtvzbsr_eoLxNQMhdH3rS4bUAsE81CWFVxyqIwefM5ElKYhZ2Y9xghA-mLRf_cdALnjZKA2Tdz2yNKeSHBC49NVIZjeEHr3bFJpJZd2gj-WkQuJA18Kj4orhsz7kl2CsU1kNKu-enh6CY7CPER057xuZqQHjaW4g0-v5uOeLlSU6fRBZW5JLEH-i0oYOu6tg7Iv_QChVBww-JDVbZVtEkzUtZcMiJGvjavP&#x27;</span>,</span>
+<span class="language-php">      <span class="attr">color_scheme</span>: <span class="string">&#x27;#0057d4&#x27;</span>,</span>
+<span class="language-php">    &#125;,</span>
+<span class="language-php">  &#125;,</span>
+<span class="language-php">  <span class="attr">uip</span>: <span class="string">&#x27;36.25.1.141&#x27;</span>,</span>
+<span class="language-php">&#125;);</span>
+<span class="language-php"></span></code></pre>
+<p>接着就是拿sess</p>
+<pre><code class="highlight http"><span class="keyword">POST</span> <span class="string">/cap_union_new_verify</span> <span class="meta">HTTP/1.1</span>
+<span class="attribute">Host</span><span class="punctuation">: </span>turing.captcha.qcloud.com
+<span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive
+<span class="attribute">Content-Length</span><span class="punctuation">: </span>2727
+<span class="attribute">sec-ch-ua-platform</span><span class="punctuation">: </span>&quot;Windows&quot;
+<span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+<span class="attribute">Accept</span><span class="punctuation">: </span>application/json, text/javascript, */*; q=0.01
+<span class="attribute">sec-ch-ua</span><span class="punctuation">: </span>&quot;Chromium&quot;;v=&quot;154&quot;, &quot;Google Chrome&quot;;v=&quot;154&quot;, &quot;Not A(Brand&quot;;v=&quot;99&quot;
+<span class="attribute">Content-Type</span><span class="punctuation">: </span>application/x-www-form-urlencoded; charset=UTF-8
+<span class="attribute">sec-ch-ua-mobile</span><span class="punctuation">: </span>?0
+<span class="attribute">Origin</span><span class="punctuation">: </span>https://turing.captcha.gtimg.com
+<span class="attribute">Sec-Fetch-Site</span><span class="punctuation">: </span>cross-site
+<span class="attribute">Sec-Fetch-Mode</span><span class="punctuation">: </span>cors
+<span class="attribute">Sec-Fetch-Dest</span><span class="punctuation">: </span>empty
+<span class="attribute">Referer</span><span class="punctuation">: </span>https://turing.captcha.gtimg.com/
+<span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate, br, zstd
+<span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.9
+
+<span class="language-apache"><span class="attribute">collect</span>=<span class="number">386</span>NxiV8EKm8YUv94gxyd7xhS%<span class="number">2</span>F3iDHJ3L5kjgBfmtdxMGD%<span class="number">2</span>BVL4dMAwETVWTQMpU1KknUbSXBCWPJwD4gjwaSEFE3kUzyilz3XN7kH7EEnWQ4KDOtRekbwljQ7ca....<span class="number">2</span>FZwghrwWZ720RcPZw7A%<span class="number">3</span>D&amp;sess=s0aVNnVEjY5oUozi4rpJVPR7-RFxNY6v0BOq00Y767YDbKsExq37-Zzl6EADCEvHN2GwMBxCK7b5YSn5JKtrM4DYDXycFK4jhU5I8S8IR2JcG02MsiidQzM...Asj8BYI43DJ2Rhr_7sT46ySsVqPROMSaAMwnFVBU9-<span class="number">7</span>LAD_E5O2PSSYvoVwQu5tpweW9OF6BoXtOIMwiRWhTf8&amp;ans=%<span class="number">5</span>B%<span class="number">7</span>B%<span class="number">22</span>elem_id%<span class="number">22</span>%<span class="number">3</span>A1%<span class="number">2</span>C%<span class="number">22</span>type%<span class="number">22</span>%<span class="number">3</span>A%<span class="number">22</span>DynAnswerType_POS%<span class="number">22</span>%<span class="number">2</span>C%<span class="number">22</span>data%<span class="number">22</span>%<span class="number">3</span>A%<span class="number">22393</span>%<span class="number">2</span>C63%<span class="number">22</span>%<span class="number">7</span>D%<span class="number">5</span>D&amp;tkid=<span class="number">581051966</span>&amp;pow_answer=a594cb9f0137effe%<span class="number">23861</span>&amp;pow_calc_time=<span class="number">19</span></span></code></pre>
+<p>response</p>
+<pre><code class="highlight http"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK
+<span class="attribute">Date</span><span class="punctuation">: </span>Thu, 08 Oct 2026 07:29:25 GMT
+<span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json
+<span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive
+<span class="attribute">P3P</span><span class="punctuation">: </span>CP=CAO PSA OUR
+<span class="attribute">Pragma</span><span class="punctuation">: </span>No-cache
+<span class="attribute">Server</span><span class="punctuation">: </span>Trpc httpd
+<span class="attribute">Server</span><span class="punctuation">: </span>tencent http server
+<span class="attribute">Accept-Ranges</span><span class="punctuation">: </span>bytes
+<span class="attribute">access-control-allow-origin</span><span class="punctuation">: </span>*
+<span class="attribute">Content-Length</span><span class="punctuation">: </span>243
+
+<span class="language-perl">&#123;</span>
+<span class="language-perl">  <span class="string">&quot;errorCode&quot;</span>: <span class="string">&quot;0&quot;</span>,</span>
+<span class="language-perl">  <span class="string">&quot;randstr&quot;</span>: <span class="string">&quot;<span class="variable">@eAi</span>&quot;</span>,</span>
+<span class="language-perl">  <span class="string">&quot;ticket&quot;</span>: <span class="string">&quot;tr03kNgzAV....L6UilK2-&quot;</span>,</span>
+<span class="language-perl">  <span class="string">&quot;traceId&quot;</span>: <span class="string">&quot;&quot;</span>,</span>
+<span class="language-perl">  <span class="string">&quot;errMessage&quot;</span>: <span class="string">&quot;&quot;</span>,</span>
+<span class="language-perl">  <span class="string">&quot;sess&quot;</span>: <span class="string">&quot;&quot;</span></span>
+<span class="language-perl">&#125;</span>
+<span class="language-perl"></span></code></pre>
+<p>拿到了ticket和randstr就可以美美登录成功了</p>
+<p>问题就是这里怎么拿了，有两种思路</p>
+<p>一种就是前面登录的过程全部替换成selenium模拟登录，拿到seesion后一键继承，这种应该比较简单了，但是会慢很多</p>
+<p>另一种就是纯走HTTP，通过load到的包来直接用opencv过验证</p>
+<p>这里我们用后面一种，直接让AI搓一下就行（</p>
+<h2 id="成功进入首页"><a class="markdownIt-Anchor" href="#成功进入首页"></a> 成功进入首页</h2>
+<p>突然发现自己少看一个包(本来我还纳闷为什么看来看去没有给总的题目类型的)</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261009163037940.png" alt="image-20261009163037940"></p>
+<p>这样也不用猜题目类型了(</p>
+<p>然后我们需要return给AI的是<code>probelmType</code>,<code>problemSetProblemId</code>,<code>content</code></p>
+<p>那么就查询题目类型接着提取<code>json[&quot;problemSetProblems&quot;]</code></p>
+<p>存下来的是一个列表，接着提取每个元素的id和content就大功造成了</p>
+<p>AI需要返回给我们的是<code>probelmType</code>,<code>problemSetProblemId</code>,<code>answer</code></p>
+<p>但是这里太频繁的测试导致我的ip被腾子的大手限流了，那么就需要把Cookie持久化到本地进行复用了，那么怎么办呢?</p>
+<p><strong>巧了</strong>，这里我刚好在抓包测试能不能看到测试的完成数据，发现三天的session居然还能使用，我要绷不住了，那么就说明它这个session的签发时间足够长，大可以保存到本地，这对我们后面把不同模块封装成tools也有好处，防止频繁访问导致MCP的交互流出现问题</p>
+<p>然后我们看看提交的包，所有题目提交的接口都是一样的</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011204313879.png" alt="image-20261011204313879"></p>
+<p>判断题:</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;TRUE_OR_FALSE&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361344&quot;,&quot;trueOrFalseSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;TRUE&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361345&quot;,&quot;trueOrFalseSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;FALSE&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361346&quot;,&quot;trueOrFalseSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;FALSE&quot;&#125;&#125;]&#125;</code></pre>
+<p>单选题:</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;MULTIPLE_CHOICE&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361382&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;B&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361383&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;C&quot;&#125;&#125;]&#125;</code></pre>
+<p>编程题</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;PROGRAMMING&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361469&quot;,&quot;programmingSubmissionDetail&quot;:&#123;&quot;program&quot;:&quot;nums = eval(input())\nrepeat = sorted(&#123;x for x in nums if nums.count(x) &gt; 1&#125;)\nprint(*repeat, end=&#x27; &#x27;)&quot;,&quot;compiler&quot;:&quot;PYTHON3&quot;&#125;&#125;]&#125;</code></pre>
+<p>但是这里我们要测试一下编程题是不是支持批量提交的</p>
+<p>这里我又抓了另一道题目的包</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;PROGRAMMING&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361456&quot;,&quot;programmingSubmissionDetail&quot;:&#123;&quot;program&quot;:&quot;s = input().strip()\nprint(\&quot;YES\&quot; if int(s[-1]) % 2 == 1 else \&quot;NO\&quot;)&quot;,&quot;compiler&quot;:&quot;PYTHON3&quot;&#125;&#125;]&#125;</code></pre>
+<p>接着合并一下</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;PROGRAMMING&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361469&quot;,&quot;programmingSubmissionDetail&quot;:&#123;&quot;program&quot;:&quot;nums = eval(input())\nrepeat = sorted(&#123;x for x in nums if nums.count(x) &gt; 1&#125;)\nprint(*repeat, end=&#x27; &#x27;)&quot;,&quot;compiler&quot;:&quot;PYTHON3&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361456&quot;,&quot;programmingSubmissionDetail&quot;:&#123;&quot;program&quot;:&quot;s = input().strip()\nprint(\&quot;YES\&quot; if int(s[-1]) % 2 == 1 else \&quot;NO\&quot;)&quot;,&quot;compiler&quot;:&quot;PYTHON3&quot;&#125;&#125;]&#125;</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011210039561.png" alt="image-20261011210039561"></p>
+<p>失败了</p>
+<p>那么submit就只能拆成两个来做了</p>
+<h2 id="封装成tool"><a class="markdownIt-Anchor" href="#封装成tool"></a> 封装成tool</h2>
+<p>初步想的是设计成两个tool</p>
+<p>一个负责爬取，一个负责提交</p>
+<p>但是后来发现两个都需要获取session才能继续操作，那么就把申请session单独分离出来成一个tool然后持久到本地</p>
+<p>那么大致就是</p>
+<ol>
+<li>pta_login:登录平台获取session实现对话持久化</li>
+<li>pta_list_exams:通过指定接口拉取当前正在进行的练习，并根据用户的需求确定要做哪份练习</li>
+<li>pull_exam_set:批量拉取指定练习的所有题目，并剥离只剩下需要的字段</li>
+<li>submit_answers:批量提交客观题，主观题(比如编程题目)接口上只支持单个提交</li>
+<li>pta_submission_detail:查看提交的结果(这里是针对编程题的提交结果做的特化)</li>
+</ol>
+<p>比较大的问题就是:如何处理大量的题面以及编程题的提交?</p>
+<p>初步想法是</p>
+<p>最好是把题面再做一下处理，筛掉无意义的字符，比如大量的连续\n，如果直接传输过去，会很占上下文</p>
+<p>再和ai博弈了一下，发现可以调用sampling功能直接和LLM交互</p>
+<p>但是实际也差不了多少，题面的那些工作量上减不下来的，最多写一个filter给文本做一些基础的清洗</p>
+<p>接着AI的答案也要save到本地去，从而减少token的消耗(只要就是要指定格式这一块)</p>
+<p>本来想用AI在这个基础上直接写server的，写完发现还不如自己来，代码质量实在是差到令人发指。无意义的调用和函数编写一堆</p>
+<h2 id="手搓tool"><a class="markdownIt-Anchor" href="#手搓tool"></a> 手搓tool</h2>
+<p>中间也发现了很多问题，记录一下</p>
+<h3 id="爬取时的filter"><a class="markdownIt-Anchor" href="#爬取时的filter"></a> 爬取时的filter</h3>
+<p>就是最开始获取exam时候的filter，filter为空的时候他会打印所有考试，而页面一般加载时会自动载入某个时间节点做筛选</p>
+<p>比如这样</p>
+<pre><code class="highlight plaintext">GET /api/problem-sets?filter=%7B%22endAtAfter%22%3A%222026-10-12T16%3A00%3A00.000Z%22%7D&amp;limit=7&amp;order_by=END_AT&amp;asc=true</code></pre>
+<p>这里解码完是<code>&#123;&quot;endAtAfter&quot;:&quot;2026-10-12T16:00:00.000Z&quot;&#125;</code></p>
+<p>那么我们仿造一下在开局就做好筛选就能拿到纯净的alive exam_id</p>
+<p>查了下这个是utc的时间标准，也就是说我们查询的时候不是用北京时间的(，那么参数就要控制一下了，最后再做编码</p>
+<pre><code class="highlight python">time_point=datetime.now(timezone.utc).strftime(<span class="string">&#x27;%Y-%m-%dT%H:%M:%S.000Z&#x27;</span>)
+template=<span class="string">&#x27;&#123;&quot;endAtAfter&quot;:&quot;&#x27;</span>+time_point+<span class="string">&#x27;&quot;&#125;&#x27;</span>
+<span class="built_in">print</span>(quote(template))</code></pre>
+<h3 id="怎么处理答案"><a class="markdownIt-Anchor" href="#怎么处理答案"></a> 怎么处理答案</h3>
+<p>最好就是存储到本地，接着调用submit_answer的时候直接从本地读取，然后自己纠正提交的json格式</p>
+<p>从而来减少token的消耗，拿dsf举例吧，如果让它把格式修正好，一般它就要构思脚本去规范格式，这样就会占用一些context，那还不如规范出最简的格式</p>
+<p>然后在tool内部自己调整格式</p>
+<p>belike:</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;MULTIPLE_CHOICE&quot;,&quot;details&quot;:[&#123;&quot;problemSetProblemId&quot;:&quot;2099334496411578418&quot;,&quot;answer&quot;:&quot;C&quot;&#125;,&#123;&quot;problemSetProblemId&quot;:&quot;2099334496411578419&quot;,&quot;answer&quot;:&quot;B&quot;&#125;]&#125;</code></pre>
+<p>而我们要提交的格式是</p>
+<pre><code class="highlight plaintext">&#123;&quot;problemType&quot;:&quot;MULTIPLE_CHOICE&quot;,&quot;details&quot;:[&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361382&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;B&quot;&#125;&#125;,&#123;&quot;problemId&quot;:&quot;0&quot;,&quot;problemSetProblemId&quot;:&quot;2104474233634361383&quot;,&quot;multipleChoiceSubmissionDetail&quot;:&#123;&quot;answer&quot;:&quot;C&quot;&#125;&#125;]&#125;</code></pre>
+<p>这种程度其实脚本调整起来还是非常方便的</p>
+<h2 id="todo"><a class="markdownIt-Anchor" href="#todo"></a> TODO</h2>
+<p>其实还有一些事情没有做的</p>
+<p><strong>第一个就是OCR</strong>，因为在测试中发现有些题目的代码是写在图片里面的，就很难绷</p>
+<p><strong>第二个就是FILTER</strong>，虽说前面已经节省了一些token的消耗，但是本着不多浪费一点无用的米，感觉还是有必要写个filter去对题目的内容去做一些清洗</p>
+<p>项目已上传github欢迎提出意见呢</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kisakiayano/PTA-mcp">https://github.com/kisakiayano/PTA-mcp</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Dev/" rel="tag"># Dev</a>
+              <a href="/tags/MCP/" rel="tag"># MCP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/10/04/Prase-difference-in-latest-Nginx/" rel="prev" title="Prase difference in latest Nginx">
+                  <i class="fa fa-angle-left"></i> Prase difference in latest Nginx
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">404k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12:15</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
