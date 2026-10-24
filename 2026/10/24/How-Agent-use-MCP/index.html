@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="How  an Agent use MCP tools? 9月的时候有幸参加了字节安开实习岗的面试，感觉学到了很多的东西 AI确实越来越成为就业~~和比赛(你知道的，我不打传统CTF很久了)~~的重点考察对象了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How Agent use MCP">
+<meta property="og:url" content="https://ayan0.top/2026/10/24/How-Agent-use-MCP/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="How  an Agent use MCP tools? 9月的时候有幸参加了字节安开实习岗的面试，感觉学到了很多的东西 AI确实越来越成为就业~~和比赛(你知道的，我不打传统CTF很久了)~~的重点考察对象了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260916133706454.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260916130746039.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917142741705.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917144510735.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917145501431.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915223002449.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915225509620.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915224515653.png">
+<meta property="article:published_time" content="2026-10-24T14:18:35.000Z">
+<meta property="article:modified_time" content="2026-10-24T14:51:06.194Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260916133706454.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/10/24/How-Agent-use-MCP/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/10/24/How-Agent-use-MCP/","path":"2026/10/24/How-Agent-use-MCP/","title":"How Agent use MCP"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>How Agent use MCP | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#how-an-agent-use-mcp-tools"><span class="nav-number">1.</span> <span class="nav-text"> How  an Agent use MCP tools?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#how-mcp-work"><span class="nav-number">1.1.</span> <span class="nav-text"> How mcp work?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mcp%E7%BB%84%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text"> MCP组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1mcp%E4%BC%A0%E8%BE%93%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text"> 一次mcp传输的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="nav-number">1.2.1.1.</span> <span class="nav-text"> 初始化阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E9%98%B6%E6%AE%B5"><span class="nav-number">1.2.1.2.</span> <span class="nav-text"> 通信阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E9%98%B6%E6%AE%B5"><span class="nav-number">1.2.1.3.</span> <span class="nav-text"> 终止阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mcp%E7%9A%84%E5%B7%A5%E5%85%B7%E9%A1%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text"> MCP的工具项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#client%E4%B8%8Eserver%E7%9A%84capability"><span class="nav-number">1.2.3.</span> <span class="nav-text"> Client与Server的Capability</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#client"><span class="nav-number">1.2.3.1.</span> <span class="nav-text"> Client</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">1.2.3.2.</span> <span class="nav-text"> Server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mcp%E6%94%AF%E6%8C%81%E7%9A%84%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.4.</span> <span class="nav-text"> MCP支持的通信机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stdio"><span class="nav-number">1.2.4.1.</span> <span class="nav-text"> stdio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sse"><span class="nav-number">1.2.4.2.</span> <span class="nav-text"> SSE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#streamable-http"><span class="nav-number">1.2.4.3.</span> <span class="nav-text"> Streamable HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#stateful"><span class="nav-number">1.2.4.3.1.</span> <span class="nav-text"> Stateful</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#stateless"><span class="nav-number">1.2.4.3.2.</span> <span class="nav-text"> Stateless</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-message-between-agent-and-mcp-server"><span class="nav-number">1.3.</span> <span class="nav-text"> The message between Agent and MCP server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attack-towards-mcp"><span class="nav-number">1.4.</span> <span class="nav-text"> Attack towards MCP?</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/10/24/How-Agent-use-MCP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="How Agent use MCP | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How Agent use MCP
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-10-24 22:18:35 / 修改时间：22:51:06" itemprop="dateCreated datePublished" datetime="2026-10-24T22:18:35+08:00">2026-10-24</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>35 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="how-an-agent-use-mcp-tools"><a class="markdownIt-Anchor" href="#how-an-agent-use-mcp-tools"></a> How  an Agent use MCP tools?</h1>
+<p>9月的时候有幸参加了字节安开实习岗的面试，感觉学到了很多的东西</p>
+<p>AI确实越来越成为就业~~和比赛(你知道的，我不打传统CTF很久了)~~的重点考察对象了</p>
+<p>平时一直在用AI，也没关注过到底Agent是怎么调用那些MCP工具，怎么自己读取skills?skills又是什么结构的呢</p>
+<p>后面大概会亿点点补上来吧，也算是重新找到了新的动力和方向</p>
+<h2 id="how-mcp-work"><a class="markdownIt-Anchor" href="#how-mcp-work"></a> How mcp work?</h2>
+<p>MCP和Agent的标准传输机制还是有几种种类的</p>
+<p>从官方文档可以发现，一开始主流传输流的类型有stdio和HTTP with Server-Sent Events(SSE)</p>
+<p>也支持自定义协议，只要协议能保证全双工通信就可以</p>
+<p>规定MCP使用JSON-RPC对消息进行编码，且JSON-RPC消息必须是被UTF-8编码过的</p>
+<p><strong>JSON-RPC又是什么呢?</strong></p>
+<p>是一种使用特定格式JSON进行client-server通信的协议</p>
+<p>请求的JSON通常包括<code>method,params,id</code>三个字段，分别表示需要远程调用的方法，输入参数，消息的序号</p>
+<p>而响应的JSON包括<code>Result,Error,响应id</code>，结果最为重要，error仅在调用时出现问题会进行返回(发送错误的代码和报错消息)，响应id记录传输过来的消息的序号并继承</p>
+<p>like this:</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260916133706454.png" alt="image-20260916133706454"></p>
+<p>传输通过request,notifications(progress/message),response三种消息类型</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260916130746039.png" alt="image-20260916130746039"></p>
+<p>stdio使用标准输入和标准输出进行通信，并且客户端应尽可能支持stdio这种传输机制</p>
+<p>后来SSE被Streamable HTTP代替，为什么呢?等谈到MCP协议的迭代史时就知道了</p>
+<h2 id="mcp组成"><a class="markdownIt-Anchor" href="#mcp组成"></a> MCP组成</h2>
+<p>在一开始，MCP的机制还是比较简单的</p>
+<p>支持三种消息类型:request,notifications(单向通信、不包含id),response</p>
+<p>除了notification以外的消息都是包含id的</p>
+<p>主要支持stdio和SSE，在传输层由基础协议、生命周期管理、服务器功能、客户端功能、工具五部分组成</p>
+<p>最核心的是基本协议(即JSON-RPC)和生命周期管理(连接的初始化、能力协商和会话控制)</p>
+<p><strong>一开始，鉴权并没有被作为MCP核心规范的一部分</strong></p>
+<p>在2025年3月的更新中引入了OAuth的授权，但是不支持STDIO的传输</p>
+<h3 id="一次mcp传输的生命周期"><a class="markdownIt-Anchor" href="#一次mcp传输的生命周期"></a> 一次mcp传输的生命周期</h3>
+<p>用直观一点的方式:</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917142741705.png" alt="image-20260917142741705"></p>
+<h4 id="初始化阶段"><a class="markdownIt-Anchor" href="#初始化阶段"></a> 初始化阶段</h4>
+<p>在这个阶段客户端和服务端建立协议版本兼容性；交换和协商功能；分享实现细节</p>
+<p>客户端先向服务端发起初始化请求(包含<code>protocolVersion capabilities </code>以及<code>clientInfo</code>)</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+    <span class="attr">&quot;method&quot;</span><span class="punctuation">:</span> <span class="string">&quot;initialize&quot;</span><span class="punctuation">,</span> 
+    <span class="attr">&quot;params&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+        <span class="attr">&quot;protocolVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2025-11-25&quot;</span><span class="punctuation">,</span> 
+        <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;sampling&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> 
+            <span class="attr">&quot;elicitation&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                <span class="attr">&quot;form&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span> 
+                <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="punctuation">&#125;</span>
+            <span class="punctuation">&#125;</span>
+        <span class="punctuation">&#125;</span><span class="punctuation">,</span> 
+        <span class="attr">&quot;clientInfo&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pi-mcp-yakit&quot;</span><span class="punctuation">,</span> 
+            <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span>
+        <span class="punctuation">&#125;</span>
+    <span class="punctuation">&#125;</span><span class="punctuation">,</span> 
+    <span class="attr">&quot;jsonrpc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0&quot;</span><span class="punctuation">,</span> 
+    <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">0</span>
+<span class="punctuation">&#125;</span></code></pre>
+<p>同时服务端接收到信息后也返回自己对应的信息</p>
+<p>如果服务端支持请求的协议版本，则必须返回相同的版本。否则，服务端必须返回其支持的另一个协议版本。该版本应该是服务端支持的最新版本。</p>
+<p>如果客户端不支持服务器响应中的版本，则应该断开连接。</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;jsonrpc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0&quot;</span><span class="punctuation">,</span>
+  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>
+  <span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;protocolVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2025-11-25&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+      <span class="attr">&quot;prompts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;listChanged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;resources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;listChanged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;tools&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;listChanged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="punctuation">&#125;</span>
+    <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;serverInfo&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Yaklang MCP Server&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.2&quot;</span> <span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span>
+</code></pre>
+<p>最初规定client和server可以有的功能有这些:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Capability</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Client</td>
+<td style="text-align:left"><code>roots</code></td>
+<td style="text-align:left">Ability to provide filesystem <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/client/roots">roots</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Client</td>
+<td style="text-align:left"><code>sampling</code></td>
+<td style="text-align:left">Support for LLM <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/client/sampling">sampling</a> requests</td>
+</tr>
+<tr>
+<td style="text-align:left">Client</td>
+<td style="text-align:left"><code>experimental</code></td>
+<td style="text-align:left">Describes support for non-standard experimental features</td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left"><code>prompts</code></td>
+<td style="text-align:left">Offers <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/server/prompts">prompt templates</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left"><code>resources</code></td>
+<td style="text-align:left">Provides readable <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/server/resources">resources</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left"><code>tools</code></td>
+<td style="text-align:left">Exposes callable <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/server/tools">tools</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left"><code>logging</code></td>
+<td style="text-align:left">Emits structured <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/specification/2024-11-05/server/utilities/logging">log messages</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Server</td>
+<td style="text-align:left"><code>experimental</code></td>
+<td style="text-align:left">Describes support for non-standard experimental features</td>
+</tr>
+</tbody>
+</table>
+<p>并且协商后只能使用协商好的协议版本和功能</p>
+<p>初始化成功后，客户端必须发送一条notifications的已初始化消息来表明准备好开始来调用mcp server的方法了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917144510735.png" alt="image-20260917144510735"></p>
+<p>并且在客户端响应<code>initialize</code>请求前只能发送PING请求而不能发送其他request</p>
+<p>而服务端也必须以空的result来响应</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260917145501431.png" alt="image-20260917145501431"></p>
+<h4 id="通信阶段"><a class="markdownIt-Anchor" href="#通信阶段"></a> 通信阶段</h4>
+<p>就是字面意思了，通过发送message进行交互，只能使用协商好的协议版本和功能</p>
+<h4 id="终止阶段"><a class="markdownIt-Anchor" href="#终止阶段"></a> 终止阶段</h4>
+<p>在终止阶段有一方会先断开连接，并不会发送特定的消息，而是从底层上发送讯号通知另一方连接中断</p>
+<h3 id="mcp的工具项"><a class="markdownIt-Anchor" href="#mcp的工具项"></a> MCP的工具项</h3>
+<p>mcp自带多种消息类型进行一些常规的操作，例如Cancellation对正在进行的操作进行取消，Ping对另一方进行探活</p>
+<ul>
+<li>Cancellation</li>
+</ul>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/cancelled&quot;,
+  &quot;params&quot;: &#123;
+    &quot;requestId&quot;: &quot;123&quot;,//需要取消的requestID
+    &quot;reason&quot;: &quot;User requested cancellation&quot;//可供记录的取消原因
+  &#125;
+&#125;</code></pre>
+<p>客户端不得取消初始化请求。</p>
+<p>收到取消通知的接收者应该：停止处理已取消的请求；释放相关资源；不要对已取消的请求发送回复。</p>
+<p>如果出现以下情况，接收方可以忽略取消通知：所引用的请求未知；处理已完成；请求无法取消。</p>
+<ul>
+<li>PING</li>
+</ul>
+<p>request</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;123&quot;,
+  &quot;method&quot;: &quot;ping&quot;
+&#125;</code></pre>
+<p>recevier</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: &quot;123&quot;,
+  &quot;result&quot;: &#123;&#125;
+&#125;</code></pre>
+<ul>
+<li>progress</li>
+</ul>
+<p>MCP是支持通过使用progress来长期跟踪查看正在进行操作的进度</p>
+<p>当一方想要接收请求的进度更新时，它会在请求元数据中包含一个 progressToken。</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;some_method&quot;,
+  &quot;params&quot;: &#123;
+    &quot;_meta&quot;: &#123;
+      &quot;progressToken&quot;: &quot;abc123&quot;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>此时接收方会返回对应操作的进度</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/progress&quot;,
+  &quot;params&quot;: &#123;
+    &quot;progressToken&quot;: &quot;abc123&quot;,//原来操作的progressToken
+    &quot;progress&quot;: 50,
+    &quot;total&quot;: 100
+  &#125;
+&#125;</code></pre>
+<p>进度通知必须仅引用<strong>在存活请求中提供的token</strong>与<strong>正在进行的操作关联的token</strong>。</p>
+<p>进度请求的接收者可以选择不发送任何进度通知/以他们认为合适的任何频率发送通知/如果总值未知，则省略总值。</p>
+<h3 id="client与server的capability"><a class="markdownIt-Anchor" href="#client与server的capability"></a> Client与Server的Capability</h3>
+<h4 id="client"><a class="markdownIt-Anchor" href="#client"></a> Client</h4>
+<ul>
+<li>Roots</li>
+</ul>
+<p>规定mcp服务器有权操作的工作区路径</p>
+<p>当然这个也可以与从版本控制系统或项目文件中自动检测工作区相结合</p>
+<p>然而，实现方案可以自由地通过任何符合自身需求的接口模式来暴露根目录——协议本身并未强制规定任何特定的用户交互模型。</p>
+<p>若要支持这个功能，在初始化阶段，client就要在capabilities字段声明roots</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;roots&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+      <span class="attr">&quot;listChanged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span>
+    <span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+<p>listChanged 指示当根列表发生变化时，客户端是否会发出通知。</p>
+<p>接着就是它在message中的应用</p>
+<p>如果server要检索根目录，就要发送 roots/list 请求</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;roots/list&quot;
+&#125;</code></pre>
+<p>此时client会返回类似这样的请求</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;roots&quot;: [
+      &#123;
+        &quot;uri&quot;: &quot;file:///home/user/projects/myproject&quot;,
+        &quot;name&quot;: &quot;My Project&quot;
+      &#125;
+    ]
+  &#125;
+&#125;</code></pre>
+<p>当client的工作目录发生变化时，支持<code>listChanged</code>的client必须要发送一个<code>notification</code>给Server来通知目录已经发生了变化</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/roots/list_changed&quot;
+&#125;</code></pre>
+<ul>
+<li>Sampling</li>
+</ul>
+<p>即MCP server反向调用client的LLM进行交互</p>
+<p>若要支持这个功能，在初始化阶段，client就要在capabilities字段声明sampling</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;sampling&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+<p>要请求LLM时Server就会发出<code>sampling/createMessage</code>请求</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;sampling/createMessage&quot;,
+  &quot;params&quot;: &#123;
+    &quot;messages&quot;: [
+      &#123;
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: &#123;
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;text&quot;: &quot;What is the capital of France?&quot;
+        &#125;
+      &#125;
+    ],
+    &quot;modelPreferences&quot;: &#123;
+      &quot;hints&quot;: [
+        &#123;
+          &quot;name&quot;: &quot;claude-3-sonnet&quot;
+        &#125;
+      ],
+      &quot;intelligencePriority&quot;: 0.8,
+      &quot;speedPriority&quot;: 0.5
+    &#125;,
+    &quot;systemPrompt&quot;: &quot;You are a helpful assistant.&quot;,
+    &quot;maxTokens&quot;: 100
+  &#125;
+&#125;</code></pre>
+<p>response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;role&quot;: &quot;assistant&quot;,
+    &quot;content&quot;: &#123;
+      &quot;type&quot;: &quot;text&quot;,
+      &quot;text&quot;: &quot;The capital of France is Paris.&quot;
+    &#125;,
+    &quot;model&quot;: &quot;claude-3-sonnet-20240307&quot;,
+    &quot;stopReason&quot;: &quot;endTurn&quot;
+  &#125;
+&#125;</code></pre>
+<p>Sampling的信息允许有文本/图片内容</p>
+<blockquote>
+<p>图片的传输</p>
+<p>{<br>
+“type”: “image”,<br>
+“data”: “base64-encoded-image-data”,<br>
+“mimeType”: “image/jpeg”<br>
+}</p>
+</blockquote>
+<p>同时为了应付出现的client端使用的AI供应商和Server端请求的不同的情况，sampling可以使用preference来结合抽象的能力优先级与可选的模型提示</p>
+<p>可以用以下字段来表示server需求的优先级</p>
+<pre><code class="highlight plaintext">costPriority：降低成本有多重要？数值越高，选择价格更低的模型
+speedPriority：低延迟有多重要？数值越高，选择速度更快的模型
+intelligencePriority：高级功能有多重要？数值越高，选择功能更强大的模型</code></pre>
+<p>用<code>hint</code>表示对模型名称的模糊匹配(一些子字符串)</p>
+<p>存在多个hint时会按顺序进行评估</p>
+<p>client也可以将hint映射到同一模型的不同供应商上</p>
+<p>但最后选择的决定由client决定</p>
+<p>综合上述的字段，就有了下面这个例子</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;hints&quot;: [
+    &#123; &quot;name&quot;: &quot;claude-3-sonnet&quot; &#125;, // Prefer Sonnet-class models
+    &#123; &quot;name&quot;: &quot;claude&quot; &#125; // Fall back to any Claude model
+  ],
+  &quot;costPriority&quot;: 0.3, // Cost is less important
+  &quot;speedPriority&quot;: 0.8, // Speed is very important
+  &quot;intelligencePriority&quot;: 0.5 // Moderate capability needs
+&#125;</code></pre>
+<p>客户端会处理这些偏好设置，从可用选项中选择合适的模型。例如，如果客户端没有 Claude 模型，但有 Gemini 模型，它可能会根据相似的功能将<code>hint</code>映射到 gemini-1.5-pro。</p>
+<h4 id="server"><a class="markdownIt-Anchor" href="#server"></a> Server</h4>
+<p>三种功能在发生改变时都要向另一方发送notifications通知<code>server-&gt;client</code></p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/prompts/list_changed&quot;//或者resources/tools
+&#125;</code></pre>
+<p><code>resource/list</code>、<code>resource/templates/list</code>、<code>prompts/list</code>、<code>tools/list</code>都支持进行在数据量过大时进行分页(通过server返回的<code>nextCursor</code>字段运行，client可以通过在params中增加<code>cursor</code>参数来请求下一页内容)</p>
+<ul>
+<li>Prompts</li>
+</ul>
+<p>prompts旨在让用户能够明确地选择使用server上的功能</p>
+<p>通常来说用户可以通过<code>/+命令</code>来发起调用</p>
+<p>和Client的功能同理，Server也要在初始化阶段就声明</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;capabilities&quot;: &#123;
+    &quot;prompts&quot;: &#123;
+      &quot;listChanged&quot;: true
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>在通信阶段，client就能通过这样的消息来查询Server上存在的Prompts</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;prompts/list&quot;,
+  &quot;params&quot;: &#123;
+    &quot;cursor&quot;: &quot;optional-cursor-value&quot;
+  &#125;
+&#125;</code></pre>
+<p>响应</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;prompts&quot;: [
+      &#123;
+        &quot;name&quot;: &quot;code_review&quot;,
+        &quot;description&quot;: &quot;Asks the LLM to analyze code quality and suggest improvements&quot;,
+        &quot;arguments&quot;: [
+          &#123;
+            &quot;name&quot;: &quot;code&quot;,
+            &quot;description&quot;: &quot;The code to review&quot;,
+            &quot;required&quot;: true
+          &#125;
+        ]
+      &#125;
+    ],
+    &quot;nextCursor&quot;: &quot;next-page-cursor&quot;
+  &#125;
+&#125;</code></pre>
+<p>然后通过<code>prompts/get</code>来调用想要调用的prompts</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;method&quot;: &quot;prompts/get&quot;,
+  &quot;params&quot;: &#123;
+    &quot;name&quot;: &quot;code_review&quot;,
+    &quot;arguments&quot;: &#123;
+      &quot;code&quot;: &quot;def hello():\n    print(&#x27;world&#x27;)&quot;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;result&quot;: &#123;
+    &quot;description&quot;: &quot;Code review prompt&quot;,
+    &quot;messages&quot;: [
+      &#123;
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: &#123;
+          &quot;type&quot;: &quot;text&quot;,//同样也支持image
+          &quot;text&quot;: &quot;Please review this Python code:\ndef hello():\n    print(&#x27;world&#x27;)&quot;
+        &#125;
+      &#125;
+    ]
+  &#125;
+&#125;</code></pre>
+<p>除了text和image，还支持可嵌入资源，资源可以包含文本数据或二进制（blob）数据，但URI<strong>必须</strong>有效，mimetype需要恰当，blob内容和图片一样也需要进行Base64的编码</p>
+<p>可以直接在Prompts中嵌入资源能够无缝地将服务器管理的内容（如文档、代码示例或其他参考资料）直接整合到对话流程中。</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;type&quot;: &quot;resource&quot;,
+  &quot;resource&quot;: &#123;
+    &quot;uri&quot;: &quot;resource://example&quot;,
+    &quot;mimeType&quot;: &quot;text/plain&quot;,
+    &quot;text&quot;: &quot;Resource content&quot;
+  &#125;
+&#125;</code></pre>
+<p>但文档也给出了安全提示</p>
+<p><strong>实现过程中必须仔细验证所有提示输入和输出，以防止注入攻击或未经授权的资源访问。</strong></p>
+<ul>
+<li>Resources</li>
+</ul>
+<p>这个依赖于应用层是否有传入的接口，感觉比较像是网页版AI的文件上传接口之类的实现(只是从我们带着资源请求LLM变成了LLM来请求我们给的资源)</p>
+<p>URI的协议支持<code>https file git</code></p>
+<p>一样需要先声明</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;capabilities&quot;: &#123;
+    &quot;resources&quot;: &#123;
+      &quot;subscribe&quot;: true,//客户是否可以订阅以接收有关单个资源变更的通知。
+      &quot;listChanged&quot;: true
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>两个属性都是可选的</p>
+<p><strong>通信阶段:</strong></p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;resources/list&quot;,
+  &quot;params&quot;: &#123;
+    &quot;cursor&quot;: &quot;optional-cursor-value&quot;
+  &#125;
+&#125;</code></pre>
+<p>Response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;resources&quot;: [
+      &#123;
+        &quot;uri&quot;: &quot;file:///project/src/main.rs&quot;,
+        &quot;name&quot;: &quot;main.rs&quot;,
+        &quot;description&quot;: &quot;Primary application entry point&quot;,
+        &quot;mimeType&quot;: &quot;text/x-rust&quot;
+      &#125;
+    ],
+    &quot;nextCursor&quot;: &quot;next-page-cursor&quot;
+  &#125;
+&#125;</code></pre>
+<p>如果需要查看资源的话就发送<code>read</code>请求</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;method&quot;: &quot;resources/read&quot;,
+  &quot;params&quot;: &#123;
+    &quot;uri&quot;: &quot;file:///project/src/main.rs&quot;
+  &#125;
+&#125;</code></pre>
+<p>Response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;result&quot;: &#123;
+    &quot;contents&quot;: [
+      &#123;
+        &quot;uri&quot;: &quot;file:///project/src/main.rs&quot;,
+        &quot;mimeType&quot;: &quot;text/x-rust&quot;,
+        &quot;text&quot;: &quot;fn main() &#123;\n    println!(\&quot;Hello world!\&quot;);\n&#125;&quot;
+      &#125;
+    ]
+  &#125;
+&#125;</code></pre>
+<p>还支持resource的模板和订阅，client订阅某资源后就会在资源被更新时收到server的notification</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 3,
+  &quot;method&quot;: &quot;resources/templates/list&quot;,
+  &quot;params&quot;: &#123;
+    &quot;cursor&quot;: &quot;optional-cursor-value&quot;
+  &#125;
+&#125;
+
+&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 3,
+  &quot;result&quot;: &#123;
+    &quot;resourceTemplates&quot;: [
+      &#123;
+        &quot;uriTemplate&quot;: &quot;file:///&#123;path&#125;&quot;,
+        &quot;name&quot;: &quot;Project Files&quot;,
+        &quot;description&quot;: &quot;Access files in the project directory&quot;,
+        &quot;mimeType&quot;: &quot;application/octet-stream&quot;
+      &#125;
+    ],
+    &quot;nextCursor&quot;: &quot;next-page-cursor&quot;
+  &#125;
+&#125;</code></pre>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 4,
+  &quot;method&quot;: &quot;resources/subscribe&quot;,
+  &quot;params&quot;: &#123;
+    &quot;uri&quot;: &quot;file:///project/src/main.rs&quot;
+  &#125;
+&#125;
+&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/resources/updated&quot;,
+  &quot;params&quot;: &#123;
+    &quot;uri&quot;: &quot;file:///project/src/main.rs&quot;
+  &#125;
+&#125;</code></pre>
+<ul>
+<li>Tools</li>
+</ul>
+<p>就是公开供Client端调用的工具，这些工具使模型能够与外部系统交互</p>
+<p>LLM会根据其上下文理解和用户的提示自动发现和调用工具。</p>
+<p>但是，实现可以自由地通过任何适合自身需求的接口模式来公开工具——协议本身并没有规定任何特定的用户交互模型。</p>
+<p>所以一般为了保障信任和安全问题，默认必须始终有人工参与，并有权知道调用了什么工具，接收或拒绝工具调用。</p>
+<p>一开始tool的定义只需要<code>name description inputSchema</code></p>
+<p>后来在2025-03-26增加了<code>annotations</code>，本意是以便更好地描述工具行为，所以<strong>除非工具注释来自受信任的服务器，否则client必须将其视为不可信信息。</strong></p>
+<p>同样的，也是要在初始化阶段进行声明</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;capabilities&quot;: &#123;
+    &quot;tools&quot;: &#123;
+      &quot;listChanged&quot;: true
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p><strong>通信阶段:</strong></p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;tools/list&quot;,
+  &quot;params&quot;: &#123;
+    &quot;cursor&quot;: &quot;optional-cursor-value&quot;
+  &#125;
+&#125;</code></pre>
+<p>Response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;tools&quot;: [
+      &#123;
+        &quot;name&quot;: &quot;get_weather&quot;,
+        &quot;description&quot;: &quot;Get current weather information for a location&quot;,
+        &quot;inputSchema&quot;: &#123;
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: &#123;
+            &quot;location&quot;: &#123;
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;description&quot;: &quot;City name or zip code&quot;
+            &#125;
+          &#125;,
+          &quot;required&quot;: [&quot;location&quot;]
+        &#125;
+      &#125;
+    ],
+    &quot;nextCursor&quot;: &quot;next-page-cursor&quot;
+  &#125;
+&#125;</code></pre>
+<p>如果想要调用tools</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;method&quot;: &quot;tools/call&quot;,
+  &quot;params&quot;: &#123;
+    &quot;name&quot;: &quot;get_weather&quot;,
+    &quot;arguments&quot;: &#123;
+      &quot;location&quot;: &quot;New York&quot;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>Response</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 2,
+  &quot;result&quot;: &#123;
+    &quot;content&quot;: [
+      &#123;
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;text&quot;: &quot;Current weather in New York:\nTemperature: 72°F\nConditions: Partly cloudy&quot;
+      &#125;
+    ],
+    &quot;isError&quot;: false
+  &#125;
+&#125;</code></pre>
+<p>返回结果这里同样也是支持嵌入式资源</p>
+<ul>
+<li>
+<p>Utilities</p>
+<ul>
+<li>completion</li>
+</ul>
+<p>说是和IDE的代码补全机制差不多</p>
+<p><strong>在2025-3的更新后需要先声明了</strong></p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;capabilities&quot;: &#123;
+    &quot;completions&quot;: &#123;&#125;
+  &#125;
+&#125;</code></pre>
+<p>client需要补全建议时</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;completion/complete&quot;,
+  &quot;params&quot;: &#123;
+    &quot;ref&quot;: &#123;
+      &quot;type&quot;: &quot;ref/prompt&quot;,
+      &quot;name&quot;: &quot;code_review&quot;
+    &#125;,
+    &quot;argument&quot;: &#123;
+      &quot;name&quot;: &quot;language&quot;,
+      &quot;value&quot;: &quot;py&quot;
+    &#125;
+  &#125;
+&#125;
+
+&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;result&quot;: &#123;
+    &quot;completion&quot;: &#123;
+      &quot;values&quot;: [&quot;python&quot;, &quot;pytorch&quot;, &quot;pyside&quot;],//最多100个
+      &quot;total&quot;: 10,//可选匹配数
+      &quot;hasMore&quot;: true
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>completion支持两种类型，<code>ref/prompt</code>和<code>ref/resource</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ref/prompt</code></td>
+<td style="text-align:left">References a prompt by name</td>
+<td style="text-align:left"><code>&#123;&quot;type&quot;: &quot;ref/prompt&quot;, &quot;name&quot;: &quot;code_review&quot;&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ref/resource</code></td>
+<td style="text-align:left">References a resource URI</td>
+<td style="text-align:left"><code>&#123;&quot;type&quot;: &quot;ref/resource&quot;, &quot;uri&quot;: &quot;file:///&#123;path&#125;&quot;&#125;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>logging</li>
+</ul>
+<p>即server向client发送日志的能力</p>
+<p>server声明</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;logging&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+<p>client在通信阶段能够通过发送以下消息来设置log等级</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;logging/setLevel&quot;,
+  &quot;params&quot;: &#123;
+    &quot;level&quot;: &quot;info&quot;
+  &#125;
+&#125;</code></pre>
+<p>设置后server就会以<code>notification</code>的形式返回日志消息</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;notifications/message&quot;,
+  &quot;params&quot;: &#123;
+    &quot;level&quot;: &quot;error&quot;,
+    &quot;logger&quot;: &quot;database&quot;,
+    &quot;data&quot;: &#123;
+      &quot;error&quot;: &quot;Connection failed&quot;,
+      &quot;details&quot;: &#123;
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;port&quot;: 5432
+      &#125;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>而这样的日志中容易发生敏感信息泄露，这是server需要考虑并进行隐藏的</p>
+<ul>
+<li>Pagination</li>
+</ul>
+</li>
+</ul>
+<p>分页机制，已经提过了，是对可用resource/prompts过多时的应对措施</p>
+<h3 id="mcp支持的通信机制"><a class="markdownIt-Anchor" href="#mcp支持的通信机制"></a> MCP支持的通信机制</h3>
+<h4 id="stdio"><a class="markdownIt-Anchor" href="#stdio"></a> stdio</h4>
+<p>在这个过程中，Agent担任Client的角色而MCP server担任Server的角色</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915223002449.png" alt="image-20260915223002449"></p>
+<p>Client通过将请求的JSON写入Server标准流的形式输入</p>
+<p>like this:</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span><span class="attr">&quot;method&quot;</span><span class="punctuation">:</span><span class="string">&quot;initialize&quot;</span><span class="punctuation">,</span><span class="attr">&quot;params&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;protocolVersion&quot;</span><span class="punctuation">:</span><span class="string">&quot;2025-11-25&quot;</span><span class="punctuation">,</span><span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;sampling&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;elicitation&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;form&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;url&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;clientInfo&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;pi-mcp-yakit&quot;</span><span class="punctuation">,</span><span class="attr">&quot;version&quot;</span><span class="punctuation">:</span><span class="string">&quot;1.0.0&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span><span class="attr">&quot;jsonrpc&quot;</span><span class="punctuation">:</span><span class="string">&quot;2.0&quot;</span><span class="punctuation">,</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">&#125;</span></code></pre>
+<p>并且要求客户端不得向服务器的标准输入写入任何非有效的 MCP 消息，服务端不得向服务器的标准输出写入任何非有效的 MCP 消息。</p>
+<h4 id="sse"><a class="markdownIt-Anchor" href="#sse"></a> SSE</h4>
+<p>而在SSE传输中，MCP Server作为一个可以处理多个Client连接的进程</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915225509620.png" alt="image-20260915225509620"></p>
+<p>需要维持一个<code>/sse</code>的GET流用于建立连接和持续向客户端传输消息，并提供一个endpoint来给客户端通信</p>
+<p><code>/message</code>或者<code>/messages</code>用于处理Client以POST方式发送的消息，对于客户端来说消息也必须用POST的方式来传输给endpoint</p>
+<p>传输形式还是我们的JSON</p>
+<p>比较的麻烦，并且如果 SSE 连接断开，整个会话状态通常会丢失(endpoint的<strong>sessionId</strong>失效)</p>
+<p>而这个SessionId是进行POST传输必要的字段</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20260915224515653.png" alt="image-20260915224515653"></p>
+<p>那么就有可能发生泄露问题</p>
+<p>文档中也明确标出了安全问题:</p>
+<pre><code class="highlight plaintext">1.服务器必须验证所有传入连接的 Origin 标头，以防止 DNS 重绑定攻击
+2.在本地运行时，服务器应该只绑定到本地主机（127.0.0.1），而不是所有网络接口（0.0.0.0）
+3.服务器应该对所有连接实施适当的身份验证</code></pre>
+<p>如果没有这些保护措施，攻击者可以利用 DNS 重绑定从远程网站与本地 MCP 服务器进行交互。</p>
+<h4 id="streamable-http"><a class="markdownIt-Anchor" href="#streamable-http"></a> Streamable HTTP</h4>
+<p>在2025-03-26的更新中替换掉了原本的SSE<s>但是安全警告没变</s>，SSE流变成了StreamHTTP中可选的一种通信方式</p>
+<p>这种机制中，MCP Server也作为一个可以处理多个Client连接的进程，将GET/POST的请求集成到同一个endpoint</p>
+<p>一般来说就像这样<code>http://example.com/mcp</code></p>
+<p>相较SSE，StreamHTTP中的Server可以<strong>批量处理多个请求</strong>(随后在6月18日的更新中被移除了,MCP不再支持批处理)，Client的请求也要求携带Accept头，将 application/json 和 text/event-stream 列为支持的内容类型</p>
+<p>Request:</p>
+<pre><code class="highlight plaintext">[
+  &#123;
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;method&quot;: &quot;getUser&quot;,
+    &quot;params&quot;: &#123;&quot;id&quot;: 1&#125;,
+    &quot;id&quot;: 1
+  &#125;,
+  &#123;
+    &quot;jsonrpc&quot;: &quot;2.0&quot;, 
+    &quot;method&quot;: &quot;getOrders&quot;,
+    &quot;params&quot;: &#123;&quot;userId&quot;: 1&#125;,
+    &quot;id&quot;: 2
+  &#125;
+]</code></pre>
+<p>此时也相对应的返回结果数组</p>
+<pre><code class="highlight plaintext">[
+  &#123;
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: &#123;
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;Alice&quot;,
+      &quot;email&quot;: &quot;alice@example.com&quot;
+    &#125;,
+    &quot;id&quot;: 1
+  &#125;,
+  &#123;
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: [
+      &#123;&quot;orderId&quot;: 101, &quot;amount&quot;: 299.99&#125;,
+      &#123;&quot;orderId&quot;: 102, &quot;amount&quot;: 149.50&#125;
+    ],
+    &quot;id&quot;: 2
+  &#125;
+]</code></pre>
+<p>如果服务器无法接受输入，则必须返回 HTTP 错误状态码（例如，400 Bad Request）。HTTP 响应正文可以包含一个没有 ID 的 JSON-RPC 错误响应</p>
+<p>服务器的响应必须要同时支持SSE流的启动和正常对JSON的返回</p>
+<p>如果启动的是<strong>SSE流</strong>，那么服务器就不能在收到响应后，发送响应前关闭流，除非会话过期</p>
+<p>如果意外断连，那么为了避免message丢失，服务器要有使流可回复的能力</p>
+<pre><code class="highlight plaintext">1.客户端可以向 MCP 端点发出 HTTP GET 请求。这可以用来打开一个 SSE 流，从而允许服务器与客户端通信，而无需客户端先通过 HTTP POST 发送数据。
+2.客户端必须包含 Accept 标头，并将 text/event-stream 列为受支持的内容类型。
+3.服务器必须返回 Content-Type: text/event-stream 以响应此 HTTP GET 请求，否则返回 HTTP 405 Method Not Allowed，表明服务器在此端点不提供 SSE 流。
+4.如果服务器发起 SSE 流：服务器可以向该流发送 JSON-RPC 请求和通知。这些请求和通知可以批量处理。这些消息应该与客户端同时运行的任何 JSON-RPC 请求无关。除非恢复与先前客户端请求关联的流，否则服务器不得向该流发送 JSON-RPC 响应。服务器可以随时关闭 SSE 流。客户端也可以随时关闭 SSE 流。</code></pre>
+<p>那么如何保证断开的连接可恢复呢?</p>
+<pre><code class="highlight plaintext">服务器可以按照 SSE 标准中的描述，在其 SSE 事件中附加一个 id 字段:如果存在，则 ID 在该会话的所有流中必须是全局唯一的——或者，如果未使用会话管理，则在该特定客户端的所有流中必须是全局唯一的。
+如果客户端希望在连接断开后恢复连接，则应向 MCP 端点发出 HTTP GET 请求，并包含 Last-Event-ID 标头以指示其收到的最后一个事件 ID:服务器可以使用此标头重放断开连接的流上最后一个事件 ID 之后发送的消息，并从该点恢复流;服务器不得重放原本应该通过其他流发送的消息。</code></pre>
+<p>换句话说，这些事件 ID 应该由服务器按流进行分配，以便在该特定流中充当游标。</p>
+<h5 id="stateful"><a class="markdownIt-Anchor" href="#stateful"></a> Stateful</h5>
+<p>一开始采用有状态的流</p>
+<h5 id="stateless"><a class="markdownIt-Anchor" href="#stateless"></a> Stateless</h5>
+<p>在2026-09-03的更新中流为了无状态的</p>
+<h2 id="the-message-between-agent-and-mcp-server"><a class="markdownIt-Anchor" href="#the-message-between-agent-and-mcp-server"></a> The message between Agent and MCP server</h2>
+<p>如果是SSE时代</p>
+<p>最基本的搭建通信是通过一个持续的GET流来做，所以要抓包的话要自己一个代理做转发，当然也可以tcpdump直接抓流量读</p>
+<p>然后才是通过POST+session id做message的传输</p>
+<p>如果要调试mcp的使用，主要是通过<strong>MCP Inspector</strong>来做</p>
+<p>在HTTP流时代因为都通过一个路由(比如<code>/mcp</code>)在做传输，直接抓包就可以呢</p>
+<p>后面的内容由于时间缘故暂时没来得及看完(MCP的官方文档真的很长…)，后面会慢慢更新上来呢🥲</p>
+<h2 id="attack-towards-mcp"><a class="markdownIt-Anchor" href="#attack-towards-mcp"></a> Attack towards MCP?</h2>
+<p>了解完了工作原理，就应该看看有什么安全漏洞了</p>
+<p>先不看现有有什么吧，看完了实现总应该有些自己的感觉之类的</p>
+<p>首先从实现上呢，由于他是一个server-client的通信方式，其实更像是什么呢?一个第三方的资源库</p>
+<p>那么就避免不了一个问题，<strong>rogue server</strong></p>
+<p>只要实现一个恶意的MCP server并且欺骗用户进行连接，那么就可以通过sampling/tools等方式恶意引导LLM进行预期外的危险操作，比如执行命令或者删除修改数据。同时还可以盗取OAuth的令牌</p>
+<p>再讲讲它的<strong>认证方式</strong>上的缺陷，最早期的SSE的模式，其实很明显看的出来，sessionId是明文写在包里面的，没有任何加密</p>
+<p>那么如果出现会话被监听的情况，用户的sessionId就会发生泄露，产生进一步的敏感信息泄露问题</p>
+<p>用户的会话也有可能被污染，导致出现恶意调用(并且协议归协议，实现还是要看各厂商的源码本身有没有对协议的内容做严格遵循)，这就是另一个攻击面，<strong>上下文的污染和间接的提示注入</strong></p>
+<p>最后一个就是设计层面的问题了</p>
+<p>我们知道MCP Server是允许携带resource的，那么如果是一个公网上的的MCP Server，在resource的访问路径的sanitization上有问题，就会导致路径穿越了，从而泄露凭证和关键文件</p>
+<p>那么具体实际中有哪些分类，感觉众说纷纭，可以看看这篇文章呢</p>
+<p><a target="_blank" rel="noopener" href="https://exp10it.io/posts/exploring-mcp-security-risks/">Exploring MCP Security Risks | X1r0z Blog</a></p>
+<p>感觉讲的会比我的系统很多(</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/10/14/PTA%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5AI%E7%9A%84%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95/" rel="prev" title="PTA题目爬取转接AI的一次尝试">
+                  <i class="fa fa-angle-left"></i> PTA题目爬取转接AI的一次尝试
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">424k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">12:51</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

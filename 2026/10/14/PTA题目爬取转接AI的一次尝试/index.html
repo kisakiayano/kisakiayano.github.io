@@ -37,8 +37,9 @@
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261009163037940.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011204313879.png">
 <meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261011210039561.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261023203053913.png">
 <meta property="article:published_time" content="2026-10-14T08:13:44.000Z">
-<meta property="article:modified_time" content="2026-10-14T08:17:31.111Z">
+<meta property="article:modified_time" content="2026-10-24T09:50:22.111Z">
 <meta property="article:author" content="AyaN0">
 <meta property="article:tag" content="Dev">
 <meta property="article:tag" content="MCP">
@@ -172,7 +173,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pta%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5ai%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text"> PTA题目爬取转接AI的尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%93%E5%8F%96%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text"> 抓取流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tx%E6%BB%91%E5%9D%97captcha%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> TX滑块Captcha绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%8A%9F%E8%BF%9B%E5%85%A5%E9%A6%96%E9%A1%B5"><span class="nav-number">1.3.</span> <span class="nav-text"> 成功进入首页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%88%90tool"><span class="nav-number">1.4.</span> <span class="nav-text"> 封装成tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%90%93tool"><span class="nav-number">1.5.</span> <span class="nav-text"> 手搓tool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E5%8F%96%E6%97%B6%E7%9A%84filter"><span class="nav-number">1.5.1.</span> <span class="nav-text"> 爬取时的filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E7%AD%94%E6%A1%88"><span class="nav-number">1.5.2.</span> <span class="nav-text"> 怎么处理答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo"><span class="nav-number">1.6.</span> <span class="nav-text"> TODO</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pta%E9%A2%98%E7%9B%AE%E7%88%AC%E5%8F%96%E8%BD%AC%E6%8E%A5ai%E7%9A%84%E5%B0%9D%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text"> PTA题目爬取转接AI的尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%93%E5%8F%96%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text"> 抓取流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tx%E6%BB%91%E5%9D%97captcha%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text"> TX滑块Captcha绕过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E5%8A%9F%E8%BF%9B%E5%85%A5%E9%A6%96%E9%A1%B5"><span class="nav-number">1.3.</span> <span class="nav-text"> 成功进入首页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%88%90tool"><span class="nav-number">1.4.</span> <span class="nav-text"> 封装成tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%90%93tool"><span class="nav-number">1.5.</span> <span class="nav-text"> 手搓tool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%88%AC%E5%8F%96%E6%97%B6%E7%9A%84filter"><span class="nav-number">1.5.1.</span> <span class="nav-text"> 爬取时的filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E7%AD%94%E6%A1%88"><span class="nav-number">1.5.2.</span> <span class="nav-text"> 怎么处理答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#todo"><span class="nav-number">1.6.</span> <span class="nav-text"> TODO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patch120261023"><span class="nav-number">1.7.</span> <span class="nav-text"> patch1(2026.10.23)</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -187,7 +188,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -196,7 +197,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -259,9 +260,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-10-14 16:13:44 / 修改时间：16:17:31" itemprop="dateCreated datePublished" datetime="2026-10-14T16:13:44+08:00">2026-10-14</time>
+      <time title="创建时间：2026-10-14 16:13:44" itemprop="dateCreated datePublished" datetime="2026-10-14T16:13:44+08:00">2026-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-10-24 17:50:22" itemprop="dateModified" datetime="2026-10-24T17:50:22+08:00">2026-10-24</time>
     </span>
 
   
@@ -619,6 +626,11 @@ template=<span class="string">&#x27;&#123;&quot;endAtAfter&quot;:&quot;&#x27;</s
 <p><strong>第二个就是FILTER</strong>，虽说前面已经节省了一些token的消耗，但是本着不多浪费一点无用的米，感觉还是有必要写个filter去对题目的内容去做一些清洗</p>
 <p>项目已上传github欢迎提出意见呢</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/kisakiayano/PTA-mcp">https://github.com/kisakiayano/PTA-mcp</a></p>
+<h2 id="patch120261023"><a class="markdownIt-Anchor" href="#patch120261023"></a> patch1(2026.10.23)</h2>
+<p>神了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261023203053913.png" alt="image-20261023203053913"></p>
+<p>给室友用的时候发现存在这个问题</p>
+<p>有的题目配置莫名其妙的，答案不出现content里面了，而是变回了choices里面</p>
 
     </div>
 
@@ -655,6 +667,9 @@ template=<span class="string">&#x27;&#123;&quot;endAtAfter&quot;:&quot;&#x27;</s
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2026/10/24/How-Agent-use-MCP/" rel="next" title="How Agent use MCP">
+                  How Agent use MCP <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -685,13 +700,13 @@ template=<span class="string">&#x27;&#123;&quot;endAtAfter&quot;:&quot;&#x27;</s
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">404k</span>
+    <span title="站点总字数">424k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:15</span>
+    <span title="站点阅读时长">12:51</span>
   </span>
 </div>
 <div class="busuanzi-count">
